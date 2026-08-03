@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recovery audit report V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "audit_date", "checked_at", "check_range", "expected_files", "complete_files", "missing_before_recovery", "backfilled_successfully", "partial_backfills", "unresolved_files", "duplicate_files", "invalid_files", "actions", "requires_human_review"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "audit_date": {"type": "string", "format": "date"},
+    "checked_at": {"type": "string", "format": "date-time"},
+    "check_range": {"type": "object", "required": ["start", "end"], "properties": {"start": {"type": "string", "format": "date"}, "end": {"type": "string", "format": "date"}}, "additionalProperties": false},
+    "expected_files": {"type": "integer", "minimum": 0},
+    "complete_files": {"type": "integer", "minimum": 0},
+    "missing_before_recovery": {"type": "array", "items": {"type": "string"}},
+    "backfilled_successfully": {"type": "array", "items": {"type": "string"}},
+    "partial_backfills": {"type": "array", "items": {"type": "string"}},
+    "unresolved_files": {"type": "array", "items": {"type": "string"}},
+    "duplicate_files": {"type": "array", "items": {"type": "string"}},
+    "invalid_files": {"type": "array", "items": {"type": "string"}},
+    "actions": {"type": "array", "items": {"type": "string"}},
+    "requires_human_review": {"type": "boolean"},
+    "summary_zh": {"type": ["string", "null"]}
+  }
+}
