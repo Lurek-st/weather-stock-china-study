@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One-city raw weather-market observation from OpenAI web search",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_date",
+    "city",
+    "markets",
+    "sources",
+    "summary_zh"
+  ],
+  "properties": {
+    "target_date": {
+      "type": "string"
+    },
+    "city": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "city_id",
+        "city_name",
+        "country",
+        "timezone",
+        "primary_exchange",
+        "weather_windows"
+      ],
+      "properties": {
+        "city_id": {
+          "type": "string"
+        },
+        "city_name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "primary_exchange": {
+          "type": "string"
+        },
+        "weather_windows": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pre_open",
+            "trading_session",
+            "full_day"
+          ],
+          "properties": {
+            "pre_open": {
+              "$ref": "#/$defs/weatherWindow"
+            },
+            "trading_session": {
+              "$ref": "#/$defs/weatherWindow"
+            },
+            "full_day": {
+              "$ref": "#/$defs/weatherWindow"
+            }
+          }
+        }
+      }
+    },
+    "markets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "market_id",
+          "index_name",
+          "city_id",
+          "exchange",
+          "currency",
+          "primary",
+          "session",
+          "metrics",
+          "explanation_zh"
+        ],
+        "properties": {
+          "market_id": {
+            "type": "string"
+          },
+          "index_name": {
+            "type": "string"
+          },
+          "city_id": {
+            "type": "string"
+          },
+          "exchange": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          },
+          "session": {
+            "$ref": "#/$defs/session"
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "previous_close",
+              "open",
+              "high",
+              "low",
+              "close",
+              "close_to_close_return_pct",
+              "open_to_close_return_pct",
+              "intraday_range_pct",
+              "volume",
+              "turnover",
+              "advance_count",
+              "decline_count",
+              "unchanged_count"
+            ],
+            "properties": {
+              "previous_close": {
+                "$ref": "#/$defs/metric"
+              },
+              "open": {
+                "$ref": "#/$defs/metric"
+              },
+              "high": {
+                "$ref": "#/$defs/metric"
+              },
+              "low": {
+                "$ref": "#/$defs/metric"
+              },
+              "close": {
+                "$ref": "#/$defs/metric"
+              },
+              "close_to_close_return_pct": {
+                "$ref": "#/$defs/metric"
+              },
+              "open_to_close_return_pct": {
+                "$ref": "#/$defs/metric"
+              },
+              "intraday_range_pct": {
+                "$ref": "#/$defs/metric"
+              },
+              "volume": {
+                "$ref": "#/$defs/metric"
+              },
+              "turnover": {
+                "$ref": "#/$defs/metric"
+              },
+              "advance_count": {
+                "$ref": "#/$defs/metric"
+              },
+              "decline_count": {
+                "$ref": "#/$defs/metric"
+              },
+              "unchanged_count": {
+                "$ref": "#/$defs/metric"
+              }
+            }
+          },
+          "explanation_zh": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "title",
+          "url",
+          "publisher",
+          "accessed_at",
+          "official",
+          "notes"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "accessed_at": {
+            "type": "string"
+          },
+          "official": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "summary_zh": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "data_type",
+        "source_ids",
+        "notes"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_type": {
+          "enum": [
+            "observed",
+            "forecast",
+            "estimated",
+            "reported",
+            "unavailable"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "weatherWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start_local",
+        "end_local",
+        "metrics",
+        "alert_severity",
+        "explanation_zh"
+      ],
+      "properties": {
+        "start_local": {
+          "type": "string"
+        },
+        "end_local": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "temperature_mean_c",
+            "apparent_temperature_mean_c",
+            "precipitation_total_mm",
+            "cloud_cover_mean_pct",
+            "sunshine_duration_hours",
+            "relative_humidity_mean_pct",
+            "wind_speed_mean_kmh",
+            "wind_gust_max_kmh",
+            "aqi",
+            "pm2_5_ug_m3"
+          ],
+          "properties": {
+            "temperature_mean_c": {
+              "$ref": "#/$defs/metric"
+            },
+            "apparent_temperature_mean_c": {
+              "$ref": "#/$defs/metric"
+            },
+            "precipitation_total_mm": {
+              "$ref": "#/$defs/metric"
+            },
+            "cloud_cover_mean_pct": {
+              "$ref": "#/$defs/metric"
+            },
+            "sunshine_duration_hours": {
+              "$ref": "#/$defs/metric"
+            },
+            "relative_humidity_mean_pct": {
+              "$ref": "#/$defs/metric"
+            },
+            "wind_speed_mean_kmh": {
+              "$ref": "#/$defs/metric"
+            },
+            "wind_gust_max_kmh": {
+              "$ref": "#/$defs/metric"
+            },
+            "aqi": {
+              "$ref": "#/$defs/metric"
+            },
+            "pm2_5_ug_m3": {
+              "$ref": "#/$defs/metric"
+            }
+          }
+        },
+        "alert_severity": {
+          "enum": [
+            "none",
+            "moderate",
+            "severe",
+            "extreme",
+            "unknown"
+          ]
+        },
+        "explanation_zh": {
+          "type": "string"
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trading_status",
+        "session_type",
+        "official_calendar_checked",
+        "closure_reason",
+        "open_local",
+        "close_local"
+      ],
+      "properties": {
+        "trading_status": {
+          "enum": [
+            "open",
+            "closed_holiday",
+            "closed_weekend",
+            "early_close",
+            "special_session",
+            "unexpected_closure",
+            "unknown"
+          ]
+        },
+        "session_type": {
+          "enum": [
+            "regular",
+            "early_close",
+            "special",
+            "closed",
+            "unknown"
+          ]
+        },
+        "official_calendar_checked": {
+          "type": "boolean"
+        },
+        "closure_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "open_local": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "close_local": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

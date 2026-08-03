@@ -47,6 +47,48 @@ python3 build_research_workbook.py   # 可选：生成/重建 Excel 模板
 - `build_research_workbook.py` — 重新生成（会覆盖 xlsx，先备份）
 - `requirements.txt` — Python 依赖（openpyxl）
 
+## V1.0.2 全球天气—市场半自动周入库
+
+V0 Excel原型继续保留并可独立使用。仓库同时新增V1.0.2工程，用于观察北京、
+上海、深圳、东京、孟买、伦敦、法兰克福和纽约的天气与主要市场指标。V1使用：
+
+```text
+ChatGPT计划任务采集
+→ 周一生成自包含周包
+→ Codex保存原文并校验
+→ Python确定性复算评分
+→ 独立分支和草稿PR
+```
+
+V1默认不调用OpenAI API，也不需要`OPENAI_API_KEY`。GitHub Actions只执行
+测试和数据验证，权限为只读。
+
+主要入口：
+
+- `PROTOCOL.md`：研究、来源、评分和修订协议；
+- `ACCEPTANCE.md`：部署、首周和20日验收标准；
+- `docs/WEEKLY_OPERATIONS.md`：每周一实际操作；
+- `prompts/global-scheduled-task-v1.0.2.md`：需要同步到ChatGPT任务的最新提示词；
+- `scripts/import_weekly_package.py`：周包导入、拒绝留痕和部分入库；
+- `schemas/`：传输、周清单和规范记录Schema。
+
+本地验证：
+
+```bash
+python -m pip install -r requirements.txt
+pytest -q
+python scripts/validate_records.py tests/fixtures/valid_asia.json
+python scripts/validate_transport_export.py tests/fixtures/weekly/valid_weekly_package.md
+```
+
+完整周包保存在`inbox/processed`。不完整或含拒绝项的周包保存在
+`inbox/partial`并生成补录请求；所有拒绝阶段均在`data/rejected/<WEEK_ID>/`
+留下结构化记录。
+
+离线校验能够检查URL语法、来源引用闭合、交易日历来源引用和评分一致性，
+但不会自动证明网页当前可访问或其内容支持对应数值。天气与市场的统计相关
+不能直接解释为因果关系。
+
 ## 许可证
 
 本项目为个人研究笔记，数据与结论不构成投资建议。

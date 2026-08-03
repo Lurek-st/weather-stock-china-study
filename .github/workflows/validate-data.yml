@@ -1,0 +1,44 @@
+name: Validate weather-market repository
+
+on:
+  push:
+    paths:
+      - "data/raw/**/*.json"
+      - "data/audits/**/*.json"
+      - "inbox/**/*.md"
+      - "schemas/**"
+      - "scripts/**"
+      - "tests/**"
+      - "requirements.txt"
+  pull_request:
+    paths:
+      - "data/raw/**/*.json"
+      - "data/audits/**/*.json"
+      - "inbox/**/*.md"
+      - "schemas/**"
+      - "scripts/**"
+      - "tests/**"
+      - "requirements.txt"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - run: pytest -q
+      - name: Validate canonical records when present
+        shell: bash
+        run: |
+          files=$(find data/raw -name '*.json' -type f)
+          if [ -n "$files" ]; then
+            python scripts/validate_records.py data/raw
+          else
+            echo "No canonical records yet"
+          fi

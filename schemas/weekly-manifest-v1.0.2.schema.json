@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Lurek-st/weather-stock-china-study/schemas/weekly-manifest-v1.0.2.schema.json",
+  "title": "Weekly Codex import manifest V1.0.2 repaired contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "expected",
+    "found",
+    "expected_records",
+    "found_records",
+    "backfilled_records",
+    "replaced_damaged_records",
+    "unresolved_records",
+    "duplicates_removed",
+    "source_conflicts",
+    "daily_export_count"
+  ],
+  "properties": {
+    "expected": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "found": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "expected_records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "found_records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "backfilled_records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "replaced_damaged_records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "unresolved_records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "duplicates_removed": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/recordRef"}
+    },
+    "source_conflicts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "daily_export_count": {"type": "integer", "minimum": 0}
+  },
+  "$defs": {
+    "recordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region", "target_date"],
+      "properties": {
+        "region": {"enum": ["asia", "europe", "us"]},
+        "target_date": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}

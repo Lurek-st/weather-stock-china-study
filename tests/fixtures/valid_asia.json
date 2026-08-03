@@ -1,0 +1,544 @@
+{
+    "schema_version":  "1.0.0",
+    "protocol_version":  "1.0.2",
+    "region":  "asia",
+    "target_date":  "2026-08-03",
+    "collection_mode":  "scheduled_live",
+    "expected_run_at":  "2026-08-03T22:00:00+08:00",
+    "collected_at":  "2026-08-03T22:06:00+08:00",
+    "lag_days":  0,
+    "backfill_reason":  null,
+    "prompt_version":  "asia-collector-1.0.0",
+    "weather_scoring_version":  "1.0.0",
+    "market_scoring_version":  "1.0.0",
+    "model_name":  "test-fixture",
+    "task_run_id":  "fixture-1",
+    "revision":  1,
+    "supersedes_revision":  null,
+    "revision_reason":  null,
+    "cities":  [
+                   {
+                       "city_id":  "beijing",
+                       "city_name":  "北京",
+                       "country":  "中国",
+                       "timezone":  "Asia/Shanghai",
+                       "primary_exchange":  "Beijing Stock Exchange",
+                       "weather_windows":  {
+                                               "pre_open":  {
+                                                                "start_local":  "07:30",
+                                                                "end_local":  "09:30",
+                                                                "metrics":  {
+                                                                                "temperature_mean_c":  {
+                                                                                                           "value":  20.5,
+                                                                                                           "unit":  "°C",
+                                                                                                           "data_type":  "observed",
+                                                                                                           "source_ids":  [
+                                                                                                                              "w1"
+                                                                                                                          ],
+                                                                                                           "notes":  null
+                                                                                                       },
+                                                                                "apparent_temperature_mean_c":  {
+                                                                                                                    "value":  21,
+                                                                                                                    "unit":  "°C",
+                                                                                                                    "data_type":  "observed",
+                                                                                                                    "source_ids":  [
+                                                                                                                                       "w1"
+                                                                                                                                   ],
+                                                                                                                    "notes":  null
+                                                                                                                },
+                                                                                "precipitation_total_mm":  {
+                                                                                                               "value":  0,
+                                                                                                               "unit":  "mm",
+                                                                                                               "data_type":  "observed",
+                                                                                                               "source_ids":  [
+                                                                                                                                  "w1"
+                                                                                                                              ],
+                                                                                                               "notes":  null
+                                                                                                           },
+                                                                                "cloud_cover_mean_pct":  {
+                                                                                                             "value":  20,
+                                                                                                             "unit":  "%",
+                                                                                                             "data_type":  "observed",
+                                                                                                             "source_ids":  [
+                                                                                                                                "w1"
+                                                                                                                            ],
+                                                                                                             "notes":  null
+                                                                                                         },
+                                                                                "sunshine_duration_hours":  {
+                                                                                                                "value":  2,
+                                                                                                                "unit":  "h",
+                                                                                                                "data_type":  "observed",
+                                                                                                                "source_ids":  [
+                                                                                                                                   "w1"
+                                                                                                                               ],
+                                                                                                                "notes":  null
+                                                                                                            },
+                                                                                "relative_humidity_mean_pct":  {
+                                                                                                                   "value":  55,
+                                                                                                                   "unit":  "%",
+                                                                                                                   "data_type":  "observed",
+                                                                                                                   "source_ids":  [
+                                                                                                                                      "w1"
+                                                                                                                                  ],
+                                                                                                                   "notes":  null
+                                                                                                               },
+                                                                                "wind_speed_mean_kmh":  {
+                                                                                                            "value":  8,
+                                                                                                            "unit":  "km/h",
+                                                                                                            "data_type":  "observed",
+                                                                                                            "source_ids":  [
+                                                                                                                               "w1"
+                                                                                                                           ],
+                                                                                                            "notes":  null
+                                                                                                        },
+                                                                                "wind_gust_max_kmh":  {
+                                                                                                          "value":  15,
+                                                                                                          "unit":  "km/h",
+                                                                                                          "data_type":  "observed",
+                                                                                                          "source_ids":  [
+                                                                                                                             "w1"
+                                                                                                                         ],
+                                                                                                          "notes":  null
+                                                                                                      },
+                                                                                "aqi":  {
+                                                                                            "value":  40,
+                                                                                            "unit":  "AQI",
+                                                                                            "data_type":  "observed",
+                                                                                            "source_ids":  [
+                                                                                                               "w1"
+                                                                                                           ],
+                                                                                            "notes":  null
+                                                                                        },
+                                                                                "pm2_5_ug_m3":  {
+                                                                                                    "value":  12,
+                                                                                                    "unit":  "µg/m³",
+                                                                                                    "data_type":  "observed",
+                                                                                                    "source_ids":  [
+                                                                                                                       "w1"
+                                                                                                                   ],
+                                                                                                    "notes":  null
+                                                                                                }
+                                                                            },
+                                                                "alert_severity":  "none",
+                                                                "score_components":  {
+                                                                                         "temperature_comfort":  100.0,
+                                                                                         "precipitation":  100.0,
+                                                                                         "sky_and_sunlight":  90.0,
+                                                                                         "air_quality":  100.0,
+                                                                                         "wind_and_extreme":  100.0
+                                                                                     },
+                                                                "weather_index":  98.0,
+                                                                "weather_score":  10,
+                                                                "score_status":  "complete_score",
+                                                                "explanation_zh":  "天气温和、无降水、空气质量良好。"
+                                                            },
+                                               "trading_session":  {
+                                                                       "start_local":  "09:30",
+                                                                       "end_local":  "15:00",
+                                                                       "metrics":  {
+                                                                                       "temperature_mean_c":  {
+                                                                                                                  "value":  20.5,
+                                                                                                                  "unit":  "°C",
+                                                                                                                  "data_type":  "observed",
+                                                                                                                  "source_ids":  [
+                                                                                                                                     "w1"
+                                                                                                                                 ],
+                                                                                                                  "notes":  null
+                                                                                                              },
+                                                                                       "apparent_temperature_mean_c":  {
+                                                                                                                           "value":  21,
+                                                                                                                           "unit":  "°C",
+                                                                                                                           "data_type":  "observed",
+                                                                                                                           "source_ids":  [
+                                                                                                                                              "w1"
+                                                                                                                                          ],
+                                                                                                                           "notes":  null
+                                                                                                                       },
+                                                                                       "precipitation_total_mm":  {
+                                                                                                                      "value":  0,
+                                                                                                                      "unit":  "mm",
+                                                                                                                      "data_type":  "observed",
+                                                                                                                      "source_ids":  [
+                                                                                                                                         "w1"
+                                                                                                                                     ],
+                                                                                                                      "notes":  null
+                                                                                                                  },
+                                                                                       "cloud_cover_mean_pct":  {
+                                                                                                                    "value":  20,
+                                                                                                                    "unit":  "%",
+                                                                                                                    "data_type":  "observed",
+                                                                                                                    "source_ids":  [
+                                                                                                                                       "w1"
+                                                                                                                                   ],
+                                                                                                                    "notes":  null
+                                                                                                                },
+                                                                                       "sunshine_duration_hours":  {
+                                                                                                                       "value":  4,
+                                                                                                                       "unit":  "h",
+                                                                                                                       "data_type":  "observed",
+                                                                                                                       "source_ids":  [
+                                                                                                                                          "w1"
+                                                                                                                                      ],
+                                                                                                                       "notes":  null
+                                                                                                                   },
+                                                                                       "relative_humidity_mean_pct":  {
+                                                                                                                          "value":  55,
+                                                                                                                          "unit":  "%",
+                                                                                                                          "data_type":  "observed",
+                                                                                                                          "source_ids":  [
+                                                                                                                                             "w1"
+                                                                                                                                         ],
+                                                                                                                          "notes":  null
+                                                                                                                      },
+                                                                                       "wind_speed_mean_kmh":  {
+                                                                                                                   "value":  8,
+                                                                                                                   "unit":  "km/h",
+                                                                                                                   "data_type":  "observed",
+                                                                                                                   "source_ids":  [
+                                                                                                                                      "w1"
+                                                                                                                                  ],
+                                                                                                                   "notes":  null
+                                                                                                               },
+                                                                                       "wind_gust_max_kmh":  {
+                                                                                                                 "value":  15,
+                                                                                                                 "unit":  "km/h",
+                                                                                                                 "data_type":  "observed",
+                                                                                                                 "source_ids":  [
+                                                                                                                                    "w1"
+                                                                                                                                ],
+                                                                                                                 "notes":  null
+                                                                                                             },
+                                                                                       "aqi":  {
+                                                                                                   "value":  40,
+                                                                                                   "unit":  "AQI",
+                                                                                                   "data_type":  "observed",
+                                                                                                   "source_ids":  [
+                                                                                                                      "w1"
+                                                                                                                  ],
+                                                                                                   "notes":  null
+                                                                                               },
+                                                                                       "pm2_5_ug_m3":  {
+                                                                                                           "value":  12,
+                                                                                                           "unit":  "µg/m³",
+                                                                                                           "data_type":  "observed",
+                                                                                                           "source_ids":  [
+                                                                                                                              "w1"
+                                                                                                                          ],
+                                                                                                           "notes":  null
+                                                                                                       }
+                                                                                   },
+                                                                       "alert_severity":  "none",
+                                                                       "score_components":  {
+                                                                                                "temperature_comfort":  100.0,
+                                                                                                "precipitation":  100.0,
+                                                                                                "sky_and_sunlight":  76.3636,
+                                                                                                "air_quality":  100.0,
+                                                                                                "wind_and_extreme":  100.0
+                                                                                            },
+                                                                       "weather_index":  95.2727,
+                                                                       "weather_score":  10,
+                                                                       "score_status":  "complete_score",
+                                                                       "explanation_zh":  "天气温和、无降水、空气质量良好。"
+                                                                   },
+                                               "full_day":  {
+                                                                "start_local":  "00:00",
+                                                                "end_local":  "23:59",
+                                                                "metrics":  {
+                                                                                "temperature_mean_c":  {
+                                                                                                           "value":  20.5,
+                                                                                                           "unit":  "°C",
+                                                                                                           "data_type":  "observed",
+                                                                                                           "source_ids":  [
+                                                                                                                              "w1"
+                                                                                                                          ],
+                                                                                                           "notes":  null
+                                                                                                       },
+                                                                                "apparent_temperature_mean_c":  {
+                                                                                                                    "value":  21,
+                                                                                                                    "unit":  "°C",
+                                                                                                                    "data_type":  "observed",
+                                                                                                                    "source_ids":  [
+                                                                                                                                       "w1"
+                                                                                                                                   ],
+                                                                                                                    "notes":  null
+                                                                                                                },
+                                                                                "precipitation_total_mm":  {
+                                                                                                               "value":  0,
+                                                                                                               "unit":  "mm",
+                                                                                                               "data_type":  "observed",
+                                                                                                               "source_ids":  [
+                                                                                                                                  "w1"
+                                                                                                                              ],
+                                                                                                               "notes":  null
+                                                                                                           },
+                                                                                "cloud_cover_mean_pct":  {
+                                                                                                             "value":  20,
+                                                                                                             "unit":  "%",
+                                                                                                             "data_type":  "observed",
+                                                                                                             "source_ids":  [
+                                                                                                                                "w1"
+                                                                                                                            ],
+                                                                                                             "notes":  null
+                                                                                                         },
+                                                                                "sunshine_duration_hours":  {
+                                                                                                                "value":  4,
+                                                                                                                "unit":  "h",
+                                                                                                                "data_type":  "observed",
+                                                                                                                "source_ids":  [
+                                                                                                                                   "w1"
+                                                                                                                               ],
+                                                                                                                "notes":  null
+                                                                                                            },
+                                                                                "relative_humidity_mean_pct":  {
+                                                                                                                   "value":  55,
+                                                                                                                   "unit":  "%",
+                                                                                                                   "data_type":  "observed",
+                                                                                                                   "source_ids":  [
+                                                                                                                                      "w1"
+                                                                                                                                  ],
+                                                                                                                   "notes":  null
+                                                                                                               },
+                                                                                "wind_speed_mean_kmh":  {
+                                                                                                            "value":  8,
+                                                                                                            "unit":  "km/h",
+                                                                                                            "data_type":  "observed",
+                                                                                                            "source_ids":  [
+                                                                                                                               "w1"
+                                                                                                                           ],
+                                                                                                            "notes":  null
+                                                                                                        },
+                                                                                "wind_gust_max_kmh":  {
+                                                                                                          "value":  15,
+                                                                                                          "unit":  "km/h",
+                                                                                                          "data_type":  "observed",
+                                                                                                          "source_ids":  [
+                                                                                                                             "w1"
+                                                                                                                         ],
+                                                                                                          "notes":  null
+                                                                                                      },
+                                                                                "aqi":  {
+                                                                                            "value":  40,
+                                                                                            "unit":  "AQI",
+                                                                                            "data_type":  "observed",
+                                                                                            "source_ids":  [
+                                                                                                               "w1"
+                                                                                                           ],
+                                                                                            "notes":  null
+                                                                                        },
+                                                                                "pm2_5_ug_m3":  {
+                                                                                                    "value":  12,
+                                                                                                    "unit":  "µg/m³",
+                                                                                                    "data_type":  "observed",
+                                                                                                    "source_ids":  [
+                                                                                                                       "w1"
+                                                                                                                   ],
+                                                                                                    "notes":  null
+                                                                                                }
+                                                                            },
+                                                                "alert_severity":  "none",
+                                                                "score_components":  {
+                                                                                         "temperature_comfort":  100.0,
+                                                                                         "precipitation":  100.0,
+                                                                                         "sky_and_sunlight":  48.3333,
+                                                                                         "air_quality":  100.0,
+                                                                                         "wind_and_extreme":  100.0
+                                                                                     },
+                                                                "weather_index":  89.6667,
+                                                                "weather_score":  9,
+                                                                "score_status":  "complete_score",
+                                                                "explanation_zh":  "天气温和、无降水、空气质量良好。"
+                                                            }
+                                           }
+                   }
+               ],
+    "markets":  [
+                    {
+                        "market_id":  "bse50",
+                        "index_name":  "北证50",
+                        "city_id":  "beijing",
+                        "exchange":  "Beijing Stock Exchange",
+                        "currency":  "CNY",
+                        "primary":  true,
+                        "session":  {
+                                        "trading_status":  "open",
+                                        "session_type":  "regular",
+                                        "official_calendar_checked":  true,
+                                        "closure_reason":  null,
+                                        "open_local":  "09:30",
+                                        "close_local":  "15:00",
+                                        "calendar_source_ids":  [
+                                                                    "w1"
+                                                                ]
+                                    },
+                        "metrics":  {
+                                        "previous_close":  {
+                                                               "value":  99.8,
+                                                               "unit":  "index points",
+                                                               "data_type":  "observed",
+                                                               "source_ids":  [
+                                                                                  "m1"
+                                                                              ],
+                                                               "notes":  null
+                                                           },
+                                        "open":  {
+                                                     "value":  100.0,
+                                                     "unit":  "index points",
+                                                     "data_type":  "observed",
+                                                     "source_ids":  [
+                                                                        "m1"
+                                                                    ],
+                                                     "notes":  null
+                                                 },
+                                        "high":  {
+                                                     "value":  101.0,
+                                                     "unit":  "index points",
+                                                     "data_type":  "observed",
+                                                     "source_ids":  [
+                                                                        "m1"
+                                                                    ],
+                                                     "notes":  null
+                                                 },
+                                        "low":  {
+                                                    "value":  99.0,
+                                                    "unit":  "index points",
+                                                    "data_type":  "observed",
+                                                    "source_ids":  [
+                                                                       "m1"
+                                                                   ],
+                                                    "notes":  null
+                                                },
+                                        "close":  {
+                                                      "value":  100.6,
+                                                      "unit":  "index points",
+                                                      "data_type":  "observed",
+                                                      "source_ids":  [
+                                                                         "m1"
+                                                                     ],
+                                                      "notes":  null
+                                                  },
+                                        "close_to_close_return_pct":  {
+                                                                          "value":  0.8,
+                                                                          "unit":  "%",
+                                                                          "data_type":  "observed",
+                                                                          "source_ids":  [
+                                                                                             "m1"
+                                                                                         ],
+                                                                          "notes":  null
+                                                                      },
+                                        "open_to_close_return_pct":  {
+                                                                         "value":  0.6,
+                                                                         "unit":  "%",
+                                                                         "data_type":  "observed",
+                                                                         "source_ids":  [
+                                                                                            "m1"
+                                                                                        ],
+                                                                         "notes":  null
+                                                                     },
+                                        "intraday_range_pct":  {
+                                                                   "value":  1.2,
+                                                                   "unit":  "%",
+                                                                   "data_type":  "observed",
+                                                                   "source_ids":  [
+                                                                                      "m1"
+                                                                                  ],
+                                                                   "notes":  null
+                                                               },
+                                        "volume":  {
+                                                       "value":  1000000,
+                                                       "unit":  "shares",
+                                                       "data_type":  "observed",
+                                                       "source_ids":  [
+                                                                          "m1"
+                                                                      ],
+                                                       "notes":  null
+                                                   },
+                                        "turnover":  {
+                                                         "value":  500000000,
+                                                         "unit":  "CNY",
+                                                         "data_type":  "observed",
+                                                         "source_ids":  [
+                                                                            "m1"
+                                                                        ],
+                                                         "notes":  null
+                                                     },
+                                        "advance_count":  {
+                                                              "value":  600,
+                                                              "unit":  "count",
+                                                              "data_type":  "observed",
+                                                              "source_ids":  [
+                                                                                 "m1"
+                                                                             ],
+                                                              "notes":  null
+                                                          },
+                                        "decline_count":  {
+                                                              "value":  400,
+                                                              "unit":  "count",
+                                                              "data_type":  "observed",
+                                                              "source_ids":  [
+                                                                                 "m1"
+                                                                             ],
+                                                              "notes":  null
+                                                          },
+                                        "unchanged_count":  {
+                                                                "value":  20,
+                                                                "unit":  "count",
+                                                                "data_type":  "observed",
+                                                                "source_ids":  [
+                                                                                   "m1"
+                                                                               ],
+                                                                "notes":  null
+                                                            },
+                                        "market_breadth":  {
+                                                               "value":  0.6,
+                                                               "unit":  "ratio",
+                                                               "data_type":  "observed",
+                                                               "source_ids":  [
+                                                                                  "m1"
+                                                                              ],
+                                                               "notes":  null
+                                                           }
+                                    },
+                        "score_components":  {
+                                                 "return":  64.5333,
+                                                 "breadth":  60.0,
+                                                 "close_position":  80.0,
+                                                 "stability":  100.0
+                                             },
+                        "market_index":  66.72,
+                        "market_score":  7,
+                        "score_status":  "complete_score",
+                        "explanation_zh":  "指数上涨且收盘位于日内较高位置。"
+                    }
+                ],
+    "sources":  [
+                    {
+                        "source_id":  "w1",
+                        "title":  "Fixture weather source",
+                        "url":  "https://example.com/weather",
+                        "publisher":  "Example",
+                        "accessed_at":  "2026-08-03T22:00:00+08:00",
+                        "official":  true,
+                        "notes":  null
+                    },
+                    {
+                        "source_id":  "m1",
+                        "title":  "Fixture market source",
+                        "url":  "https://example.com/market",
+                        "publisher":  "Example",
+                        "accessed_at":  "2026-08-03T22:01:00+08:00",
+                        "official":  true,
+                        "notes":  null
+                    }
+                ],
+    "data_quality":  {
+                         "status":  "complete",
+                         "missing_fields":  [
+
+                                            ],
+                         "warnings":  [
+
+                                      ],
+                         "confidence":  0.95
+                     },
+    "summary_zh":  "测试样例。"
+}

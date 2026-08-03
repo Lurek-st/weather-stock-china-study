@@ -27,3 +27,10 @@ env/
 # 本地备份
 *.bak
 *_backup.xlsx
+
+# V1 weekly-import generated local outputs
+*.tmp
+analysis/results/*.csv
+analysis/results/*.json
+.weekly-import-tmp/
+Thumbs.db

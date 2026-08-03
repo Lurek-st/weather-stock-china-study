@@ -1,0 +1,183 @@
+{
+  "version": "1.0.2",
+  "task_schedule_beijing": "Monday-Saturday 07:00; Monday weekly package, Tuesday-Saturday daily collection",
+  "regions": {
+    "asia": {
+      "cities": [
+        {
+          "city_id": "beijing",
+          "city_name": "北京",
+          "country": "中国",
+          "timezone": "Asia/Shanghai",
+          "exchange": "Beijing Stock Exchange",
+          "currency": "CNY",
+          "primary_index_id": "bse50",
+          "primary_index_name": "北证50",
+          "pre_open": [
+            "07:30",
+            "09:30"
+          ],
+          "trading_session": [
+            "09:30",
+            "15:00"
+          ],
+          "session_note": "11:30-13:00午间休市"
+        },
+        {
+          "city_id": "shanghai",
+          "city_name": "上海",
+          "country": "中国",
+          "timezone": "Asia/Shanghai",
+          "exchange": "Shanghai Stock Exchange",
+          "currency": "CNY",
+          "primary_index_id": "sse_composite",
+          "primary_index_name": "上证指数",
+          "pre_open": [
+            "07:30",
+            "09:30"
+          ],
+          "trading_session": [
+            "09:30",
+            "15:00"
+          ],
+          "session_note": "11:30-13:00午间休市"
+        },
+        {
+          "city_id": "shenzhen",
+          "city_name": "深圳",
+          "country": "中国",
+          "timezone": "Asia/Shanghai",
+          "exchange": "Shenzhen Stock Exchange",
+          "currency": "CNY",
+          "primary_index_id": "szse_component",
+          "primary_index_name": "深证成指",
+          "pre_open": [
+            "07:30",
+            "09:30"
+          ],
+          "trading_session": [
+            "09:30",
+            "15:00"
+          ],
+          "session_note": "11:30-13:00午间休市"
+        },
+        {
+          "city_id": "tokyo",
+          "city_name": "东京",
+          "country": "日本",
+          "timezone": "Asia/Tokyo",
+          "exchange": "Tokyo Stock Exchange",
+          "currency": "JPY",
+          "primary_index_id": "topix",
+          "primary_index_name": "TOPIX",
+          "auxiliary_indices": [
+            "Nikkei 225"
+          ],
+          "pre_open": [
+            "07:00",
+            "09:00"
+          ],
+          "trading_session": [
+            "09:00",
+            "15:30"
+          ],
+          "session_note": "11:30-12:30午间休市"
+        },
+        {
+          "city_id": "mumbai",
+          "city_name": "孟买",
+          "country": "印度",
+          "timezone": "Asia/Kolkata",
+          "exchange": "National Stock Exchange of India",
+          "currency": "INR",
+          "primary_index_id": "nifty50",
+          "primary_index_name": "NIFTY 50",
+          "auxiliary_indices": [
+            "BSE SENSEX"
+          ],
+          "pre_open": [
+            "07:15",
+            "09:15"
+          ],
+          "trading_session": [
+            "09:15",
+            "15:30"
+          ],
+          "session_note": "特殊交易日以官方安排为准"
+        }
+      ]
+    },
+    "europe": {
+      "cities": [
+        {
+          "city_id": "london",
+          "city_name": "伦敦",
+          "country": "英国",
+          "timezone": "Europe/London",
+          "exchange": "London Stock Exchange",
+          "currency": "GBP",
+          "primary_index_id": "ftse100",
+          "primary_index_name": "FTSE 100",
+          "auxiliary_indices": [
+            "FTSE All-Share"
+          ],
+          "pre_open": [
+            "06:00",
+            "08:00"
+          ],
+          "trading_session": [
+            "08:00",
+            "16:30"
+          ]
+        },
+        {
+          "city_id": "frankfurt",
+          "city_name": "法兰克福",
+          "country": "德国",
+          "timezone": "Europe/Berlin",
+          "exchange": "Deutsche Börse Xetra",
+          "currency": "EUR",
+          "primary_index_id": "dax",
+          "primary_index_name": "DAX",
+          "auxiliary_indices": [
+            "CDAX"
+          ],
+          "pre_open": [
+            "07:00",
+            "09:00"
+          ],
+          "trading_session": [
+            "09:00",
+            "17:30"
+          ]
+        }
+      ]
+    },
+    "us": {
+      "cities": [
+        {
+          "city_id": "new_york",
+          "city_name": "纽约",
+          "country": "美国",
+          "timezone": "America/New_York",
+          "exchange": "NYSE / Nasdaq",
+          "currency": "USD",
+          "primary_index_id": "sp500",
+          "primary_index_name": "S&P 500",
+          "auxiliary_indices": [
+            "Nasdaq Composite",
+            "NYSE Composite"
+          ],
+          "pre_open": [
+            "07:30",
+            "09:30"
+          ],
+          "trading_session": [
+            "09:30",
+            "16:00"
+          ]
+        }
+      ]
+    }
+  }
+}
