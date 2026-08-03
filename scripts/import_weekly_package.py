@@ -7,7 +7,7 @@ import json
 import re
 import sys
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
 try:
@@ -55,7 +55,10 @@ def safe_source_label(path: Path, repo: Path) -> str:
     try:
         return path.resolve().relative_to(repo.resolve()).as_posix()
     except ValueError:
-        return path.name
+        raw = str(path)
+        if "\\" in raw or re.match(r"^[A-Za-z]:", raw):
+            return PureWindowsPath(raw).name
+        return PurePosixPath(raw).name
 
 
 def _slug(value: str | None, fallback: str) -> str:
