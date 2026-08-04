@@ -31,6 +31,18 @@ credentialed inventory, fixed-window result, or historical-coverage assertion
 is made. This is not a production integration or historical backfill. TAIEX
 and AEX conclusions are unchanged.
 
+## Zero-barrier official source screen
+
+A bounded review of ten official-source routes found no Tier 1 candidate. Three
+small resource probes were made: Bank of Canada Valet failed through the
+current proxy path; the Banco Central do Brasil SGS candidate returned a stable
+404; and the RBA F1 workbook was stable but proved to be a monthly
+interest-rates table with an ASX proprietary-data notice, not a qualifying
+daily index resource. Seven additional official routes were rejected before
+data retrieval because the bounded evidence did not establish a no-credential,
+open-rights daily resource. This does not freeze an open-core list or start a
+backfill.
+
 ## BVL data dictionary findings
 
 No official dictionary/resource pair for a BVL broad index was obtained. Consequently no index names, codes, field definitions, historical start date, or ownership claims are asserted. In particular, the probe does not treat “government portal” or an asserted ODbL label as proof that the provider can sublicense S&P/BVL or other branded indices. If ODbL is verified later, its attribution and Share-Alike obligations must be assessed for both canonical data and any publicly distributed database/panel.
