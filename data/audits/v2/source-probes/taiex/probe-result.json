@@ -1,8 +1,7 @@
 {
   "blocking_issues": [
-    "Dataset-specific licence applicability and third-party rights unresolved.",
-    "No production adapter or three-window quality result is approved.",
-    "Live data quality was sampled, but rights are unresolved and no production acceptance is permitted."
+    "Calendar reconciliation remains partial; this probe is not a production integration.",
+    "Live source evidence is conditionally accepted; this probe remains outside the production pipeline."
   ],
   "calendar_assessment": {
     "official_evidence_url": "https://www.twse.com.tw/holidaySchedule/holidaySchedule",
@@ -11,7 +10,7 @@
   "city_id": "taipei",
   "data_quality": {
     "findings": [
-      "Only an exploratory response was fetched; three fixed windows and repeatability have not yet been fully run."
+      "All three fixed windows were sampled twice. Previous close and return are derived from preceding valid TWSE trading rows."
     ],
     "observed_fields": [
       "date",
@@ -22,26 +21,27 @@
     ],
     "quality_gate_confirmed": false
   },
-  "executed_at": "2026-08-04T03:53:12.371631+00:00",
-  "final_probe_status": "rights_unresolved",
+  "executed_at": "2026-08-04T06:42:18.767382+00:00",
+  "final_probe_status": "open_core_candidate_conditional",
   "licence_assessment": {
     "evidence_urls": [
+      "https://data.gov.tw/en/datasets/11755",
       "https://data.gov.tw/license"
     ],
-    "licence_name": "Taiwan Government Open Data Licence v1 (portal-level candidate; dataset applicability not yet proven)",
-    "third_party_rights_status": "unclear",
+    "licence_name": "Open Government Data License, version 1.0",
+    "third_party_rights_status": "no",
     "values": {
-      "academic_research_allowed": "unclear",
-      "attribution_required": "unclear",
-      "automated_access_allowed": "unclear",
-      "commercial_reuse_allowed": "unclear",
+      "academic_research_allowed": "yes",
+      "attribution_required": "yes",
+      "automated_access_allowed": "yes",
+      "commercial_reuse_allowed": "yes",
       "download_allowed": "yes",
-      "long_term_storage_allowed": "unclear",
-      "public_canonical_redistribution_allowed": "unclear",
-      "public_derived_panel_allowed": "unclear",
-      "public_raw_redistribution_allowed": "unclear",
+      "long_term_storage_allowed": "yes",
+      "public_canonical_redistribution_allowed": "yes",
+      "public_derived_panel_allowed": "yes",
+      "public_raw_redistribution_allowed": "yes",
       "share_alike_required": "no",
-      "transformation_allowed": "unclear"
+      "transformation_allowed": "yes"
     }
   },
   "market_id": "taiex",
@@ -49,6 +49,30 @@
   "probe_version": "1.0.0",
   "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
   "repeatability": {
+    "2020_10:20200901": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "7e23176c0017e16be0b2616518e293eede64bc6a8cc2606f613fb777b044e9a6",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20200901",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "7e23176c0017e16be0b2616518e293eede64bc6a8cc2606f613fb777b044e9a6",
+        "status": 200
+      },
+      "semantic_sha256_first": "9abdf15f4b8476e610aa3cf73478bba8ebe98c6c0001f0b8d5e483ca68e15595",
+      "semantic_sha256_second": "9abdf15f4b8476e610aa3cf73478bba8ebe98c6c0001f0b8d5e483ca68e15595",
+      "semantic_status": "semantic_identical"
+    },
     "2020_10:20201002": {
       "byte_status": "byte_identical",
       "first": {
@@ -71,6 +95,30 @@
       },
       "semantic_sha256_first": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
       "semantic_sha256_second": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
+      "semantic_status": "semantic_identical"
+    },
+    "2023_06:20230501": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "d25d589f1ded40a7716e2783bcc7a9f78e938221e6015629fb51bb88b0f868bd",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20230501",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "d25d589f1ded40a7716e2783bcc7a9f78e938221e6015629fb51bb88b0f868bd",
+        "status": 200
+      },
+      "semantic_sha256_first": "b0c65761dfd2c8f19971a6a599cf91fa0810eef5f349422de5958af9aeca04c3",
+      "semantic_sha256_second": "b0c65761dfd2c8f19971a6a599cf91fa0810eef5f349422de5958af9aeca04c3",
       "semantic_status": "semantic_identical"
     },
     "2023_06:20230601": {
@@ -148,10 +196,10 @@
     "recent_30:20260803": {
       "byte_status": "byte_identical",
       "first": {
-        "content_length": 254,
+        "content_length": 316,
         "etag": null,
         "last_modified": null,
-        "raw_sha256": "2252cac121004c6d31be78e13a80830c3487af1a77e443226fee41663ba01118",
+        "raw_sha256": "918f3a6e6eab44d666066f3fbcb7d9aa8248b6f89aaf3b6c13bbfb7c83d92fef",
         "status": 200
       },
       "request_params": {
@@ -159,22 +207,22 @@
         "response": "json"
       },
       "second": {
-        "content_length": 254,
+        "content_length": 316,
         "etag": null,
         "last_modified": null,
-        "raw_sha256": "2252cac121004c6d31be78e13a80830c3487af1a77e443226fee41663ba01118",
+        "raw_sha256": "918f3a6e6eab44d666066f3fbcb7d9aa8248b6f89aaf3b6c13bbfb7c83d92fef",
         "status": 200
       },
-      "semantic_sha256_first": "ce5f0da6136ffe577c175228b1ed740f5a2c5ef74852ef6cecbc05cf853ea5f4",
-      "semantic_sha256_second": "ce5f0da6136ffe577c175228b1ed740f5a2c5ef74852ef6cecbc05cf853ea5f4",
+      "semantic_sha256_first": "449f518a6ab253c13dc1dc3be6887b68fe3081ecef51f1b4b341e827a0e0ad41",
+      "semantic_sha256_second": "449f518a6ab253c13dc1dc3be6887b68fe3081ecef51f1b4b341e827a0e0ad41",
       "semantic_status": "semantic_identical"
     }
   },
   "source_id": "twse_taiex_official",
   "technical_access": {
-    "access_notes": "Official endpoint returned 20 records for the June 2023 month request; monthly response requires page/date semantics to be frozen before any production use.",
+    "access_notes": "Dataset 11755 registers the CSV resource at this report path. The current RWD JSON endpoint has the same report identifier, five fields, and matching 2026-08-03 values.",
     "account_required": false,
-    "actual_resource_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=20230601&response=json",
+    "actual_resource_url": "https://www.twse.com.tw/indicesReport/MI_5MINS_HIST?response=open_data",
     "api_key_required": false,
     "live_access_confirmed": true,
     "observed_fields": [
@@ -186,15 +234,15 @@
     ]
   },
   "third_party_rights": {
-    "reason": "The official interface identifies the index but the retrieved endpoint did not carry a dataset-specific redistribution statement.",
-    "status": "unclear"
+    "reason": "Dataset 11755 itself identifies the Weighted Index data as primary data and applies the named open-data licence; no separate third-party restriction is disclosed on the dataset or resource page.",
+    "status": false
   },
   "windows": [
     {
-      "normalized_sha256": "f17f0490bb6fac92adad4babbe968e56e45ddab52d91c562566b5f488b420772",
+      "normalized_sha256": "69390f815e6f46373cd1fad3ae342c42829619c9a21eeb441f4de796937fae10",
       "quality": {
-        "date_max": "2026-08-03",
-        "date_min": "2026-06-22",
+        "date_max": "2026-08-04",
+        "date_min": "2026-06-23",
         "date_parse_failures": 0,
         "duplicate_dates": 0,
         "missing_counts": {
@@ -202,7 +250,7 @@
           "high": 0,
           "low": 0,
           "open": 0,
-          "previous_close": 30,
+          "previous_close": 0,
           "volume": 30
         },
         "ohlc_anomalies": [],
@@ -212,10 +260,15 @@
         "weekend_records": 0
       },
       "record_count": 30,
+      "return_calculation": {
+        "boundary_missing_count": 0,
+        "calculated_return_count": 30,
+        "formula": "(close / previous_close - 1) * 100"
+      },
       "window_id": "recent_30"
     },
     {
-      "normalized_sha256": "27d5db98f2c5161a0517ffe494a30a1f021a209390a4b7fe418bd77cd6c5f279",
+      "normalized_sha256": "adad82398a7310ac2351461b3b5dc9e2a7ceb7dd1f2be6df1469f294c18c67a8",
       "quality": {
         "date_max": "2023-06-30",
         "date_min": "2023-06-01",
@@ -226,7 +279,7 @@
           "high": 0,
           "low": 0,
           "open": 0,
-          "previous_close": 20,
+          "previous_close": 0,
           "volume": 20
         },
         "ohlc_anomalies": [],
@@ -236,10 +289,15 @@
         "weekend_records": 0
       },
       "record_count": 20,
+      "return_calculation": {
+        "boundary_missing_count": 0,
+        "calculated_return_count": 20,
+        "formula": "(close / previous_close - 1) * 100"
+      },
       "window_id": "2023_06"
     },
     {
-      "normalized_sha256": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
+      "normalized_sha256": "d3b408466b83d72f32f865e8691020f28ea88a9d2596430aac97cd1462c8052c",
       "quality": {
         "date_max": "2020-10-30",
         "date_min": "2020-10-05",
@@ -250,7 +308,7 @@
           "high": 0,
           "low": 0,
           "open": 0,
-          "previous_close": 19,
+          "previous_close": 0,
           "volume": 19
         },
         "ohlc_anomalies": [],
@@ -260,6 +318,11 @@
         "weekend_records": 0
       },
       "record_count": 19,
+      "return_calculation": {
+        "boundary_missing_count": 0,
+        "calculated_return_count": 19,
+        "formula": "(close / previous_close - 1) * 100"
+      },
       "window_id": "2020_10"
     }
   ]

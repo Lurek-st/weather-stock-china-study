@@ -12,7 +12,11 @@ import requests
 from scripts.v2.probes.common import quality_check, semantic_hash
 
 URL = "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST"
-MONTHS = {"recent_30": ["20260601", "20260701", "20260803"], "2023_06": ["20230601"], "2020_10": ["20201002"]}
+MONTHS = {
+    "recent_30": ["20260601", "20260701", "20260803"],
+    "2023_06": ["20230501", "20230601"],
+    "2020_10": ["20200901", "20201002"],
+}
 
 
 def _request(date_token: str, cache: Path) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -58,6 +62,26 @@ def _rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
     return records
 
 
+def with_previous_close(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Derive close-to-close fields from actual prior trading records only.
+
+    The source contains trading rows rather than calendar rows, so the immediate
+    preceding normalized row correctly crosses weekends and non-trading days.
+    """
+    ordered = sorted(rows, key=lambda row: row["trading_date"])
+    enriched: list[dict[str, Any]] = []
+    previous_close: float | None = None
+    for row in ordered:
+        item = dict(row)
+        close = float(item["close"])
+        item["previous_close"] = previous_close
+        item["boundary_missing"] = previous_close is None
+        item["return_pct"] = None if previous_close is None else round((close / previous_close - 1.0) * 100.0, 10)
+        enriched.append(item)
+        previous_close = close
+    return enriched
+
+
 def run(root: Path) -> dict[str, Any]:
     cache = root / ".local" / "source-probes" / "taiex"
     windows = []
@@ -70,10 +94,21 @@ def run(root: Path) -> dict[str, Any]:
             rows.extend(month_rows)
             repeatability[f"{window_id}:{month}"] = repeat
         rows = sorted({row["trading_date"]: row for row in rows}.values(), key=lambda row: row["trading_date"])
+        enriched = with_previous_close(rows)
         if window_id == "recent_30":
-            rows = rows[-30:]
-        quality = quality_check(rows)
-        windows.append({"window_id": window_id, "record_count": len(rows), "quality": quality,
-                        "normalized_sha256": semantic_hash(rows)})
+            selected = enriched[-30:]
+        else:
+            prefix = "2023-06" if window_id == "2023_06" else "2020-10"
+            selected = [row for row in enriched if row["trading_date"].startswith(prefix)]
+        quality = quality_check(selected)
+        windows.append({
+            "window_id": window_id, "record_count": len(selected), "quality": quality,
+            "return_calculation": {
+                "calculated_return_count": sum(row["return_pct"] is not None for row in selected),
+                "boundary_missing_count": sum(row["boundary_missing"] for row in selected),
+                "formula": "(close / previous_close - 1) * 100",
+            },
+            "normalized_sha256": semantic_hash(selected),
+        })
     return {"windows": windows, "repeatability": repeatability,
             "local_cache": ".local/source-probes/taiex (ignored)"}

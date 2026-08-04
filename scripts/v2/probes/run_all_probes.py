@@ -44,12 +44,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run isolated, non-production open-market probe plans.")
     parser.add_argument("--dry-run", action="store_true", help="write only reproducible evidence plans and summaries")
     parser.add_argument("--live", action="store_true", help="not yet enabled: live adapters remain deliberately isolated")
+    parser.add_argument("--market", help="limit execution to one configured market_id")
     parser.add_argument("--root", type=Path, default=repo_root())
     args = parser.parse_args()
     config = load_yaml(args.root / "config" / "v2" / "open-market-candidates.yaml")
     output = args.root / "data" / "audits" / "v2" / "source-probes"
     results = []
     for candidate in config["candidates"]:
+        if args.market and candidate["market_id"] != args.market:
+            continue
         result = result_for(candidate, live=False)
         if args.live and candidate["market_id"] == "taiex":
             live = run_taiex(args.root)
@@ -58,10 +61,12 @@ def main() -> int:
             result["repeatability"] = live["repeatability"]
             result["technical_access"]["live_access_confirmed"] = True
             result["data_quality"]["quality_gate_confirmed"] = False
-            result["blocking_issues"].append("Live data quality was sampled, but rights are unresolved and no production acceptance is permitted.")
+            result["blocking_issues"].append("Live source evidence is conditionally accepted; this probe remains outside the production pipeline.")
         destination = output / candidate["market_id"] / "probe-result.json"
         write_json(destination, result)
         results.append({"market_id": candidate["market_id"], "status": result["final_probe_status"]})
+    if args.market and not results:
+        parser.error(f"unknown market_id: {args.market}")
     print(json.dumps({"probe_version": "1.0.0", "mode": "live" if args.live else "dry_run", "results": results}, ensure_ascii=False, indent=2))
     return 0
 

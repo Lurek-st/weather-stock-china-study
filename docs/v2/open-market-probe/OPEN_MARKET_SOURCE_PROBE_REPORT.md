@@ -6,7 +6,7 @@
 
 | Candidate | Technical probe | Rights/quality conclusion | Recommended status |
 | --- | --- | --- | --- |
-| Taipei—TAIEX | TWSE official monthly history endpoint was read; its fields are date/open/high/low/close. The three prescribed samples and repeated requests succeeded. | Dataset-specific public redistribution and third-party-rights evidence was not captured; previous close/volume are absent. | `rights_unresolved` |
+| Taipei—TAIEX | Dataset 11755, its registered TWSE CSV resource, and the RWD JSON report were directly checked. The three prescribed samples and repeated requests succeeded. | Dataset 11755 applies the Open Government Data License v1.0 to the primary-data resource; previous close/return are deterministically derived from the preceding valid trading row. | `open_core_candidate_conditional` |
 | Seoul—KOSPI | Public portal home page is reachable, but no verified KOSPI catalogue/API record was queried. The contemplated API needs a free Service Key, which was neither found nor requested. | Licence scope, KOSPI identifier, fields, limits, historical coverage and index rights are unverified. | `technical_access_blocked` |
 | Amsterdam—AEX/DNB | Direct official DNB statistical pages returned HTTP 403. No cookie, alternate scraper, or access-control bypass was used. | The claimed CC BY 4.0 status was not established for an actual resource; neither DNB's right to sublicense international indices nor AEX provenance is evidenced. | `technical_access_blocked` |
 | Lima—BVL/SMV | Peru's portal is reachable, but the bounded official search did not yield a verified SMV/BVL broad-index data dictionary plus actual resource. | ODbL applicability and the distinction between locally owned BVL and S&P/BVL/other third-party series are unresolved. | `technical_access_blocked` |
@@ -25,4 +25,4 @@ TAIEX response pairs were byte-identical and semantic-identical for each request
 
 ## Decision boundary
 
-No candidate passes this probe. A later decision-maker may approve an adapter only after resource-level rights, access terms, calendar evidence, and the full quality/revision protocol are confirmed. Do not start a historical backfill from these results.
+TAIEX is conditionally evidenced for source/licence purposes, but remains outside the production pipeline pending calendar verification and an explicit production-adapter decision. The other candidates remain blocked. Do not start a historical backfill from these results.
