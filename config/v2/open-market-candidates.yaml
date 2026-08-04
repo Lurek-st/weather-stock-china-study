@@ -1,0 +1,102 @@
+probe_version: 1.0.0
+purpose: "Non-production source, licence, and technical-access probes only."
+candidates:
+  - market_id: taiex
+    city_id: taipei
+    source_id: twse_taiex_official
+    official_documents:
+      - https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX
+      - https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=20230601&response=json
+      - https://data.gov.tw/license
+    licence_assessment:
+      licence_name: "Taiwan Government Open Data Licence v1 (portal-level candidate; dataset applicability not yet proven)"
+      evidence_urls: ["https://data.gov.tw/license"]
+      values:
+        download_allowed: "yes"
+        automated_access_allowed: unclear
+        long_term_storage_allowed: unclear
+        academic_research_allowed: unclear
+        transformation_allowed: unclear
+        public_raw_redistribution_allowed: unclear
+        public_canonical_redistribution_allowed: unclear
+        public_derived_panel_allowed: unclear
+        commercial_reuse_allowed: unclear
+        attribution_required: unclear
+        share_alike_required: "no"
+      third_party_rights_status: unclear
+    third_party_rights:
+      status: unclear
+      reason: "The official interface identifies the index but the retrieved endpoint did not carry a dataset-specific redistribution statement."
+    technical_access:
+      account_required: no
+      api_key_required: no
+      live_access_confirmed: true
+      actual_resource_url: "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=20230601&response=json"
+      observed_fields: ["日期", "開盤指數", "最高指數", "最低指數", "收盤指數"]
+      access_notes: "Official endpoint returned 20 records for the June 2023 month request; monthly response requires page/date semantics to be frozen before any production use."
+    data_quality:
+      quality_gate_confirmed: false
+      observed_fields: ["date", "open", "high", "low", "close"]
+      findings: ["Only an exploratory response was fetched; three fixed windows and repeatability have not yet been fully run."]
+    historical_coverage_confirmed: false
+    calendar_assessment:
+      status: calendar_verification_partial
+      official_evidence_url: "https://www.twse.com.tw/holidaySchedule/holidaySchedule"
+    repeatability:
+      status: not_run_in_committed_plan
+      reason: "Raw responses stay local; live adapter approval is pending."
+    blocking_issues: ["Dataset-specific licence applicability and third-party rights unresolved.", "No production adapter or three-window quality result is approved."]
+  - market_id: kospi
+    city_id: seoul
+    source_id: korea_public_data_fsc_index_api
+    official_documents:
+      - https://www.data.go.kr/
+      - https://www.fsc.go.kr/eng/
+    licence_assessment:
+      licence_name: "Public Data Portal metadata/licence requires dataset-specific confirmation"
+      evidence_urls: ["https://www.data.go.kr/"]
+      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
+      third_party_rights_status: unclear
+    third_party_rights: {status: unclear, reason: "No dataset-specific KOSPI licence or index-rights statement was retrieved without a verified catalogue record."}
+    technical_access: {account_required: unclear, api_key_required: yes, live_access_confirmed: false, actual_resource_url: null, access_notes: "A Service Key is required for the candidate API; none is present or requested."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No credentialed payload inspected; field and historical claims are deliberately unverified."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://global.krx.co.kr/"}
+    repeatability: {status: request_not_run, reason: "Credentialed request intentionally not attempted without a Service Key."}
+    blocking_issues: ["Free Service Key and exact official API catalogue record required.", "Licence scope and third-party index rights unresolved."]
+  - market_id: aex_dnb
+    city_id: amsterdam
+    source_id: dnb_daily_stock_market_indices
+    official_documents:
+      - https://www.dnb.nl/en/statistics/data-and-information-services/statistical-data/
+      - https://data.overheid.nl/
+    licence_assessment:
+      licence_name: "Claimed CC BY 4.0 requires resource-level confirmation"
+      evidence_urls: ["https://www.dnb.nl/en/statistics/data-and-information-services/statistical-data/", "https://creativecommons.org/licenses/by/4.0/"]
+      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: no}
+      third_party_rights_status: unclear
+    third_party_rights: {status: third_party_rights_unresolved, reason: "No directly retrievable DNB resource or resource-level provenance statement was available to establish rights for AEX or international index series."}
+    technical_access: {account_required: unclear, api_key_required: unclear, live_access_confirmed: false, actual_resource_url: null, access_notes: "Direct requests to DNB statistical pages returned HTTP 403 on 2026-08-04; no bypass attempted."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No actual DNB resource could be read, so the requested inventory and field definitions remain unverified."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://www.euronext.com/en/markets/amsterdam"}
+    repeatability: {status: request_failed, reason: "HTTP 403 on direct official statistical pages."}
+    blocking_issues: ["DNB resource access blocked by HTTP 403.", "CC BY assertion and third-party index rights cannot be inferred from a portal description."]
+  - market_id: bvl
+    city_id: lima
+    source_id: peru_smv_bvl_indices
+    official_documents:
+      - https://www.datosabiertos.gob.pe/
+      - https://www.smv.gob.pe/
+    licence_assessment:
+      licence_name: "ODbL claim requires dataset and resource-level confirmation"
+      evidence_urls: ["https://www.datosabiertos.gob.pe/", "https://opendatacommons.org/licenses/odbl/"]
+      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
+      third_party_rights_status: unclear
+    third_party_rights: {status: third_party_rights_unresolved, reason: "No official dataset dictionary/resource for a BVL broad index was identified during the bounded probe; BVL-owned and S&P/BVL series cannot be separated safely."}
+    technical_access: {account_required: unclear, api_key_required: unclear, live_access_confirmed: false, actual_resource_url: null, access_notes: "The national portal was reachable, but its search results did not identify a verified SMV/BVL index data dictionary and actual resource in the bounded probe."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No verified official index response was downloaded; no OHLC or coverage claim is made."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://www.bvl.com.pe/"}
+    repeatability: {status: request_not_run, reason: "Actual official index resource was not identified; no guessed endpoint was queried."}
+    blocking_issues: ["Official data dictionary and actual data resource not yet evidenced.", "ODbL applicability, S&P/BVL rights, and Share-Alike consequences unresolved."]

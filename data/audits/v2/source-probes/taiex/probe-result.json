@@ -1,0 +1,266 @@
+{
+  "blocking_issues": [
+    "Dataset-specific licence applicability and third-party rights unresolved.",
+    "No production adapter or three-window quality result is approved.",
+    "Live data quality was sampled, but rights are unresolved and no production acceptance is permitted."
+  ],
+  "calendar_assessment": {
+    "official_evidence_url": "https://www.twse.com.tw/holidaySchedule/holidaySchedule",
+    "status": "calendar_verification_partial"
+  },
+  "city_id": "taipei",
+  "data_quality": {
+    "findings": [
+      "Only an exploratory response was fetched; three fixed windows and repeatability have not yet been fully run."
+    ],
+    "observed_fields": [
+      "date",
+      "open",
+      "high",
+      "low",
+      "close"
+    ],
+    "quality_gate_confirmed": false
+  },
+  "executed_at": "2026-08-04T03:53:12.371631+00:00",
+  "final_probe_status": "rights_unresolved",
+  "licence_assessment": {
+    "evidence_urls": [
+      "https://data.gov.tw/license"
+    ],
+    "licence_name": "Taiwan Government Open Data Licence v1 (portal-level candidate; dataset applicability not yet proven)",
+    "third_party_rights_status": "unclear",
+    "values": {
+      "academic_research_allowed": "unclear",
+      "attribution_required": "unclear",
+      "automated_access_allowed": "unclear",
+      "commercial_reuse_allowed": "unclear",
+      "download_allowed": "yes",
+      "long_term_storage_allowed": "unclear",
+      "public_canonical_redistribution_allowed": "unclear",
+      "public_derived_panel_allowed": "unclear",
+      "public_raw_redistribution_allowed": "unclear",
+      "share_alike_required": "no",
+      "transformation_allowed": "unclear"
+    }
+  },
+  "market_id": "taiex",
+  "mode": "live",
+  "probe_version": "1.0.0",
+  "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
+  "repeatability": {
+    "2020_10:20201002": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1371,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "9f8ffa3ef5d077011974e66a53b60e2d3263b2551343e9ce648c47735e0b7ef9",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20201002",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1371,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "9f8ffa3ef5d077011974e66a53b60e2d3263b2551343e9ce648c47735e0b7ef9",
+        "status": 200
+      },
+      "semantic_sha256_first": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
+      "semantic_sha256_second": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
+      "semantic_status": "semantic_identical"
+    },
+    "2023_06:20230601": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1433,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "05dd75611b1fa8cbc7bddc4cb023a3eb4eba6e236a0c9f470d8cd37fa0805ee3",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20230601",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1433,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "05dd75611b1fa8cbc7bddc4cb023a3eb4eba6e236a0c9f470d8cd37fa0805ee3",
+        "status": 200
+      },
+      "semantic_sha256_first": "27d5db98f2c5161a0517ffe494a30a1f021a209390a4b7fe418bd77cd6c5f279",
+      "semantic_sha256_second": "27d5db98f2c5161a0517ffe494a30a1f021a209390a4b7fe418bd77cd6c5f279",
+      "semantic_status": "semantic_identical"
+    },
+    "recent_30:20260601": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1495,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "5ee35074d3a9ad5bdb235a515978bae8fc3f36e427d4c1bb3cd60303ccbc331c",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20260601",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1495,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "5ee35074d3a9ad5bdb235a515978bae8fc3f36e427d4c1bb3cd60303ccbc331c",
+        "status": 200
+      },
+      "semantic_sha256_first": "eecd3bab6ad484495c78c9987f2b7f706a1f7c16c5c1b3722a417a9bb007195c",
+      "semantic_sha256_second": "eecd3bab6ad484495c78c9987f2b7f706a1f7c16c5c1b3722a417a9bb007195c",
+      "semantic_status": "semantic_identical"
+    },
+    "recent_30:20260701": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "a6fc2d6b2dc31fe7ed26364d12a70e8a3d7af3a3b1d36304b22a0358cfa08a7d",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20260701",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 1557,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "a6fc2d6b2dc31fe7ed26364d12a70e8a3d7af3a3b1d36304b22a0358cfa08a7d",
+        "status": 200
+      },
+      "semantic_sha256_first": "4dfcc045cbe55ce73aa438fd17ecd47f992166c48c517990d23e39d063a516a8",
+      "semantic_sha256_second": "4dfcc045cbe55ce73aa438fd17ecd47f992166c48c517990d23e39d063a516a8",
+      "semantic_status": "semantic_identical"
+    },
+    "recent_30:20260803": {
+      "byte_status": "byte_identical",
+      "first": {
+        "content_length": 254,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "2252cac121004c6d31be78e13a80830c3487af1a77e443226fee41663ba01118",
+        "status": 200
+      },
+      "request_params": {
+        "date": "20260803",
+        "response": "json"
+      },
+      "second": {
+        "content_length": 254,
+        "etag": null,
+        "last_modified": null,
+        "raw_sha256": "2252cac121004c6d31be78e13a80830c3487af1a77e443226fee41663ba01118",
+        "status": 200
+      },
+      "semantic_sha256_first": "ce5f0da6136ffe577c175228b1ed740f5a2c5ef74852ef6cecbc05cf853ea5f4",
+      "semantic_sha256_second": "ce5f0da6136ffe577c175228b1ed740f5a2c5ef74852ef6cecbc05cf853ea5f4",
+      "semantic_status": "semantic_identical"
+    }
+  },
+  "source_id": "twse_taiex_official",
+  "technical_access": {
+    "access_notes": "Official endpoint returned 20 records for the June 2023 month request; monthly response requires page/date semantics to be frozen before any production use.",
+    "account_required": false,
+    "actual_resource_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=20230601&response=json",
+    "api_key_required": false,
+    "live_access_confirmed": true,
+    "observed_fields": [
+      "日期",
+      "開盤指數",
+      "最高指數",
+      "最低指數",
+      "收盤指數"
+    ]
+  },
+  "third_party_rights": {
+    "reason": "The official interface identifies the index but the retrieved endpoint did not carry a dataset-specific redistribution statement.",
+    "status": "unclear"
+  },
+  "windows": [
+    {
+      "normalized_sha256": "f17f0490bb6fac92adad4babbe968e56e45ddab52d91c562566b5f488b420772",
+      "quality": {
+        "date_max": "2026-08-03",
+        "date_min": "2026-06-22",
+        "date_parse_failures": 0,
+        "duplicate_dates": 0,
+        "missing_counts": {
+          "close": 0,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "previous_close": 30,
+          "volume": 30
+        },
+        "ohlc_anomalies": [],
+        "raw_record_count": 30,
+        "sorted_ascending": true,
+        "valid_trading_record_count": 30,
+        "weekend_records": 0
+      },
+      "record_count": 30,
+      "window_id": "recent_30"
+    },
+    {
+      "normalized_sha256": "27d5db98f2c5161a0517ffe494a30a1f021a209390a4b7fe418bd77cd6c5f279",
+      "quality": {
+        "date_max": "2023-06-30",
+        "date_min": "2023-06-01",
+        "date_parse_failures": 0,
+        "duplicate_dates": 0,
+        "missing_counts": {
+          "close": 0,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "previous_close": 20,
+          "volume": 20
+        },
+        "ohlc_anomalies": [],
+        "raw_record_count": 20,
+        "sorted_ascending": true,
+        "valid_trading_record_count": 20,
+        "weekend_records": 0
+      },
+      "record_count": 20,
+      "window_id": "2023_06"
+    },
+    {
+      "normalized_sha256": "ebaaf8e2092921664228830ddeceadb70431dc7aa25d2df14bce71542fd93b03",
+      "quality": {
+        "date_max": "2020-10-30",
+        "date_min": "2020-10-05",
+        "date_parse_failures": 0,
+        "duplicate_dates": 0,
+        "missing_counts": {
+          "close": 0,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "previous_close": 19,
+          "volume": 19
+        },
+        "ohlc_anomalies": [],
+        "raw_record_count": 19,
+        "sorted_ascending": true,
+        "valid_trading_record_count": 19,
+        "weekend_records": 0
+      },
+      "record_count": 19,
+      "window_id": "2020_10"
+    }
+  ]
+}

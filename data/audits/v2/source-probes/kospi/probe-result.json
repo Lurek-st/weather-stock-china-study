@@ -1,0 +1,76 @@
+{
+  "blocking_issues": [
+    "Free Service Key and exact official API catalogue record required.",
+    "Licence scope and third-party index rights unresolved."
+  ],
+  "calendar_assessment": {
+    "official_evidence_url": "https://global.krx.co.kr/",
+    "status": "calendar_verification_partial"
+  },
+  "city_id": "seoul",
+  "data_quality": {
+    "findings": [
+      "No credentialed payload inspected; field and historical claims are deliberately unverified."
+    ],
+    "observed_fields": [],
+    "quality_gate_confirmed": false
+  },
+  "executed_at": "2026-08-04T03:53:23.324933+00:00",
+  "final_probe_status": "technical_access_blocked",
+  "licence_assessment": {
+    "evidence_urls": [
+      "https://www.data.go.kr/"
+    ],
+    "licence_name": "Public Data Portal metadata/licence requires dataset-specific confirmation",
+    "third_party_rights_status": "unclear",
+    "values": {
+      "academic_research_allowed": "unclear",
+      "attribution_required": "unclear",
+      "automated_access_allowed": "unclear",
+      "commercial_reuse_allowed": "unclear",
+      "download_allowed": "unclear",
+      "long_term_storage_allowed": "unclear",
+      "public_canonical_redistribution_allowed": "unclear",
+      "public_derived_panel_allowed": "unclear",
+      "public_raw_redistribution_allowed": "unclear",
+      "share_alike_required": "unclear",
+      "transformation_allowed": "unclear"
+    }
+  },
+  "market_id": "kospi",
+  "mode": "dry_run",
+  "probe_version": "1.0.0",
+  "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
+  "repeatability": {
+    "reason": "Credentialed request intentionally not attempted without a Service Key.",
+    "status": "request_not_run"
+  },
+  "source_id": "korea_public_data_fsc_index_api",
+  "technical_access": {
+    "access_notes": "A Service Key is required for the candidate API; none is present or requested.",
+    "account_required": "unclear",
+    "actual_resource_url": null,
+    "api_key_required": true,
+    "live_access_confirmed": false
+  },
+  "third_party_rights": {
+    "reason": "No dataset-specific KOSPI licence or index-rights statement was retrieved without a verified catalogue record.",
+    "status": "unclear"
+  },
+  "windows": [
+    {
+      "request_rule": "previous 60 calendar days; select latest 30 valid records",
+      "window_id": "recent_30"
+    },
+    {
+      "end": "2023-06-30",
+      "start": "2023-06-01",
+      "window_id": "2023_06"
+    },
+    {
+      "end": "2020-10-31",
+      "start": "2020-10-01",
+      "window_id": "2020_10"
+    }
+  ]
+}
