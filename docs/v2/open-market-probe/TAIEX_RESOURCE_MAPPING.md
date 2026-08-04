@@ -30,3 +30,7 @@ The probe endpoint is `https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=Y
 Dataset 11755 applies the named licence to its registered TWSE resource. The official licence permits use subject to attribution and includes reuse/transformation terms; the dataset page does not disclose a separate third-party restriction for this index data. This is an engineering evidence conclusion, not legal advice.
 
 Accordingly, this isolated source probe is `open_core_candidate_conditional`, not production-approved. Its remaining gap is calendar verification; no production adapter has been enabled.
+
+## Frozen audit-state summary
+
+`final_probe_status` is `open_core_candidate_conditional`; `quality_gate_confirmed` and `historical_coverage_confirmed` are both `true`; repeatability status is `completed`. The only remaining blockers are `calendar_verification_partial`, no production-pipeline integration, and no formal historical backfill. Current validation: 112 tests passed, including 30 V1-regression tests.

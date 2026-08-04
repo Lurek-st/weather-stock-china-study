@@ -45,7 +45,7 @@ candidates:
     repeatability:
       status: completed
       reason: "Repeated official requests are retained locally with raw and semantic hashes; summaries only are committed."
-    blocking_issues: ["Calendar reconciliation remains partial; this probe is not a production integration."]
+    blocking_issues: ["Calendar reconciliation remains partial.", "Not connected to the production pipeline.", "Formal historical backfill has not started."]
   - market_id: kospi
     city_id: seoul
     source_id: korea_public_data_fsc_index_api

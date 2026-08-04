@@ -1,7 +1,8 @@
 {
   "blocking_issues": [
-    "Calendar reconciliation remains partial; this probe is not a production integration.",
-    "Live source evidence is conditionally accepted; this probe remains outside the production pipeline."
+    "Calendar reconciliation remains partial.",
+    "Not connected to the production pipeline.",
+    "Formal historical backfill has not started."
   ],
   "calendar_assessment": {
     "official_evidence_url": "https://www.twse.com.tw/holidaySchedule/holidaySchedule",
@@ -19,10 +20,11 @@
       "low",
       "close"
     ],
-    "quality_gate_confirmed": false
+    "quality_gate_confirmed": true
   },
-  "executed_at": "2026-08-04T06:42:18.767382+00:00",
+  "executed_at": "2026-08-04T06:55:25.302880+00:00",
   "final_probe_status": "open_core_candidate_conditional",
+  "historical_coverage_confirmed": true,
   "licence_assessment": {
     "evidence_urls": [
       "https://data.gov.tw/en/datasets/11755",
@@ -216,7 +218,8 @@
       "semantic_sha256_first": "449f518a6ab253c13dc1dc3be6887b68fe3081ecef51f1b4b341e827a0e0ad41",
       "semantic_sha256_second": "449f518a6ab253c13dc1dc3be6887b68fe3081ecef51f1b4b341e827a0e0ad41",
       "semantic_status": "semantic_identical"
-    }
+    },
+    "status": "completed"
   },
   "source_id": "twse_taiex_official",
   "technical_access": {

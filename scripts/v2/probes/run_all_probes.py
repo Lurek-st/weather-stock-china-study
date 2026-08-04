@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import sys
 from datetime import datetime, timezone
@@ -22,7 +23,7 @@ WINDOWS = [
 
 
 def result_for(candidate: dict, live: bool) -> dict:
-    licence = candidate["licence_assessment"]
+    licence = copy.deepcopy(candidate["licence_assessment"])
     status = classify(licence["values"], licence["third_party_rights_status"],
                       candidate["technical_access"]["live_access_confirmed"],
                       candidate["data_quality"]["quality_gate_confirmed"],
@@ -32,12 +33,40 @@ def result_for(candidate: dict, live: bool) -> dict:
         "probe_version": "1.0.0", "market_id": candidate["market_id"], "city_id": candidate["city_id"],
         "source_id": candidate["source_id"], "executed_at": datetime.now(timezone.utc).isoformat(),
         "mode": "live" if live else "dry_run", "windows": WINDOWS,
-        "licence_assessment": licence, "third_party_rights": candidate["third_party_rights"],
-        "technical_access": candidate["technical_access"], "data_quality": candidate["data_quality"],
-        "calendar_assessment": candidate["calendar_assessment"], "repeatability": candidate["repeatability"],
-        "blocking_issues": candidate["blocking_issues"], "final_probe_status": status,
+        "licence_assessment": licence, "third_party_rights": copy.deepcopy(candidate["third_party_rights"]),
+        "technical_access": copy.deepcopy(candidate["technical_access"]), "data_quality": copy.deepcopy(candidate["data_quality"]),
+        "calendar_assessment": copy.deepcopy(candidate["calendar_assessment"]), "repeatability": copy.deepcopy(candidate["repeatability"]),
+        "historical_coverage_confirmed": candidate["historical_coverage_confirmed"],
+        "blocking_issues": list(candidate["blocking_issues"]), "final_probe_status": status,
         "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
     }
+
+
+def taiex_quality_gate(live: dict) -> bool:
+    """Require all fixed-window quality, return, and repeatability checks."""
+    windows = {row["window_id"]: row for row in live["windows"]}
+    if set(windows) != {"recent_30", "2023_06", "2020_10"}:
+        return False
+    for row in windows.values():
+        quality = row["quality"]
+        returns = row["return_calculation"]
+        if (
+            row["record_count"] <= 0
+            or quality["valid_trading_record_count"] != row["record_count"]
+            or quality["missing_counts"]["close"] != 0
+            or quality["date_parse_failures"] != 0
+            or quality["duplicate_dates"] != 0
+            or quality["weekend_records"] != 0
+            or quality["ohlc_anomalies"]
+            or returns["calculated_return_count"] != row["record_count"]
+            or returns["boundary_missing_count"] != 0
+        ):
+            return False
+    repeats = [row for row in live["repeatability"].values() if isinstance(row, dict) and "byte_status" in row]
+    return bool(repeats) and all(
+        row["byte_status"] == "byte_identical" and row["semantic_status"] == "semantic_identical"
+        for row in repeats
+    )
 
 
 def main() -> int:
@@ -58,10 +87,17 @@ def main() -> int:
             live = run_taiex(args.root)
             result["mode"] = "live"
             result["windows"] = live["windows"]
-            result["repeatability"] = live["repeatability"]
+            result["repeatability"] = copy.deepcopy(live["repeatability"])
+            result["repeatability"]["status"] = "completed"
             result["technical_access"]["live_access_confirmed"] = True
-            result["data_quality"]["quality_gate_confirmed"] = False
-            result["blocking_issues"].append("Live source evidence is conditionally accepted; this probe remains outside the production pipeline.")
+            result["data_quality"]["quality_gate_confirmed"] = taiex_quality_gate(live)
+            result["final_probe_status"] = classify(
+                result["licence_assessment"]["values"],
+                result["licence_assessment"]["third_party_rights_status"],
+                result["technical_access"]["live_access_confirmed"],
+                result["data_quality"]["quality_gate_confirmed"],
+                candidate["historical_coverage_confirmed"],
+            )
         destination = output / candidate["market_id"] / "probe-result.json"
         write_json(destination, result)
         results.append({"market_id": candidate["market_id"], "status": result["final_probe_status"]})
