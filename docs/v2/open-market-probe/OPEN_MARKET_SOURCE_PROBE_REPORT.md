@@ -17,11 +17,19 @@ No inventory is reported. The prescribed DNB resourcefile hostname returns publi
 
 ## KOSPI credential boundary
 
-The current machine has no `KOREA_DATA_GO_KR_SERVICE_KEY`. The KOSPI adapter,
-official API contract, redaction tests, and local-only raw-response policy are
-prepared, but no credentialed request, index inventory, fixed-window result,
-or historical-coverage assertion has been made. This is not a production
-integration or a historical backfill. TAIEX and AEX conclusions are unchanged.
+The KOSPI registration attempt is closed: the overseas individual registration
+path requires a Korean local mobile number, with no foreign-member or
+international-number alternative observed. No virtual number, borrowed number,
+or other workaround was used. KOSPI remains `credential_required` with
+`foreign_user_registration_requires_korean_mobile` as the access blocker.
+
+No registration was completed, no Service Key was issued, no API request or
+data download ran, and no cost was incurred. This is not a paid-access,
+API-quality, or licence-failure finding. The adapter, official contract,
+redaction tests, and local-only raw-response policy remain prepared, but no
+credentialed inventory, fixed-window result, or historical-coverage assertion
+is made. This is not a production integration or historical backfill. TAIEX
+and AEX conclusions are unchanged.
 
 ## BVL data dictionary findings
 

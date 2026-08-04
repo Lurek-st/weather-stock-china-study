@@ -33,9 +33,13 @@ client and redacted from errors and audit output. No request occurs until a
 locally supplied `KOREA_DATA_GO_KR_SERVICE_KEY` is present.
 
 The public page identifies the service as free and its development/operation
-use applications as automatic approval. It does not supply a public payload
-without a Service Key, so actual fields, pagination, inclusion semantics, and
-the exact KOSPI series are intentionally not asserted yet.
+use applications as automatic approval. However, the attempted overseas
+individual registration path requires a Korean local mobile number. The attempt
+was stopped without using a virtual or borrowed number. This is an access
+credential blocker, not evidence of a paid service, API failure, or licence
+failure. It does not supply a public payload without a Service Key, so actual
+fields, pagination, inclusion semantics, and the exact KOSPI series are
+intentionally not asserted.
 
 ## Rights boundary
 

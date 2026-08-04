@@ -59,12 +59,12 @@ candidates:
       values: {download_allowed: "yes", automated_access_allowed: "yes", long_term_storage_allowed: unclear, academic_research_allowed: "yes", transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
       third_party_rights_status: unclear
     third_party_rights: {status: third_party_rights_unresolved, reason: "FSC portal identifies Korea Exchange index data, but the consulted public contract does not expressly settle public redistribution of KRX-index payloads."}
-    technical_access: {account_required: yes, api_key_required: yes, live_access_confirmed: false, actual_resource_url: "https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex", access_notes: "A free Service Key is required. No key is stored in or requested by the repository."}
+    technical_access: {account_required: yes, api_key_required: yes, live_access_confirmed: false, actual_resource_url: "https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex", access_notes: "A free Service Key is required. The attempted overseas individual registration path requires a Korean local mobile number; no key is stored in or requested by the repository."}
     data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No credentialed payload inspected; no window, sequence, field, or historical-coverage claim is inferred."]}
     historical_coverage_confirmed: false
     calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://global.krx.co.kr/"}
     repeatability: {status: request_not_run, reason: "Credentialed request intentionally not attempted without a Service Key."}
-    blocking_issues: ["KOREA_DATA_GO_KR_SERVICE_KEY is required for official API payload validation.", "KRX third-party redistribution rights remain unresolved at the public-contract level."]
+    blocking_issues: ["foreign_user_registration_requires_korean_mobile", "No registration was completed and KOREA_DATA_GO_KR_SERVICE_KEY was not issued or configured.", "This is not a paid-access, API-quality, or licence-failure finding.", "KRX third-party redistribution rights remain unresolved at the public-contract level."]
   - market_id: aex_dnb
     city_id: amsterdam
     source_id: dnb_daily_stock_market_indices

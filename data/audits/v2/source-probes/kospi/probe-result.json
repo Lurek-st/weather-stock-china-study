@@ -1,6 +1,8 @@
 {
   "blocking_issues": [
-    "KOREA_DATA_GO_KR_SERVICE_KEY is required for official API payload validation.",
+    "foreign_user_registration_requires_korean_mobile",
+    "No registration was completed and KOREA_DATA_GO_KR_SERVICE_KEY was not issued or configured.",
+    "This is not a paid-access, API-quality, or licence-failure finding.",
     "KRX third-party redistribution rights remain unresolved at the public-contract level."
   ],
   "calendar_assessment": {
@@ -46,6 +48,16 @@
   "mode": "dry_run",
   "probe_version": "1.0.0",
   "raw_response_policy": "local_only:.local/source-probes/kospi; no raw response is versioned",
+  "registration_attempt": {
+    "api_requests_run": false,
+    "blocker": "foreign_user_registration_requires_korean_mobile",
+    "cost_incurred": false,
+    "notes": "No virtual number, borrowed phone number, or other identity workaround was used.",
+    "raw_data_downloaded": false,
+    "registration_completed": false,
+    "service_key_issued": false,
+    "status": "stopped"
+  },
   "repeatability": {
     "reason": "Service Key is unavailable; repeated requests were not attempted.",
     "status": "request_not_run"
@@ -53,7 +65,7 @@
   "service_key_status": "unset",
   "source_id": "korea_public_data_fsc_index_api",
   "technical_access": {
-    "access_notes": "Service Key is required; no key is stored in or requested by the repository.",
+    "access_notes": "Service Key is required. The attempted overseas individual registration path requires a Korean local mobile number; no key is stored in or requested by the repository.",
     "account_required": "yes",
     "actual_resource_url": "https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex",
     "api_key_required": "yes",
