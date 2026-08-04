@@ -1,6 +1,7 @@
 {
   "blocking_issues": [
-    "Direct resource access is technically blocked by DNS resolution in this environment.",
+    "Direct resource access is technically blocked: statistiek.api.dnb.nl returns public-DNS NXDOMAIN.",
+    "DNB Public API requires a My DNB Public subscription for available datasets, but no official migration of this dataset is confirmed.",
     "AEX-specific definition and third-party rights remain unverified without the JSON payload."
   ],
   "calendar_assessment": {
@@ -49,7 +50,21 @@
   },
   "source_id": "dnb_daily_stock_market_indices",
   "technical_access": {
-    "access_notes": "Both registered resourcefile URLs were directly requested on 2026-08-04. The local environment could not resolve statistiek.api.dnb.nl; no alternate endpoint or access-control bypass was used.",
+    "access_classification": "public_dns_nxdomain",
+    "access_diagnostic": {
+      "catalogue_resource_links_current": true,
+      "cloudflare_dns": "NXDOMAIN",
+      "dataset_migration_confirmed": false,
+      "google_dns": "NXDOMAIN",
+      "new_api_subscription_required_for_available_new_api_datasets": true,
+      "python_getaddrinfo": "name_resolution_error",
+      "windows_default_curl": "local_proxy_connection_failed",
+      "windows_default_dns": "NXDOMAIN",
+      "windows_noproxy_curl": "dns_resolution_failed",
+      "wsl_curl": "proxy_tunnel_tls_failure",
+      "wsl_dns": "no_address_returned; nslookup_not_available"
+    },
+    "access_notes": "The official catalogue still lists both legacy resourcefile URLs. On 2026-08-04, the hostname returned explicit NXDOMAIN through the default Windows resolver, 1.1.1.1, and 8.8.8.8; a no-proxy request also could not resolve it. DNB's newer Public API requires a My DNB Public subscription for available API datasets, but migration of this dataset is not confirmed.",
     "account_required": "no",
     "actual_resource_url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517",
     "api_key_required": "no",
