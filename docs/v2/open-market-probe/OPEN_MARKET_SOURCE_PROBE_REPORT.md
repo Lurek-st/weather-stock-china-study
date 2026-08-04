@@ -43,6 +43,17 @@ data retrieval because the bounded evidence did not establish a no-credential,
 open-rights daily resource. This does not freeze an open-core list or start a
 backfill.
 
+## TAIEX single-market pilot and calendar gate
+
+The current execution scope is frozen to a Taiwan single-market pilot. The TWSE
+annual holiday-schedule resource was queried for 2020--2026 and gave official
+holiday evidence for 2026. For 2020--2025, the returned dates did not match the
+requested year, so the parser records `calendar_year_unresolved` rather than
+silently accepting an apparently ignored year parameter. Consequently
+`pilot_windows_calendar_verified` and `full_history_calendar_verified` remain
+false. The TAIEX adapter is only a `production_adapter_candidate`; it is not
+connected to the weather pipeline and is not `production_ready`.
+
 ## BVL data dictionary findings
 
 No official dictionary/resource pair for a BVL broad index was obtained. Consequently no index names, codes, field definitions, historical start date, or ownership claims are asserted. In particular, the probe does not treat “government portal” or an asserted ODbL label as proof that the provider can sublicense S&P/BVL or other branded indices. If ODbL is verified later, its attribution and Share-Alike obligations must be assessed for both canonical data and any publicly distributed database/panel.

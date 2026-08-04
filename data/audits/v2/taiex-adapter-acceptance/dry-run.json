@@ -1,0 +1,15 @@
+{
+  "mode": "dry_run",
+  "network_requests": 0,
+  "plan": {
+    "months": [
+      "20230601"
+    ],
+    "params": {
+      "response": "json"
+    },
+    "raw_policy": "append_only_local",
+    "source_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST"
+  },
+  "production_status": "not_connected"
+}

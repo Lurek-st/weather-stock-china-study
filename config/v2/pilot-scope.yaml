@@ -1,0 +1,16 @@
+pilot_scope_version: 1.0.0
+primary_market: taiex
+primary_city: taipei
+scope_status: single_market_pilot
+expansion_status: paused_no_tier_1_candidate
+expansion_reopen_conditions:
+  - official_daily_end_of_day_resource
+  - no_registration_or_key_or_payment
+  - explicit_public_derived_data_rights
+  - no_unresolved_third_party_rights
+excluded_or_deferred_markets:
+  - {market_id: aex_dnb, status: technical_access_blocked, reason: public_dns_nxdomain}
+  - {market_id: kospi, status: credential_required, reason: foreign_user_registration_requires_korean_mobile}
+decision_evidence:
+  - docs/v2/decisions/ADR-TAIEX-SINGLE-MARKET-PILOT.md
+  - docs/v2/open-market-probe/ZERO_BARRIER_MARKET_SHORTLIST.md
