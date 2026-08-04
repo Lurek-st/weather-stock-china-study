@@ -68,20 +68,21 @@ candidates:
     city_id: amsterdam
     source_id: dnb_daily_stock_market_indices
     official_documents:
-      - https://www.dnb.nl/en/statistics/data-and-information-services/statistical-data/
-      - https://data.overheid.nl/
+      - https://data.overheid.nl/dataset/3_1_day_aandelenbeursindicesdag
+      - https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517
+      - https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=9f3c874d-6407-44f6-881c-7f9de1dcf31e
     licence_assessment:
-      licence_name: "Claimed CC BY 4.0 requires resource-level confirmation"
-      evidence_urls: ["https://www.dnb.nl/en/statistics/data-and-information-services/statistical-data/", "https://creativecommons.org/licenses/by/4.0/"]
-      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: no}
+      licence_name: "CC-BY (4.0) shown for dataset and both registered JSON resources"
+      evidence_urls: ["https://data.overheid.nl/dataset/3_1_day_aandelenbeursindicesdag", "https://creativecommons.org/licenses/by/4.0/"]
+      values: {download_allowed: "yes", automated_access_allowed: "yes", long_term_storage_allowed: "yes", academic_research_allowed: "yes", transformation_allowed: "yes", public_raw_redistribution_allowed: "yes", public_canonical_redistribution_allowed: "yes", public_derived_panel_allowed: "yes", commercial_reuse_allowed: "yes", attribution_required: "yes", share_alike_required: "no"}
       third_party_rights_status: unclear
-    third_party_rights: {status: third_party_rights_unresolved, reason: "No directly retrievable DNB resource or resource-level provenance statement was available to establish rights for AEX or international index series."}
-    technical_access: {account_required: unclear, api_key_required: unclear, live_access_confirmed: false, actual_resource_url: null, access_notes: "Direct requests to DNB statistical pages returned HTTP 403 on 2026-08-04; no bypass attempted."}
-    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No actual DNB resource could be read, so the requested inventory and field definitions remain unverified."]}
+    third_party_rights: {status: third_party_rights_unresolved, reason: "The catalogue labels resources CC-BY, but actual resource files could not be retrieved to establish AEX-specific provenance or separate international-index rights."}
+    technical_access: {account_required: "no", api_key_required: "no", live_access_confirmed: false, actual_resource_url: "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517", access_notes: "Both registered resourcefile URLs were directly requested on 2026-08-04. The local environment could not resolve statistiek.api.dnb.nl; no alternate endpoint or access-control bypass was used."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No actual DNB JSON payload was obtained, so AEX series definition, inventory, windows, and return calculations are unverified."]}
     historical_coverage_confirmed: false
     calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://www.euronext.com/en/markets/amsterdam"}
-    repeatability: {status: request_failed, reason: "HTTP 403 on direct official statistical pages."}
-    blocking_issues: ["DNB resource access blocked by HTTP 403.", "CC BY assertion and third-party index rights cannot be inferred from a portal description."]
+    repeatability: {status: request_failed, reason: "Both specified resourcefile URLs failed during direct DNS resolution; the DNB webpage UI was not used as the resource-access result."}
+    blocking_issues: ["Direct resource access is technically blocked by DNS resolution in this environment.", "AEX-specific definition and third-party rights remain unverified without the JSON payload."]
   - market_id: bvl
     city_id: lima
     source_id: peru_smv_bvl_indices

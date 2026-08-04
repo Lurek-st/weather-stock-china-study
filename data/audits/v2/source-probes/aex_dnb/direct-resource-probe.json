@@ -1,0 +1,61 @@
+{
+  "access_confirmed": false,
+  "json_structures": {},
+  "local_cache": ".local/source-probes/aex-dnb (ignored)",
+  "resources": {
+    "historical": {
+      "attempts": [
+        {
+          "content_length": null,
+          "error": "ConnectionError",
+          "etag": null,
+          "http_status": null,
+          "last_modified": null,
+          "raw_sha256": null,
+          "retrieved_at": "2026-08-04T07:06:12.845256+00:00",
+          "semantic_sha256": null
+        },
+        {
+          "content_length": null,
+          "error": "ConnectionError",
+          "etag": null,
+          "http_status": null,
+          "last_modified": null,
+          "raw_sha256": null,
+          "retrieved_at": "2026-08-04T07:06:12.846257+00:00",
+          "semantic_sha256": null
+        }
+      ],
+      "resource_id": "historical",
+      "status": "request_failed",
+      "url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=9f3c874d-6407-44f6-881c-7f9de1dcf31e"
+    },
+    "post_2018": {
+      "attempts": [
+        {
+          "content_length": null,
+          "error": "ConnectionError",
+          "etag": null,
+          "http_status": null,
+          "last_modified": null,
+          "raw_sha256": null,
+          "retrieved_at": "2026-08-04T07:06:12.746929+00:00",
+          "semantic_sha256": null
+        },
+        {
+          "content_length": null,
+          "error": "ConnectionError",
+          "etag": null,
+          "http_status": null,
+          "last_modified": null,
+          "raw_sha256": null,
+          "retrieved_at": "2026-08-04T07:06:12.842149+00:00",
+          "semantic_sha256": null
+        }
+      ],
+      "resource_id": "post_2018",
+      "status": "request_failed",
+      "url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517"
+    }
+  }
+}

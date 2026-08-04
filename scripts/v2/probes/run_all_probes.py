@@ -13,6 +13,7 @@ if __package__ in {None, ""}:
 from scripts.v2.core import load_yaml, repo_root, write_json
 from scripts.v2.probes.common import FINAL_STATUSES, classify
 from scripts.v2.probes.probe_taiex import run as run_taiex
+from scripts.v2.probes.probe_dnb import run as run_dnb
 
 
 WINDOWS = [
@@ -91,6 +92,20 @@ def main() -> int:
             result["repeatability"]["status"] = "completed"
             result["technical_access"]["live_access_confirmed"] = True
             result["data_quality"]["quality_gate_confirmed"] = taiex_quality_gate(live)
+            result["final_probe_status"] = classify(
+                result["licence_assessment"]["values"],
+                result["licence_assessment"]["third_party_rights_status"],
+                result["technical_access"]["live_access_confirmed"],
+                result["data_quality"]["quality_gate_confirmed"],
+                candidate["historical_coverage_confirmed"],
+            )
+        if args.live and candidate["market_id"] == "aex_dnb":
+            live = run_dnb(args.root)
+            result["mode"] = "live"
+            result["technical_access"]["live_access_confirmed"] = live["access_confirmed"]
+            result["technical_access"]["direct_resource_probe"] = live["resources"]
+            result["technical_access"]["json_structures"] = live["json_structures"]
+            result["repeatability"] = {key: value["status"] for key, value in live["resources"].items()}
             result["final_probe_status"] = classify(
                 result["licence_assessment"]["values"],
                 result["licence_assessment"]["third_party_rights_status"],
