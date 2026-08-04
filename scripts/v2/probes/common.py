@@ -10,6 +10,7 @@ LICENCE_VALUES = {"yes", "no", "unclear", "not_applicable"}
 FINAL_STATUSES = {
     "open_core_candidate_pass", "open_core_candidate_conditional", "rights_unresolved",
     "technical_access_blocked", "data_quality_fail", "historical_coverage_fail", "not_suitable",
+    "credential_required", "data_definition_unresolved",
 }
 
 

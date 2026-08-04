@@ -50,20 +50,21 @@ candidates:
     city_id: seoul
     source_id: korea_public_data_fsc_index_api
     official_documents:
-      - https://www.data.go.kr/
-      - https://www.fsc.go.kr/eng/
+      - https://www.data.go.kr/en/data/15094807/openapi.do
+      - https://www.data.go.kr/catalog/15094807/openapi.json
+      - https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex
     licence_assessment:
-      licence_name: "Public Data Portal metadata/licence requires dataset-specific confirmation"
-      evidence_urls: ["https://www.data.go.kr/"]
-      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
+      licence_name: "Portal metadata: use-permission scope unrestricted; third-party KRX rights not explicitly resolved"
+      evidence_urls: ["https://www.data.go.kr/catalog/15094807/openapi.json", "https://www.data.go.kr/en/data/15094807/openapi.do"]
+      values: {download_allowed: "yes", automated_access_allowed: "yes", long_term_storage_allowed: unclear, academic_research_allowed: "yes", transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
       third_party_rights_status: unclear
-    third_party_rights: {status: unclear, reason: "No dataset-specific KOSPI licence or index-rights statement was retrieved without a verified catalogue record."}
-    technical_access: {account_required: unclear, api_key_required: yes, live_access_confirmed: false, actual_resource_url: null, access_notes: "A Service Key is required for the candidate API; none is present or requested."}
-    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No credentialed payload inspected; field and historical claims are deliberately unverified."]}
+    third_party_rights: {status: third_party_rights_unresolved, reason: "FSC portal identifies Korea Exchange index data, but the consulted public contract does not expressly settle public redistribution of KRX-index payloads."}
+    technical_access: {account_required: yes, api_key_required: yes, live_access_confirmed: false, actual_resource_url: "https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex", access_notes: "A free Service Key is required. No key is stored in or requested by the repository."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No credentialed payload inspected; no window, sequence, field, or historical-coverage claim is inferred."]}
     historical_coverage_confirmed: false
     calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://global.krx.co.kr/"}
     repeatability: {status: request_not_run, reason: "Credentialed request intentionally not attempted without a Service Key."}
-    blocking_issues: ["Free Service Key and exact official API catalogue record required.", "Licence scope and third-party index rights unresolved."]
+    blocking_issues: ["KOREA_DATA_GO_KR_SERVICE_KEY is required for official API payload validation.", "KRX third-party redistribution rights remain unresolved at the public-contract level."]
   - market_id: aex_dnb
     city_id: amsterdam
     source_id: dnb_daily_stock_market_indices

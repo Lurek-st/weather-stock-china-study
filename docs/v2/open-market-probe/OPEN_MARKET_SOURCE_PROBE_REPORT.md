@@ -7,13 +7,21 @@
 | Candidate | Technical probe | Rights/quality conclusion | Recommended status |
 | --- | --- | --- | --- |
 | Taipei—TAIEX | Dataset 11755, its registered TWSE CSV resource, and the RWD JSON report were directly checked. The three prescribed samples and repeated requests succeeded. | Dataset 11755 applies the Open Government Data License v1.0 to the primary-data resource; previous close/return are deterministically derived from the preceding valid trading row. | `open_core_candidate_conditional` |
-| Seoul—KOSPI | Public portal home page is reachable, but no verified KOSPI catalogue/API record was queried. The contemplated API needs a free Service Key, which was neither found nor requested. | Licence scope, KOSPI identifier, fields, limits, historical coverage and index rights are unverified. | `technical_access_blocked` |
+| Seoul—KOSPI | FSC dataset 15094807 and its `getStockMarketIndex` operation were directly verified. The local Service Key is absent, so no API payload was requested. | FSC metadata declares unrestricted use-permission scope, but the public contract does not expressly settle KRX raw/canonical/derived redistribution rights. KOSPI series identity and data quality are unverified. | `credential_required` |
 | Amsterdam—AEX/DNB | The Dutch catalogue still lists both registered JSON resources as CC-BY 4.0. A bounded Windows diagnostic returned explicit NXDOMAIN for `statistiek.api.dnb.nl` through the default resolver, Cloudflare, and Google; direct no-proxy curl could not resolve the host. No cookie, alternate endpoint, or access-control bypass was used. | Resource-file content, AEX definition, and AEX/international-series provenance remain unreadable; catalogue licence does not prove all third-party index rights. DNB's newer API needs a My DNB Public subscription for available datasets, but this dataset's migration is unconfirmed. | `technical_access_blocked` |
 | Lima—BVL/SMV | Peru's portal is reachable, but the bounded official search did not yield a verified SMV/BVL broad-index data dictionary plus actual resource. | ODbL applicability and the distinction between locally owned BVL and S&P/BVL/other third-party series are unresolved. | `technical_access_blocked` |
 
 ## DNB index inventory
 
 No inventory is reported. The prescribed DNB resourcefile hostname returns public-DNS NXDOMAIN, while the official catalogue still lists both exact URLs. Therefore it would be misleading to claim that the resource contains (or excludes) AEX, S&P 500, FTSE 100, DAX, Nikkei, TOPIX, or any other index. Each remains `third_party_rights_unresolved` pending direct resource access and source-level provenance.
+
+## KOSPI credential boundary
+
+The current machine has no `KOREA_DATA_GO_KR_SERVICE_KEY`. The KOSPI adapter,
+official API contract, redaction tests, and local-only raw-response policy are
+prepared, but no credentialed request, index inventory, fixed-window result,
+or historical-coverage assertion has been made. This is not a production
+integration or a historical backfill. TAIEX and AEX conclusions are unchanged.
 
 ## BVL data dictionary findings
 

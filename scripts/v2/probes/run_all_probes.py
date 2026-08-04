@@ -14,6 +14,7 @@ from scripts.v2.core import load_yaml, repo_root, write_json
 from scripts.v2.probes.common import FINAL_STATUSES, classify
 from scripts.v2.probes.probe_taiex import run as run_taiex
 from scripts.v2.probes.probe_dnb import run as run_dnb
+from scripts.v2.probes.probe_kospi import build_result as build_kospi_result
 
 
 WINDOWS = [
@@ -83,7 +84,7 @@ def main() -> int:
     for candidate in config["candidates"]:
         if args.market and candidate["market_id"] != args.market:
             continue
-        result = result_for(candidate, live=False)
+        result = build_kospi_result(args.root, live=args.live) if candidate["market_id"] == "kospi" else result_for(candidate, live=False)
         if args.live and candidate["market_id"] == "taiex":
             live = run_taiex(args.root)
             result["mode"] = "live"
