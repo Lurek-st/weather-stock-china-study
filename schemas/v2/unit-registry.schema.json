@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"unit-registry-v2","type":"object","required":["schema_version","units"],"properties":{"schema_version":{"const":"2.0.0"},"units":{"type":"object","minProperties":9,"additionalProperties":{"type":"object","required":["canonical","source","transform"]}}}}

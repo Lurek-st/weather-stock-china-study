@@ -7,6 +7,8 @@ on:
       - "data/audits/**/*.json"
       - "inbox/**/*.md"
       - "schemas/**"
+      - "config/v2/**"
+      - "docs/v2/**"
       - "scripts/**"
       - "tests/**"
       - "requirements.txt"
@@ -16,6 +18,8 @@ on:
       - "data/audits/**/*.json"
       - "inbox/**/*.md"
       - "schemas/**"
+      - "config/v2/**"
+      - "docs/v2/**"
       - "scripts/**"
       - "tests/**"
       - "requirements.txt"
@@ -33,6 +37,8 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install -r requirements.txt
       - run: pytest -q
+      - name: Validate V2 registries without production credentials
+        run: python scripts/v2/check_source_readiness.py
       - name: Validate canonical records when present
         shell: bash
         run: |

@@ -17,6 +17,10 @@ venv/
 env/
 .env
 .env.*
+!.env.example
+.cdsapirc
+*.key
+*.pem
 
 # IDE / 编辑器
 .idea/
@@ -33,4 +37,13 @@ env/
 analysis/results/*.csv
 analysis/results/*.json
 .weekly-import-tmp/
+data/source_raw/v2/**/r*-*
+data/canonical/v2/**/*.parquet
+data/canonical/v2/**/*.csv
+data/canonical/v2/**/*.json
+data/panel/v2/**/*.parquet
+data/panel/v2/**/*.csv
+data/panel/v2/**/*.json
+data/audits/v2/*.json
+data/audits/v2/*.md
 Thumbs.db

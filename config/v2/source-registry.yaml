@@ -1,0 +1,70 @@
+schema_version: 2.0.0
+registry_version: 2.0.0
+conflict_precedence: [official_final, official_provisional, registered_primary_final, registered_backup, news_explanation_only]
+sources:
+  - source_id: cds_era5t_hourly
+    provider: ECMWF Copernicus Climate Change Service
+    official: true
+    dataset: reanalysis-era5-single-levels
+    documentation_url: https://confluence.ecmwf.int/display/CKB/ERA5%3A+data+documentation
+    access_url: https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels
+    access_mode: cdsapi
+    account_required: true
+    local_credentials_required: true
+    paid: false
+    fields: [2m_temperature, 2m_dewpoint_temperature, total_precipitation, total_cloud_cover, 10m_u_component_of_wind, 10m_v_component_of_wind, instantaneous_10m_wind_gust, surface_solar_radiation_downwards]
+    coverage: "1940-present"
+    resolution: hourly
+    latency: about_5_days
+    status: provisional
+    automation: enabled_with_credentials
+    licence: CC-BY-4.0 catalogue terms and attribution
+    role: primary
+    fallback: wait_do_not_impute
+  - source_id: cds_era5_hourly
+    provider: ECMWF Copernicus Climate Change Service
+    official: true
+    dataset: reanalysis-era5-single-levels
+    documentation_url: https://confluence.ecmwf.int/display/CKB/ERA5%3A+data+documentation
+    access_url: https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels
+    access_mode: cdsapi
+    account_required: true
+    local_credentials_required: true
+    paid: false
+    fields: [2m_temperature, 2m_dewpoint_temperature, total_precipitation, total_cloud_cover, 10m_u_component_of_wind, 10m_v_component_of_wind, instantaneous_10m_wind_gust, surface_solar_radiation_downwards]
+    coverage: "1940-present"
+    resolution: hourly
+    latency: final_about_2_to_3_months
+    status: final
+    automation: enabled_with_credentials
+    licence: CC-BY-4.0 catalogue terms and attribution
+    role: frozen_primary
+    fallback: retain_provisional_panel_separately
+  - source_id: noaa_ghcnh
+    provider: NOAA NCEI
+    official: true
+    dataset: Global Historical Climatology Network hourly
+    documentation_url: https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly
+    access_url: https://www.ncei.noaa.gov/data/global-hourly/
+    access_mode: https_bulk
+    account_required: false
+    local_credentials_required: false
+    paid: false
+    fields: [station_temperature, dew_point, wind, precipitation, sky_condition]
+    coverage: station_dependent
+    resolution: hourly_synoptic
+    latency: source_dependent
+    status: station_observation
+    automation: enabled
+    licence: US_government_data_with_source_attribution
+    role: validation
+    fallback: do_not_block_core
+  - {source_id: bse50_official_manual, provider: Beijing Stock Exchange, official: true, dataset: BSE 50 historical close, documentation_url: https://www.bse.cn/, access_url: null, access_mode: controlled_manual_file, account_required: false, local_credentials_required: false, paid: unknown, fields: [official_close], coverage: unknown, resolution: daily, latency: unknown, status: manual_source_required, automation: disabled_pending_stable_endpoint_and_licence, licence: requires_confirmation, role: primary, fallback: no_news_values}
+  - {source_id: sse_composite_official_manual, provider: Shanghai Stock Exchange, official: true, dataset: SSE Composite historical close, documentation_url: "https://www.sse.com.cn/market/sseindex/indexlist/basic/index.shtml?COMPANY_CODE=000001", access_url: null, access_mode: controlled_manual_file, account_required: false, local_credentials_required: false, paid: unknown, fields: [official_close], coverage: unknown, resolution: daily, latency: unknown, status: manual_source_required, automation: disabled_pending_stable_endpoint_and_licence, licence: requires_confirmation, role: primary, fallback: no_news_values}
+  - {source_id: szse_component_official_manual, provider: Shenzhen Securities Information / CNI, official: true, dataset: SZSE Component historical close, documentation_url: "https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001", access_url: null, access_mode: controlled_manual_file, account_required: false, local_credentials_required: false, paid: unknown, fields: [official_close], coverage: unknown, resolution: daily, latency: unknown, status: manual_source_required, automation: disabled_pending_stable_endpoint_and_licence, licence: requires_confirmation, role: primary, fallback: no_news_values}
+  - {source_id: jpx_topix_official, provider: Japan Exchange Group, official: true, dataset: TOPIX Historical Index Value, documentation_url: https://www.jpx.co.jp/english/markets/indices/topix/index.html, access_url: null, access_mode: controlled_official_file, account_required: false, local_credentials_required: false, paid: false_for_published_files, fields: [official_close], coverage: annual_files_stationary_scope_to_verify, resolution: daily, latency: publication_dependent, status: official_manual_import, automation: disabled_until_direct_file_contract_frozen, licence: JPX_terms_apply, role: primary, fallback: no_news_values}
+  - {source_id: nse_nifty50_official, provider: National Stock Exchange of India, official: true, dataset: Historical Index Data, documentation_url: https://www.nseindia.com/reports-indices-historical-index-data, access_url: null, access_mode: controlled_official_file, account_required: false, local_credentials_required: false, paid: false_for_web_report, fields: [official_close], coverage: query_dependent, resolution: daily, latency: end_of_day, status: official_manual_import, automation: disabled_due_session_and_terms_review, licence: NSE_terms_apply, role: primary, fallback: no_news_values}
+  - {source_id: lseg_ftse100_licensed, provider: FTSE Russell / LSEG, official: true, dataset: FTSE 100 Index values, documentation_url: https://www.lseg.com/en/ftse-russell/indices/uk, access_url: null, access_mode: licensed_vendor_or_controlled_file, account_required: true, local_credentials_required: possible, paid: likely_for_redistributable_history, fields: [official_close], coverage: licence_dependent, resolution: daily, latency: licence_dependent, status: manual_source_required, automation: disabled_without_data_licence, licence: proprietary, role: primary, fallback: no_news_values}
+  - {source_id: stoxx_dax_licensed, provider: STOXX Ltd., official: true, dataset: DAX Index values, documentation_url: "https://www.stoxx.com/index-details?symbol=DAX", access_url: null, access_mode: licensed_vendor_or_controlled_file, account_required: true, local_credentials_required: possible, paid: likely_for_history, fields: [official_close], coverage: licence_dependent, resolution: daily, latency: licence_dependent, status: manual_source_required, automation: disabled_without_data_licence, licence: proprietary, role: primary, fallback: no_news_values}
+  - {source_id: spdji_sp500_licensed, provider: S&P Dow Jones Indices, official: true, dataset: S&P 500 Index values, documentation_url: https://www.spglobal.com/spdji/en/indices/equity/sp-500/, access_url: null, access_mode: licensed_vendor_or_controlled_file, account_required: true, local_credentials_required: possible, paid: likely_for_redistributable_history, fields: [official_close], coverage: licence_dependent, resolution: daily, latency: licence_dependent, status: manual_source_required, automation: disabled_without_data_licence, licence: proprietary, role: primary, fallback: fred_conditional_nonproduction}
+  - {source_id: fred_sp500_conditional, provider: Federal Reserve Bank of St. Louis (source S&P DJI), official: false, dataset: FRED SP500, documentation_url: https://fred.stlouisfed.org/series/SP500, access_url: https://api.stlouisfed.org/fred/series/observations, access_mode: api, account_required: true, local_credentials_required: true, paid: false, fields: [close], coverage: rolling_limited_by_source, resolution: daily, latency: daily, status: conditional_research_fallback, automation: disabled_until_licence_review, licence: third_party_series_terms_apply, role: backup, fallback: unavailable}

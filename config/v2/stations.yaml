@@ -1,0 +1,13 @@
+schema_version: 2.0.0
+registry_version: 2.0.0
+inventory_source: https://www.ncei.noaa.gov/pub/data/noaa/isd-history.csv
+inventory_checked: 2026-08-04
+stations:
+  - {city_id: beijing, primary_id: "54511099999", primary_name: "Beijing Capital International Airport", primary_distance_km: 24.7, primary_type: airport, backup_id: "54405099999", backup_name: Huailai, backup_distance_km: 95.9, missing_risk: medium}
+  - {city_id: shanghai, primary_id: "58367099999", primary_name: "Hongqiao International", primary_distance_km: 13.6, primary_type: airport, backup_id: "58362099999", backup_name: Shanghai, backup_distance_km: 18.9, missing_risk: medium}
+  - {city_id: shenzhen, primary_id: "45032099999", primary_name: "Ta Kwu Ling", primary_distance_km: 9.5, primary_type: land_station, backup_id: "45035099999", backup_name: "Lau Fau Shan", backup_distance_km: 11.4, missing_risk: high_cross_jurisdiction}
+  - {city_id: tokyo, primary_id: "47671399999", primary_name: Ichigaya, primary_distance_km: 6.3, primary_type: land_station, backup_id: "47683099999", backup_name: "Chofu Airport", backup_distance_km: 10.6, missing_risk: medium}
+  - {city_id: mumbai, primary_id: "43003099999", primary_name: "Chhatrapati Shivaji Maharaj International", primary_distance_km: 1.8, primary_type: airport, backup_id: "43057099999", backup_name: "Bombay Colaba", backup_distance_km: 20.6, missing_risk: medium}
+  - {city_id: london, primary_id: "03770099999", primary_name: "St James Park", primary_distance_km: 1.1, primary_type: land_station, backup_id: "03768399999", backup_name: "London City", backup_distance_km: 12.7, missing_risk: medium}
+  - {city_id: frankfurt, primary_id: "10637099999", primary_name: "Frankfurt Main", primary_distance_km: 13.7, primary_type: airport, backup_id: "10633099999", backup_name: "Wiesbaden AAF", backup_distance_km: 26.4, missing_risk: low}
+  - {city_id: new_york, primary_id: "72505394728", primary_name: "Central Park", primary_distance_km: 8.0, primary_type: land_station, backup_id: "72503014732", backup_name: "La Guardia Airport", backup_distance_km: 13.4, missing_risk: low}

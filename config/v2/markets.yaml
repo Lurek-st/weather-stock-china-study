@@ -1,0 +1,51 @@
+schema_version: 2.0.0
+registry_version: 2.0.0
+markets:
+  - market_id: bse50
+    city_id: beijing
+    currency: CNY
+    timezone: Asia/Shanghai
+    session: {open: "09:30", close: "15:00", breaks: [["11:30", "13:00"]]}
+    calendar_source_id: bse_calendar_official_manual
+  - market_id: sse_composite
+    city_id: shanghai
+    currency: CNY
+    timezone: Asia/Shanghai
+    session: {open: "09:30", close: "15:00", breaks: [["11:30", "13:00"]]}
+    calendar_source_id: sse_calendar_official_manual
+  - market_id: szse_component
+    city_id: shenzhen
+    currency: CNY
+    timezone: Asia/Shanghai
+    session: {open: "09:30", close: "15:00", breaks: [["11:30", "13:00"]]}
+    calendar_source_id: szse_calendar_official_manual
+  - market_id: topix
+    city_id: tokyo
+    currency: JPY
+    timezone: Asia/Tokyo
+    session: {open: "09:00", close: "15:30", breaks: [["11:30", "12:30"]]}
+    calendar_source_id: jpx_calendar_official_manual
+  - market_id: nifty50
+    city_id: mumbai
+    currency: INR
+    timezone: Asia/Kolkata
+    session: {open: "09:15", close: "15:30", breaks: []}
+    calendar_source_id: nse_calendar_official_manual
+  - market_id: ftse100
+    city_id: london
+    currency: GBP
+    timezone: Europe/London
+    session: {open: "08:00", close: "16:30", breaks: []}
+    calendar_source_id: lse_calendar_official_manual
+  - market_id: dax
+    city_id: frankfurt
+    currency: EUR
+    timezone: Europe/Berlin
+    session: {open: "09:00", close: "17:30", breaks: []}
+    calendar_source_id: xetra_calendar_official_manual
+  - market_id: sp500
+    city_id: new_york
+    currency: USD
+    timezone: America/New_York
+    session: {open: "09:30", close: "16:00", breaks: []}
+    calendar_source_id: nyse_calendar_official_manual
