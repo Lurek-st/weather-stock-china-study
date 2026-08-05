@@ -42,3 +42,8 @@ status remains `not_connected`, `research_ready`/`frozen` remain false, weather
 is not integrated, the 2020--2025 calendar is still unresolved, and historical
 backfill remains blocked. Evidence:
 `docs/v2/open-market-probe/TAIEX_2026_PILOT_ACCEPTANCE.md`.
+
+Audit repair (2026-08-05): the acceptance audit implementation was repaired
+(duplicate detection before de-dup, full validation interval, independent
+two-run evidence, evidence-derived closure conclusion). This changes no market
+data, no research conclusion, and no frozen status.

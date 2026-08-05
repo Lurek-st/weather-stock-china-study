@@ -32,3 +32,10 @@ that window. Consequently:
 
 See `docs/v2/open-market-probe/TAIEX_2026_PILOT_ACCEPTANCE.md` and
 `data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json`.
+
+Audit repair (2026-08-05): the pilot acceptance now validates the full
+`2026-02-26 .. 2026-03-08` interval (previous trading day, official closure,
+weekends), counts duplicate dates before any de-duplication, consumes two
+independent live-run evidence files, and derives the extraordinary-closure
+conclusion from stored, hashed TWSE announcement evidence. This is an audit
+implementation repair; it changes no market data and no frozen status.

@@ -28,3 +28,14 @@ Resulting state: `pilot_calendar_status = calendar_verified_for_2026_pilot_windo
 `adapter_status = market_only_pilot_accepted`. Step 4 (weather end-to-end) is
 not started. Full-history calendar (2020--2025) remains unresolved and
 historical backfill remains blocked.
+
+Audit repair (2026-08-05): the acceptance audit was strengthened (duplicate
+detection before de-dup; full validation interval 2026-02-26..03-08 including
+closures and weekends; two independent run evidence files; closure conclusion
+derived from stored TWSE announcement evidence). Run the tools in this order:
+
+```text
+python scripts/v2/taiex_extraordinary_closures.py
+python scripts/v2/taiex_repeatability.py
+python scripts/v2/taiex_pilot_acceptance.py
+```

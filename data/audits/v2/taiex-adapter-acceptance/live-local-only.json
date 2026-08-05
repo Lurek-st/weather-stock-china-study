@@ -1,8 +1,115 @@
 {
   "calendar_status": "calendar_verification_partial",
   "mode": "live_local_only",
-  "normalized_sha256": "b8a04a207b845a82526c472f57364638513787197276b3d22fcf9709339a47c1",
   "production_status": "not_connected",
-  "record_count": 6,
-  "retrieved_at": "2026-08-05T08:52:36.358873+00:00"
+  "record_count": 34,
+  "runs": [
+    {
+      "attempts": [
+        {
+          "artifact_action": "skipped_as_identical",
+          "artifact_path": ".local\\source-raw\\taiex\\twse_taiex_official\\20260201\\r0001-66f10e8da761.json",
+          "artifact_revision": 1,
+          "completed_at": "2026-08-05T09:20:13.516771+00:00",
+          "content_length": 937,
+          "content_type": "application/json;charset=UTF-8",
+          "etag": null,
+          "http_status": 200,
+          "incoming_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+          "incoming_row_count": 12,
+          "incoming_semantic_sha256": "fb21ab1a4c532cb16ca269a45054e0f4070c53c5dede0d6c1b40381c0247c0ae",
+          "last_modified": null,
+          "request_month": "20260201",
+          "request_number": 1,
+          "request_parameters": {
+            "date": "20260201",
+            "response": "json"
+          },
+          "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+          "skipped_as_identical": true,
+          "started_at": "2026-08-05T09:20:11.872896+00:00"
+        },
+        {
+          "artifact_action": "skipped_as_identical",
+          "artifact_path": ".local\\source-raw\\taiex\\twse_taiex_official\\20260301\\r0001-e8926685144b.json",
+          "artifact_revision": 1,
+          "completed_at": "2026-08-05T09:20:14.817683+00:00",
+          "content_length": 1557,
+          "content_type": "application/json;charset=UTF-8",
+          "etag": null,
+          "http_status": 200,
+          "incoming_raw_sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+          "incoming_row_count": 22,
+          "incoming_semantic_sha256": "e03ec97d4f6692888b39796208ecfffce048e792662a3b82b97b51c114c47b7f",
+          "last_modified": null,
+          "request_month": "20260301",
+          "request_number": 2,
+          "request_parameters": {
+            "date": "20260301",
+            "response": "json"
+          },
+          "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+          "skipped_as_identical": true,
+          "started_at": "2026-08-05T09:20:13.519328+00:00"
+        }
+      ],
+      "plan_raw_sha256": "45f4801444bd005e164401e41e7a89e7bfa98e26501362a024403999c15b09d8",
+      "plan_semantic_sha256": "52f5512ae589c345021200d39091a06ebcdd3888e4b76a5f8aead29d556edcf4",
+      "run_id": "run-1"
+    },
+    {
+      "attempts": [
+        {
+          "artifact_action": "skipped_as_identical",
+          "artifact_path": ".local\\source-raw\\taiex\\twse_taiex_official\\20260201\\r0001-66f10e8da761.json",
+          "artifact_revision": 1,
+          "completed_at": "2026-08-05T09:20:16.223516+00:00",
+          "content_length": 937,
+          "content_type": "application/json;charset=UTF-8",
+          "etag": null,
+          "http_status": 200,
+          "incoming_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+          "incoming_row_count": 12,
+          "incoming_semantic_sha256": "fb21ab1a4c532cb16ca269a45054e0f4070c53c5dede0d6c1b40381c0247c0ae",
+          "last_modified": null,
+          "request_month": "20260201",
+          "request_number": 1,
+          "request_parameters": {
+            "date": "20260201",
+            "response": "json"
+          },
+          "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+          "skipped_as_identical": true,
+          "started_at": "2026-08-05T09:20:14.822504+00:00"
+        },
+        {
+          "artifact_action": "skipped_as_identical",
+          "artifact_path": ".local\\source-raw\\taiex\\twse_taiex_official\\20260301\\r0001-e8926685144b.json",
+          "artifact_revision": 1,
+          "completed_at": "2026-08-05T09:20:18.132592+00:00",
+          "content_length": 1557,
+          "content_type": "application/json;charset=UTF-8",
+          "etag": null,
+          "http_status": 200,
+          "incoming_raw_sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+          "incoming_row_count": 22,
+          "incoming_semantic_sha256": "e03ec97d4f6692888b39796208ecfffce048e792662a3b82b97b51c114c47b7f",
+          "last_modified": null,
+          "request_month": "20260301",
+          "request_number": 2,
+          "request_parameters": {
+            "date": "20260301",
+            "response": "json"
+          },
+          "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+          "skipped_as_identical": true,
+          "started_at": "2026-08-05T09:20:16.226395+00:00"
+        }
+      ],
+      "plan_raw_sha256": "45f4801444bd005e164401e41e7a89e7bfa98e26501362a024403999c15b09d8",
+      "plan_semantic_sha256": "52f5512ae589c345021200d39091a06ebcdd3888e4b76a5f8aead29d556edcf4",
+      "run_id": "run-2"
+    }
+  ],
+  "same_record_count_across_runs": true
 }

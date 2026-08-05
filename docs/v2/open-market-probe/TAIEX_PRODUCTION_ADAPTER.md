@@ -23,3 +23,7 @@ recalculation, and OHLC checks all pass), so:
 
 See `docs/v2/open-market-probe/TAIEX_2026_PILOT_ACCEPTANCE.md` and
 `data/audits/v2/taiex-adapter-acceptance/taiex-2026-market-only.json`.
+
+Audit repair (2026-08-05): repeatability is evidenced by two independent live
+runs with per-attempt incoming-response hashes and plan-level combined hashes;
+the adapter itself is unchanged.

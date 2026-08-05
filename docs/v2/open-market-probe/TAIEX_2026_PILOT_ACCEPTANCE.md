@@ -35,19 +35,41 @@ request plan (2026-02 and 2026-03). Raw responses are stored append-only under
 ignored `.local/source-raw/taiex/`; the second run was byte-identical and
 skipped by the append-only store (no new revision).
 
-Repeatability classification: `byte_identical`.
+### Audit repair (2026-08-05): independent two-run evidence
+
+Repeatability is now evidenced by two independent live runs
+(`.local/source-probes/taiex-2026-repeatability/run-1.json` and `run-2.json`,
+not committed). Each attempt records its own incoming-response SHA-256 before
+the append-only store is consulted. Per-month first/second raw and semantic
+hashes, plus plan-level combined hashes (normalized JSON over months sorted by
+month), are stored in the machine audit. Classification: `byte_identical`.
+
+## Extraordinary closure check
+
+The TWSE official news list was fetched once under controlled conditions and
+the raw response stored append-only under
+`.local/source-probes/taiex-extraordinary-closures/`. The acceptance audit
+derives its conclusion from that stored, hashed evidence (498 announcements,
+0 keyword matches inside the pilot window) instead of a hard-coded string:
+
+`extraordinary_closure_evidence: none_found_in_official_sources`
 
 ## Calendar x market cross-validation
 
+The validation interval is `2026-02-26 .. 2026-03-08` and explicitly covers
+the preceding trading day (02-26), the official closure (02-27), and the
+weekends (02-28, 03-01, 03-07, 03-08). Duplicate trading dates are counted on
+the raw row sequence before any de-duplication.
+
 | Check | Result |
 | --- | --- |
-| Expected open days | 5 (Mon-Fri) |
-| Market records in scope | 6 (2026-02-26 + Mon-Fri) |
-| Matched open dates | 5 / 5 |
+| Expected open days (interval) | 6 (02-26 + Mon-Fri) |
+| Matched open dates | 6 / 6 (from actual matches) |
 | Missing market dates | none |
-| Unexpected market dates | none |
-| Duplicate dates | none |
-| Calendar match rate | 1.0 |
+| Unexpected market dates | none (incl. 02-27/02-28/03-01/03-07/03-08) |
+| Duplicate dates | none (checked before de-dup) |
+| Calendar match rate | 1.0 (11/11) |
+| Request-scope records / validation-interval / pilot-week | 6 / 6 / 5 |
 | Previous close match | true |
 | Return recalculation match | true |
 | OHLC validation | passed |
@@ -79,4 +101,14 @@ start any historical backfill.
 
 - `data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json`
 - `data/audits/v2/taiex-adapter-acceptance/taiex-2026-market-only.json`
+- `data/audits/v2/taiex-adapter-acceptance/live-local-only.json`
 - Raw responses: `.local/source-raw/taiex/` (ignored, append-only)
+- Run evidence: `.local/source-probes/taiex-2026-repeatability/` (ignored)
+- Announcement evidence: `.local/source-probes/taiex-extraordinary-closures/` (ignored)
+
+## Note on audit repair
+
+The 2026-08-05 repair commit strengthens the audit implementation (duplicate
+detection before de-dup, full validation interval, independent two-run
+evidence, evidence-derived closure conclusion). It changes no market data, no
+source conclusion, and no frozen status.
