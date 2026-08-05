@@ -1,0 +1,263 @@
+{
+  "adapter_status": "market_only_pilot_accepted",
+  "audit_type": "taiex_2026_market_only_pilot",
+  "city_id": "taipei",
+  "cross_validation": {
+    "calendar_expected_open_count": 5,
+    "calendar_match_rate": 1.0,
+    "daily": [
+      {
+        "calendar_expected_status": "open",
+        "calendar_reason": "official_open_session",
+        "close": "35095.09",
+        "date": "2026-03-02",
+        "extraordinary_status": "none_found_in_official_sources",
+        "high": "35345.72",
+        "low": "34605.36",
+        "market_record_present": true,
+        "match_status": "matched_open",
+        "open": "35277.48",
+        "quality_flags": [],
+        "source_revision": 1,
+        "weekday": "Monday"
+      },
+      {
+        "calendar_expected_status": "open",
+        "calendar_reason": "official_open_session",
+        "close": "34323.65",
+        "date": "2026-03-03",
+        "extraordinary_status": "none_found_in_official_sources",
+        "high": "35264.59",
+        "low": "34323.65",
+        "market_record_present": true,
+        "match_status": "matched_open",
+        "open": "35106.22",
+        "quality_flags": [],
+        "source_revision": 1,
+        "weekday": "Tuesday"
+      },
+      {
+        "calendar_expected_status": "open",
+        "calendar_reason": "official_open_session",
+        "close": "32828.88",
+        "date": "2026-03-04",
+        "extraordinary_status": "none_found_in_official_sources",
+        "high": "34228.75",
+        "low": "32828.88",
+        "market_record_present": true,
+        "match_status": "matched_open",
+        "open": "34228.75",
+        "quality_flags": [],
+        "source_revision": 1,
+        "weekday": "Wednesday"
+      },
+      {
+        "calendar_expected_status": "open",
+        "calendar_reason": "official_open_session",
+        "close": "33672.94",
+        "date": "2026-03-05",
+        "extraordinary_status": "none_found_in_official_sources",
+        "high": "34319.68",
+        "low": "33472.91",
+        "market_record_present": true,
+        "match_status": "matched_open",
+        "open": "33620.74",
+        "quality_flags": [],
+        "source_revision": 1,
+        "weekday": "Thursday"
+      },
+      {
+        "calendar_expected_status": "open",
+        "calendar_reason": "official_open_session",
+        "close": "33599.54",
+        "date": "2026-03-06",
+        "extraordinary_status": "none_found_in_official_sources",
+        "high": "33829.49",
+        "low": "33322.52",
+        "market_record_present": true,
+        "match_status": "matched_open",
+        "open": "33483.94",
+        "quality_flags": [],
+        "source_revision": 1,
+        "weekday": "Friday"
+      }
+    ],
+    "duplicate_dates": [],
+    "issues": [],
+    "market_record_count": 6,
+    "matched_open_dates": [
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-04",
+      "2026-03-05",
+      "2026-03-06"
+    ],
+    "missing_market_dates": [],
+    "ohlc_errors": [],
+    "ohlc_validation_passed": true,
+    "pilot_week_record_count": 5,
+    "previous_close_check": [
+      {
+        "actual_previous_close": 35414.49,
+        "date": "2026-03-02",
+        "expected_previous_close": 35414.49,
+        "expected_previous_open_date": "2026-02-26",
+        "match": true
+      },
+      {
+        "actual_previous_close": 35095.09,
+        "date": "2026-03-03",
+        "expected_previous_close": 35095.09,
+        "expected_previous_open_date": "2026-03-02",
+        "match": true
+      },
+      {
+        "actual_previous_close": 34323.65,
+        "date": "2026-03-04",
+        "expected_previous_close": 34323.65,
+        "expected_previous_open_date": "2026-03-03",
+        "match": true
+      },
+      {
+        "actual_previous_close": 32828.88,
+        "date": "2026-03-05",
+        "expected_previous_close": 32828.88,
+        "expected_previous_open_date": "2026-03-04",
+        "match": true
+      },
+      {
+        "actual_previous_close": 33672.94,
+        "date": "2026-03-06",
+        "expected_previous_close": 33672.94,
+        "expected_previous_open_date": "2026-03-05",
+        "match": true
+      }
+    ],
+    "previous_close_match": true,
+    "records_in_scope": [
+      "2026-02-26",
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-04",
+      "2026-03-05",
+      "2026-03-06"
+    ],
+    "return_recalculation": [
+      {
+        "date": "2026-03-02",
+        "match": true,
+        "recalculated": -0.9018907233
+      },
+      {
+        "date": "2026-03-03",
+        "match": true,
+        "recalculated": -2.1981422472
+      },
+      {
+        "date": "2026-03-04",
+        "match": true,
+        "recalculated": -4.3549272877
+      },
+      {
+        "date": "2026-03-05",
+        "match": true,
+        "recalculated": 2.5710898453
+      },
+      {
+        "date": "2026-03-06",
+        "match": true,
+        "recalculated": -0.2179791845
+      }
+    ],
+    "return_recalculation_match": true,
+    "unexpected_market_dates": [],
+    "unresolved_dates": []
+  },
+  "frozen": false,
+  "generated_at": "2026-08-05T08:59:09.546991+00:00",
+  "market_id": "taiex",
+  "pilot_ok": true,
+  "pilot_week": "2026-03-02",
+  "pilot_week_dates": [
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "production_status": "not_connected",
+  "raw_response_policy": "local_only:.local/source-raw/taiex; append-only",
+  "repeatability": {
+    "classification": "byte_identical",
+    "first_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+    "first_semantic_sha256": "2d7d3dba9d93c706a1f2038eb61e857db0c5ba8bb7d5cb8dc3d2c48efdb7b264",
+    "months": [
+      {
+        "first_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+        "first_semantic_sha256": "fb21ab1a4c532cb16ca269a45054e0f4070c53c5dede0d6c1b40381c0247c0ae",
+        "month": "20260201",
+        "second_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+        "second_semantic_sha256": "fb21ab1a4c532cb16ca269a45054e0f4070c53c5dede0d6c1b40381c0247c0ae"
+      },
+      {
+        "first_raw_sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+        "first_semantic_sha256": "e03ec97d4f6692888b39796208ecfffce048e792662a3b82b97b51c114c47b7f",
+        "month": "20260301",
+        "second_raw_sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+        "second_semantic_sha256": "e03ec97d4f6692888b39796208ecfffce048e792662a3b82b97b51c114c47b7f"
+      }
+    ],
+    "second_raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+    "second_semantic_sha256": "2d7d3dba9d93c706a1f2038eb61e857db0c5ba8bb7d5cb8dc3d2c48efdb7b264"
+  },
+  "repeatability_note": "adapter ran the identical request plan twice with --live --local-only; the second run was skipped by the append-only RawArtifactStore (same sha256, no new revision), so raw bytes are identical by construction",
+  "requests": [
+    {
+      "content_length": 937,
+      "content_type": "application/json;charset=UTF-8",
+      "etag": null,
+      "first_date": "2026-02-02",
+      "http_status": 200,
+      "last_date": "2026-02-26",
+      "last_modified": null,
+      "raw_sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+      "request_parameters": {
+        "date": "20260201",
+        "response": "json"
+      },
+      "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+      "retrieved_at": "2026-08-05T08:52:18.892909+00:00",
+      "revision": 1,
+      "row_count": 12,
+      "semantic_sha256": "fb21ab1a4c532cb16ca269a45054e0f4070c53c5dede0d6c1b40381c0247c0ae",
+      "source_month": "20260201",
+      "source_report": "115年02月 發行量加權股價指數歷史資料",
+      "source_title": "115年02月 發行量加權股價指數歷史資料"
+    },
+    {
+      "content_length": 1557,
+      "content_type": "application/json;charset=UTF-8",
+      "etag": null,
+      "first_date": "2026-03-02",
+      "http_status": 200,
+      "last_date": "2026-03-31",
+      "last_modified": null,
+      "raw_sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+      "request_parameters": {
+        "date": "20260301",
+        "response": "json"
+      },
+      "request_url": "https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST",
+      "retrieved_at": "2026-08-05T08:52:20.537324+00:00",
+      "revision": 1,
+      "row_count": 22,
+      "semantic_sha256": "e03ec97d4f6692888b39796208ecfffce048e792662a3b82b97b51c114c47b7f",
+      "source_month": "20260301",
+      "source_report": "115年03月 發行量加權股價指數歷史資料",
+      "source_title": "115年03月 發行量加權股價指數歷史資料"
+    }
+  ],
+  "research_ready": false,
+  "schema_version": "2.0.0",
+  "source_probe_status": "open_core_candidate_conditional"
+}

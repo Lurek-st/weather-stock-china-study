@@ -9,3 +9,22 @@
    one mature-week end-to-end acceptance.
 
 Do not download ERA5/ERA5T or start any historical backfill in these steps.
+
+## Status: 2026 market-only pilot accepted (2026-03-02 .. 2026-03-06)
+
+Steps 1--3 completed for the 2026 pilot window:
+
+- Official 2026 calendar used to select the earliest eligible week
+  (`2026-03-02 .. 2026-03-06`); no extraordinary closure announcement found in
+  official TWSE sources.
+- Candidate adapter run twice with `--live --local-only` (months 202602/202603);
+  raw responses append-only under `.local/source-raw/taiex/`, byte-identical
+  across runs.
+- Calendar x market cross-validation passed: 5/5 expected open days matched,
+  previous close and close-to-close returns recomputed independently, OHLC
+  checks passed, no duplicates or unexpected dates.
+
+Resulting state: `pilot_calendar_status = calendar_verified_for_2026_pilot_window`,
+`adapter_status = market_only_pilot_accepted`. Step 4 (weather end-to-end) is
+not started. Full-history calendar (2020--2025) remains unresolved and
+historical backfill remains blocked.
