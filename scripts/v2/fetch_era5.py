@@ -258,8 +258,29 @@ def cds_readiness(root: Path, home: Path | None = None) -> dict[str, Any]:
     }
 
 
-def validate_netcdf(path: Path, request: dict[str, Any]) -> None:
-    """Validate a staged NetCDF file before it enters the raw store."""
+def expected_timestamps(request: dict[str, Any]) -> set[datetime]:
+    """Expected UTC timestamps from the date x time cartesian product."""
+    expected: set[datetime] = set()
+    for day in request.get("date", []):
+        for hour in request.get("time", []):
+            hour_int = int(str(hour).split(":")[0])
+            expected.add(datetime.fromisoformat(f"{day}T{hour_int:02d}:00:00+00:00"))
+    return expected
+
+
+def _limited_iso(values: list[datetime], limit: int = 20) -> dict[str, Any]:
+    return {"count": len(values), "shown": [value.isoformat() for value in values[:limit]]}
+
+
+def validate_netcdf(path: Path, request: dict[str, Any]) -> dict[str, Any]:
+    """Exact UTC timestamp-set validation; returns a machine-readable summary.
+
+    The expected set is the date x time cartesian product interpreted in UTC.
+    Observed timestamps are normalized to whole hours (timezone-naive treated
+    as UTC, timezone-aware converted to UTC). Any missing, unexpected,
+    duplicate or non-hourly timestamp fails validation, which raises V2Error
+    (bounded listing, no local absolute paths) so nothing is persisted.
+    """
     if not path.exists():
         raise V2Error("staged netcdf file missing")
     if path.stat().st_size == 0:
@@ -270,20 +291,68 @@ def validate_netcdf(path: Path, request: dict[str, Any]) -> None:
         raise V2Error("xarray required to validate staged netcdf") from exc
     try:
         with xr.open_dataset(path) as dataset:
-            missing = [name for name in NETCDF_VARIABLES if name not in set(dataset.data_vars)]
-            if missing:
-                raise V2Error(f"netcdf missing requested variables: {sorted(missing)}")
+            variables_present = all(name in set(dataset.data_vars) for name in NETCDF_VARIABLES)
+            missing_variables = [name for name in NETCDF_VARIABLES if name not in set(dataset.data_vars)]
             times = dataset.get("valid_time")
             if times is None:
                 times = dataset.get("time")
             if times is None or int(times.size) == 0:
                 raise V2Error("netcdf has no time dimension values")
-            requested_dates = set(request.get("date", []))
             from pandas import to_datetime
 
-            observed_dates = {str(value)[:10] for value in to_datetime(times.values)}
-            if not observed_dates.issubset(requested_dates):
-                raise V2Error("netcdf timestamps exceed the requested plan")
+            raw_values = list(to_datetime(times.values))
+            normalized_values = []
+            non_hourly: list[datetime] = []
+            for value in raw_values:
+                if value.tzinfo is None:
+                    utc_value = value.tz_localize("UTC")
+                else:
+                    utc_value = value.tz_convert("UTC")
+                if (utc_value.minute, utc_value.second, utc_value.microsecond) != (0, 0, 0):
+                    non_hourly.append(utc_value)
+                normalized_values.append(utc_value.replace(minute=0, second=0, microsecond=0))
+            normalized_set = set(normalized_values)
+            duplicates = len(normalized_values) - len(normalized_set)
+            expected = expected_timestamps(request)
+            missing_timestamps = sorted(expected - normalized_set)
+            unexpected_timestamps = sorted(normalized_set - expected)
+            observed_count = len(normalized_set)
+            expected_count = len(expected)
+            timestamp_set_match = (
+                not missing_timestamps
+                and not unexpected_timestamps
+                and duplicates == 0
+                and not non_hourly
+                and observed_count == expected_count
+            )
+            netcdf_validation_passed = timestamp_set_match and variables_present
+            summary = {
+                "expected_timestamp_count": expected_count,
+                "observed_timestamp_count": observed_count,
+                "duplicate_timestamps": duplicates,
+                "non_hourly_timestamps": len(non_hourly),
+                "missing_timestamps": _limited_iso(missing_timestamps),
+                "unexpected_timestamps": _limited_iso(unexpected_timestamps),
+                "timestamp_set_match": timestamp_set_match,
+                "variables_present": variables_present,
+                "netcdf_validation_passed": netcdf_validation_passed,
+            }
+            problems: list[str] = []
+            if missing_timestamps:
+                problems.append(f"missing {len(missing_timestamps)} expected timestamps (showing up to 20: {[v.isoformat() for v in missing_timestamps[:20]]})")
+            if unexpected_timestamps:
+                problems.append(f"unexpected {len(unexpected_timestamps)} timestamps (showing up to 20: {[v.isoformat() for v in unexpected_timestamps[:20]]})")
+            if duplicates:
+                problems.append(f"duplicate timestamps: {duplicates}")
+            if non_hourly:
+                problems.append(f"non-hourly timestamps: {len(non_hourly)}")
+            if observed_count != expected_count:
+                problems.append(f"observed count {observed_count} != expected count {expected_count}")
+            if not variables_present:
+                problems.append(f"missing requested variables: {sorted(missing_variables)}")
+            if problems:
+                raise V2Error("netcdf timestamp validation failed: " + "; ".join(problems))
+            return summary
     except V2Error:
         raise
     except Exception as exc:
@@ -444,7 +513,9 @@ def main(
             }
             target = Path(tmp) / f"{segment['segment_id']}.nc"
             client.retrieve(DATASET, request, str(target))
-            validate_netcdf(target, request)
+            validation = validate_netcdf(target, request)
+            if not validation["netcdf_validation_passed"]:
+                raise V2Error(f"segment {segment['segment_id']} failed NetCDF validation")
             logical_name = f"{resolved['city_id']}-{data_class_label}-{segment['segment_id']}-{plan_sha256[:8]}"
             result = store.persist(
                 source_id="cds_era5_hourly" if finality["expected_data_class"] == "final_reanalysis" else "cds_era5t_hourly",
@@ -465,6 +536,12 @@ def main(
                     "sha256": manifest["sha256"],
                     "skipped_as_identical": result.skipped_identical,
                     "manifest_path": str(result.manifest_path.relative_to(root)),
+                    "timestamp_validation": {
+                        "expected_timestamp_count": validation["expected_timestamp_count"],
+                        "observed_timestamp_count": validation["observed_timestamp_count"],
+                        "timestamp_set_match": validation["timestamp_set_match"],
+                        "netcdf_validation_passed": validation["netcdf_validation_passed"],
+                    },
                 }
             )
     print(json.dumps(results, indent=2))

@@ -25,7 +25,9 @@ from scripts.v2.core import (
     repo_root,
 )
 from scripts.v2.fetch_era5 import (
+    NETCDF_VARIABLES,
     cds_readiness,
+    expected_timestamps,
     finality_check,
     main as era5_main,
     pilot_config,
@@ -76,10 +78,16 @@ def taipei_windows():
 
 
 class FakeCDSClient:
-    """Offline fake; records calls and writes minimal legal NetCDF fixtures."""
+    """Offline fake; records calls and writes minimal legal NetCDF fixtures.
 
-    def __init__(self):
+    ``fault`` optionally corrupts the timestamp set: "drop_last" removes the
+    final hour, "extra_hour" appends an unrequested hour, "duplicate" repeats
+    the first timestamp.
+    """
+
+    def __init__(self, fault: str | None = None):
         self.calls = []
+        self.fault = fault
 
     def retrieve(self, dataset, request, target):
         self.calls.append({"dataset": dataset, "request": request})
@@ -88,6 +96,12 @@ class FakeCDSClient:
             for hour in request["time"]:
                 timestamps.append(pd.Timestamp(f"{day}T{hour}"))  # hour is "HH:00"
         ts = pd.DatetimeIndex(timestamps)
+        if self.fault == "drop_last":
+            ts = ts[:-1]
+        elif self.fault == "extra_hour":
+            ts = ts.append(pd.DatetimeIndex([ts[-1] + pd.Timedelta(hours=1)]))
+        elif self.fault == "duplicate":
+            ts = ts.append(pd.DatetimeIndex([ts[0]]))
         fixture = xr.Dataset(
             {
                 "t2m": ("valid_time", [283.15] * len(ts)),
@@ -548,3 +562,151 @@ def test_full_history_calendar_verified_still_false():
         (ROOT / "data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json").read_text(encoding="utf-8")
     )
     assert window_audit["full_history_calendar_verified"] is False
+
+
+# ---------------- exact UTC timestamp-set validation ----------------
+
+def make_netcdf(path: Path, timestamps) -> None:
+    values = []
+    for timestamp in timestamps:
+        if getattr(timestamp, "tzinfo", None) is not None:
+            timestamp = timestamp.astimezone(timezone.utc).replace(tzinfo=None)  # naive UTC
+        values.append(timestamp)
+    ts = pd.DatetimeIndex(values)
+    dataset = xr.Dataset(
+        {name: ("valid_time", [283.15] * len(ts)) for name in NETCDF_VARIABLES},
+        coords={"valid_time": ts},
+    )
+    dataset.to_netcdf(path)
+
+
+def single_day_request() -> dict:
+    return {"date": ["2026-03-01"], "time": [f"{h:02d}:00" for h in range(16, 24)]}
+
+
+def test_single_day_full_set_passes(tmp_path):
+    request = single_day_request()
+    expected = expected_timestamps(request)
+    assert len(expected) == 8
+    path = tmp_path / "ok.nc"
+    make_netcdf(path, sorted(expected))
+    summary = validate_netcdf(path, request)
+    assert summary["netcdf_validation_passed"] is True
+    assert summary["expected_timestamp_count"] == 8
+    assert summary["observed_timestamp_count"] == 8
+    assert summary["timestamp_set_match"] is True
+    assert summary["missing_timestamps"]["count"] == 0
+    assert summary["unexpected_timestamps"]["count"] == 0
+
+
+def test_multi_day_96_points_pass(tmp_path):
+    request = {
+        "date": ["2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05"],
+        "time": [f"{h:02d}:00" for h in range(24)],
+    }
+    expected = expected_timestamps(request)
+    assert len(expected) == 96
+    path = tmp_path / "ok.nc"
+    make_netcdf(path, sorted(expected))
+    summary = validate_netcdf(path, request)
+    assert summary["netcdf_validation_passed"] is True
+    assert summary["observed_timestamp_count"] == 96
+
+
+def test_missing_hour_rejected(tmp_path):
+    request = single_day_request()
+    expected = sorted(expected_timestamps(request))
+    path = tmp_path / "missing.nc"
+    make_netcdf(path, expected[:-1])  # drop 23:00
+    with pytest.raises(V2Error, match="missing"):
+        validate_netcdf(path, request)
+
+
+def test_wrong_hour_rejected(tmp_path):
+    request = single_day_request()
+    expected = sorted(expected_timestamps(request))
+    wrong = [datetime(2026, 3, 1, 5, tzinfo=timezone.utc)] + expected[1:-1]  # 05:00 instead of 16:00
+    path = tmp_path / "wrong.nc"
+    make_netcdf(path, sorted(wrong))
+    with pytest.raises(V2Error):
+        validate_netcdf(path, request)
+
+
+def test_extra_hour_rejected(tmp_path):
+    from datetime import timedelta as _timedelta
+
+    request = single_day_request()
+    expected = sorted(expected_timestamps(request))
+    extra = expected + [expected[-1] + _timedelta(hours=1)]  # 2026-03-02 00:00 not requested
+    path = tmp_path / "extra.nc"
+    make_netcdf(path, extra)
+    with pytest.raises(V2Error, match="unexpected"):
+        validate_netcdf(path, request)
+
+
+def test_duplicate_timestamp_rejected(tmp_path):
+    request = single_day_request()
+    expected = sorted(expected_timestamps(request))
+    duplicated = expected + [expected[0]]
+    path = tmp_path / "dup.nc"
+    make_netcdf(path, duplicated)
+    with pytest.raises(V2Error, match="duplicate"):
+        validate_netcdf(path, request)
+
+
+def test_non_hourly_timestamp_rejected(tmp_path):
+    request = single_day_request()
+    timestamps = [datetime(2026, 3, 1, h, 30, tzinfo=timezone.utc) for h in range(16, 24)]  # :30 offsets
+    path = tmp_path / "half.nc"
+    make_netcdf(path, timestamps)
+    with pytest.raises(V2Error, match="non-hourly"):
+        validate_netcdf(path, request)
+
+
+def test_naive_timestamps_treated_as_utc(tmp_path):
+    request = single_day_request()
+    naive = [datetime(2026, 3, 1, h) for h in range(16, 24)]  # no tzinfo
+    path = tmp_path / "naive.nc"
+    make_netcdf(path, naive)
+    summary = validate_netcdf(path, request)
+    assert summary["netcdf_validation_passed"] is True
+
+
+def test_live_segments_all_timestamp_set_match(tmp_path, capsys):
+    root = make_live_root(tmp_path)
+    era5_main(
+        ["--pilot-only", "--final", "--live", "--root", str(root)],
+        client_factory=lambda: FakeCDSClient(),
+        readiness=fake_readiness(),
+    )
+    results = json.loads(capsys.readouterr().out)
+    assert len(results) == 3
+    for item in results:
+        assert item["timestamp_validation"]["timestamp_set_match"] is True
+        assert item["timestamp_validation"]["netcdf_validation_passed"] is True
+
+
+def test_live_validation_failure_persists_nothing(tmp_path):
+    root = make_live_root(tmp_path)
+    client = FakeCDSClient(fault="drop_last")
+    with pytest.raises(V2Error, match="missing"):
+        era5_main(
+            ["--pilot-only", "--final", "--live", "--root", str(root)],
+            client_factory=lambda: client,
+            readiness=fake_readiness(),
+        )
+    store_dir = root / "data/source_raw/v2/weather"
+    manifests = list(store_dir.rglob("*.manifest.json")) if store_dir.exists() else []
+    assert manifests == []
+
+
+def test_validation_error_has_no_absolute_path(tmp_path):
+    request = single_day_request()
+    expected = sorted(expected_timestamps(request))
+    path = tmp_path / "missing.nc"
+    make_netcdf(path, expected[:-1])
+    with pytest.raises(V2Error) as exc:
+        validate_netcdf(path, request)
+    message = str(exc.value)
+    assert ":\\" not in message
+    assert "D:" not in message

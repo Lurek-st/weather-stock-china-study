@@ -68,9 +68,15 @@ Live readiness repair (2026-08-06): multi-date request segments use the full
 `utc_dates` list; the finality gate is a date threshold (target month + 3
 months + 1 day; `2026-07-01` for the 2026-03 window) so `--final` alone never
 grants finality; `expected_hour_count` equals the instantaneous count (TAIEX
-trading session 5, not 4); staging uses a unique temporary directory with
-NetCDF validation before the append-only raw store; live output contains only
-relative paths; dry-run writes no files unless `--audit-output` is given.
+trading session 5, not 4); staging uses a unique temporary directory; live
+output contains only relative paths; dry-run writes no files unless
+`--audit-output` is given.
+
+Exact UTC timestamp validation (2026-08-06): before persistence every staged
+NetCDF is checked against the request's date x time cartesian product —
+missing, unexpected, duplicate or non-hourly timestamps, or an observed count
+mismatch, fail validation (bounded listing, no absolute paths) and block
+persistence. A correct date with missing or wrong hours is still a failure.
 
 The next step is one controlled live Taipei pilot-week download, only after
 the control plane approves and the CDS credential (`.cdsapirc`) and

@@ -113,12 +113,24 @@ coordinate evidence, finality gate, credential booleans with
 The live branch is implemented and exercised offline by an injected fake CDS
 client in tests (3 segments, multi-date list for segment 2, no
 `segment["utc_date"]` dependency). Staging uses a unique temporary directory;
-downloaded files are validated (exists, non-empty, openable NetCDF, all
-requested variables, non-empty timestamps within the request plan) before the
-append-only raw store. Live results report only relative manifest paths,
-artifact ids, revisions, SHA-256 and skipped flags. A live `--final` request
-is refused unless the finality date gate passes. No CDS API was called in
-this round.
+downloaded files are validated before the append-only raw store. Live results
+report only relative manifest paths, artifact ids, revisions, SHA-256 and
+skipped flags. A live `--final` request is refused unless the finality date
+gate passes. No CDS API was called in this round.
+
+### Exact UTC timestamp-set validation (2026-08-06)
+
+Before any file enters the raw store, `validate_netcdf` performs an exact
+UTC timestamp-set check against the request's `date x time` cartesian product
+(e.g. 8 timestamps for the single-day segment, 96 for the four-day middle
+segment). Observed timestamps are normalized to whole hours — timezone-naive
+treated as UTC, timezone-aware converted to UTC. Any missing, unexpected,
+duplicate or non-hourly timestamp, or an observed count different from the
+expected count, fails validation (bounded listing of at most 20 values with
+total counts, no local absolute paths) and blocks persistence. Live segment
+results carry a `timestamp_validation` summary
+(`expected_timestamp_count`, `observed_timestamp_count`,
+`timestamp_set_match`, `netcdf_validation_passed`).
 
 ## Next step (not started)
 
