@@ -75,3 +75,33 @@ are not marked ready.
 `expected_hour_count = 5` and `instantaneous_expected_count = 5` (with
 `accumulation_expected_count = 4`), leaving no conflicting 4-vs-5
 instantaneous expectation.
+
+## stepType splitting and the ZIP container (2026-08-06)
+
+The pilot variable set mixes GRIB `stepType`s (instantaneous vs one-hour
+accumulation). Since the 2024-11 ECMWF NetCDF conversion update, CDS splits
+NetCDF output by `stepType`: a single-stepType request can return one NetCDF,
+but a mixed-stepType request produces several NetCDF members that CDS wraps
+in a ZIP even when `download_format: unarchived` is requested. This is
+official CDS service behaviour, not a credential error or random failure.
+
+Consequences for the pipeline:
+
+- The project contract now requests `download_format: zip` and treats ZIP as
+  the formal transfer container (`expected_download_container: zip`,
+  `container_reason: mixed_grib_step_types_produce_multiple_netcdf_members`).
+- Every NetCDF member is validated separately (exact UTC timestamp set,
+  spatial grid inside the requested area, member variable subset); the union
+  of member variables must cover all eight requested variables, each in
+  exactly one member.
+- The raw ZIP as returned by CDS is the persisted immutable artifact
+  (suffix `.zip`); extracted NetCDF members are derived representations used
+  for validation and later reads, never stored as raw.
+- The first real CDS attempt (run `20260806T090232Z`) returned the expected
+  ZIP; the then-current single-NetCDF client rejected it, 0 artifacts were
+  persisted, no retry was made. This round added the corrected container
+  pipeline offline; no CDS API was called.
+
+The temporal semantics of the variables themselves are unchanged: an
+instantaneous timestamp is the valid-at value; a one-hour accumulation
+timestamp is the end of its interval.

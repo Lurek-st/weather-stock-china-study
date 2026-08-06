@@ -17,8 +17,9 @@
   "audit_type": "taipei_era5_dry_run",
   "cdsapi_installed": true,
   "cdsapi_version": "0.7.7",
-  "cdsapirc_status": "missing",
+  "cdsapirc_status": "present_shape_valid",
   "city_id": "taipei",
+  "container_reason": "mixed_grib_step_types_produce_multiple_netcdf_members",
   "coordinate": {
     "latitude": 25.0375,
     "longitude": 121.5646
@@ -30,17 +31,18 @@
     "coordinate_source": "https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB (Taipei City Government official City Hall page; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889)",
     "coordinate_verified_at": "2026-08-06"
   },
-  "credential_readiness_status": "credential_file_missing",
+  "credential_readiness_status": "ready_for_future_live_request",
   "data_format": "netcdf",
   "dataset": "reanalysis-era5-single-levels",
-  "dataset_terms_status": "acceptance_unverified",
-  "download_format": "unarchived",
+  "dataset_terms_status": "user_confirmed_outside_task",
+  "download_format": "zip",
   "expected_data_class": "final_reanalysis",
+  "expected_download_container": "zip",
   "final_eligibility_date": "2026-07-01",
   "finality_status": "expected_final_by_official_latency",
-  "generated_at": "2026-08-06T08:06:54.293615+00:00",
+  "generated_at": "2026-08-06T09:25:13.548230+00:00",
   "historical_backfill_run": false,
-  "key_field_present": false,
+  "key_field_present": true,
   "left_padding_reason": "convert_first_local_midnight_to_utc",
   "live_requests_run": false,
   "local_window_end_exclusive": "2026-03-07T00:00:00+08:00",
@@ -63,7 +65,7 @@
     "reanalysis"
   ],
   "request_count": 3,
-  "request_plan_sha256": "0b4f04821bbbba278100720b41c949e7e4a2b6a92a0151015c53ec3b0569bba9",
+  "request_plan_sha256": "73824d434f115e045209c26b7ad3f6ea9608997b531704fbb2084268719384f1",
   "request_segments": [
     {
       "hour_count": 8,
@@ -160,7 +162,7 @@
   "target_period_end": "2026-03-06",
   "target_period_start": "2026-03-02",
   "timezone": "Asia/Taipei",
-  "url_field_present": false,
+  "url_field_present": true,
   "utc_request_end_inclusive": "2026-03-06T16:00:00+00:00",
   "utc_request_start": "2026-03-01T16:00:00+00:00",
   "variable_temporal_semantics": {

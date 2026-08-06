@@ -1,8 +1,11 @@
 # Taipei ERA5 pilot contract (2026-03-02 .. 2026-03-06)
 
-**Status:** `dry_run_ready` — configuration, request planning, time semantics,
-code and tests are frozen; **no weather data was downloaded** and no CDS API
-was contacted.
+**Status:** `live_code_ready_step_type_zip_supported` — configuration, request
+planning, time semantics, code and tests are frozen for the ZIP container
+contract. **No validated weather raw artifact exists yet**: the first real CDS
+attempt (2026-08-06) returned the expected ZIP container, the pre-ZIP client
+rejected it (single-NetCDF assumption), 0 artifacts were persisted, and no
+retry was made. The corrected ZIP pipeline is fully tested offline.
 
 | Field | Value |
 | --- | --- |
@@ -10,9 +13,10 @@ was contacted.
 | Market | taiex (TWSE TAIEX) |
 | Pilot trading dates | 2026-03-02 .. 2026-03-06 |
 | Target dataset | `reanalysis-era5-single-levels` |
-| Expected data class | `final_reanalysis` (dry-run expectation only) |
-| Live requests | not_run |
-| Weather data | not_downloaded |
+| Expected data class | `final_reanalysis` (expectation only; verified after download) |
+| Download container | `zip` (multiple NetCDF members) |
+| Live requests | not_run (one attempt failed container validation; retry approved but not run) |
+| Weather data | no_validated_raw_artifact |
 
 ## Coordinate
 
@@ -55,6 +59,41 @@ request segments and 121 distinct UTC valid times:
 `left_padding_reason: convert_first_local_midnight_to_utc`,
 `right_padding_reason: include_final_full_day_accumulation_endpoint`.
 
+## Download container contract (stepType-split ZIP)
+
+The pilot variable set mixes GRIB `stepType`s: instantaneous variables
+(`2m_temperature`, `2m_dewpoint_temperature`, `total_cloud_cover`,
+`10m_u/v_component_of_wind`, `instantaneous_10m_wind_gust`) and one-hour
+accumulations (`total_precipitation`, `surface_solar_radiation_downwards`).
+Since the 2024-11 ECMWF NetCDF conversion update, CDS splits NetCDF output by
+`stepType`; multiple NetCDF members are returned inside a **ZIP**, even when
+`download_format: unarchived` was requested. The project therefore treats ZIP
+as the formal transfer container:
+
+- `data_format: netcdf`, `download_format: zip`
+- `expected_download_container: zip`
+- `container_reason: mixed_grib_step_types_produce_multiple_netcdf_members`
+- ZIP is only a transport container; every inner member must still be NetCDF;
+  the weather data semantics are unchanged.
+- The request plan hash includes `download_format` (it is part of the request
+  contract); current value
+  `73824d434f115e045209c26b7ad3f6ea9608997b531704fbb2084268719384f1`.
+
+Container validation (`validate_download_container`): magic-byte detection
+(ZIP `PK\\x03\\x04`/`PK\\x05\\x06`, NetCDF classic `CDF\\x01`/`CDF\\x02`,
+NetCDF4/HDF5 `\\x89HDF\\r\\n\\x1a\\n`; never the file extension), safe ZIP
+inspection (corrupt/empty/encrypted/path-traversal/absolute/drive/symlink/
+nested-archive/duplicate/case-insensitive/oversize/zip-bomb members rejected),
+per-member exact UTC timestamp-set validation, spatial grid checks (each
+member inside the requested area, identical grid across members — latitude
+sort direction may differ), and a variable-union check (all eight requested
+variables present, each in exactly one member). Only
+`container_validation_passed = true` lets the raw bytes persist; the **raw
+ZIP as returned by CDS** is the immutable artifact (suffix `.zip`), and the
+manifest records a non-sensitive container summary
+(`container_type`, `member_count`, `member_names`, `member_sha256`,
+`observed_variable_union`, `container_validation_passed`).
+
 ## Time semantics
 
 Instantaneous and one-hour accumulation variables are separated per
@@ -88,16 +127,15 @@ stay `provisional_reanalysis`, and a live `--final` request is refused.
 ## CDS credentials
 
 Read-only local readiness is recorded in the dry-run audit. On this machine
-`cdsapi 0.7.7` is installed but no `.cdsapirc` exists
-(`cdsapirc_status: missing`, `url_field_present: false`,
-`key_field_present: false`, `credential_readiness_status:
-credential_file_missing`), and dataset terms acceptance is
-`acceptance_unverified` (no local confirmation file exists under
-`.local/agreements/`). A future live request requires a present,
-shape-valid `.cdsapirc` and a local, non-sensitive terms-confirmation file
-(`.local/agreements/cds-era5-single-levels.json`, created only after the user
-explicitly accepts the dataset terms in the browser). Credential values are
-never read back, stored or printed.
+`cdsapi 0.7.7` is installed; the user configured `~/.cdsapirc`
+(`cdsapirc_status: present_shape_valid`, `url_field_present: true`,
+`key_field_present: true`, non-empty values confirmed by boolean check only),
+and explicitly accepted the dataset terms in the browser; the local
+confirmation file `.local/agreements/cds-era5-single-levels.json` exists
+(`dataset_terms_status: user_confirmed_outside_task`).
+`credential_readiness_status: ready_for_future_live_request`. Credential
+values are never read back, stored or printed; readiness exposes booleans
+only.
 
 ## Dry-run audit
 
@@ -132,9 +170,23 @@ results carry a `timestamp_validation` summary
 (`expected_timestamp_count`, `observed_timestamp_count`,
 `timestamp_set_match`, `netcdf_validation_passed`).
 
+### stepType ZIP container support (2026-08-06)
+
+The first real CDS request (run `20260806T090232Z`) succeeded
+(accepted -> running -> successful) but returned a ZIP archive, not a single
+unarchived NetCDF. The then-current client assumed one NetCDF per download,
+so `validate_netcdf` rejected the staged file; 0 raw artifacts were persisted
+and no retry was made (validation failures are not retried). The evidence is
+preserved under `.local/runs/taipei-era5-live/20260806T090232Z/` (local only,
+not committed). This round adds the corrected pipeline: `download_format:
+zip`, neutral staging names (`*.download`), magic-byte container detection,
+safe ZIP inspection, per-member exact UTC timestamp-set + spatial + variable
+union validation, and persistence of the raw ZIP. All tests are offline; no
+CDS API was called in this round.
+
 ## Next step (not started)
 
-The user must configure the CDS account/API key in `~/.cdsapirc` and accept
-the ERA5 dataset terms in the browser (dataset licensed CC BY); then one
-controlled live Taipei pilot-week download can proceed after control-plane
-approval.
+One controlled live retry of the identical Taipei pilot-week contract (3
+segments, 121 UTC times, same dates/hours/variables/area; only the expected
+container is corrected from single NetCDF to a ZIP of NetCDF members), after
+control-plane approval.

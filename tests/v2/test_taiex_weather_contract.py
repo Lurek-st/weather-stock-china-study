@@ -495,13 +495,19 @@ def test_cds_readiness_returns_booleans_not_values(tmp_path):
 
 def test_terms_confirmation_missing_blocks_ready(tmp_path):
     (tmp_path / ".cdsapirc").write_text("url: https://example.invalid/api\nkey: TESTKEY\n", encoding="utf-8")
-    readiness = cds_readiness(ROOT, home=tmp_path)
+    # Isolated root without a terms confirmation file -> acceptance_unverified.
+    readiness = cds_readiness(tmp_path, home=tmp_path)
     assert readiness["dataset_terms_status"] == "acceptance_unverified"
     assert readiness["credential_readiness_status"] == "dataset_terms_acceptance_unverified"
 
 
-def test_terms_confirmation_file_not_created_by_task():
-    assert not (ROOT / ".local/agreements/cds-era5-single-levels.json").exists()
+def test_terms_confirmation_file_present_and_valid_in_repo():
+    # The user explicitly confirmed dataset terms outside the task; the
+    # local-only record exists and is recognised by the readiness logic.
+    from scripts.v2.fetch_era5 import _terms_confirmation
+
+    assert (ROOT / ".local/agreements/cds-era5-single-levels.json").exists()
+    assert _terms_confirmation(ROOT)["dataset_terms_status"] == "user_confirmed_outside_task"
 
 
 # ---------------- dry-run side effects ----------------

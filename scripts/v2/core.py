@@ -194,6 +194,7 @@ class RawArtifactStore:
         retries: int = 0,
         error: str | None = None,
         retrieved_at: datetime | None = None,
+        validation_metadata: dict[str, Any] | None = None,
     ) -> ArtifactResult:
         digest = sha256_bytes(payload)
         target_dir = self.base / source_id / logical_name
@@ -227,6 +228,7 @@ class RawArtifactStore:
             "retries": retries,
             "error": redact_local_path(error) if error else None,
             "request": redact_structure(request),
+            "validation_metadata": redact_structure(validation_metadata) if validation_metadata else None,
         }
         write_json(manifest_path, manifest)
         return ArtifactResult(artifact_path, manifest_path, revision, False)

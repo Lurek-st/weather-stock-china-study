@@ -12,6 +12,7 @@ import argparse
 import importlib.util
 import json
 import os
+import shutil
 import sys
 import tempfile
 from datetime import date, datetime, time, timedelta, timezone
@@ -43,6 +44,28 @@ PILOT_DEFAULT_START = date(2026, 3, 2)
 PILOT_DEFAULT_END = date(2026, 3, 6)
 PILOT_TIMEZONE = "Asia/Taipei"
 TERMS_CONFIRMATION_PATH = ".local/agreements/cds-era5-single-levels.json"
+
+# Download container contract. Mixed GRIB stepType variables (instantaneous +
+# accumulation) make CDS emit several NetCDF members; multiple members are
+# returned inside a ZIP even when download_format=unarchived was requested.
+# This project therefore treats ZIP as the formal transfer container and
+# validates every NetCDF member before the raw ZIP is persisted.
+DOWNLOAD_FORMAT = "zip"
+EXPECTED_DOWNLOAD_CONTAINER = "zip"
+CONTAINER_REASON = "mixed_grib_step_types_produce_multiple_netcdf_members"
+
+# Magic-number detection (extension/Content-Disposition are never trusted).
+ZIP_MAGIC = b"PK\x03\x04"
+ZIP_EMPTY_MAGIC = b"PK\x05\x06"
+NETCDF_CLASSIC_MAGICS = (b"CDF\x01", b"CDF\x02")
+NETCDF4_MAGIC = b"\x89HDF\r\n\x1a\n"
+
+# ZIP safety limits (conservative, sized for the small pilot area).
+ZIP_MAX_MEMBER_COUNT = 16
+ZIP_MAX_MEMBER_SIZE = 64 * 1024 * 1024  # 64 MiB per member
+ZIP_MAX_TOTAL_UNCOMPRESSED = 128 * 1024 * 1024  # 128 MiB total
+ZIP_MAX_COMPRESSION_RATIO = 1000.0  # uncompressed/compressed ceiling (bomb guard)
+ARCHIVE_MEMBER_SUFFIXES = (".zip", ".tar", ".gz", ".tgz", ".bz2", ".xz", ".7z", ".grib", ".grb")
 
 
 def load_semantics(root: Path) -> dict[str, dict[str, Any]]:
@@ -272,14 +295,115 @@ def _limited_iso(values: list[datetime], limit: int = 20) -> dict[str, Any]:
     return {"count": len(values), "shown": [value.isoformat() for value in values[:limit]]}
 
 
-def validate_netcdf(path: Path, request: dict[str, Any]) -> dict[str, Any]:
-    """Exact UTC timestamp-set validation; returns a machine-readable summary.
+def _timestamp_validation(dataset: Any, request: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
+    """Exact UTC timestamp-set checks shared by single-file and member paths."""
+    times = dataset.get("valid_time")
+    if times is None:
+        times = dataset.get("time")
+    if times is None or int(times.size) == 0:
+        raise V2Error("netcdf has no time dimension values")
+    from pandas import to_datetime
 
-    The expected set is the date x time cartesian product interpreted in UTC.
-    Observed timestamps are normalized to whole hours (timezone-naive treated
-    as UTC, timezone-aware converted to UTC). Any missing, unexpected,
-    duplicate or non-hourly timestamp fails validation, which raises V2Error
-    (bounded listing, no local absolute paths) so nothing is persisted.
+    raw_values = list(to_datetime(times.values))
+    normalized_values = []
+    non_hourly: list[datetime] = []
+    for value in raw_values:
+        if value.tzinfo is None:
+            utc_value = value.tz_localize("UTC")
+        else:
+            utc_value = value.tz_convert("UTC")
+        if (utc_value.minute, utc_value.second, utc_value.microsecond) != (0, 0, 0):
+            non_hourly.append(utc_value)
+        normalized_values.append(utc_value.replace(minute=0, second=0, microsecond=0))
+    normalized_set = set(normalized_values)
+    duplicates = len(normalized_values) - len(normalized_set)
+    expected = expected_timestamps(request)
+    missing_timestamps = sorted(expected - normalized_set)
+    unexpected_timestamps = sorted(normalized_set - expected)
+    observed_count = len(normalized_set)
+    expected_count = len(expected)
+    timestamp_set_match = (
+        not missing_timestamps
+        and not unexpected_timestamps
+        and duplicates == 0
+        and not non_hourly
+        and observed_count == expected_count
+    )
+    summary = {
+        "expected_timestamp_count": expected_count,
+        "observed_timestamp_count": observed_count,
+        "duplicate_timestamps": duplicates,
+        "non_hourly_timestamps": len(non_hourly),
+        "missing_timestamps": _limited_iso(missing_timestamps),
+        "unexpected_timestamps": _limited_iso(unexpected_timestamps),
+        "timestamp_set_match": timestamp_set_match,
+    }
+    problems: list[str] = []
+    if missing_timestamps:
+        problems.append(f"missing {len(missing_timestamps)} expected timestamps (showing up to 20: {[v.isoformat() for v in missing_timestamps[:20]]})")
+    if unexpected_timestamps:
+        problems.append(f"unexpected {len(unexpected_timestamps)} timestamps (showing up to 20: {[v.isoformat() for v in unexpected_timestamps[:20]]})")
+    if duplicates:
+        problems.append(f"duplicate timestamps: {duplicates}")
+    if non_hourly:
+        problems.append(f"non-hourly timestamps: {len(non_hourly)}")
+    if observed_count != expected_count:
+        problems.append(f"observed count {observed_count} != expected count {expected_count}")
+    return summary, problems
+
+
+def _canonical_grid_hash(values: Any) -> str:
+    """Stable hash of the sorted, deduplicated grid values (no array output)."""
+    import hashlib
+
+    canonical = sorted({round(float(value), 6) for value in values})
+    return hashlib.sha256(json.dumps(canonical, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def _spatial_summary(dataset: Any, area: dict[str, Any] | None) -> tuple[dict[str, Any], list[str]]:
+    """Record spatial coordinate names/counts/bounds and check them against area."""
+    problems: list[str] = []
+    latitude = dataset.get("latitude")
+    longitude = dataset.get("longitude")
+    if latitude is None or longitude is None:
+        raise V2Error("netcdf has no latitude/longitude coordinate")
+    from pandas import to_numeric
+    import numpy as np
+
+    lat_values = np.asarray(to_numeric(list(latitude.values)), dtype=float)
+    lon_values = np.asarray(to_numeric(list(longitude.values)), dtype=float)
+    summary = {
+        "latitude_coordinate_name": latitude.name,
+        "longitude_coordinate_name": longitude.name,
+        "latitude_count": int(latitude.size),
+        "longitude_count": int(longitude.size),
+        "latitude_min": round(float(lat_values.min()), 6),
+        "latitude_max": round(float(lat_values.max()), 6),
+        "longitude_min": round(float(lon_values.min()), 6),
+        "longitude_max": round(float(lon_values.max()), 6),
+        "latitude_values_sha256": _canonical_grid_hash(lat_values),
+        "longitude_values_sha256": _canonical_grid_hash(lon_values),
+    }
+    if area is not None:
+        north, west, south, east = area["area"]
+        if float(lat_values.min()) < float(south) - 1e-6 or float(lat_values.max()) > float(north) + 1e-6:
+            problems.append(
+                f"latitude outside requested area ({float(lat_values.min())}..{float(lat_values.max())} vs {south}..{north})"
+            )
+        if float(lon_values.min()) < float(west) - 1e-6 or float(lon_values.max()) > float(east) + 1e-6:
+            problems.append(
+                f"longitude outside requested area ({float(lon_values.min())}..{float(lon_values.max())} vs {west}..{east})"
+            )
+    return summary, problems
+
+
+def validate_netcdf(path: Path, request: dict[str, Any]) -> dict[str, Any]:
+    """Exact UTC timestamp-set validation for a single full-variable NetCDF.
+
+    Compatibility path: requires all eight requested variables in one file
+    (legacy behaviour, used for direct NetCDF responses). Returns a
+    machine-readable summary; any failure raises V2Error (bounded listing, no
+    local absolute paths) so nothing is persisted.
     """
     if not path.exists():
         raise V2Error("staged netcdf file missing")
@@ -291,63 +415,17 @@ def validate_netcdf(path: Path, request: dict[str, Any]) -> dict[str, Any]:
         raise V2Error("xarray required to validate staged netcdf") from exc
     try:
         with xr.open_dataset(path) as dataset:
-            variables_present = all(name in set(dataset.data_vars) for name in NETCDF_VARIABLES)
-            missing_variables = [name for name in NETCDF_VARIABLES if name not in set(dataset.data_vars)]
-            times = dataset.get("valid_time")
-            if times is None:
-                times = dataset.get("time")
-            if times is None or int(times.size) == 0:
-                raise V2Error("netcdf has no time dimension values")
-            from pandas import to_datetime
-
-            raw_values = list(to_datetime(times.values))
-            normalized_values = []
-            non_hourly: list[datetime] = []
-            for value in raw_values:
-                if value.tzinfo is None:
-                    utc_value = value.tz_localize("UTC")
-                else:
-                    utc_value = value.tz_convert("UTC")
-                if (utc_value.minute, utc_value.second, utc_value.microsecond) != (0, 0, 0):
-                    non_hourly.append(utc_value)
-                normalized_values.append(utc_value.replace(minute=0, second=0, microsecond=0))
-            normalized_set = set(normalized_values)
-            duplicates = len(normalized_values) - len(normalized_set)
-            expected = expected_timestamps(request)
-            missing_timestamps = sorted(expected - normalized_set)
-            unexpected_timestamps = sorted(normalized_set - expected)
-            observed_count = len(normalized_set)
-            expected_count = len(expected)
-            timestamp_set_match = (
-                not missing_timestamps
-                and not unexpected_timestamps
-                and duplicates == 0
-                and not non_hourly
-                and observed_count == expected_count
-            )
-            netcdf_validation_passed = timestamp_set_match and variables_present
+            data_vars = set(dataset.data_vars)
+            variables_present = all(name in data_vars for name in NETCDF_VARIABLES)
+            missing_variables = [name for name in NETCDF_VARIABLES if name not in data_vars]
+            timestamp_summary, timestamp_problems = _timestamp_validation(dataset, request)
+            netcdf_validation_passed = timestamp_summary["timestamp_set_match"] and variables_present
             summary = {
-                "expected_timestamp_count": expected_count,
-                "observed_timestamp_count": observed_count,
-                "duplicate_timestamps": duplicates,
-                "non_hourly_timestamps": len(non_hourly),
-                "missing_timestamps": _limited_iso(missing_timestamps),
-                "unexpected_timestamps": _limited_iso(unexpected_timestamps),
-                "timestamp_set_match": timestamp_set_match,
+                **timestamp_summary,
                 "variables_present": variables_present,
                 "netcdf_validation_passed": netcdf_validation_passed,
             }
-            problems: list[str] = []
-            if missing_timestamps:
-                problems.append(f"missing {len(missing_timestamps)} expected timestamps (showing up to 20: {[v.isoformat() for v in missing_timestamps[:20]]})")
-            if unexpected_timestamps:
-                problems.append(f"unexpected {len(unexpected_timestamps)} timestamps (showing up to 20: {[v.isoformat() for v in unexpected_timestamps[:20]]})")
-            if duplicates:
-                problems.append(f"duplicate timestamps: {duplicates}")
-            if non_hourly:
-                problems.append(f"non-hourly timestamps: {len(non_hourly)}")
-            if observed_count != expected_count:
-                problems.append(f"observed count {observed_count} != expected count {expected_count}")
+            problems = list(timestamp_problems)
             if not variables_present:
                 problems.append(f"missing requested variables: {sorted(missing_variables)}")
             if problems:
@@ -357,6 +435,231 @@ def validate_netcdf(path: Path, request: dict[str, Any]) -> dict[str, Any]:
         raise
     except Exception as exc:
         raise V2Error(f"staged netcdf cannot be opened as NetCDF: {type(exc).__name__}") from exc
+
+
+def validate_netcdf_member(path: Path, request: dict[str, Any], area: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Validate one NetCDF member of a ZIP container.
+
+    Members may carry a subset of the requested variables. The exact UTC
+    timestamp set must still match the request date x time plan, and the
+    spatial grid must lie inside the requested area.
+    """
+    if not path.exists():
+        raise V2Error("zip member netcdf file missing")
+    if path.stat().st_size == 0:
+        raise V2Error("zip member netcdf file empty")
+    try:
+        import xarray as xr
+    except ImportError as exc:
+        raise V2Error("xarray required to validate zip member netcdf") from exc
+    try:
+        with xr.open_dataset(path) as dataset:
+            data_vars = sorted(set(dataset.data_vars))
+            timestamp_summary, timestamp_problems = _timestamp_validation(dataset, request)
+            spatial_summary, spatial_problems = _spatial_summary(dataset, area)
+            member_validation_passed = timestamp_summary["timestamp_set_match"] and not spatial_problems
+            summary = {
+                **timestamp_summary,
+                "variables": data_vars,
+                "spatial": spatial_summary,
+                "member_validation_passed": member_validation_passed,
+            }
+            problems = list(timestamp_problems) + list(spatial_problems)
+            if problems:
+                raise V2Error("zip member netcdf validation failed: " + "; ".join(problems))
+            return summary
+    except V2Error:
+        raise
+    except Exception as exc:
+        raise V2Error(f"zip member netcdf cannot be opened as NetCDF: {type(exc).__name__}") from exc
+
+
+def inspect_download_container(path: Path) -> str:
+    """Detect container type from magic bytes; never trust file extension."""
+    with open(path, "rb") as handle:
+        head = handle.read(8)
+    if head.startswith(ZIP_MAGIC) or head.startswith(ZIP_EMPTY_MAGIC):
+        return "zip"
+    if head.startswith(NETCDF_CLASSIC_MAGICS) or head.startswith(NETCDF4_MAGIC):
+        return "netcdf"
+    raise V2Error("unrecognized download container (magic bytes are neither ZIP nor NetCDF)")
+
+
+def validate_zip_container(
+    zip_path: Path, request: dict[str, Any], area: dict[str, Any] | None = None, workdir: Path | None = None
+) -> dict[str, Any]:
+    """Safety-check a ZIP and validate every NetCDF member inside a temp dir."""
+    import hashlib
+    import zipfile
+
+    if not zip_path.exists():
+        raise V2Error("staged zip container missing")
+    if zip_path.stat().st_size == 0:
+        raise V2Error("staged zip container empty")
+    try:
+        with zipfile.ZipFile(zip_path) as archive:
+            infos = archive.infolist()
+            if not infos:
+                raise V2Error("zip container has no members")
+            if len(infos) > ZIP_MAX_MEMBER_COUNT:
+                raise V2Error(f"zip member count {len(infos)} exceeds limit {ZIP_MAX_MEMBER_COUNT}")
+
+            names = [info.filename for info in infos]
+            if len(set(names)) != len(names):
+                raise V2Error("duplicate zip member names")
+            lowered = [name.lower() for name in names]
+            if len(set(lowered)) != len(lowered):
+                raise V2Error("case-insensitive duplicate zip member names")
+
+            import posixpath
+            import re
+            import stat as stat_module
+
+            drive_prefix = re.compile(r"^[A-Za-z]:[\\/]")
+            total_uncompressed = 0
+            for info in infos:
+                name = info.filename
+                if info.flag_bits & 0x1:
+                    raise V2Error("encrypted zip member not allowed")
+                if name.startswith("/") or drive_prefix.match(name) or posixpath.isabs(name):
+                    raise V2Error("absolute or drive-absolute zip member path not allowed")
+                parts = name.split("/")
+                if ".." in parts or posixpath.normpath(name).startswith(".."):
+                    raise V2Error("zip member path traversal not allowed")
+                mode = (info.external_attr >> 16) & 0xFFFF
+                if stat_module.S_ISLNK(mode):
+                    raise V2Error("symbolic-link zip member not allowed")
+                if name.lower().endswith(ARCHIVE_MEMBER_SUFFIXES):
+                    raise V2Error(f"nested archive member not allowed: {name}")
+                if info.file_size > ZIP_MAX_MEMBER_SIZE:
+                    raise V2Error(f"zip member {name} exceeds per-member size limit")
+                if info.compress_size > 0 and info.file_size / info.compress_size > ZIP_MAX_COMPRESSION_RATIO:
+                    raise V2Error(f"zip member {name} compression ratio exceeds limit (suspected zip bomb)")
+                total_uncompressed += info.file_size
+                if total_uncompressed > ZIP_MAX_TOTAL_UNCOMPRESSED:
+                    raise V2Error("zip total uncompressed size exceeds limit (suspected zip bomb)")
+
+            cleanup = workdir is None
+            if workdir is None:
+                workdir = Path(tempfile.mkdtemp(prefix="weather-stock-v2-zip-"))
+            try:
+                member_paths: list[tuple[str, Path]] = []
+                for info in infos:
+                    target = (workdir / info.filename).resolve()
+                    if not target.is_relative_to(workdir.resolve()):
+                        raise V2Error("zip member escapes extraction directory")
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    with archive.open(info) as source, open(target, "wb") as dest:
+                        dest.write(source.read())
+                    member_paths.append((info.filename, target))
+
+                member_summaries: list[dict[str, Any]] = []
+                observed_variable_union: set[str] = set()
+                for name, member_path in member_paths:
+                    summary = validate_netcdf_member(member_path, request, area)
+                    member_summaries.append(
+                        {
+                            "member_name": name,
+                            "member_sha256": hashlib.sha256(member_path.read_bytes()).hexdigest(),
+                            "compressed_size": next(info.file_size for info in infos if info.filename == name),
+                            "uncompressed_size": member_path.stat().st_size,
+                            "variables": summary["variables"],
+                            "timestamp_set_match": summary["timestamp_set_match"],
+                            "spatial": summary["spatial"],
+                            "member_validation_passed": summary["member_validation_passed"],
+                        }
+                    )
+                    observed_variable_union.update(summary["variables"])
+
+                all_timestamp_match = all(item["timestamp_set_match"] for item in member_summaries)
+                all_spatial_passed = all(
+                    item["spatial"]["latitude_count"] > 0 and item["spatial"]["longitude_count"] > 0 and item["member_validation_passed"]
+                    for item in member_summaries
+                )
+                lat_hashes = {item["spatial"]["latitude_values_sha256"] for item in member_summaries}
+                lon_hashes = {item["spatial"]["longitude_values_sha256"] for item in member_summaries}
+                if len(lat_hashes) != 1 or len(lon_hashes) != 1:
+                    raise V2Error("spatial grid mismatch across zip members")
+
+                requested = set(NETCDF_VARIABLES)
+                missing_variables = sorted(requested - observed_variable_union)
+                duplicate_variables = sorted(name for name in observed_variable_union if sum(name in s["variables"] for s in member_summaries) > 1)
+                all_requested_present = not missing_variables
+                container_validation_passed = (
+                    all_timestamp_match and all_spatial_passed and all_requested_present and not duplicate_variables
+                )
+                if duplicate_variables:
+                    raise V2Error(f"requested variable appears in multiple zip members: {duplicate_variables}")
+                if missing_variables:
+                    raise V2Error(f"zip members miss requested variables: {missing_variables}")
+                if not container_validation_passed:
+                    raise V2Error("zip container validation failed")
+                return {
+                    "container_type": "zip",
+                    "member_count": len(member_paths),
+                    "member_names": [name for name, _ in member_paths],
+                    "member_sha256": [summary["member_sha256"] for summary in member_summaries],
+                    "member_compressed_sizes": [summary["compressed_size"] for summary in member_summaries],
+                    "member_uncompressed_sizes": [summary["uncompressed_size"] for summary in member_summaries],
+                    "member_summaries": member_summaries,
+                    "observed_variable_union": sorted(observed_variable_union),
+                    "missing_variables": missing_variables,
+                    "duplicate_variables_across_members": duplicate_variables,
+                    "all_requested_variables_present": all_requested_present,
+                    "all_member_timestamp_sets_match": all_timestamp_match,
+                    "all_member_spatial_checks_passed": all_spatial_passed,
+                    "container_validation_passed": container_validation_passed,
+                    "raw_suffix": ".zip",
+                }
+            finally:
+                if cleanup:
+                    shutil.rmtree(workdir, ignore_errors=True)
+    except V2Error:
+        raise
+    except zipfile.BadZipFile as exc:
+        raise V2Error(f"corrupt zip container: {type(exc).__name__}") from exc
+
+
+def validate_download_container(
+    path: Path, request: dict[str, Any], area: dict[str, Any] | None = None, workdir: Path | None = None
+) -> dict[str, Any]:
+    """Unified entry: validate a ZIP (all NetCDF members) or a direct NetCDF.
+
+    Only ``container_validation_passed = true`` allows the raw bytes to enter
+    the append-only RawArtifactStore.
+    """
+    import hashlib
+
+    if not path.exists():
+        raise V2Error("staged download container missing")
+    if path.stat().st_size == 0:
+        raise V2Error("staged download container empty")
+    container_type = inspect_download_container(path)
+    if container_type == "zip":
+        result = validate_zip_container(path, request, area, workdir=workdir)
+    else:
+        member = validate_netcdf(path, request)
+        result = {
+            "container_type": "netcdf",
+            "member_count": 1,
+            "member_names": [path.name],
+            "member_sha256": [hashlib.sha256(path.read_bytes()).hexdigest()],
+            "member_compressed_sizes": [path.stat().st_size],
+            "member_uncompressed_sizes": [path.stat().st_size],
+            "member_summaries": [{"member_name": path.name, "member_validation_passed": member["netcdf_validation_passed"]}],
+            "observed_variable_union": sorted(NETCDF_VARIABLES),
+            "missing_variables": [],
+            "duplicate_variables_across_members": [],
+            "all_requested_variables_present": True,
+            "all_member_timestamp_sets_match": member["timestamp_set_match"],
+            "all_member_spatial_checks_passed": False,
+            "container_validation_passed": member["netcdf_validation_passed"],
+            "raw_suffix": ".nc",
+        }
+    result["container_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    result["container_size_bytes"] = path.stat().st_size
+    result["zip_safety_passed"] = result["container_validation_passed"]
+    return result
 
 
 def main(
@@ -395,7 +698,12 @@ def main(
     plan = utc_request_plan(local_start, local_end_exclusive)
     plan_hash = json.dumps(
         [
-            {"segment_id": s["segment_id"], "utc_dates": s["utc_dates"], "times": s["times"]}
+            {
+                "segment_id": s["segment_id"],
+                "utc_dates": s["utc_dates"],
+                "times": s["times"],
+                "download_format": DOWNLOAD_FORMAT,
+            }
             for s in plan["request_segments"]
         ],
         ensure_ascii=False,
@@ -455,7 +763,9 @@ def main(
             "dataset": DATASET,
             "product_type": ["reanalysis"],
             "data_format": "netcdf",
-            "download_format": "unarchived",
+            "download_format": DOWNLOAD_FORMAT,
+            "expected_download_container": EXPECTED_DOWNLOAD_CONTAINER,
+            "container_reason": CONTAINER_REASON,
             "target_period_start": finality["target_period_start"],
             "target_period_end": finality["target_period_end"],
             "retrieval_planned_at": finality["retrieval_planned_at"],
@@ -508,14 +818,15 @@ def main(
                 "date": segment["utc_dates"],
                 "time": segment["times"],
                 "data_format": "netcdf",
-                "download_format": "unarchived",
+                "download_format": DOWNLOAD_FORMAT,
                 "area": area["area"],
             }
-            target = Path(tmp) / f"{segment['segment_id']}.nc"
+            target = Path(tmp) / f"{segment['segment_id']}.download"
             client.retrieve(DATASET, request, str(target))
-            validation = validate_netcdf(target, request)
-            if not validation["netcdf_validation_passed"]:
-                raise V2Error(f"segment {segment['segment_id']} failed NetCDF validation")
+            validation = validate_download_container(target, request, area)
+            if not validation["container_validation_passed"]:
+                raise V2Error(f"segment {segment['segment_id']} failed download container validation")
+            expected_count = len(expected_timestamps(request))
             logical_name = f"{resolved['city_id']}-{data_class_label}-{segment['segment_id']}-{plan_sha256[:8]}"
             result = store.persist(
                 source_id="cds_era5_hourly" if finality["expected_data_class"] == "final_reanalysis" else "cds_era5t_hourly",
@@ -525,7 +836,17 @@ def main(
                 request=request,
                 status="final" if finality["expected_data_class"] == "final_reanalysis" else "provisional",
                 licence="CC-BY-4.0 catalogue terms and attribution",
-                suffix=".nc",
+                suffix=validation["raw_suffix"],
+                validation_metadata={
+                    "container_type": validation["container_type"],
+                    "container_sha256": validation["container_sha256"],
+                    "container_size_bytes": validation["container_size_bytes"],
+                    "member_count": validation["member_count"],
+                    "member_names": validation["member_names"],
+                    "member_sha256": validation["member_sha256"],
+                    "observed_variable_union": validation["observed_variable_union"],
+                    "container_validation_passed": validation["container_validation_passed"],
+                },
             )
             manifest = json.loads(result.manifest_path.read_text(encoding="utf-8"))
             results.append(
@@ -537,10 +858,15 @@ def main(
                     "skipped_as_identical": result.skipped_identical,
                     "manifest_path": str(result.manifest_path.relative_to(root)),
                     "timestamp_validation": {
-                        "expected_timestamp_count": validation["expected_timestamp_count"],
-                        "observed_timestamp_count": validation["observed_timestamp_count"],
-                        "timestamp_set_match": validation["timestamp_set_match"],
-                        "netcdf_validation_passed": validation["netcdf_validation_passed"],
+                        "expected_timestamp_count": expected_count,
+                        "observed_timestamp_count": expected_count if validation["container_validation_passed"] else 0,
+                        "timestamp_set_match": validation["all_member_timestamp_sets_match"],
+                        "netcdf_validation_passed": validation["container_validation_passed"],
+                    },
+                    "container_validation": {
+                        "container_type": validation["container_type"],
+                        "member_count": validation["member_count"],
+                        "container_validation_passed": validation["container_validation_passed"],
                     },
                 }
             )

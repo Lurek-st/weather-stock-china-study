@@ -78,8 +78,25 @@ missing, unexpected, duplicate or non-hourly timestamps, or an observed count
 mismatch, fail validation (bounded listing, no absolute paths) and block
 persistence. A correct date with missing or wrong hours is still a failure.
 
-The next step is one controlled live Taipei pilot-week download, only after
-the control plane approves and the CDS credential (`.cdsapirc`) and
-dataset-terms gates (`.local/agreements/cds-era5-single-levels.json`, created
-after explicit browser acceptance) are met. Do not run `--live` before that
-approval.
+stepType ZIP container support (2026-08-06): the pilot variable set mixes GRIB
+`stepType`s, so CDS returns several NetCDF members inside a ZIP even when
+`unarchived` is requested (official behaviour since the 2024-11 NetCDF
+conversion update). The contract now uses `download_format: zip` with
+`expected_download_container: zip` (`mixed_grib_step_types_produce_multiple_netcdf_members`);
+staging uses neutral `*.download` names; magic-byte detection identifies ZIP
+vs NetCDF; safe ZIP inspection rejects corrupt/empty/encrypted/path-traversal/
+absolute/drive/symlink/nested-archive/duplicate/oversize/zip-bomb members;
+every NetCDF member is validated separately (exact UTC timestamps, spatial
+grid inside the area, identical grid across members) and the member variable
+union must cover all eight requested variables with no duplicates; the raw
+ZIP as returned by CDS is the persisted artifact (suffix `.zip`, manifest
+carries a non-sensitive container summary). The first real attempt
+(run `20260806T090232Z`) returned the expected ZIP; the old single-NetCDF
+client rejected it, 0 artifacts persisted, no retry. This round only fixed
+code and tests; **no CDS API was called**.
+
+The next step is one controlled live retry of the identical Taipei pilot-week
+contract (3 segments, 121 UTC times, unchanged dates/hours/variables/area;
+only the expected container is corrected from single NetCDF to a ZIP of
+NetCDF members), after the control plane approves. Do not run `--live` before
+that approval.
