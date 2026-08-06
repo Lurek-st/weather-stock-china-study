@@ -49,3 +49,9 @@ markets:
     timezone: America/New_York
     session: {open: "09:30", close: "16:00", breaks: []}
     calendar_source_id: nyse_calendar_official_manual
+  - market_id: taiex
+    city_id: taipei
+    currency: TWD
+    timezone: Asia/Taipei
+    session: {open: "09:00", close: "13:30", breaks: []}
+    calendar_source_id: twse_official_holiday_schedule

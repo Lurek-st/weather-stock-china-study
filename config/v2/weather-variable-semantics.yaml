@@ -1,0 +1,52 @@
+schema_version: 2.0.0
+registry_version: 1.0.0
+temporal_support_types: [instantaneous, interval_accumulation]
+variables:
+  - source_variable: 2m_temperature
+    canonical_variable: air_temperature_c
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: mean
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: 2m_dewpoint_temperature
+    canonical_variable: dew_point_c
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: mean
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: total_cloud_cover
+    canonical_variable: cloud_cover_pct
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: mean
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: 10m_u_component_of_wind
+    canonical_variable: wind_speed_mps
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: mean
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: 10m_v_component_of_wind
+    canonical_variable: wind_speed_mps
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: mean
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: instantaneous_10m_wind_gust
+    canonical_variable: max_gust_mps
+    temporal_support_type: instantaneous
+    interval_duration_hours: null
+    window_aggregation: max
+    timestamp_represents: value_valid_at_timestamp
+  - source_variable: total_precipitation
+    canonical_variable: precipitation_mm
+    temporal_support_type: interval_accumulation
+    interval_duration_hours: 1
+    window_aggregation: sum
+    timestamp_represents: accumulation_ending_at_timestamp
+  - source_variable: surface_solar_radiation_downwards
+    canonical_variable: solar_radiation_mj_m2
+    temporal_support_type: interval_accumulation
+    interval_duration_hours: 1
+    window_aggregation: sum
+    timestamp_represents: accumulation_ending_at_timestamp

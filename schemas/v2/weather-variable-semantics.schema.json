@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "weather-variable-semantics-v2",
+  "type": "object",
+  "required": ["schema_version", "registry_version", "temporal_support_types", "variables"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "registry_version": {"type": "string"},
+    "temporal_support_types": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"enum": ["instantaneous", "interval_accumulation"]}
+    },
+    "variables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_variable",
+          "canonical_variable",
+          "temporal_support_type",
+          "interval_duration_hours",
+          "window_aggregation",
+          "timestamp_represents"
+        ],
+        "properties": {
+          "source_variable": {"type": "string"},
+          "canonical_variable": {"type": "string"},
+          "temporal_support_type": {"enum": ["instantaneous", "interval_accumulation"]},
+          "interval_duration_hours": {"type": ["number", "null"], "minimum": 1},
+          "window_aggregation": {"enum": ["mean", "sum", "max", "min"]},
+          "timestamp_represents": {
+            "enum": ["value_valid_at_timestamp", "accumulation_ending_at_timestamp"]
+          }
+        }
+      }
+    }
+  }
+}

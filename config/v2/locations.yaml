@@ -9,3 +9,12 @@ locations:
   - {city_id: london, city_name: London, latitude: 51.5074, longitude: -0.1278, timezone: Europe/London, market_id: ftse100, coordinate_basis: municipal_reference_point}
   - {city_id: frankfurt, city_name: Frankfurt, latitude: 50.1109, longitude: 8.6821, timezone: Europe/Berlin, market_id: dax, coordinate_basis: municipal_reference_point}
   - {city_id: new_york, city_name: New York, latitude: 40.7128, longitude: -74.0060, timezone: America/New_York, market_id: sp500, coordinate_basis: municipal_reference_point}
+  - city_id: taipei
+    city_name: Taipei
+    latitude: 25.0375
+    longitude: 121.5646
+    timezone: Asia/Taipei
+    market_id: taiex
+    coordinate_basis: municipal_reference_point
+    coordinate_source: "https://www.gov.taipei/ (Taipei City Government; municipal reference point at Taipei City Hall, No.1 City Hall Road, Xinyi District)"
+    coordinate_verified_at: 2026-08-06

@@ -153,11 +153,19 @@ def test_missing_hour_flagged():
 
 
 def test_accumulated_and_instantaneous_aggregation():
+    # pre_open window is 07:30-09:30 local. Under the strict accumulation
+    # semantics only the whole 08:00-09:00 interval (row stamped 09:00) lies
+    # fully inside; the 07:00-08:00 interval partially overlaps and is
+    # excluded (partial_accumulation_interval_excluded).
     hourly = canonical_hourly("2026-07-05", "2026-07-08")
     windows = build_weather_windows(hourly, market_config(), ["2026-07-06"]).set_index("window")
-    assert windows.loc["pre_open", "precipitation_mm"] == pytest.approx(2)
-    assert windows.loc["pre_open", "solar_radiation_mj_m2"] == pytest.approx(2)
+    assert windows.loc["pre_open", "precipitation_mm"] == pytest.approx(1)
+    assert windows.loc["pre_open", "solar_radiation_mj_m2"] == pytest.approx(1)
     assert windows.loc["pre_open", "max_gust_mps"] > 0
+    assert "partial_accumulation_interval_excluded" in windows.loc["pre_open", "quality_flags"]
+    # trading_session 09:30-15:30: whole intervals 11:00..15:00 (5 hours);
+    # the 09:00-10:00 interval starts before the window and is excluded
+    assert windows.loc["trading_session", "precipitation_mm"] == pytest.approx(5)
 
 
 def market_frame(statuses=("final", "provisional")):

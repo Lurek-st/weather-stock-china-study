@@ -39,3 +39,31 @@ python scripts/v2/taiex_extraordinary_closures.py
 python scripts/v2/taiex_repeatability.py
 python scripts/v2/taiex_pilot_acceptance.py
 ```
+
+## Weather side: Taipei ERA5 pilot contract (2026-08-06, dry-run only)
+
+The weather contract for the accepted market pilot week is frozen but no data
+was downloaded:
+
+1. `config/v2/locations.yaml` registers `taipei` (municipal reference point,
+   25.0375, 121.5646, Asia/Taipei).
+2. `config/v2/markets.yaml` registers `taiex` (09:00-13:30, no break, TWD)
+   referencing `twse_official_holiday_schedule`, registered in
+   `config/v2/calendar-registry.yaml`.
+3. `config/v2/weather-variable-semantics.yaml` separates instantaneous from
+   one-hour accumulation variables.
+4. `scripts/v2/fetch_era5.py` is zero-network by default; `--pilot-only`
+   plans only the primary city; UTC coverage is computed from the local
+   window (3 segments, 121 hours).
+5. Windows: pre_open 2/2, trading_session 5/4 (partial 13:00-14:00 interval
+   excluded), full_day 24/24.
+
+Generate the offline dry-run audit:
+
+```text
+python scripts/v2/fetch_era5.py --pilot-only --final
+```
+
+The next step is one controlled live Taipei pilot-week download, only after
+the control plane approves and the CDS credential and dataset-terms gates are
+met. Do not run `--live` before that approval.

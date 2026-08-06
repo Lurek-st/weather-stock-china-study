@@ -9,3 +9,11 @@ calendars:
   - {calendar_source_id: lse_calendar_official_manual, provider: London Stock Exchange, official: true, documentation_url: "https://www.londonstockexchange.com/trade/trading-access/business-days", access_mode: controlled_official_evidence, automation: manual_verification, supports: [normal, holiday, weekend, early_close, special_trading, temporary_halt], fallback: not_ready}
   - {calendar_source_id: xetra_calendar_official_manual, provider: Deutsche Boerse Xetra, official: true, documentation_url: "https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar", access_mode: controlled_official_evidence, automation: manual_verification, supports: [normal, holiday, weekend, early_close, special_trading, temporary_halt], fallback: not_ready}
   - {calendar_source_id: nyse_calendar_official_manual, provider: New York Stock Exchange, official: true, documentation_url: "https://www.nyse.com/markets/hours-calendars", access_mode: controlled_official_evidence, automation: manual_verification, supports: [normal, holiday, weekend, early_close, special_trading, temporary_halt], fallback: not_ready}
+  - calendar_source_id: twse_official_holiday_schedule
+    provider: Taiwan Stock Exchange
+    official: true
+    documentation_url: "https://www.twse.com.tw/holidaySchedule/holidaySchedule"
+    access_mode: controlled_official_evidence
+    automation: automated_probe
+    supports: [normal, holiday, weekend, early_close, special_trading, temporary_halt]
+    fallback: not_ready

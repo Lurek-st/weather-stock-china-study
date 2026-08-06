@@ -276,6 +276,11 @@ def normalize_weather_frame(
     duplicated = result["timestamp_utc"].duplicated(keep=False)
     if duplicated.any():
         raise V2Error("duplicate weather timestamp")
+    # One-hour accumulation interval that the row timestamp ends (applies to
+    # interval_accumulation variables such as precipitation and solar
+    # radiation; instantaneous variables are valid at the timestamp itself).
+    result["accumulation_interval_start_utc"] = result["timestamp_utc"] - pd.Timedelta(hours=1)
+    result["accumulation_interval_end_utc"] = result["timestamp_utc"]
     result["city_id"] = city_id
     result["air_temperature_c"] = frame["temperature_k"].astype(float) - 273.15
     result["dew_point_c"] = frame["dewpoint_k"].astype(float) - 273.15
@@ -310,23 +315,113 @@ def _inside_clock(current: time, start: time, end: time) -> bool:
     return start <= current < end
 
 
+ACCUMULATION_CANONICALS = {"precipitation_mm", "solar_radiation_mj_m2"}
+PARTIAL_INTERVAL_POLICY = "partial_accumulation_interval_excluded"
+DERIVED_INSTANTANEOUS = {"relative_humidity_pct", "apparent_temperature_c"}
+
+
+def load_variable_semantics(root: Path | None = None) -> dict[str, dict[str, Any]]:
+    """Map canonical variable -> semantics entry from the registry."""
+    root = root or repo_root()
+    registry = load_yaml(root / "config" / "v2" / "weather-variable-semantics.yaml")
+    mapping: dict[str, dict[str, Any]] = {}
+    for entry in registry.get("variables", []):
+        mapping.setdefault(entry["canonical_variable"], entry)
+    return mapping
+
+
+def _expected_instantaneous(start_local: datetime, end_local: datetime) -> int:
+    """Count local whole-hour timestamps inside [start, end)."""
+    count = 0
+    current = start_local.replace(minute=0, second=0, microsecond=0)
+    if current < start_local:
+        current += timedelta(hours=1)
+    while current < end_local:
+        count += 1
+        current += timedelta(hours=1)
+    return count
+
+
+def _expected_accumulation(start_local: datetime, end_local: datetime) -> int:
+    """Count whole-hour accumulation intervals fully inside [start, end]."""
+    count = 0
+    current = start_local.replace(minute=0, second=0, microsecond=0)
+    if current <= start_local:
+        current += timedelta(hours=1)
+    while current <= end_local:
+        if current - timedelta(hours=1) >= start_local:
+            count += 1
+        current += timedelta(hours=1)
+    return count
+
+
+def _break_instantaneous_count(start_local: datetime, end_local: datetime, breaks: list[tuple[time, time]]) -> int:
+    count = 0
+    current = start_local.replace(minute=0, second=0, microsecond=0)
+    if current < start_local:
+        current += timedelta(hours=1)
+    while current < end_local:
+        clock = current.time()
+        if any(_inside_clock(clock, a, b) for a, b in breaks):
+            count += 1
+        current += timedelta(hours=1)
+    return count
+
+
+def _break_accumulation_count(start_local: datetime, end_local: datetime, breaks: list[tuple[time, time]], day: date, tz) -> int:
+    count = 0
+    current = start_local.replace(minute=0, second=0, microsecond=0)
+    if current <= start_local:
+        current += timedelta(hours=1)
+    while current <= end_local:
+        interval_start = current - timedelta(hours=1)
+        if interval_start >= start_local:
+            for a, b in breaks:
+                break_start = datetime.combine(day, a, tz)
+                break_end = datetime.combine(day, b, tz)
+                if interval_start < break_end and current > break_start:
+                    count += 1
+                    break
+        current += timedelta(hours=1)
+    return count
+
+
 def build_weather_windows(
     hourly: pd.DataFrame,
     market_config: dict[str, Any],
     trading_dates: Iterable[str | date],
     calendar_overrides: dict[str, dict[str, Any]] | None = None,
 ) -> pd.DataFrame:
-    """Aggregate pre-open, cash-session (break excluded), and full local day."""
+    """Aggregate pre-open, cash-session (break excluded), and full local day.
+
+    Instantaneous variables (temperature, dew point, humidity, apparent
+    temperature, cloud cover, wind, gust) are sampled by their valid
+    timestamp; one-hour accumulation variables (precipitation, solar
+    radiation) are aggregated only when their whole interval lies inside the
+    window. Partial intervals are excluded and flagged.
+    """
     city_id = market_config["city_id"]
     timezone_name = market_config["timezone"]
     tz = ZoneInfo(timezone_name)
     base_session = market_config["session"]
     calendar_overrides = calendar_overrides or {}
+    semantics = load_variable_semantics()
+    instant_columns = [c for c in CORE_WEATHER_COLUMNS if c not in ACCUMULATION_CANONICALS]
+    acc_columns = [c for c in CORE_WEATHER_COLUMNS if c in ACCUMULATION_CANONICALS]
+    missing_semantics = [
+        c for c in CORE_WEATHER_COLUMNS
+        if c not in semantics and c not in DERIVED_INSTANTANEOUS
+    ]
     subset = hourly.loc[hourly["city_id"] == city_id].copy()
     subset["timestamp_utc"] = pd.to_datetime(subset["timestamp_utc"], utc=True)
     if subset["timestamp_utc"].duplicated().any():
         raise V2Error(f"duplicate hourly timestamps for {city_id}")
     subset["timestamp_local"] = subset["timestamp_utc"].dt.tz_convert(tz)
+    if "accumulation_interval_start_utc" not in subset.columns:
+        subset["accumulation_interval_start_utc"] = subset["timestamp_utc"] - pd.Timedelta(hours=1)
+        subset["accumulation_interval_end_utc"] = subset["timestamp_utc"]
+    subset["acc_start_local"] = subset["accumulation_interval_start_utc"].dt.tz_convert(tz)
+    subset["acc_end_local"] = subset["accumulation_interval_end_utc"].dt.tz_convert(tz)
     rows: list[dict[str, Any]] = []
     for raw_day in trading_dates:
         day = date.fromisoformat(raw_day) if isinstance(raw_day, str) else raw_day
@@ -344,54 +439,79 @@ def build_weather_windows(
         open_local = datetime.combine(day, open_clock, tz)
         pre_open_start = open_local - timedelta(hours=2)
         close_local = datetime.combine(day, close_clock, tz)
-        masks = {
-            "pre_open": (subset["timestamp_local"] >= pre_open_start)
-            & (subset["timestamp_local"] < open_local),
-            "trading_session": (subset["timestamp_local"] >= open_local)
-            & (subset["timestamp_local"] < close_local),
-            "full_day": (subset["timestamp_local"] >= start_local)
-            & (subset["timestamp_local"] < end_local),
+        window_bounds = {
+            "pre_open": (pre_open_start, open_local),
+            "trading_session": (open_local, close_local),
+            "full_day": (start_local, end_local),
         }
-        if breaks:
-            in_break = pd.Series(False, index=subset.index)
-            for break_start, break_end in breaks:
-                local_clock = subset["timestamp_local"].dt.time
-                in_break |= local_clock.map(lambda item: _inside_clock(item, break_start, break_end))
-            masks["trading_session"] &= ~in_break
-        for window, mask in masks.items():
-            selected = subset.loc[mask]
-            expected = {
-                "pre_open": 2,
-                "trading_session": int((close_local - open_local).total_seconds() / 3600)
-                - sum(
-                    int(
-                        (
-                            datetime.combine(day, b, tz) - datetime.combine(day, a, tz)
-                        ).total_seconds()
-                        / 3600
-                    )
-                    for a, b in breaks
-                ),
-                "full_day": int((end_local.astimezone(timezone.utc) - start_local.astimezone(timezone.utc)).total_seconds() / 3600),
-            }[window]
-            quality_flags = [] if len(selected) >= expected else ["missing_hours"]
+        legacy_expected = {
+            "pre_open": 2,
+            "trading_session": int((close_local - open_local).total_seconds() / 3600)
+            - sum(
+                int((datetime.combine(day, b, tz) - datetime.combine(day, a, tz)).total_seconds() / 3600)
+                for a, b in breaks
+            ),
+            "full_day": int((end_local.astimezone(timezone.utc) - start_local.astimezone(timezone.utc)).total_seconds() / 3600),
+        }
+        for window, (w_start, w_end) in window_bounds.items():
+            inst_mask = (subset["timestamp_local"] >= w_start) & (subset["timestamp_local"] < w_end)
+            acc_mask = (subset["acc_start_local"] >= w_start) & (subset["acc_end_local"] <= w_end)
+            overlap = (subset["acc_end_local"] > w_start) & (subset["acc_start_local"] < w_end)
+            partial_mask = overlap & ~acc_mask
+            if window == "trading_session" and breaks:
+                in_break = pd.Series(False, index=subset.index)
+                for break_start, break_end in breaks:
+                    local_clock = subset["timestamp_local"].dt.time
+                    in_break |= local_clock.map(lambda item: _inside_clock(item, break_start, break_end))
+                inst_mask &= ~in_break
+                for a, b in breaks:
+                    break_start = datetime.combine(day, a, tz)
+                    break_end = datetime.combine(day, b, tz)
+                    acc_mask &= ~((subset["acc_start_local"] < break_end) & (subset["acc_end_local"] > break_start))
+            inst_expected = _expected_instantaneous(w_start, w_end)
+            acc_expected = _expected_accumulation(w_start, w_end)
+            if window == "trading_session" and breaks:
+                inst_expected -= _break_instantaneous_count(w_start, w_end, breaks)
+                acc_expected -= _break_accumulation_count(w_start, w_end, breaks, day, tz)
+            inst_selected = subset.loc[inst_mask]
+            acc_selected = subset.loc[acc_mask]
+            inst_observed = int(inst_selected.shape[0])
+            acc_observed = int(acc_selected.shape[0])
+            quality_flags: list[str] = []
+            if missing_semantics:
+                quality_flags.append("temporal_support_metadata_missing")
+            if inst_observed < legacy_expected[window]:
+                quality_flags.append("missing_hours")
+            if inst_observed < inst_expected:
+                quality_flags.append("missing_instantaneous_hours")
+            if acc_observed < acc_expected:
+                quality_flags.append("missing_accumulation_intervals")
+            if partial_mask.any():
+                quality_flags.append("partial_accumulation_interval_excluded")
             row: dict[str, Any] = {
                 "city_id": city_id,
                 "market_id": market_config["market_id"],
                 "trading_date": day.isoformat(),
                 "window": window,
-                "hour_count": len(selected),
-                "expected_hour_count": expected,
+                "hour_count": inst_observed,
+                "expected_hour_count": legacy_expected[window],
+                "instantaneous_expected_count": inst_expected,
+                "instantaneous_observed_count": inst_observed,
+                "accumulation_expected_count": acc_expected,
+                "accumulation_observed_count": acc_observed,
+                "instantaneous_coverage_ratio": round(inst_observed / inst_expected, 4) if inst_expected else None,
+                "accumulation_coverage_ratio": round(acc_observed / acc_expected, 4) if acc_expected else None,
+                "partial_interval_policy": PARTIAL_INTERVAL_POLICY,
                 "quality_flags": quality_flags,
                 "calendar_status": override.get("calendar_status", "normal"),
             }
-            for column in CORE_WEATHER_COLUMNS:
-                if column == "precipitation_mm" or column == "solar_radiation_mj_m2":
-                    row[column] = selected[column].sum(min_count=1)
-                elif column == "max_gust_mps":
-                    row[column] = selected[column].max()
+            for column in instant_columns:
+                if column == "max_gust_mps":
+                    row[column] = inst_selected[column].max()
                 else:
-                    row[column] = selected[column].mean()
+                    row[column] = inst_selected[column].mean()
+            for column in acc_columns:
+                row[column] = acc_selected[column].sum(min_count=1)
             rows.append(row)
     return pd.DataFrame(rows)
 
@@ -525,6 +645,12 @@ def fixture_frames(root: Path, week: str) -> tuple[pd.DataFrame, pd.DataFrame, l
     if week != spec["week"]:
         raise V2Error(f"offline fixture only covers {spec['week']}")
     locations = load_yaml(root / "config" / "v2" / "locations.yaml")
+    # The synthetic fixture covers the original eight-city composite only;
+    # the pilot city (taipei) is excluded so legacy composite expectations
+    # (8 markets x 5 days = 40 rows) remain stable.
+    fixture_locations = [
+        location for location in locations["locations"] if location["city_id"] != "taipei"
+    ]
     start, end = week_bounds(week)
     timestamps = pd.date_range(
         datetime.combine(start - timedelta(days=1), time.min, timezone.utc),
@@ -533,7 +659,7 @@ def fixture_frames(root: Path, week: str) -> tuple[pd.DataFrame, pd.DataFrame, l
         inclusive="left",
     )
     weather_rows = []
-    for offset, location in enumerate(locations["locations"]):
+    for offset, location in enumerate(fixture_locations):
         for hour_index, timestamp in enumerate(timestamps):
             weather_rows.append(
                 {
@@ -551,7 +677,7 @@ def fixture_frames(root: Path, week: str) -> tuple[pd.DataFrame, pd.DataFrame, l
             )
     raw_weather = pd.DataFrame(weather_rows)
     normalized_parts = []
-    for location in locations["locations"]:
+    for location in fixture_locations:
         normalized_parts.append(
             normalize_weather_frame(
                 raw_weather.loc[raw_weather["city_id"] == location["city_id"]].drop(
@@ -569,7 +695,7 @@ def fixture_frames(root: Path, week: str) -> tuple[pd.DataFrame, pd.DataFrame, l
         if (start + timedelta(days=offset)).weekday() < 5
     ]
     market_rows = []
-    for market_offset, location in enumerate(locations["locations"]):
+    for market_offset, location in enumerate(fixture_locations):
         for day_offset, trading_day in enumerate(trading_dates):
             market_rows.append(
                 {
