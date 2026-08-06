@@ -501,13 +501,26 @@ def test_terms_confirmation_missing_blocks_ready(tmp_path):
     assert readiness["credential_readiness_status"] == "dataset_terms_acceptance_unverified"
 
 
-def test_terms_confirmation_file_present_and_valid_in_repo():
-    # The user explicitly confirmed dataset terms outside the task; the
-    # local-only record exists and is recognised by the readiness logic.
+def test_terms_confirmation_file_recognised_when_present(tmp_path):
+    # Build a local-only confirmation file in an isolated root and verify the
+    # readiness logic recognises it (CI has no real .local checkout).
     from scripts.v2.fetch_era5 import _terms_confirmation
 
-    assert (ROOT / ".local/agreements/cds-era5-single-levels.json").exists()
-    assert _terms_confirmation(ROOT)["dataset_terms_status"] == "user_confirmed_outside_task"
+    agreements = tmp_path / ".local/agreements"
+    agreements.mkdir(parents=True)
+    (agreements / "cds-era5-single-levels.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "1.0.0",
+                "dataset": "reanalysis-era5-single-levels",
+                "accepted_in_browser": True,
+                "confirmed_at": "2026-08-06T00:00:00+00:00",
+                "confirmation_source": "explicit_user_confirmation",
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert _terms_confirmation(tmp_path)["dataset_terms_status"] == "user_confirmed_outside_task"
 
 
 # ---------------- dry-run side effects ----------------

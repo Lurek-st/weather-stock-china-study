@@ -688,10 +688,17 @@ def test_full_history_calendar_verified_still_false():
     assert window_audit["full_history_calendar_verified"] is False
 
 
-def test_first_failed_run_evidence_preserved():
-    run_dir = ROOT / ".local/runs/taipei-era5-live/20260806T090232Z"
-    assert (run_dir / "result.json").exists()
-    assert (run_dir / "run.log").exists()
+def test_local_runs_never_tracked_by_git():
+    # Local run evidence (.local) must never be tracked by git; the first
+    # failed-run directory is preserved on the working machine only.
+    import subprocess
+
+    tracked = subprocess.run(
+        ["git", "ls-files", ".local"], capture_output=True, text=True, cwd=ROOT
+    ).stdout.strip()
+    assert tracked == ""
+    ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+    assert ".local/" in ignore
 
 
 # ---------------- helpers ----------------
