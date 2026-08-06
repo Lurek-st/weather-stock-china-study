@@ -23,15 +23,24 @@
     "latitude": 25.0375,
     "longitude": 121.5646
   },
+  "coordinate_evidence": {
+    "coordinate_basis": "municipal_reference_point",
+    "coordinate_derivation": "derived_from_official_taipei_city_hall_address",
+    "coordinate_evidence_status": "official_address_with_derived_coordinate",
+    "coordinate_source": "https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB (Taipei City Government official City Hall page; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889)",
+    "coordinate_verified_at": "2026-08-06"
+  },
   "credential_readiness_status": "credential_file_missing",
   "data_format": "netcdf",
   "dataset": "reanalysis-era5-single-levels",
   "dataset_terms_status": "acceptance_unverified",
   "download_format": "unarchived",
   "expected_data_class": "final_reanalysis",
+  "final_eligibility_date": "2026-07-01",
   "finality_status": "expected_final_by_official_latency",
-  "generated_at": "2026-08-06T07:43:33.182110+00:00",
+  "generated_at": "2026-08-06T08:06:54.293615+00:00",
   "historical_backfill_run": false,
+  "key_field_present": false,
   "left_padding_reason": "convert_first_local_midnight_to_utc",
   "live_requests_run": false,
   "local_window_end_exclusive": "2026-03-07T00:00:00+08:00",
@@ -42,6 +51,7 @@
     "close": "13:30",
     "open": "09:00"
   },
+  "official_latency_policy": "ERA5T near-real-time provisional data is later replaced by the final ERA5 release for the corresponding month; full finalization typically lags by about two to three months.",
   "pilot_trading_dates": [
     "2026-03-02",
     "2026-03-03",
@@ -53,9 +63,11 @@
     "reanalysis"
   ],
   "request_count": 3,
+  "request_plan_sha256": "0b4f04821bbbba278100720b41c949e7e4a2b6a92a0151015c53ec3b0569bba9",
   "request_segments": [
     {
       "hour_count": 8,
+      "segment_id": "segment-01-2026-03-01",
       "times": [
         "16:00",
         "17:00",
@@ -72,6 +84,7 @@
     },
     {
       "hour_count": 96,
+      "segment_id": "segment-02-2026-03-02-to-2026-03-05",
       "times": [
         "00:00",
         "01:00",
@@ -107,6 +120,7 @@
     },
     {
       "hour_count": 17,
+      "segment_id": "segment-03-2026-03-06",
       "times": [
         "00:00",
         "01:00",
@@ -140,9 +154,13 @@
     "2026-03-05",
     "2026-03-06"
   ],
+  "retrieval_planned_at": "2026-08-06",
   "right_padding_reason": "include_final_full_day_accumulation_endpoint",
   "schema_version": "2.0.0",
+  "target_period_end": "2026-03-06",
+  "target_period_start": "2026-03-02",
   "timezone": "Asia/Taipei",
+  "url_field_present": false,
   "utc_request_end_inclusive": "2026-03-06T16:00:00+00:00",
   "utc_request_start": "2026-03-01T16:00:00+00:00",
   "variable_temporal_semantics": {

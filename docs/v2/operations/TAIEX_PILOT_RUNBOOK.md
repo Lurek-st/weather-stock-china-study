@@ -61,9 +61,19 @@ was downloaded:
 Generate the offline dry-run audit:
 
 ```text
-python scripts/v2/fetch_era5.py --pilot-only --final
+python scripts/v2/fetch_era5.py --pilot-only --final --audit-output data/audits/v2/weather-pilot/taipei-era5-dry-run.json
 ```
 
+Live readiness repair (2026-08-06): multi-date request segments use the full
+`utc_dates` list; the finality gate is a date threshold (target month + 3
+months + 1 day; `2026-07-01` for the 2026-03 window) so `--final` alone never
+grants finality; `expected_hour_count` equals the instantaneous count (TAIEX
+trading session 5, not 4); staging uses a unique temporary directory with
+NetCDF validation before the append-only raw store; live output contains only
+relative paths; dry-run writes no files unless `--audit-output` is given.
+
 The next step is one controlled live Taipei pilot-week download, only after
-the control plane approves and the CDS credential and dataset-terms gates are
-met. Do not run `--live` before that approval.
+the control plane approves and the CDS credential (`.cdsapirc`) and
+dataset-terms gates (`.local/agreements/cds-era5-single-levels.json`, created
+after explicit browser acceptance) are met. Do not run `--live` before that
+approval.

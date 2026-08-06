@@ -16,5 +16,7 @@ locations:
     timezone: Asia/Taipei
     market_id: taiex
     coordinate_basis: municipal_reference_point
-    coordinate_source: "https://www.gov.taipei/ (Taipei City Government; municipal reference point at Taipei City Hall, No.1 City Hall Road, Xinyi District)"
-    coordinate_verified_at: 2026-08-06
+    coordinate_derivation: derived_from_official_taipei_city_hall_address
+    coordinate_source: "https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB (Taipei City Government official City Hall page; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889)"
+    coordinate_evidence_status: official_address_with_derived_coordinate
+    coordinate_verified_at: "2026-08-06"

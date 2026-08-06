@@ -1,16 +1,24 @@
-"""Tests for the frozen Taipei ERA5 pilot contract and dry-run readiness."""
+"""Tests for the frozen Taipei ERA5 pilot contract and dry-run readiness.
+
+Includes an offline simulation of the live branch using an injected fake CDS
+client, finality-gate checks, path-leak and staging-safety checks, and
+dry-run side-effect control.
+"""
 from __future__ import annotations
 
 import json
+import shutil
 import sys
-from datetime import datetime, time, timezone
+from datetime import date, datetime, time, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pandas as pd
 import pytest
+import xarray as xr
 
 from scripts.v2.core import (
+    V2Error,
     build_weather_windows,
     load_yaml,
     normalize_weather_frame,
@@ -22,6 +30,7 @@ from scripts.v2.fetch_era5 import (
     main as era5_main,
     pilot_config,
     utc_request_plan,
+    validate_netcdf,
 )
 
 ROOT = repo_root()
@@ -29,7 +38,12 @@ TAIEX_MARKET = next(
     market for market in load_yaml(ROOT / "config" / "v2" / "markets.yaml")["markets"]
     if market["market_id"] == "taiex"
 )
-PILOT_DATES = ["2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06"]
+
+
+def date_from(value: str):
+    from datetime import date as _date
+
+    return _date.fromisoformat(value)
 
 
 def taipei_hourly() -> pd.DataFrame:
@@ -61,10 +75,52 @@ def taipei_windows():
     return build_weather_windows(normalized, TAIEX_MARKET, [date_from("2026-03-02")]).set_index("window")
 
 
-def date_from(value: str):
-    from datetime import date as _date
+class FakeCDSClient:
+    """Offline fake; records calls and writes minimal legal NetCDF fixtures."""
 
-    return _date.fromisoformat(value)
+    def __init__(self):
+        self.calls = []
+
+    def retrieve(self, dataset, request, target):
+        self.calls.append({"dataset": dataset, "request": request})
+        timestamps = []
+        for day in request["date"]:
+            for hour in request["time"]:
+                timestamps.append(pd.Timestamp(f"{day}T{hour}"))  # hour is "HH:00"
+        ts = pd.DatetimeIndex(timestamps)
+        fixture = xr.Dataset(
+            {
+                "t2m": ("valid_time", [283.15] * len(ts)),
+                "d2m": ("valid_time", [278.15] * len(ts)),
+                "tp": ("valid_time", [0.001] * len(ts)),
+                "tcc": ("valid_time", [0.5] * len(ts)),
+                "u10": ("valid_time", [3.0] * len(ts)),
+                "v10": ("valid_time", [4.0] * len(ts)),
+                "i10fg": ("valid_time", [5.0] * len(ts)),
+                "ssrd": ("valid_time", [360000.0] * len(ts)),
+            },
+            coords={"valid_time": ts},
+        )
+        fixture.to_netcdf(target)
+
+
+def fake_readiness() -> dict:
+    return {
+        "cdsapi_installed": True,
+        "cdsapi_version": "0.0.0",
+        "cdsapirc_status": "present_shape_valid",
+        "url_field_present": True,
+        "key_field_present": True,
+        "dataset_terms_status": "user_confirmed_outside_task",
+        "terms_confirmation_file_present": True,
+        "credential_readiness_status": "ready_for_future_live_request",
+    }
+
+
+def make_live_root(tmp_path: Path) -> Path:
+    for folder in ("config", "schemas"):
+        shutil.copytree(ROOT / folder / "v2", tmp_path / folder / "v2")
+    return tmp_path
 
 
 # ---------------- configuration registration ----------------
@@ -73,6 +129,7 @@ def test_taipei_in_locations():
     locations = {row["city_id"]: row for row in load_yaml(ROOT / "config/v2/locations.yaml")["locations"]}
     assert "taipei" in locations
     assert locations["taipei"]["timezone"] == "Asia/Taipei"
+    assert locations["taipei"]["coordinate_evidence_status"] == "official_address_with_derived_coordinate"
 
 
 def test_taiex_in_markets():
@@ -113,7 +170,7 @@ def test_pilot_only_resolves_taipei():
 
 
 def test_pilot_only_generates_only_taipei(capsys):
-    code = era5_main(["--pilot-only", "--final"])  # default root = repository
+    code = era5_main(["--pilot-only", "--final"])
     assert code == 0
     audit = json.loads(capsys.readouterr().out)
     assert audit["city_id"] == "taipei"
@@ -121,7 +178,7 @@ def test_pilot_only_generates_only_taipei(capsys):
 
 
 def test_default_command_zero_network(capsys):
-    code = era5_main(["--pilot-only"])  # no --dry-run, no --live
+    code = era5_main(["--pilot-only"])
     assert code == 0
     audit = json.loads(capsys.readouterr().out)
     assert audit["live_requests_run"] is False
@@ -136,16 +193,6 @@ def test_dry_run_zero_network_and_no_cdsapi_import(capsys):
     audit = json.loads(capsys.readouterr().out)
     assert audit["live_requests_run"] is False
     assert audit["historical_backfill_run"] is False
-
-
-def test_no_live_flag_never_calls_cds():
-    # fetch_era5 main without --live returns the offline audit; the live branch
-    # (which imports cdsapi and calls retrieve) sits behind args.live.
-    import inspect
-
-    source = inspect.getsource(era5_main)
-    assert "--live" in source
-    assert "--pilot-only" in source
 
 
 # ---------------- UTC request planning ----------------
@@ -175,12 +222,12 @@ def test_request_plan_is_minimal_full_coverage():
     assert plan["right_padding_reason"] == "include_final_full_day_accumulation_endpoint"
 
 
-def test_three_request_segments():
+def test_three_request_segments_with_stable_ids():
     plan = utc_plan()
     assert plan["request_count"] == 3
-    assert plan["request_segments"][0]["utc_dates"] == ["2026-03-01"]
-    assert plan["request_segments"][1]["utc_dates"] == ["2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05"]
-    assert plan["request_segments"][2]["utc_dates"] == ["2026-03-06"]
+    assert plan["request_segments"][0]["segment_id"] == "segment-01-2026-03-01"
+    assert plan["request_segments"][1]["segment_id"] == "segment-02-2026-03-02-to-2026-03-05"
+    assert plan["request_segments"][2]["segment_id"] == "segment-03-2026-03-06"
 
 
 def test_121_distinct_utc_valid_times():
@@ -207,6 +254,13 @@ def test_trading_session_instantaneous_expected_5(taipei_windows):
 
 def test_trading_session_accumulation_expected_4(taipei_windows):
     assert taipei_windows.loc["trading_session", "accumulation_expected_count"] == 4
+
+
+def test_trading_expected_hour_count_has_no_4_5_conflict(taipei_windows):
+    row = taipei_windows.loc["trading_session"]
+    assert row["expected_hour_count"] == 5
+    assert row["instantaneous_expected_count"] == 5
+    assert row["accumulation_expected_count"] == 4
 
 
 def test_13_14_accumulation_interval_excluded(taipei_windows):
@@ -253,6 +307,7 @@ def test_missing_instantaneous_hour_flagged():
     hourly = hourly.loc[hourly["timestamp_utc"] != local_08]
     normalized = normalize_weather_frame(hourly, city_id="taipei", source_id="fixture", data_class="final_reanalysis")
     windows = build_weather_windows(normalized, TAIEX_MARKET, [date_from("2026-03-02")]).set_index("window")
+    assert "missing_hours" in windows.loc["pre_open", "quality_flags"]
     assert "missing_instantaneous_hours" in windows.loc["pre_open", "quality_flags"]
 
 
@@ -263,6 +318,140 @@ def test_missing_accumulation_interval_flagged():
     normalized = normalize_weather_frame(hourly, city_id="taipei", source_id="fixture", data_class="final_reanalysis")
     windows = build_weather_windows(normalized, TAIEX_MARKET, [date_from("2026-03-02")]).set_index("window")
     assert "missing_accumulation_intervals" in windows.loc["pre_open", "quality_flags"]
+
+
+# ---------------- finality gate ----------------
+
+def test_finality_march_2026_allowed_in_august():
+    result = finality_check(date_from("2026-03-02"), date_from("2026-03-06"), True, datetime(2026, 8, 6).date())
+    assert result["final_eligibility_date"] == "2026-07-01"
+    assert result["finality_status"] == "expected_final_by_official_latency"
+    assert result["expected_data_class"] == "final_reanalysis"
+
+
+def test_finality_march_2026_not_allowed_in_april():
+    result = finality_check(date_from("2026-03-02"), date_from("2026-03-06"), True, datetime(2026, 4, 1).date())
+    assert result["finality_status"] == "not_yet_eligible_for_final"
+    assert result["expected_data_class"] == "provisional_reanalysis"
+
+
+def test_finality_current_month_not_allowed():
+    result = finality_check(date_from("2026-08-01"), date_from("2026-08-07"), True, datetime(2026, 8, 6).date())
+    assert result["finality_status"] == "not_yet_eligible_for_final"
+
+
+def test_finality_without_final_flag_keeps_provisional():
+    result = finality_check(date_from("2026-03-02"), date_from("2026-03-06"), False, datetime(2026, 8, 6).date())
+    assert result["expected_data_class"] == "provisional_reanalysis"
+    assert result["finality_status"] == "provisional_by_explicit_flag"
+
+
+def test_live_final_rejected_when_gate_not_met(tmp_path):
+    root = make_live_root(tmp_path)
+    with pytest.raises(SystemExit, match="finality gate"):
+        era5_main(
+            ["--city", "taipei", "--start-date", "2026-07-01", "--end-date", "2026-07-03", "--final", "--live", "--root", str(root)],
+            client_factory=lambda: FakeCDSClient(),
+            readiness=fake_readiness(),
+        )
+
+
+# ---------------- live offline simulation ----------------
+
+def test_live_simulation_runs_three_segments(tmp_path, capsys):
+    root = make_live_root(tmp_path)
+    client = FakeCDSClient()
+    code = era5_main(
+        ["--pilot-only", "--final", "--live", "--root", str(root)],
+        client_factory=lambda: client,
+        readiness=fake_readiness(),
+    )
+    assert code == 0
+    assert len(client.calls) == 3
+    assert client.calls[0]["dataset"] == "reanalysis-era5-single-levels"
+    assert client.calls[0]["request"]["date"] == ["2026-03-01"]
+    assert client.calls[0]["request"]["time"][0] == "16:00"
+    assert client.calls[0]["request"]["time"][-1] == "23:00"
+    assert len(client.calls[0]["request"]["time"]) == 8
+    assert client.calls[1]["request"]["date"] == ["2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05"]
+    assert len(client.calls[1]["request"]["time"]) == 24
+    assert client.calls[2]["request"]["date"] == ["2026-03-06"]
+    assert client.calls[2]["request"]["time"][0] == "00:00"
+    assert client.calls[2]["request"]["time"][-1] == "16:00"
+    assert len(client.calls[2]["request"]["time"]) == 17
+    assert "2m_temperature" in client.calls[0]["request"]["variable"]
+    assert len(client.calls[0]["request"]["area"]) == 4
+    # results must not contain absolute local paths
+    serialized = capsys.readouterr().out
+    assert ":\\" not in serialized
+    assert "D:" not in serialized
+
+
+def test_live_uses_utc_dates_list_not_singular_key(tmp_path):
+    root = make_live_root(tmp_path)
+    client = FakeCDSClient()
+    era5_main(
+        ["--pilot-only", "--final", "--live", "--root", str(root)],
+        client_factory=lambda: client,
+        readiness=fake_readiness(),
+    )
+    # multi-date segment passes the full date list; a KeyError on
+    # segment["utc_date"] would have raised before retrieve was reached
+    assert client.calls[1]["request"]["date"] == ["2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05"]
+
+
+def test_live_uses_temp_staging_no_fixed_path(tmp_path, capsys):
+    root = make_live_root(tmp_path)
+    era5_main(
+        ["--pilot-only", "--final", "--live", "--root", str(root)],
+        client_factory=lambda: FakeCDSClient(),
+        readiness=fake_readiness(),
+    )
+    assert not (root / ".local/cds-stage").exists()
+
+
+def test_live_results_report_relative_manifest(tmp_path, capsys):
+    root = make_live_root(tmp_path)
+    era5_main(
+        ["--pilot-only", "--final", "--live", "--root", str(root)],
+        client_factory=lambda: FakeCDSClient(),
+        readiness=fake_readiness(),
+    )
+    results = json.loads(capsys.readouterr().out)
+    assert len(results) == 3
+    for item in results:
+        assert "segment_id" in item
+        assert "artifact_id" in item
+        assert "revision" in item
+        assert "sha256" in item
+        assert not Path(item["manifest_path"]).is_absolute()
+        assert ":\\" not in item["manifest_path"]
+        assert item["manifest_path"].replace("\\", "/").startswith("data/source_raw/")
+
+
+# ---------------- staging validation ----------------
+
+def test_staged_empty_file_fails(tmp_path):
+    path = tmp_path / "empty.nc"
+    path.write_bytes(b"")
+    with pytest.raises(V2Error, match="empty"):
+        validate_netcdf(path, {"date": ["2026-03-01"], "time": ["16:00"]})
+
+
+def test_staged_non_netcdf_fails(tmp_path):
+    path = tmp_path / "bad.nc"
+    path.write_bytes(b"this is not a netcdf file")
+    with pytest.raises(V2Error):
+        validate_netcdf(path, {"date": ["2026-03-01"], "time": ["16:00"]})
+
+
+def test_staged_missing_variable_fails(tmp_path):
+    timestamps = pd.DatetimeIndex(["2026-03-01T16:00:00"])
+    dataset = xr.Dataset({"t2m": ("valid_time", [283.15])}, coords={"valid_time": timestamps})
+    path = tmp_path / "partial.nc"
+    dataset.to_netcdf(path)
+    with pytest.raises(V2Error, match="missing requested variables"):
+        validate_netcdf(path, {"date": ["2026-03-01"], "time": ["16:00"]})
 
 
 # ---------------- CDS credential readiness ----------------
@@ -277,50 +466,47 @@ def test_cds_readiness_invalid_shape(tmp_path):
     (tmp_path / ".cdsapirc").write_text("not: [valid", encoding="utf-8")
     readiness = cds_readiness(ROOT, home=tmp_path)
     assert readiness["cdsapirc_status"] == "invalid_shape"
-    assert readiness["credential_readiness_status"] in {"credential_file_invalid", "dataset_terms_acceptance_unverified"}
+    assert readiness["credential_readiness_status"] == "credential_file_invalid"
 
 
-def test_cds_readiness_does_not_leak_key(tmp_path):
-    (tmp_path / ".cdsapirc").write_text("url: https://cds.climate.copernicus.eu/api\nkey: TESTKEY\n", encoding="utf-8")
+def test_cds_readiness_returns_booleans_not_values(tmp_path):
+    (tmp_path / ".cdsapirc").write_text("url: https://example.invalid/api\nkey: TESTKEY\n", encoding="utf-8")
     readiness = cds_readiness(ROOT, home=tmp_path)
-    assert readiness["cdsapirc_status"] == "present_shape_valid"
+    assert readiness["url_field_present"] is True
+    assert readiness["key_field_present"] is True
     serialized = json.dumps(readiness)
     assert "TESTKEY" not in serialized
-    assert "https://cds.climate.copernicus.eu/api" not in serialized
+    assert "https://example.invalid/api" not in serialized
 
 
-def test_terms_unverified_blocks_ready(tmp_path):
-    (tmp_path / ".cdsapirc").write_text("url: https://cds.climate.copernicus.eu/api\nkey: TESTKEY\n", encoding="utf-8")
+def test_terms_confirmation_missing_blocks_ready(tmp_path):
+    (tmp_path / ".cdsapirc").write_text("url: https://example.invalid/api\nkey: TESTKEY\n", encoding="utf-8")
     readiness = cds_readiness(ROOT, home=tmp_path)
     assert readiness["dataset_terms_status"] == "acceptance_unverified"
-    assert readiness["credential_readiness_status"] != "ready_for_future_live_request"
-
-
-def test_cds_readiness_never_reports_ready_without_terms(tmp_path):
-    (tmp_path / ".cdsapirc").write_text("url: https://cds.climate.copernicus.eu/api\nkey: TESTKEY\n", encoding="utf-8")
-    readiness = cds_readiness(ROOT, home=tmp_path)
     assert readiness["credential_readiness_status"] == "dataset_terms_acceptance_unverified"
 
 
-# ---------------- finality ----------------
-
-def test_finality_expected_final_for_march_2026():
-    result = finality_check(date_from("2026-03-02"), date_from("2026-03-06"), True, datetime(2026, 8, 6).date())
-    assert result["expected_data_class"] == "final_reanalysis"
-    assert result["finality_status"] == "expected_final_by_official_latency"
+def test_terms_confirmation_file_not_created_by_task():
+    assert not (ROOT / ".local/agreements/cds-era5-single-levels.json").exists()
 
 
-def test_finality_provisional_without_final_flag():
-    result = finality_check(date_from("2026-03-02"), date_from("2026-03-06"), False, datetime(2026, 8, 6).date())
-    assert result["expected_data_class"] == "provisional_reanalysis"
+# ---------------- dry-run side effects ----------------
 
-
-# ---------------- dry-run audit file ----------------
-
-def test_dry_run_audit_file_written(capsys):
-    code = era5_main(["--pilot-only", "--final"])  # default root writes the repo audit
+def test_default_dry_run_writes_no_files(tmp_path):
+    root = make_live_root(tmp_path)
+    code = era5_main(["--pilot-only", "--final", "--root", str(root)])
     assert code == 0
-    audit_path = ROOT / "data/audits/v2/weather-pilot/taipei-era5-dry-run.json"
+    assert not (root / "data/audits/v2/weather-pilot").exists()
+
+
+def test_audit_output_writes_only_with_flag(tmp_path):
+    root = make_live_root(tmp_path)
+    code = era5_main(
+        ["--pilot-only", "--final", "--root", str(root),
+         "--audit-output", "data/audits/v2/weather-pilot/taipei-era5-dry-run.json"]
+    )
+    assert code == 0
+    audit_path = root / "data/audits/v2/weather-pilot/taipei-era5-dry-run.json"
     assert audit_path.exists()
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     assert audit["live_requests_run"] is False
@@ -328,7 +514,9 @@ def test_dry_run_audit_file_written(capsys):
     assert audit["historical_backfill_run"] is False
     assert audit["requested_hour_count"] == 121
     assert audit["request_count"] == 3
+    assert audit["final_eligibility_date"] == "2026-07-01"
     assert audit["expected_data_class"] == "final_reanalysis"
+    assert audit["coordinate_evidence"]["coordinate_evidence_status"] == "official_address_with_derived_coordinate"
 
 
 # ---------------- frozen status regressions ----------------

@@ -18,9 +18,14 @@ was contacted.
 
 - `city_id: taipei`, `latitude: 25.0375`, `longitude: 121.5646`
 - `coordinate_basis: municipal_reference_point`
-- Source: Taipei City Government (`https://www.gov.taipei/`); the point is the
-  municipal reference location at Taipei City Hall, No.1 City Hall Road,
-  Xinyi District.
+- `coordinate_derivation: derived_from_official_taipei_city_hall_address`
+- `coordinate_source`: Taipei City Government official City Hall page
+  (`https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB`,
+  "市府大樓"; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889).
+- `coordinate_evidence_status: official_address_with_derived_coordinate` —
+  the coordinates are a reproducible reference point derived from the
+  official City Hall address; the page does not itself publish the exact
+  latitude/longitude.
 - Verified: 2026-08-06. Single frozen point; request area is the point plus
   and minus 0.13 degrees (north/west/south/east), following the existing
   repository small-area convention. No whole-island or multi-point request.
@@ -68,34 +73,56 @@ and is excluded (`partial_interval_policy: partial_accumulation_interval_exclude
 
 ## Finality
 
-The 2026-03 window is well beyond the official ERA5 finalization latency
-(about two to three months), so the dry-run records
-`expected_data_class: final_reanalysis` and
+The 2026-03 window is beyond the official ERA5 finalization latency, and the
+conservative eligibility gate (target month + 3 full months + 1 day) gives
+`final_eligibility_date: 2026-07-01`, which is before the retrieval date, so
+the dry-run records `expected_data_class: final_reanalysis` and
 `finality_status: expected_final_by_official_latency`. This is an expectation
-based on the official latency policy only: no file was downloaded, no NetCDF
-metadata was read, and a future live task must verify the dataset, request
-parameters, file metadata and manifest before marking anything final. Days
-that have not passed the finalization threshold must not be labelled
-`final_reanalysis`.
+based on the official latency policy and the date gate only: no file was
+downloaded, no NetCDF metadata was read, and the live task must verify the
+dataset, request parameters, file metadata and manifest before marking
+anything final. `--final` alone never grants finality; requests whose target
+month has not passed the gate are labelled `not_yet_eligible_for_final` and
+stay `provisional_reanalysis`, and a live `--final` request is refused.
 
 ## CDS credentials
 
 Read-only local readiness is recorded in the dry-run audit. On this machine
 `cdsapi 0.7.7` is installed but no `.cdsapirc` exists
-(`cdsapirc_status: missing`, `credential_readiness_status:
+(`cdsapirc_status: missing`, `url_field_present: false`,
+`key_field_present: false`, `credential_readiness_status:
 credential_file_missing`), and dataset terms acceptance is
-`acceptance_unverified`. A future live request requires a present,
-shape-valid `.cdsapirc` and a user-confirmed terms acceptance recorded outside
-the task; the web terms must be accepted manually.
+`acceptance_unverified` (no local confirmation file exists under
+`.local/agreements/`). A future live request requires a present,
+shape-valid `.cdsapirc` and a local, non-sensitive terms-confirmation file
+(`.local/agreements/cds-era5-single-levels.json`, created only after the user
+explicitly accepts the dataset terms in the browser). Credential values are
+never read back, stored or printed.
 
 ## Dry-run audit
 
 `data/audits/v2/weather-pilot/taipei-era5-dry-run.json` records the full
-request plan, variable semantics, area, finality expectation and credential
-booleans with `live_requests_run: false`, `weather_data_downloaded: false`,
-`historical_backfill_run: false`.
+request plan (3 segments with stable ids), variable semantics, area,
+coordinate evidence, finality gate, credential booleans with
+`live_requests_run: false`, `weather_data_downloaded: false`,
+`historical_backfill_run: false`. Offline commands write this file only when
+`--audit-output` is given.
+
+## Live readiness (2026-08-06 repair)
+
+The live branch is implemented and exercised offline by an injected fake CDS
+client in tests (3 segments, multi-date list for segment 2, no
+`segment["utc_date"]` dependency). Staging uses a unique temporary directory;
+downloaded files are validated (exists, non-empty, openable NetCDF, all
+requested variables, non-empty timestamps within the request plan) before the
+append-only raw store. Live results report only relative manifest paths,
+artifact ids, revisions, SHA-256 and skipped flags. A live `--final` request
+is refused unless the finality date gate passes. No CDS API was called in
+this round.
 
 ## Next step (not started)
 
-One controlled live download of the Taipei pilot week, after credential and
-terms gates are met and the control plane approves.
+The user must configure the CDS account/API key in `~/.cdsapirc` and accept
+the ERA5 dataset terms in the browser (dataset licensed CC BY); then one
+controlled live Taipei pilot-week download can proceed after control-plane
+approval.

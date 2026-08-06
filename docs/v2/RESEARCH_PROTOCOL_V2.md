@@ -34,4 +34,5 @@ The model plan, hypotheses, exclusions, correction family, and revision ID must 
   hours). Only a dry-run audit exists; no ERA5 data has been downloaded and
   no CDS API has been called. A future live download must verify dataset,
   parameters, file metadata and manifest before any `final_reanalysis`
-  labelling.
+  labelling, and `--final` is gated by a conservative finality date
+  (target month + 3 months + 1 day).

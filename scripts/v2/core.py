@@ -331,15 +331,14 @@ def load_variable_semantics(root: Path | None = None) -> dict[str, dict[str, Any
 
 
 def _expected_instantaneous(start_local: datetime, end_local: datetime) -> int:
-    """Count local whole-hour timestamps inside [start, end)."""
-    count = 0
-    current = start_local.replace(minute=0, second=0, microsecond=0)
-    if current < start_local:
-        current += timedelta(hours=1)
-    while current < end_local:
-        count += 1
-        current += timedelta(hours=1)
-    return count
+    """Count local whole-hour timestamps inside [start, end).
+
+    Uses a tz-aware hourly range so DST transition days yield the actual
+    number of local whole hours (23 or 25) instead of a naive UTC hour count.
+    """
+    return int(
+        pd.date_range(start_local, end_local, freq="h", inclusive="left", tz=start_local.tzinfo).size
+    )
 
 
 def _expected_accumulation(start_local: datetime, end_local: datetime) -> int:
@@ -444,15 +443,6 @@ def build_weather_windows(
             "trading_session": (open_local, close_local),
             "full_day": (start_local, end_local),
         }
-        legacy_expected = {
-            "pre_open": 2,
-            "trading_session": int((close_local - open_local).total_seconds() / 3600)
-            - sum(
-                int((datetime.combine(day, b, tz) - datetime.combine(day, a, tz)).total_seconds() / 3600)
-                for a, b in breaks
-            ),
-            "full_day": int((end_local.astimezone(timezone.utc) - start_local.astimezone(timezone.utc)).total_seconds() / 3600),
-        }
         for window, (w_start, w_end) in window_bounds.items():
             inst_mask = (subset["timestamp_local"] >= w_start) & (subset["timestamp_local"] < w_end)
             acc_mask = (subset["acc_start_local"] >= w_start) & (subset["acc_end_local"] <= w_end)
@@ -480,9 +470,8 @@ def build_weather_windows(
             quality_flags: list[str] = []
             if missing_semantics:
                 quality_flags.append("temporal_support_metadata_missing")
-            if inst_observed < legacy_expected[window]:
-                quality_flags.append("missing_hours")
             if inst_observed < inst_expected:
+                quality_flags.append("missing_hours")
                 quality_flags.append("missing_instantaneous_hours")
             if acc_observed < acc_expected:
                 quality_flags.append("missing_accumulation_intervals")
@@ -494,7 +483,9 @@ def build_weather_windows(
                 "trading_date": day.isoformat(),
                 "window": window,
                 "hour_count": inst_observed,
-                "expected_hour_count": legacy_expected[window],
+                # Compatibility field: equals the instantaneous expected count,
+                # never int(session_duration_hours) (which gave TAIEX 4 vs 5).
+                "expected_hour_count": inst_expected,
                 "instantaneous_expected_count": inst_expected,
                 "instantaneous_observed_count": inst_observed,
                 "accumulation_expected_count": acc_expected,

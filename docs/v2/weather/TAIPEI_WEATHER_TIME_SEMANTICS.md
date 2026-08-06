@@ -61,7 +61,17 @@ mixed into window values.
 
 ## Quality flags
 
-`missing_hours` (legacy), `missing_instantaneous_hours`,
-`missing_accumulation_intervals`, `partial_accumulation_interval_excluded`,
-`temporal_support_metadata_missing`. Missing hours are never silently ignored;
-windows with insufficient coverage are not marked ready.
+`missing_hours` (compatibility flag, now derived from the instantaneous
+expected count), `missing_instantaneous_hours`, `missing_accumulation_intervals`,
+`partial_accumulation_interval_excluded`, `temporal_support_metadata_missing`.
+Missing hours are never silently ignored; windows with insufficient coverage
+are not marked ready.
+
+## Compatibility field
+
+`expected_hour_count` is a compatibility alias equal to
+`instantaneous_expected_count`. It is never derived from
+`int(session_duration_hours)`; the TAIEX 4.5-hour session therefore reports
+`expected_hour_count = 5` and `instantaneous_expected_count = 5` (with
+`accumulation_expected_count = 4`), leaving no conflicting 4-vs-5
+instantaneous expectation.
