@@ -588,14 +588,48 @@ def assess_maturity(
 
 
 def build_panel(
-    market: pd.DataFrame, windows: pd.DataFrame, locations: dict[str, Any], tier: str
+    market: pd.DataFrame,
+    windows: pd.DataFrame,
+    locations: dict[str, Any],
+    tier: str,
+    *,
+    duplicate_policy: str = "error",
+    include_sample_temperature_features: bool = True,
 ) -> pd.DataFrame:
+    """Strict one-to-one weather-market panel builder.
+
+    Research-grade default rejects duplicate market keys
+    ``(market_id, trading_date)`` and duplicate weather window keys
+    ``(city_id, market_id, trading_date, window)`` instead of silently
+    dropping them.  Set ``duplicate_policy="keep_last"`` only for legacy
+    compatibility paths; the real pilot must use the default.
+    """
     if tier not in {"provisional", "frozen"}:
         raise V2Error("panel tier must be provisional or frozen")
+    if duplicate_policy not in {"error", "keep_last"}:
+        raise V2Error("duplicate_policy must be 'error' or 'keep_last'")
     index = ["city_id", "market_id", "trading_date"]
+
+    # ---- strict weather window key check (research-grade) ----
+    window_key = ["city_id", "market_id", "trading_date", "window"]
+    required = set(window_key) | set(CORE_WEATHER_COLUMNS)
+    missing = required - set(windows.columns)
+    if missing:
+        raise V2Error(f"weather windows missing fields: {sorted(missing)}")
+    duplicated_windows = windows.duplicated(subset=window_key, keep=False)
+    if duplicated_windows.any():
+        dup = windows.loc[duplicated_windows, window_key].drop_duplicates()
+        raise V2Error(
+            f"duplicate weather window keys: {dup.to_dict('records')[:3]}"
+        )
+
     pieces = []
     for window in ["pre_open", "trading_session", "full_day"]:
         selected = windows.loc[windows["window"] == window, index + CORE_WEATHER_COLUMNS].copy()
+        dup_selected = selected.duplicated(subset=index, keep=False)
+        if dup_selected.any():
+            dup = selected.loc[dup_selected, index].drop_duplicates()
+            raise V2Error(f"duplicate {window} rows for same key: {dup.to_dict('records')[:3]}")
         selected.rename(
             columns={column: f"{window}_{column}" for column in CORE_WEATHER_COLUMNS},
             inplace=True,
@@ -604,24 +638,71 @@ def build_panel(
     weather_wide = pieces[0]
     for piece in pieces[1:]:
         weather_wide = weather_wide.merge(piece, on=index, how="outer", validate="one_to_one")
+    weather_fields = [
+        f"{window}_{column}"
+        for window in ["pre_open", "trading_session", "full_day"]
+        for column in CORE_WEATHER_COLUMNS
+    ]
+
+    # ---- market duplicate policy (research-grade rejects silently) ----
+    market_key = ["market_id", "trading_date"]
+    duplicated_market = market.duplicated(subset=market_key, keep=False)
+    if duplicated_market.any():
+        dup = market.loc[duplicated_market, market_key].drop_duplicates()
+        if duplicate_policy == "error":
+            raise V2Error(f"duplicate market keys: {dup.to_dict('records')[:3]}")
+    if duplicate_policy == "keep_last":
+        result = market.sort_values(["market_id", "trading_date", "revision"]).drop_duplicates(
+            market_key, keep="last"
+        ).copy()
+    else:
+        result = market.sort_values(["market_id", "trading_date", "revision"]).copy()
+
     location_map = {row["market_id"]: row["city_id"] for row in locations["locations"]}
-    result = market.sort_values(["market_id", "trading_date", "revision"]).drop_duplicates(
-        ["market_id", "trading_date"], keep="last"
-    ).copy()
     result["city_id"] = result["market_id"].map(location_map)
-    result = result.merge(weather_wide, on=index, how="left", validate="one_to_one")
+
+    # ---- strict coverage: every market key must be served by weather ----
+    market_keys = set(zip(result["city_id"], result["market_id"], result["trading_date"]))
+    weather_keys = set(zip(weather_wide["city_id"], weather_wide["market_id"], weather_wide["trading_date"]))
+    missing_market_keys = market_keys - weather_keys
+    if missing_market_keys:
+        raise V2Error(
+            "market keys missing from weather: "
+            f"{sorted(missing_market_keys)[:3]}"
+        )
+    needed_mask = weather_wide[index].apply(tuple, axis=1).isin(market_keys)
+    if weather_wide.loc[needed_mask, weather_fields].isna().any().any():
+        incomplete = weather_wide.loc[needed_mask & weather_wide[weather_fields].isna().any(axis=1), index]
+        raise V2Error(
+            f"weather-wide missing window coverage: {incomplete.to_dict('records')[:3]}"
+        )
+    # keep only rows the market actually needs (excess weather keys dropped)
+    weather_wide = weather_wide.loc[needed_mask].copy()
+
+    # ---- strict one-to-one join: key sets must match exactly ----
+    market_keys = set(zip(result["city_id"], result["market_id"], result["trading_date"]))
+    weather_keys = set(zip(weather_wide["city_id"], weather_wide["market_id"], weather_wide["trading_date"]))
+    if market_keys != weather_keys:
+        raise V2Error(
+            "market and weather key sets must match exactly; "
+            f"only_market={sorted(market_keys - weather_keys)} "
+            f"only_weather={sorted(weather_keys - market_keys)}"
+        )
+    result = result.merge(weather_wide, on=index, how="inner", validate="one_to_one")
     result["schema_version"] = SCHEMA_VERSION
     result["panel_tier"] = tier
     result["source_revision"] = result["revision"]
-    monthly = result.groupby(["city_id", pd.to_datetime(result["trading_date"]).dt.month])[
-        "pre_open_air_temperature_c"
-    ]
-    mean = monthly.transform("mean")
-    std = monthly.transform("std").replace(0, float("nan"))
-    result["pre_open_temperature_anomaly_c"] = result["pre_open_air_temperature_c"] - mean
-    result["pre_open_temperature_z"] = (
-        result["pre_open_air_temperature_c"] - mean
-    ) / std
+
+    if include_sample_temperature_features:
+        monthly = result.groupby(["city_id", pd.to_datetime(result["trading_date"]).dt.month])[
+            "pre_open_air_temperature_c"
+        ]
+        mean = monthly.transform("mean")
+        std = monthly.transform("std").replace(0, float("nan"))
+        result["pre_open_temperature_anomaly_c"] = result["pre_open_air_temperature_c"] - mean
+        result["pre_open_temperature_z"] = (
+            result["pre_open_air_temperature_c"] - mean
+        ) / std
     return result
 
 

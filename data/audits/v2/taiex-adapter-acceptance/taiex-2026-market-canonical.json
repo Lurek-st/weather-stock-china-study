@@ -1,0 +1,91 @@
+{
+  "audit_type": "taiex_2026_market_canonical",
+  "calendar_audit_path": "data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json",
+  "calendar_audit_sha256": "8c757eaf670183835a274ec89f2ceb3586759d1d2f9227a10c12b0f62fc0e196",
+  "city_id": "taipei",
+  "historical_backfill_run": false,
+  "market_acceptance_audit_path": "data/audits/v2/taiex-adapter-acceptance/taiex-2026-market-only.json",
+  "market_acceptance_audit_sha256": "a92bfa2961f5c873a8d00cbbccd3a405480486ba0974e3aebc6de3966a5d3118",
+  "market_canonical_path": "data/canonical/v2/market/taiex-final-pilot-20260302-20260306.parquet",
+  "market_canonical_sha256": "09a7bd3d11c8248c573ebee4c1fd22025babfc1a47636bff2df0f20da230f454",
+  "market_canonical_status": "accepted",
+  "market_id": "taiex",
+  "market_row_count": 5,
+  "ohlc_validation_passed": true,
+  "pilot_dates": [
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "previous_close_match": true,
+  "production_status": "not_connected",
+  "raw_artifacts": [
+    {
+      "artifact_id": "twse_taiex_official:20260201:r0001-66f10e8da761",
+      "content_length": 937,
+      "revision": 1,
+      "sha256": "66f10e8da761a212bced644714c6a3dc39de5d7d3daf657560af48e67ffd75c6",
+      "source_month": "20260201"
+    },
+    {
+      "artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "content_length": 1557,
+      "revision": 1,
+      "sha256": "e8926685144b22b65e7450815dda03dbdc9a00b3b03401073596e6596d57bae2",
+      "source_month": "20260301"
+    }
+  ],
+  "return_recalculation_match": true,
+  "rows": [
+    {
+      "close_to_close_return_pct": -0.9018907233,
+      "official_close": 35095.09,
+      "previous_close_raw_artifact_id": "twse_taiex_official:20260201:r0001-66f10e8da761",
+      "previous_close_source_date": "2026-02-26",
+      "previous_official_close": 35414.49,
+      "raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "trading_date": "2026-03-02"
+    },
+    {
+      "close_to_close_return_pct": -2.1981422472,
+      "official_close": 34323.65,
+      "previous_close_raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "previous_close_source_date": "2026-03-02",
+      "previous_official_close": 35095.09,
+      "raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "trading_date": "2026-03-03"
+    },
+    {
+      "close_to_close_return_pct": -4.3549272877,
+      "official_close": 32828.88,
+      "previous_close_raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "previous_close_source_date": "2026-03-03",
+      "previous_official_close": 34323.65,
+      "raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "trading_date": "2026-03-04"
+    },
+    {
+      "close_to_close_return_pct": 2.5710898453,
+      "official_close": 33672.94,
+      "previous_close_raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "previous_close_source_date": "2026-03-04",
+      "previous_official_close": 32828.88,
+      "raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "trading_date": "2026-03-05"
+    },
+    {
+      "close_to_close_return_pct": -0.2179791845,
+      "official_close": 33599.54,
+      "previous_close_raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "previous_close_source_date": "2026-03-05",
+      "previous_official_close": 33672.94,
+      "raw_artifact_id": "twse_taiex_official:20260301:r0001-e8926685144b",
+      "trading_date": "2026-03-06"
+    }
+  ],
+  "schema_version": "2.0.0",
+  "source_timestamp_semantics": "raw_retrieved_at",
+  "unique_key_count": 5
+}
