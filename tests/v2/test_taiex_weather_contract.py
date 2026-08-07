@@ -13,6 +13,7 @@ from datetime import date, datetime, time, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
@@ -104,16 +105,16 @@ class FakeCDSClient:
             ts = ts.append(pd.DatetimeIndex([ts[0]]))
         fixture = xr.Dataset(
             {
-                "t2m": ("valid_time", [283.15] * len(ts)),
-                "d2m": ("valid_time", [278.15] * len(ts)),
-                "tp": ("valid_time", [0.001] * len(ts)),
-                "tcc": ("valid_time", [0.5] * len(ts)),
-                "u10": ("valid_time", [3.0] * len(ts)),
-                "v10": ("valid_time", [4.0] * len(ts)),
-                "i10fg": ("valid_time", [5.0] * len(ts)),
-                "ssrd": ("valid_time", [360000.0] * len(ts)),
+                "t2m": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 283.15)),
+                "d2m": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 278.15)),
+                "tp": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 0.001)),
+                "tcc": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 0.5)),
+                "u10": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 3.0)),
+                "v10": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 4.0)),
+                "i10fg": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 5.0)),
+                "ssrd": (("valid_time", "latitude", "longitude"), np.full((len(ts), 1, 1), 360000.0)),
             },
-            coords={"valid_time": ts},
+            coords={"valid_time": ts, "latitude": [25.0], "longitude": [121.5]},
         )
         fixture.to_netcdf(target)
 

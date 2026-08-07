@@ -561,8 +561,8 @@ def validate_zip_container(
                         {
                             "member_name": name,
                             "member_sha256": hashlib.sha256(member_path.read_bytes()).hexdigest(),
-                            "compressed_size": next(info.file_size for info in infos if info.filename == name),
-                            "uncompressed_size": member_path.stat().st_size,
+                            "compressed_size": next(info.compress_size for info in infos if info.filename == name),
+                            "uncompressed_size": next(info.file_size for info in infos if info.filename == name),
                             "variables": summary["variables"],
                             "timestamp_set_match": summary["timestamp_set_match"],
                             "spatial": summary["spatial"],
@@ -639,6 +639,23 @@ def validate_download_container(
         result = validate_zip_container(path, request, area, workdir=workdir)
     else:
         member = validate_netcdf(path, request)
+        spatial_passed = True
+        if area is not None:
+            try:
+                import xarray as xr
+
+                with xr.open_dataset(path) as dataset:
+                    _, spatial_problems = _spatial_summary(dataset, area)
+                spatial_passed = not spatial_problems
+                if not spatial_passed:
+                    raise V2Error("direct netcdf spatial validation failed: " + "; ".join(spatial_problems))
+            except V2Error:
+                raise
+            except Exception as exc:
+                raise V2Error(f"direct netcdf spatial validation failed: {type(exc).__name__}") from exc
+        container_passed = member["netcdf_validation_passed"] and spatial_passed
+        if not container_passed:
+            raise V2Error("direct netcdf container validation failed (timestamp, variables or spatial)")
         result = {
             "container_type": "netcdf",
             "member_count": 1,
@@ -646,14 +663,14 @@ def validate_download_container(
             "member_sha256": [hashlib.sha256(path.read_bytes()).hexdigest()],
             "member_compressed_sizes": [path.stat().st_size],
             "member_uncompressed_sizes": [path.stat().st_size],
-            "member_summaries": [{"member_name": path.name, "member_validation_passed": member["netcdf_validation_passed"]}],
+            "member_summaries": [{"member_name": path.name, "member_validation_passed": container_passed}],
             "observed_variable_union": sorted(NETCDF_VARIABLES),
             "missing_variables": [],
             "duplicate_variables_across_members": [],
             "all_requested_variables_present": True,
             "all_member_timestamp_sets_match": member["timestamp_set_match"],
-            "all_member_spatial_checks_passed": False,
-            "container_validation_passed": member["netcdf_validation_passed"],
+            "all_member_spatial_checks_passed": spatial_passed,
+            "container_validation_passed": container_passed,
             "raw_suffix": ".nc",
         }
     result["container_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
