@@ -565,6 +565,8 @@ def validate_zip_container(
                             "uncompressed_size": next(info.file_size for info in infos if info.filename == name),
                             "variables": summary["variables"],
                             "timestamp_set_match": summary["timestamp_set_match"],
+                            "expected_timestamp_count": summary["expected_timestamp_count"],
+                            "observed_timestamp_count": summary["observed_timestamp_count"],
                             "spatial": summary["spatial"],
                             "member_validation_passed": summary["member_validation_passed"],
                         }

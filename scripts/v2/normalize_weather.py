@@ -260,9 +260,16 @@ def resolve_expver(dataset: xr.Dataset, variable: str) -> tuple[np.ndarray, dict
     data_array = dataset[variable]
     array = np.asarray(data_array.values, dtype=float)
     if "expver" not in data_array.dims:
+        scalar_values: list[str] = []
+        if "expver" in dataset.coords or "expver" in dataset.variables:
+            expver_coord = dataset["expver"]
+            if expver_coord.ndim == 0:
+                scalar_values = [str(expver_coord.item())]
+            else:
+                scalar_values = [str(value) for value in expver_coord.values]
         valid = ~np.isnan(array)
         info = {
-            "expver_values": [],
+            "expver_values": scalar_values,
             "single_source_cell_count": int(valid.sum()),
             "overlapping_equal_cell_count": 0,
             "conflicting_cell_count": 0,
@@ -579,31 +586,58 @@ def _normalize_zip_pilot(args: argparse.Namespace) -> int:
     validation = validate_canonical(canonical)
     canonical.to_parquet(output, index=False)
     parquet_sha = canonical_sha256(output)
-    expver_summary: dict[str, Any] = {}
+    # Aggregate expver stats across ALL segments/members (sum counts, union values).
+    expver_summary: dict[str, dict[str, Any]] = {}
     source_units: dict[str, Any] = {}
     for item in segment_infos:
         for info in item["member_infos"]:
             for variable, unit in info["units"].items():
                 source_units.setdefault(variable, unit)
             for variable, expver in info["expver"].items():
-                expver_summary.setdefault(variable, expver)
+                entry = expver_summary.setdefault(
+                    variable,
+                    {
+                        "expver_values": [],
+                        "single_source_cell_count": 0,
+                        "overlapping_equal_cell_count": 0,
+                        "conflicting_cell_count": 0,
+                        "missing_cell_count": 0,
+                    },
+                )
+                entry["expver_values"] = sorted(
+                    set(entry["expver_values"]) | set(expver["expver_values"])
+                )
+                entry["single_source_cell_count"] += expver["single_source_cell_count"]
+                entry["overlapping_equal_cell_count"] += expver["overlapping_equal_cell_count"]
+                entry["conflicting_cell_count"] += expver["conflicting_cell_count"]
+                entry["missing_cell_count"] += expver["missing_cell_count"]
+    raw_acceptance_audit_sha256: str | None = None
+    raw_acceptance_audit_path: str | None = None
     if args.raw_audit_output is not None:
         raw_audit = build_raw_acceptance_audit(manifests, segment_infos)
-        write_json(args.root / args.raw_audit_output, raw_audit)
+        raw_audit_target = args.root / args.raw_audit_output
+        write_json(raw_audit_target, raw_audit)
+        raw_acceptance_audit_sha256 = hashlib.sha256(
+            raw_audit_target.read_bytes()
+        ).hexdigest()
+        raw_acceptance_audit_path = Path(args.raw_audit_output).as_posix()
     if args.audit_output is not None:
-        normalizer_version = _repo_head(args.root)
+        normalizer_code = _normalizer_code_hashes(args.root)
         audit = {
             "schema_version": "2.0.0",
             "audit_type": "taipei_era5_normalization",
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "city_id": args.city,
             "market_id": "taiex",
-            "input_raw_acceptance_audit_sha256": None,
+            "input_raw_acceptance_audit_sha256": raw_acceptance_audit_sha256,
+            "raw_acceptance_audit_path": raw_acceptance_audit_path,
             "artifacts": [
                 {"artifact_id": manifest["artifact_id"], "sha256": manifest["sha256"]}
                 for manifest in manifests
             ],
-            "normalizer_version": normalizer_version,
+            "normalizer_base_head": _repo_head(args.root),
+            "normalizer_code_sha256": normalizer_code["combined"],
+            "normalizer_code_files": normalizer_code["files"],
             "selected_grid_point": {
                 "requested_latitude": args.latitude,
                 "requested_longitude": args.longitude,
@@ -620,7 +654,7 @@ def _normalize_zip_pilot(args: argparse.Namespace) -> int:
             "missing_hour_count": validation["missing_hour_count"],
             "null_counts": validation["null_counts"],
             "canonical_parquet_sha256": parquet_sha,
-            "canonical_output": str(output.relative_to(args.root)),
+            "canonical_output": output.relative_to(args.root).as_posix(),
             "weather_data_class": args.data_class,
             "canonical_status": "accepted",
             "windows_built": False,
@@ -628,8 +662,38 @@ def _normalize_zip_pilot(args: argparse.Namespace) -> int:
             "historical_backfill_run": False,
         }
         write_json(args.root / args.audit_output, audit)
-    print(json.dumps({"canonical_output": str(output.relative_to(args.root)), "canonical_parquet_sha256": parquet_sha, "row_count": validation["row_count"]}))
+    print(
+        json.dumps(
+            {
+                "canonical_output": output.relative_to(args.root).as_posix(),
+                "canonical_parquet_sha256": parquet_sha,
+                "row_count": validation["row_count"],
+            }
+        )
+    )
     return 0
+
+
+NORMALIZER_CODE_FILES = [
+    "scripts/v2/normalize_weather.py",
+    "scripts/v2/core.py",
+    "scripts/v2/fetch_era5.py",
+]
+
+
+def _normalizer_code_hashes(root: Path) -> dict[str, Any]:
+    files: dict[str, str] = {}
+    for relative in NORMALIZER_CODE_FILES:
+        path = root / relative
+        if path.exists():
+            files[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+        else:
+            files[relative] = ""
+    combined_payload = json.dumps(
+        {key: files[key] for key in NORMALIZER_CODE_FILES}, sort_keys=True
+    )
+    combined = hashlib.sha256(combined_payload.encode("utf-8")).hexdigest()
+    return {"combined": combined, "files": files}
 
 
 def manifest_path_of(manifest: dict[str, Any], root: Path) -> Path:
@@ -648,9 +712,10 @@ def build_raw_acceptance_audit(
         members = container["member_summaries"]
         member_names = container["member_names"]
         member_variables = [member["variables"] for member in members]
-        member_time_counts = [
-            int(len(manifest["request"]["time"])) for _ in members
-        ]
+        # Observed timestamp counts come from the actual container member
+        # validation, never from the request time-list length.
+        member_expected_counts = [member["expected_timestamp_count"] for member in members]
+        member_observed_counts = [member["observed_timestamp_count"] for member in members]
         time_values = sorted(expected_timestamps(manifest["request"]))
         total_distinct += len(time_values)
         segments.append(
@@ -664,7 +729,8 @@ def build_raw_acceptance_audit(
                 "member_names": member_names,
                 "member_sha256": container["member_sha256"],
                 "member_variables": member_variables,
-                "member_time_counts": member_time_counts,
+                "member_expected_time_counts": member_expected_counts,
+                "member_time_counts": member_observed_counts,
                 "first_timestamp": time_values[0].isoformat(),
                 "last_timestamp": time_values[-1].isoformat(),
                 "spatial": {
@@ -677,8 +743,8 @@ def build_raw_acceptance_audit(
                 },
                 "observed_variable_union": container["observed_variable_union"],
                 "timestamp_validation": {
-                    "expected": len(time_values),
-                    "observed": len(time_values),
+                    "expected_timestamp_count": len(time_values),
+                    "observed_timestamp_count": member_observed_counts[0] if member_observed_counts else 0,
                     "timestamp_set_match": container["all_member_timestamp_sets_match"],
                 },
                 "spatial_validation": container["all_member_spatial_checks_passed"],
