@@ -51,8 +51,26 @@ def fetch_year(year: int, session: requests.Session) -> dict[str, Any]:
     return response.json()
 
 
+def _is_retryable(exc: Exception) -> bool:
+    """Only transient network / 5xx failures are retryable.
+
+    JSON decode failures, HTTP 4xx, validation failures, append-only store
+    errors and logic errors must NOT be silently retried.
+    """
+    if isinstance(exc, (requests.Timeout, requests.ConnectionError)):
+        return True
+    if isinstance(exc, requests.HTTPError):
+        status = exc.response.status_code if exc.response is not None else None
+        return status is not None and 500 <= status < 600
+    return False
+
+
 def probe_year(year: int, root: Path, session: requests.Session | None = None) -> dict[str, Any]:
-    """Fetch one year with one controlled retry, storing raw append-only."""
+    """Fetch one year with one controlled retry, storing raw append-only.
+
+    Retry is limited to transient network / 5xx failures; parsing,
+    validation and store errors abort immediately.
+    """
     session = session or requests.Session()
     session.headers.update({"User-Agent": "Mozilla/5.0 (research probe; bounded)"})
     attempts: list[dict[str, Any]] = []
@@ -92,9 +110,11 @@ def probe_year(year: int, root: Path, session: requests.Session | None = None) -
                 "attempts": attempts,
                 "retry_used": attempt > 0,
             }
-        except Exception as exc:  # controlled single retry on network failure
+        except Exception as exc:
             last_error = str(exc)
             attempts.append({"attempt": attempt + 1, "error": last_error})
+            if not _is_retryable(exc):
+                raise V2Error(f"twse holiday fetch failed for {year} (non-retryable): {last_error}") from exc
     raise V2Error(f"twse holiday fetch failed for {year}: {last_error}")
 
 

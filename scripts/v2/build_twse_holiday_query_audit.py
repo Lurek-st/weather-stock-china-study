@@ -40,6 +40,8 @@ from scripts.v2.parse_twse_holiday_schedule import parse_annual_schedule
 RAW_BASE = ".local/source-raw/taiex-calendar/twse_official_holiday_schedule"
 SEMANTICS_AUDIT = "data/audits/v2/taiex-calendar/taiex-historical-query-semantics.json"
 ANNUAL_AUDIT = "data/audits/v2/taiex-calendar/taiex-annual-schedules-2021-2026.json"
+ANNUAL_AUDIT_2020_2026 = "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026.json"
+RECOVERY_AUDIT = "data/audits/v2/taiex-calendar/taiex-2020-annual-schedule-recovery.json"
 
 FRONTEND_PAGE = "https://www.twse.com.tw/zh/trading/holiday.html"
 HISTORICAL_ENDPOINT = "https://www.twse.com.tw/rwd/zh/holidaySchedule/holidaySchedule"
@@ -153,7 +155,7 @@ def main(argv: list[str] | None = None) -> int:
     semantics_path = root / SEMANTICS_AUDIT
     write_json(semantics_path, semantics_audit)
 
-    # ---- annual schedules 2021-2026 ----
+    # ---- annual schedules 2021-2026 (unchanged live-year records) ----
     annual_records = {}
     all_parse_clean = True
     all_year_match = True
@@ -199,6 +201,63 @@ def main(argv: list[str] | None = None) -> int:
     annual_path = root / ANNUAL_AUDIT
     write_json(annual_path, annual_audit)
 
+    # ---- 2020 archival recovery + 2020-2026 merged audit ----
+    recovery_audit_path = root / RECOVERY_AUDIT
+    merged_records = {}
+    all_merged_clean = True
+    if recovery_audit_path.is_file():
+        recovery = load_json(recovery_audit_path)
+        if recovery.get("recovery_status") == "accepted":
+            merged_records["2020"] = {
+                "raw_artifact_id": recovery["recovery_source"]["raw_artifact_id"],
+                "revision": None,
+                "sha256": recovery["recovery_source"]["raw_sha256"],
+                "response_title": "109 年市場開休市日期",
+                "row_count": recovery["row_count"],
+                "closed_official_dates": recovery["closed_official_dates"],
+                "explicit_open_dates": recovery["explicit_open_dates"],
+                "informational_unknown_dates": recovery["informational_unknown_dates"],
+                "all_dates_in_requested_year": recovery["all_dates_in_year"],
+                "no_duplicate_dates": recovery["no_duplicate_dates"],
+                "open_closed_exclusive": recovery["open_closed_exclusive"],
+                "classification_issues": recovery["classification_issues"],
+                "recovery_source": recovery["recovery_source"],
+                "recovery_audit_path": RECOVERY_AUDIT,
+            }
+            if (
+                not recovery["all_dates_in_year"]
+                or not recovery["no_duplicate_dates"]
+                or not recovery["open_closed_exclusive"]
+                or recovery["classification_issues"]
+            ):
+                all_merged_clean = False
+        else:
+            all_merged_clean = False
+    for year, record in annual_records.items():
+        merged_records[year] = record
+    merged_years = list(merged_records)
+    merged_audit: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "audit_type": "taiex_annual_holiday_schedules_2020_2026",
+        "years": merged_years,
+        "all_years_match_requested_year": all_year_match and "2020" in merged_records,
+        "all_years_parse_clean": all_parse_clean and all_merged_clean,
+        "annual_schedule_status": (
+            "official_2020_2026_loaded" if merged_years == ["2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+            else "official_2021_2026_loaded"
+        ),
+        "year_records": merged_records,
+        "full_history_calendar_verified": False,
+        "historical_backfill_run": False,
+        "extraordinary_closure_note": (
+            "annual holiday schedules cover regular official closures/open "
+            "days only; typhoon/earthquake/extraordinary closures require "
+            "separate validation and are NOT claimed by this audit"
+        ),
+    }
+    merged_path = root / ANNUAL_AUDIT_2020_2026
+    write_json(merged_path, merged_audit)
+
     print(
         json.dumps(
             {
@@ -207,6 +266,8 @@ def main(argv: list[str] | None = None) -> int:
                 "semantics_audit_sha256": sha256_file(semantics_path),
                 "annual_audit_path": ANNUAL_AUDIT,
                 "annual_audit_sha256": sha256_file(annual_path),
+                "annual_audit_2020_2026_path": ANNUAL_AUDIT_2020_2026,
+                "annual_audit_2020_2026_sha256": sha256_file(merged_path),
             },
             indent=2,
         )

@@ -20,6 +20,15 @@ data_boundary_note: >
   requested year title/queryYear but an empty data array.  Legacy
   queryYear=109 on the old route falls back to the current year.  The OpenAPI
   v1 endpoint has no parameters and returns only the current-year snapshot.
+archival_year_sources:
+  2020:
+    status: official_archival_recovered
+    retrieval_transport: web_archive
+    original_authority: TWSE
+    original_url: https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule
+    archived_url: https://web.archive.org/web/20200604104858id_/https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule
+    recovery_audit_path: data/audits/v2/taiex-calendar/taiex-2020-annual-schedule-recovery.json
 normalized_calendar_repository_policy: derived_evidence_only; raw responses remain local
 semantics_audit_path: data/audits/v2/taiex-calendar/taiex-historical-query-semantics.json
 annual_audit_path: data/audits/v2/taiex-calendar/taiex-annual-schedules-2021-2026.json
+canonical_annual_schedule_audit: data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026.json
