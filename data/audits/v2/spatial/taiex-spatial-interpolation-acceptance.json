@@ -1,0 +1,259 @@
+{
+  "audit_type": "taiex_spatial_interpolation_acceptance",
+  "bilinear_weights": {
+    "NE": 0.034917655718,
+    "NW": 0.100423144282,
+    "SE": 0.223080344282,
+    "SW": 0.641578855718
+  },
+  "code_sha256": {
+    "build_taiex_spatial_acceptance.py": "f28ca4ae45d24c036771f4b1bef65ddfbfcdd7c9200d77602ca32b8dc5631418",
+    "build_taiex_spatial_pilot.py": "d121ad2395244cbcd39f581da2b3a5d91212fad72aabd7d2df116910c95a7104",
+    "grid_geometry.py": "ef317b58dbd0c4d345827e3ba76b94ca7bf6e458c12096a4451607260a87944a"
+  },
+  "grid_resolution_degrees": 0.25,
+  "historical_backfill_run": false,
+  "latitude_values": [
+    25.25,
+    25.0
+  ],
+  "legacy_anchor": {
+    "anchor_id": "taipei_city_hall_municipal",
+    "anchor_role": "legacy_anchor_sensitivity",
+    "anchor_type": "municipal_reference_point",
+    "coordinate": {
+      "latitude": 25.0375,
+      "longitude": 121.5646
+    },
+    "market_id": "taiex"
+  },
+  "legacy_bilinear_weights": {
+    "NE": 0.03876,
+    "NW": 0.11124,
+    "SE": 0.21964,
+    "SW": 0.63036
+  },
+  "longitude_values": [
+    121.5,
+    121.75
+  ],
+  "nearest_grid_coordinate": {
+    "latitude": 25.0,
+    "longitude": 121.5
+  },
+  "nearest_grid_point": "SW",
+  "no_outcome_dependence": true,
+  "oracle_max_abs_diff": 0.0,
+  "oracle_passed": true,
+  "primary_anchor": {
+    "anchor_id": "twse_exchange_taipei_101",
+    "anchor_role": "primary",
+    "anchor_type": "official_exchange_location",
+    "building": "Taipei 101",
+    "coordinate": {
+      "latitude": 25.0338352,
+      "longitude": 121.5644995
+    },
+    "coordinate_derivation_method": "geocoding",
+    "cross_check": "reverse geocode of the coordinate resolves to Taipei 101 premises (市府路45號)",
+    "geocoder": "Nominatim (OpenStreetMap)",
+    "geocoder_query": "Taipei 101",
+    "geocoder_result": {
+      "address_road": "信義路五段",
+      "name": "台北101",
+      "osm_id": 1159328965,
+      "osm_type": "way"
+    },
+    "geocoding_date": "2026-08-13",
+    "market_id": "taiex",
+    "official_postal_address": "3F, 9F-12F, 15F, No.7, Sec.5, Xinyi Rd., Taipei City 110615, Taiwan (R.O.C.)",
+    "official_source_url": "https://www.twse.com.tw/en/about/company/map.html"
+  },
+  "primary_spatial_estimator": "bilinear",
+  "raw_artifact": ".local\\source-raw\\v2\\spatial\\cds_era5_hourly_spatial\\taiex-tcc-stencil-preopen\\r0001-e0e5893ea92d.zip",
+  "raw_zip_sha256": "e0e5893ea92da157dc6e9c20b43fa7e9423072221da593f0c7bf03ebb279a473",
+  "reproducibility": "acceptance audit is deterministic (byte-identical across repeated builds)",
+  "robustness_spatial_estimator": "nearest_grid",
+  "rows": [
+    {
+      "bilinear_tcc": 0.588062,
+      "corner_tcc": {
+        "NE": 0.256927,
+        "NW": 0.45697,
+        "SE": 0.239227,
+        "SW": 0.747894
+      },
+      "legacy_minus_primary": -0.003283,
+      "legacy_municipal_bilinear_tcc": 0.584778,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 0.747894,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 0.588062,
+      "timestamp_utc": "2026-03-01T23:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 0.431261,
+      "corner_tcc": {
+        "NE": 0.256104,
+        "NW": 0.400421,
+        "SE": 0.298828,
+        "SW": 0.491669
+      },
+      "legacy_minus_primary": -0.001229,
+      "legacy_municipal_bilinear_tcc": 0.430032,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 0.491669,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 0.431261,
+      "timestamp_utc": "2026-03-02T00:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-02T23:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-03T00:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-03T23:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-04T00:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 0.951681,
+      "corner_tcc": {
+        "NE": 0.966675,
+        "NW": 0.95697,
+        "SE": 0.98291,
+        "SW": 0.939178
+      },
+      "legacy_minus_primary": 0.000148,
+      "legacy_municipal_bilinear_tcc": 0.951829,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 0.939178,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 0.951681,
+      "timestamp_utc": "2026-03-04T23:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 0.974921,
+      "corner_tcc": {
+        "NE": 0.976959,
+        "NW": 0.980438,
+        "SE": 0.986267,
+        "SW": 0.970001
+      },
+      "legacy_minus_primary": 8.4e-05,
+      "legacy_municipal_bilinear_tcc": 0.975005,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 0.970001,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 0.974921,
+      "timestamp_utc": "2026-03-05T00:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-05T23:00:00+00:00"
+    },
+    {
+      "bilinear_tcc": 1.0,
+      "corner_tcc": {
+        "NE": 1.0,
+        "NW": 1.0,
+        "SE": 1.0,
+        "SW": 1.0
+      },
+      "legacy_minus_primary": 0.0,
+      "legacy_municipal_bilinear_tcc": 1.0,
+      "nearest_grid_point": "SW",
+      "nearest_tcc": 1.0,
+      "oracle_abs_diff": 0.0,
+      "oracle_tcc": 1.0,
+      "timestamp_utc": "2026-03-06T00:00:00+00:00"
+    }
+  ],
+  "schema_version": "2.0.0",
+  "stencil_corners": {
+    "NE": {
+      "latitude": 25.25,
+      "longitude": 121.75
+    },
+    "NW": {
+      "latitude": 25.25,
+      "longitude": 121.5
+    },
+    "SE": {
+      "latitude": 25.0,
+      "longitude": 121.75
+    },
+    "SW": {
+      "latitude": 25.0,
+      "longitude": 121.5
+    }
+  },
+  "weight_sum": 1.0
+}

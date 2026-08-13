@@ -486,9 +486,18 @@ def inspect_download_container(path: Path) -> str:
 
 
 def validate_zip_container(
-    zip_path: Path, request: dict[str, Any], area: dict[str, Any] | None = None, workdir: Path | None = None
+    zip_path: Path,
+    request: dict[str, Any],
+    area: dict[str, Any] | None = None,
+    workdir: Path | None = None,
+    expected_netcdf_variables: list[str] | None = None,
 ) -> dict[str, Any]:
-    """Safety-check a ZIP and validate every NetCDF member inside a temp dir."""
+    """Safety-check a ZIP and validate every NetCDF member inside a temp dir.
+
+    ``expected_netcdf_variables`` overrides the default full eight-variable
+    set; a caller requesting a single variable (e.g. the spatial TCC pilot)
+    passes its own expected NetCDF short-name list.
+    """
     import hashlib
     import zipfile
 
@@ -583,7 +592,7 @@ def validate_zip_container(
                 if len(lat_hashes) != 1 or len(lon_hashes) != 1:
                     raise V2Error("spatial grid mismatch across zip members")
 
-                requested = set(NETCDF_VARIABLES)
+                requested = set(expected_netcdf_variables) if expected_netcdf_variables is not None else set(NETCDF_VARIABLES)
                 missing_variables = sorted(requested - observed_variable_union)
                 duplicate_variables = sorted(name for name in observed_variable_union if sum(name in s["variables"] for s in member_summaries) > 1)
                 all_requested_present = not missing_variables
@@ -623,7 +632,11 @@ def validate_zip_container(
 
 
 def validate_download_container(
-    path: Path, request: dict[str, Any], area: dict[str, Any] | None = None, workdir: Path | None = None
+    path: Path,
+    request: dict[str, Any],
+    area: dict[str, Any] | None = None,
+    workdir: Path | None = None,
+    expected_netcdf_variables: list[str] | None = None,
 ) -> dict[str, Any]:
     """Unified entry: validate a ZIP (all NetCDF members) or a direct NetCDF.
 
@@ -638,7 +651,7 @@ def validate_download_container(
         raise V2Error("staged download container empty")
     container_type = inspect_download_container(path)
     if container_type == "zip":
-        result = validate_zip_container(path, request, area, workdir=workdir)
+        result = validate_zip_container(path, request, area, workdir=workdir, expected_netcdf_variables=expected_netcdf_variables)
     else:
         member = validate_netcdf(path, request)
         spatial_passed = True

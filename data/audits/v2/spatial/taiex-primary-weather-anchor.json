@@ -1,0 +1,105 @@
+{
+  "anchor_distance_km_note": "exchange anchor is ~0.4 km south of the legacy municipal point; both fall in the same 0.25-degree ERA5 cell",
+  "audit_type": "taiex_primary_weather_anchor",
+  "bilinear_weights": {
+    "NE": 0.034917655718,
+    "NW": 0.100423144282,
+    "SE": 0.223080344282,
+    "SW": 0.641578855718
+  },
+  "cell": {
+    "corners": {
+      "NE": {
+        "latitude": 25.25,
+        "longitude": 121.75
+      },
+      "NW": {
+        "latitude": 25.25,
+        "longitude": 121.5
+      },
+      "SE": {
+        "latitude": 25.0,
+        "longitude": 121.75
+      },
+      "SW": {
+        "latitude": 25.0,
+        "longitude": 121.5
+      }
+    },
+    "east_longitude": 121.75,
+    "north_latitude": 25.25,
+    "resolution_degrees": 0.25,
+    "south_latitude": 25.0,
+    "west_longitude": 121.5
+  },
+  "grid_resolution_degrees": 0.25,
+  "legacy_anchor": {
+    "anchor_id": "taipei_city_hall_municipal",
+    "anchor_role": "legacy_anchor_sensitivity",
+    "anchor_type": "municipal_reference_point",
+    "coordinate": {
+      "latitude": 25.0375,
+      "longitude": 121.5646
+    },
+    "market_id": "taiex"
+  },
+  "legacy_bilinear_weights": {
+    "NE": 0.03876,
+    "NW": 0.11124,
+    "SE": 0.21964,
+    "SW": 0.63036
+  },
+  "legacy_cell": {
+    "corners": {
+      "NE": {
+        "latitude": 25.25,
+        "longitude": 121.75
+      },
+      "NW": {
+        "latitude": 25.25,
+        "longitude": 121.5
+      },
+      "SE": {
+        "latitude": 25.0,
+        "longitude": 121.75
+      },
+      "SW": {
+        "latitude": 25.0,
+        "longitude": 121.5
+      }
+    },
+    "east_longitude": 121.75,
+    "north_latitude": 25.25,
+    "resolution_degrees": 0.25,
+    "south_latitude": 25.0,
+    "west_longitude": 121.5
+  },
+  "primary_anchor": {
+    "anchor_id": "twse_exchange_taipei_101",
+    "anchor_role": "primary",
+    "anchor_type": "official_exchange_location",
+    "building": "Taipei 101",
+    "coordinate": {
+      "latitude": 25.0338352,
+      "longitude": 121.5644995
+    },
+    "coordinate_derivation_method": "geocoding",
+    "cross_check": "reverse geocode of the coordinate resolves to Taipei 101 premises (市府路45號)",
+    "geocoder": "Nominatim (OpenStreetMap)",
+    "geocoder_query": "Taipei 101",
+    "geocoder_result": {
+      "address_road": "信義路五段",
+      "name": "台北101",
+      "osm_id": 1159328965,
+      "osm_type": "way"
+    },
+    "geocoding_date": "2026-08-13",
+    "market_id": "taiex",
+    "official_postal_address": "3F, 9F-12F, 15F, No.7, Sec.5, Xinyi Rd., Taipei City 110615, Taiwan (R.O.C.)",
+    "official_source_url": "https://www.twse.com.tw/en/about/company/map.html"
+  },
+  "primary_spatial_estimator": "bilinear",
+  "robustness_spatial_estimator": "nearest_grid",
+  "schema_version": "2.0.0",
+  "weight_sum": 1.0
+}
