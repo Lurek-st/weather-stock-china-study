@@ -1,0 +1,132 @@
+{
+  "audit_type": "taiex_spatial_timestamp_contract",
+  "code_sha256": {
+    "build_taiex_spatial_acceptance.py": "f28ca4ae45d24c036771f4b1bef65ddfbfcdd7c9200d77602ca32b8dc5631418",
+    "build_taiex_spatial_pilot.py": "d121ad2395244cbcd39f581da2b3a5d91212fad72aabd7d2df116910c95a7104",
+    "timestamp_contract.py": "1376dda27563921dd8ef23f4029c03f005b1e2c6016a529a1f5cb5cccfb96e28"
+  },
+  "contract": {
+    "analysis_consumed_count": 10,
+    "analysis_consumed_timestamps": [
+      "2026-03-01T23:00",
+      "2026-03-02T00:00",
+      "2026-03-02T23:00",
+      "2026-03-03T00:00",
+      "2026-03-03T23:00",
+      "2026-03-04T00:00",
+      "2026-03-04T23:00",
+      "2026-03-05T00:00",
+      "2026-03-05T23:00",
+      "2026-03-06T00:00"
+    ],
+    "analysis_exact_target_match": true,
+    "extra_transport_local_map": [
+      {
+        "taipei_local": "2026-03-01 08:00",
+        "timestamp_utc": "2026-03-01T00:00",
+        "weekday": "Sun"
+      },
+      {
+        "taipei_local": "2026-03-07 07:00",
+        "timestamp_utc": "2026-03-06T23:00",
+        "weekday": "Sat"
+      }
+    ],
+    "extra_transport_timestamp_reason": "CDS date x time Cartesian product over 6 UTC dates (2026-03-01..2026-03-06) x 2 hours (00:00, 23:00) yields 12 transport timestamps. The 10 scientific pre-open targets are a strict subset; the 2 extras are the boundary cells: the first requested date's 00:00 (before the first trading day) and the last requested date's 23:00 (after the last trading day). They are deterministic, known before the request, and never enter bilinear/nearest/legacy analysis.",
+    "extra_transport_timestamps": [
+      "2026-03-01T00:00",
+      "2026-03-06T23:00"
+    ],
+    "no_extra_leakage_into_analysis": true,
+    "raw_observed_count": 12,
+    "raw_observed_timestamps": [
+      "2026-03-01T00:00",
+      "2026-03-01T23:00",
+      "2026-03-02T00:00",
+      "2026-03-02T23:00",
+      "2026-03-03T00:00",
+      "2026-03-03T23:00",
+      "2026-03-04T00:00",
+      "2026-03-04T23:00",
+      "2026-03-05T00:00",
+      "2026-03-05T23:00",
+      "2026-03-06T00:00",
+      "2026-03-06T23:00"
+    ],
+    "scientific_subset_match": true,
+    "scientific_target_count": 10,
+    "scientific_target_timestamps": [
+      "2026-03-01T23:00",
+      "2026-03-02T00:00",
+      "2026-03-02T23:00",
+      "2026-03-03T00:00",
+      "2026-03-03T23:00",
+      "2026-03-04T00:00",
+      "2026-03-04T23:00",
+      "2026-03-05T00:00",
+      "2026-03-05T23:00",
+      "2026-03-06T00:00"
+    ],
+    "transport_exact_match": true,
+    "transport_requested_count": 12,
+    "transport_requested_timestamps": [
+      "2026-03-01T00:00",
+      "2026-03-01T23:00",
+      "2026-03-02T00:00",
+      "2026-03-02T23:00",
+      "2026-03-03T00:00",
+      "2026-03-03T23:00",
+      "2026-03-04T00:00",
+      "2026-03-04T23:00",
+      "2026-03-05T00:00",
+      "2026-03-05T23:00",
+      "2026-03-06T00:00",
+      "2026-03-06T23:00"
+    ]
+  },
+  "gate_pass": true,
+  "historical_backfill_run": false,
+  "pilot_timezone": "Asia/Taipei",
+  "pre_open_local_window": "07:00-08:59 Asia/Taipei",
+  "primary_anchor": {
+    "anchor_id": "twse_exchange_taipei_101",
+    "anchor_role": "primary",
+    "anchor_type": "official_exchange_location",
+    "building": "Taipei 101",
+    "coordinate": {
+      "latitude": 25.0338352,
+      "longitude": 121.5644995
+    },
+    "coordinate_derivation_method": "geocoding",
+    "cross_check": "reverse geocode of the coordinate resolves to Taipei 101 premises (市府路45號)",
+    "geocoder": "Nominatim (OpenStreetMap)",
+    "geocoder_query": "Taipei 101",
+    "geocoder_result": {
+      "address_road": "信義路五段",
+      "name": "台北101",
+      "osm_id": 1159328965,
+      "osm_type": "way"
+    },
+    "geocoding_date": "2026-08-13",
+    "market_id": "taiex",
+    "official_postal_address": "3F, 9F-12F, 15F, No.7, Sec.5, Xinyi Rd., Taipei City 110615, Taiwan (R.O.C.)",
+    "official_source_url": "https://www.twse.com.tw/en/about/company/map.html"
+  },
+  "raw_artifact_id": "cds_era5_hourly_spatial:taiex-tcc-stencil-preopen:r0001-e0e5893ea92d",
+  "raw_artifact_relative": ".local/source-raw/v2/spatial/cds_era5_hourly_spatial/taiex-tcc-stencil-preopen/r0001-e0e5893ea92d.zip",
+  "raw_sha256": "e0e5893ea92da157dc6e9c20b43fa7e9423072221da593f0c7bf03ebb279a473",
+  "request_date_list": [
+    "2026-03-01",
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "request_time_list": [
+    "00:00",
+    "23:00"
+  ],
+  "schema_version": "2.0.0",
+  "validator_semantics_note": "fetch_era5._timestamp_validation validates the TRANSPORT layer (expected_timestamps(request) = date x time cartesian product = 12), never the scientific target (10). Scientific selection to 10 happens downstream in build_taiex_spatial_acceptance via pre_open_timestamps(). The two layers were never conflated; no validator bug."
+}
