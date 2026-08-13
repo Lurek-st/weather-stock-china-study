@@ -1,0 +1,234 @@
+# Core-open regime registry — research temporal authority for primary exposure.
+#
+# This is the AUTHORITATIVE research source for each market's primary core
+# cash-market opening clock over the 2020-01-01..2025-12-31 analysis horizon.
+# It is SEPARATE from config/v2/markets.yaml, whose static `session` block is
+# legacy/current operational config only.
+#
+# Semantics (frozen in Stage 5B-2):
+#   - primary_core_open_local = the official regular/core opening clock used for
+#     broad cash-equity primary price formation (continuous trading start), NOT
+#     pre-open order entry, opening-auction call start, early retail session,
+#     block-deal session, extended hours, or derivative sessions.
+#   - The research weather window is always [core_open - 120min, core_open).
+#   - effective_from / effective_to are INCLUSIVE.
+#   - A DST transition is a timezone-regime property, never a new session regime.
+#
+# qualification_status values: qualified_single_regime / qualified_multiple_regimes
+#   / partial_evidence / unresolved.
+schema_version: "2.0.0"
+registry_id: "core-open-regimes"
+target_horizon:
+  start: "2020-01-01"
+  end: "2025-12-31"
+window_minutes_before: 120
+
+markets:
+  - market_id: sse_composite
+    timezone: Asia/Shanghai
+    regimes:
+      - regime_id: sse_composite-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:30"
+        core_close_local: "15:00"
+        evidence_ids: ["sse-current-rules", "sse-2020-revision"]
+        qualification_status: qualified_single_regime
+        note: "09:15-09:25 is the opening call auction, not the core open"
+
+  - market_id: szse_component
+    timezone: Asia/Shanghai
+    regimes:
+      - regime_id: szse_component-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:30"
+        core_close_local: "15:00"
+        evidence_ids: ["szse-current-rules", "szse-2019-faq"]
+        qualification_status: qualified_single_regime
+        note: "09:15-09:25 is the opening call auction, not the core open"
+
+  - market_id: topix
+    timezone: Asia/Tokyo
+    regimes:
+      - regime_id: topix-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:00"
+        core_close_local: "15:30"
+        evidence_ids: ["jpx-current-rules", "jpx-2024-close-extension"]
+        qualification_status: qualified_single_regime
+        note: "Morning session open 09:00 unchanged; the 2024-11-05 change extended the CLOSE 15:00->15:30, not the open"
+
+  - market_id: nifty50
+    timezone: Asia/Kolkata
+    regimes:
+      - regime_id: nifty50-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:15"
+        core_close_local: "15:30"
+        evidence_ids: ["nse-current-timings", "nse-2021-timings"]
+        qualification_status: qualified_single_regime
+        note: "09:00-09:08 is the pre-open session; 09:15 is the normal/core market open"
+
+  - market_id: ftse100
+    timezone: Europe/London
+    regimes:
+      - regime_id: ftse100-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "08:00"
+        core_close_local: "16:30"
+        evidence_ids: ["lse-current-faq", "lse-24-main-market-unchanged"]
+        qualification_status: qualified_single_regime
+        note: "LSE Main Market (SETS) continuous trading 08:00; the 07:50-08:00 opening auction and the planned LSE24 overnight platform are not the core open"
+
+  - market_id: dax
+    timezone: Europe/Berlin
+    regimes:
+      - regime_id: dax-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:00"
+        core_close_local: "17:30"
+        evidence_ids: ["db-current-trading-hours", "xetra-2021-calendar"]
+        qualification_status: qualified_single_regime
+        note: "Xetra core trading 09:00-17:30 CET; the 08:00 Extended Xetra Retail Service (early trading) is NOT the core open"
+
+  - market_id: sp500
+    timezone: America/New_York
+    regimes:
+      - regime_id: sp500-2020-2025
+        effective_from: "2020-01-01"
+        effective_to: "2025-12-31"
+        core_open_local: "09:30"
+        core_close_local: "16:00"
+        evidence_ids: ["nyse-hours-calendars", "sec-34-93819", "fr-2022-06383"]
+        qualification_status: qualified_single_regime
+        note: "Qualified in Stage 5B-1 (New York DST canary); pre-opening 06:30 and early 07:00 sessions are not the core open"
+
+  - market_id: bse50
+    timezone: Asia/Shanghai
+    regimes:
+      - regime_id: bse50-2021-2025
+        effective_from: "2021-11-15"
+        effective_to: "2025-12-31"
+        core_open_local: "09:30"
+        core_close_local: "15:00"
+        evidence_ids: ["bse-launch-2021", "bse-rules-trial"]
+        qualification_status: qualified_single_regime
+        note: "Beijing Stock Exchange opened 2021-11-15; effective_from reflects the exchange effective date, not index sample start"
+
+# taiex is retained as the already-qualified engineering/reference market; it is
+# NOT part of the Stage 5B-2 new-qualification burden (qualification_status
+# reference only, no horizon regimes needed here).
+reference_market:
+  market_id: taiex
+  timezone: Asia/Taipei
+  core_open_local: "09:00"
+  role: already_qualified_engineering_reference
+
+evidence:
+  sse-current-rules:
+    authority: Shanghai Stock Exchange official trading rules
+    source_url: "https://www.sse.com.cn/lawandrules/sselawsrules2025/fund/trading/c/c_20260424_10817739.shtml"
+    retrieval_date: "2026-08-13"
+    type: current_official_rulebook
+    fact: "9:15-9:25 opening call auction; 9:30-11:30, 13:00-14:57 continuous trading"
+  sse-2020-revision:
+    authority: Shanghai Stock Exchange Trading Rules (2020 2nd revision)
+    source_url: "https://www.cs.com.cn/tj/03/03/202206/t20220602_6274377.html"
+    retrieval_date: "2026-08-13"
+    type: dated_rule_revision
+    fact: "《上海证券交易所交易规则(2020年第二次修订)》 9:15-9:25 opening auction, 9:30 continuous"
+  szse-current-rules:
+    authority: Shenzhen Stock Exchange Trading Rules (2026 revision)
+    source_url: "https://zxyoss.csc108.com/csc108-istp/istp/doc/unknown/6da49e236a004328a460e914bd2c57e7.pdf"
+    retrieval_date: "2026-08-13"
+    type: current_official_rulebook
+    fact: "9:15-9:25 opening call auction; 9:30-11:30, 13:00-14:57 continuous trading"
+  szse-2019-faq:
+    authority: Shenzhen Stock Exchange investor FAQ (Trading Rules 2.4.2)
+    source_url: "https://investor.szse.cn/index/update/t20191204_572383.html"
+    retrieval_date: "2026-08-13"
+    type: dated_official_document
+    fact: "《深圳证券交易所交易规则》2.4.2 9:15-9:25 opening auction, 9:30 continuous"
+  jpx-current-rules:
+    authority: Japan Exchange Group — Trading Rules of Domestic Stocks (updated 2024-11-04)
+    source_url: "https://www.jpx.co.jp/english/equities/trading/domestic/01.html"
+    retrieval_date: "2026-08-13"
+    type: current_official_rulebook
+    fact: "Morning session 9:00-11:30; afternoon 12:30-15:30; orders accepted from 8:00"
+  jpx-2024-close-extension:
+    authority: Japan Exchange Group — Strengthening the Functions of the Cash Equity Market
+    source_url: "https://www.jpx.co.jp/english/equities/trading/strengthening/index.html"
+    retrieval_date: "2026-08-13"
+    type: dated_official_amendment
+    fact: "Nov 5 2024: close extended 15:00->15:30 (open 09:00 unchanged); closing auction introduced"
+  nse-current-timings:
+    authority: National Stock Exchange of India — Market Timings & Holidays (Equities)
+    source_url: "https://www.nseindia.com/products-services/equity-market-timings-holidays"
+    retrieval_date: "2026-08-13"
+    type: current_official
+    fact: "Pre-open 09:00-09:08; Normal/Limited Physical Market Open 09:15, Close 15:30"
+  nse-2021-timings:
+    authority: National Stock Exchange of India — Market Timings (updated 01/01/2021)
+    source_url: "https://www.nseindia.com/products-services/equity-market-timings-holidays"
+    retrieval_date: "2026-08-13"
+    type: dated_official_document
+    fact: "Normal market open 09:15 (unchanged); pre-open 09:00"
+  lse-current-faq:
+    authority: London Stock Exchange — Personal Investing FAQ
+    source_url: "https://www.londonstockexchange.com/personal-investing/faqs"
+    retrieval_date: "2026-08-13"
+    type: current_official
+    fact: "London Stock Exchange trading hours are from 8:00 to 16:30 (Main Market/SETS continuous trading from 08:00)"
+  lse-24-main-market-unchanged:
+    authority: London Stock Exchange — LSE24 announcement (Main Market unchanged)
+    source_url: "https://www.londonstockexchange.com/"
+    retrieval_date: "2026-08-13"
+    type: current_official_announcement
+    fact: "LSE24 (overnight platform, planned 2027) is separate; Main Market retains 08:00-16:30 regular session"
+  db-current-trading-hours:
+    authority: Deutsche Börse Cash Market — Trading Calendar and Trading Hours
+    source_url: "https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours"
+    retrieval_date: "2026-08-13"
+    type: current_official
+    fact: "Xetra trading 9:00-17:30 CET; Extended Xetra Retail Service 8:00-8:55 CET (early trading)"
+  xetra-2021-calendar:
+    authority: Deutsche Börse Xetra — Trading Calendar (2021)
+    source_url: "https://www.xetra.com/dbcm-en/newsroom/trading-calendar"
+    retrieval_date: "2026-08-13"
+    type: dated_official_document
+    fact: "Trading on Xetra is from Mondays to Fridays from 9 until 17:30 CET (2021 calendar)"
+  nyse-hours-calendars:
+    authority: New York Stock Exchange — Holidays & Trading Hours
+    source_url: "https://www.nyse.com/trade/hours-calendars"
+    retrieval_date: "2026-08-13"
+    type: current_official
+    fact: "Core Trading Session 9:30 a.m. - 4:00 p.m. ET (Core Open Auction at 9:30)"
+  sec-34-93819:
+    authority: U.S. SEC — Release No. 34-93819 (2021)
+    source_url: "https://www.sec.gov/rules/sro/cboe/2021/34-93819.pdf"
+    retrieval_date: "2026-08-13"
+    type: dated_regulator_filing
+    fact: "NYSE Rule 1.1 defines Core Trading Hours as 9:30 a.m. through 4:00 p.m. ET"
+  fr-2022-06383:
+    authority: Federal Register — SEC Sunshine Act Meeting (2022-03-28)
+    source_url: "https://www.govinfo.gov/content/pkg/FR-2022-03-28/pdf/2022-06383.pdf"
+    retrieval_date: "2026-08-13"
+    type: dated_regulator_filing
+    fact: "NYSE Rule 1.1 Core Trading Hours 9:30 a.m. through 4:00 p.m. ET"
+  bse-launch-2021:
+    authority: Beijing Stock Exchange — official launch announcement (2021-11-15)
+    source_url: "https://m.chinanews.com/wap/detail/chs/zw/9608279.shtml"
+    retrieval_date: "2026-08-13"
+    type: dated_official_announcement
+    fact: "Beijing Stock Exchange opened 2021-11-15; 9:15-9:25 opening auction, 9:30 continuous"
+  bse-rules-trial:
+    authority: Beijing Stock Exchange Trading Rules (Trial) — effective 2021-11-15
+    source_url: "https://app.xinhuanet.com/news/article.html?articleId=1df13279-a732-44bf-aaad-cdabd05af27a"
+    retrieval_date: "2026-08-13"
+    type: dated_official_rulebook
+    fact: "《北京证券交易所交易规则(试行)》 effective 2021-11-15; 9:30-11:30, 13:00-14:57 continuous trading"
