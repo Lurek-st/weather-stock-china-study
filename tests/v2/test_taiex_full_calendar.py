@@ -313,16 +313,6 @@ def test_build_expected_sets_disaster_closure_overrides():
     assert "2020-01-03" not in expected_open
 
 
-def test_build_expected_sets_settlement_correction():
-    annual = _annual_fixture()
-    # 2020-01-02 is explicit_open in the fixture but is settlement-only.
-    expected_open, expected_closed = build_expected_sets(
-        annual, set(), "2020-01-01", "2020-01-05", settlement_corrections={"2020-01-02"}
-    )
-    assert "2020-01-02" in expected_closed
-    assert "2020-01-02" not in expected_open
-
-
 def test_reconcile_perfect_match():
     expected_open = {"2020-01-02", "2020-01-03"}
     expected_closed = {"2020-01-01", "2020-01-04", "2020-01-05"}

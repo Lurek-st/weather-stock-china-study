@@ -45,5 +45,8 @@
       "raw_year": 2022
     }
   ],
-  "schema_version": "2.0.0"
+  "schema_version": "2.0.0",
+  "superseded_by": "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026-r2.json",
+  "superseded_by_parser_fix": true,
+  "superseded_note": "The date-aware settlement-only parser fix (I-006) makes this correction unnecessary for canonical correctness; this audit is retained only as historical diagnostic evidence of how the defect was discovered."
 }

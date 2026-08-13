@@ -90,6 +90,13 @@ def main(argv: list[str] | None = None) -> int:
         "correction_count": len(corrections),
         "corrected_dates": sorted(c["date"] for c in corrections),
         "corrections": corrections,
+        "superseded_by_parser_fix": True,
+        "superseded_by": "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026-r2.json",
+        "superseded_note": (
+            "The date-aware settlement-only parser fix (I-006) makes this correction "
+            "unnecessary for canonical correctness; this audit is retained only as "
+            "historical diagnostic evidence of how the defect was discovered."
+        ),
     }
     write_json(root / CORRECTION_AUDIT, audit)
     print(json.dumps(audit, ensure_ascii=False, indent=2))

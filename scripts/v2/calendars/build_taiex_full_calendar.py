@@ -23,10 +23,9 @@ if __package__ in {None, ""}:
 
 from scripts.v2.core import SCHEMA_VERSION, load_json, repo_root, write_json
 
-ANNUAL_AUDIT = "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026.json"
+ANNUAL_AUDIT = "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026-r2.json"
 DISASTER_AUDIT = "data/audits/v2/taiex-calendar/taiex-natural-disaster-closures-2020-2025.json"
 MARKET_AUDIT = "data/audits/v2/taiex-calendar/taiex-market-open-observations-2020-2025.json"
-SETTLEMENT_AUDIT = "data/audits/v2/taiex-calendar/taiex-settlement-only-corrections.json"
 RECONCILIATION_AUDIT = "data/audits/v2/taiex-calendar/taiex-full-calendar-reconciliation-2020-2025.json"
 
 
@@ -46,19 +45,13 @@ def build_expected_sets(
     disaster_dates: set[str],
     start: str,
     end: str,
-    settlement_corrections: set[str] | None = None,
 ) -> tuple[set[str], set[str]]:
     """Return (expected_open, expected_closed) for the target range."""
-    settlement_corrections = settlement_corrections or set()
     planned_closed: set[str] = set()
     explicit_open: set[str] = set()
     for year, rec in annual["year_records"].items():
         planned_closed.update(rec.get("closed_official_dates", []))
         explicit_open.update(rec.get("explicit_open_dates", []))
-    # Settlement-only dates were misclassified as explicit-open in the accepted
-    # annual schedule; correct them to closed without altering that audit.
-    explicit_open -= settlement_corrections
-    planned_closed |= settlement_corrections
     expected_open: set[str] = set()
     expected_closed: set[str] = set()
     for iso in all_dates_in_range(start, end):
@@ -101,17 +94,15 @@ def main(argv: list[str] | None = None) -> int:
     disaster = load_json(root / DISASTER_AUDIT)
     market = load_json(root / MARKET_AUDIT)
 
-    settlement_path = root / SETTLEMENT_AUDIT
-    settlement = load_json(settlement_path) if settlement_path.exists() else {}
-    settlement_dates = set(settlement.get("corrected_dates", []))
-
     disaster_dates = set(disaster.get("natural_disaster_closure_dates", []))
     observed_open = set(market.get("observed_market_open_dates", []))
     unresolved_disaster = disaster.get("ambiguous_missing_count", 0)
     months_failed = market.get("months_failed", [])
 
+    # The r2 annual audit already carries the corrected settlement-only
+    # classification (I-006 fix), so no separate correction layer is applied.
     expected_open, expected_closed = build_expected_sets(
-        annual, disaster_dates, args.start, args.end, settlement_dates
+        annual, disaster_dates, args.start, args.end
     )
     sets = reconcile(expected_open, expected_closed, observed_open)
 

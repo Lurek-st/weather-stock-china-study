@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections import Counter
 from datetime import date
@@ -38,8 +39,38 @@ NO_TRADE_MAKEUP_MARKER = "補行上班，但不交易亦不交割"
 NO_TRADE_MARKERS = ("不交易", "不交割")
 
 
-def classify_row(name: str, note: str) -> str:
-    """Classify a single schedule row.
+def _note_no_trade_dates(note: str, year: int) -> set[date]:
+    """Extract dates a note states as no-trading ("X月X日市場無交易").
+
+    A note may reference one date ("2月8日市場無交易") or a pair
+    ("1月18日及1月19日市場無交易").  Only the referenced dates are returned;
+    a note that also says "最後交易" is still examined, because the caller
+    decides whether the referenced dates include the row's own date.
+    """
+    found: set[date] = set()
+    for m in re.finditer(
+        r"(\d{1,2})月(\d{1,2})日(?:及(\d{1,2})月(\d{1,2})日)?市場無交易",
+        note,
+    ):
+        month_day_pairs = [(int(m.group(1)), int(m.group(2)))]
+        if m.group(3):
+            month_day_pairs.append((int(m.group(3)), int(m.group(4))))
+        for month, day in month_day_pairs:
+            try:
+                found.add(date(year, month, day))
+            except ValueError:
+                continue
+    return found
+
+
+def classify_row(name: str, note: str, row_date: "date | None" = None) -> str:
+    """Classify a single schedule row (date-aware).
+
+    ``row_date`` is the schedule row's own date.  When a trading-day-named row
+    has a note stating "X月X日市場無交易" for ITS OWN date, the row is a
+    settlement-only (closed) day.  A note that references OTHER dates (e.g.
+    "1月18日及1月19日市場無交易" under the 1月17日 last-trading-day row) must
+    NOT reclassify the row's own date.
 
     Returns one of:
     - open_special_or_explicit_open
@@ -48,7 +79,10 @@ def classify_row(name: str, note: str) -> str:
     """
     if any(keyword in name for keyword in TRADING_DAY_KEYWORDS):
         # Explicit trading days are open.  But if the same row explicitly
-        # says no-trade/no-settlement, the trading-day marker must not win.
+        # says no-trade/no-settlement for its own date, the trading-day marker
+        # must not win.
+        if row_date is not None and row_date in _note_no_trade_dates(note, row_date.year):
+            return "closed_official"
         if any(marker in note for marker in NO_TRADE_MARKERS):
             return "closed_official"
         return "open_special_or_explicit_open"
@@ -89,7 +123,7 @@ def parse_annual_schedule(payload: dict[str, Any], requested_year: int) -> dict[
         if raw_day in seen:
             issues.append(f"duplicate_date:{raw_day}")
         seen.add(raw_day)
-        status = classify_row(name, note)
+        status = classify_row(name, note, day)
         row: dict[str, Any] = {
             "date": raw_day,
             "name": name,
