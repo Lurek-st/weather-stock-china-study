@@ -1,0 +1,3823 @@
+{
+  "ambiguous_missing": [],
+  "ambiguous_missing_count": 0,
+  "audit_type": "taiex_natural_disaster_closures_2020_2025",
+  "closure_date_count": 11,
+  "event_count": 221,
+  "natural_disaster_closure_dates": [
+    "2020-11-07",
+    "2021-09-12",
+    "2022-09-03",
+    "2022-09-04",
+    "2023-08-03",
+    "2024-07-24",
+    "2024-07-25",
+    "2024-10-02",
+    "2024-10-03",
+    "2024-10-31",
+    "2025-07-06"
+  ],
+  "records": [
+    {
+      "announce_date": "2025-11-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a6fe36106a2ae5947d71526238ec1ef23ac0d11853dc6f4c209b643f2c4ae23a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4cb033a342a6e21a235c5734ec64ff3f26f5175b1ab11b73c0dd374b78086563",
+      "event_date": "2025-11-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12750",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-11-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dc8cf030aefb97ac20d1f21878f031ff55f7e59de287fc7f77ac0de35ee6d09b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "461a86cde58fcaeb7da9271c6ed65f73f8ce8901c26898188c3556b70ee97c85",
+      "event_date": "2025-11-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 15,
+      "pid": "12746",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-11-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7ebc14b340545227591aed96da90159efe2bba51c2bb9ff0e6a334d4e02a3148"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f897670275e2575bf231e5701083464736ab2db77fb8a2192d815ef01163989c",
+      "event_date": "2025-11-12",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12744",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-11-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ce7a2bfd583eea6e708eead9f0b24634f47af865bc5a65be9cf21ec932a0a425"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8a6f40e395a2cd5751d765e41184c050f3a5bf7c371b5fbf6743272034c5d377",
+      "event_date": "2025-11-11",
+      "exact_taipei_text": "尚未列入警戒區。 士林區永福里、新安里、陽明里、公館里、菁山里、平等里、溪山里、翠山里:今天停止上班、停止上課。 北投區湖田里、湖山里、大屯里、泉源里:今天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12740",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-11-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8145b8257b157081ac1fe81fa0320febbc0a223cd7321a8fa349b1c63f8c0a64"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "c95840c527f33bc3b660b19913845be99e00b39ab527b39dc55a2a032f7b4ba1",
+      "event_date": "2025-11-10",
+      "exact_taipei_text": "士林區永福里、新安里、陽明里、公館里、菁山里、平等里、溪山里、翠山里:明天停止上班、停止上課。 北投區湖田里、湖山里、大屯里、泉源里:明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12739",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "688a758db93dffa17f3498a3d313381135d2b6348023921491aac94c72d4b260"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0093eebf5ce8aaa121e62f0c1545e127cba7107274d6f8facee86862be75a744",
+      "event_date": "2025-10-28",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12724",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-28",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "95215ab40a1404d7b4b38bf7f4d50e34b0216b5c08e97cc8f2ed50d845478c40"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "599da9192906992273dc53ac910016f183d4a4614be1fb718f08d412a7186a51",
+      "event_date": "2025-10-27",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12722",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b7d66650f3b697c9b4c326859a166e2a32410ca781e5b30a878cb94b1b90b485"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "422e0bdb3042ed615c822415408595101eb952f79f8cb587b9f1123bd6fb31f1",
+      "event_date": "2025-10-26",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12720",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "00bb5fcda06a8058da6441a0ef143745104bfcd69b5d7c9fb41806667aa37186"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "36e65b6c88192431c46fcfbdbcbe23a392dbd2f7145372686714db33f721c152",
+      "event_date": "2025-10-25",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12719",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "db145d45dbfb59a337b46c78385407521b07b1ca30bdf5fc1da6994244834493"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4d8f8fc5a27abf8337d145c07c2d83052966aa2d58e63c83ebf68dfcf0251fa6",
+      "event_date": "2025-10-24",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12718",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4f92dacbd78f6ae3fd4906796673c17813e81816393b99d7d669075227c2029c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "1144954891acd3eb57366fd31a41c74af65fae2660634ad175f358e49fce3829",
+      "event_date": "2025-10-23",
+      "exact_taipei_text": "臺北市士林區陽明山國民小學:今天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12717",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a3c599ce16d344ea07903af49fa3f04b961ef3fce5a1b452003824018e95d01e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "058c61cd2b65c5faca5e0c79c3dfa73069218d023f3e472125a4a1cd49832385",
+      "event_date": "2025-10-22",
+      "exact_taipei_text": "台北復臨美國學校:今天停止上班、停止上課。 臺北市士林區平等國民小學:今天停止上班、停止上課。 臺北市士林區陽明山國民小學:今天停止上班、停止上課。 臺北市士林區陽明山國民小學:明天停止上班、停止上課。 臺北市湖田實驗國民小學:今天停止上班、停止上課。 臺北市溪山實驗國民小學:今天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12716",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8951596a167fef6b29c1f617350a5c32712c55f67fb3e5037be7a72a799c8326"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "8958e77bc9a8c2b9a6f00ce1a948cbae6ca034f259b5ce0096942f86fb92bdc2",
+      "event_date": "2025-10-21",
+      "exact_taipei_text": "台北復臨美國學校:明天停止上班、停止上課。 臺北市士林區平等國民小學:今天停止上班、停止上課。 臺北市士林區平等國民小學:明天停止上班、停止上課。 臺北市士林區陽明山國民小學:今天停止上班、停止上課。 臺北市士林區陽明山國民小學:明天停止上班、停止上課。 臺北市士林區雙溪國民小學:今天停止上班、停止上課。 臺北市湖田實驗國民小學:今天停止上班、停止上課。 臺北市湖田實驗國民小學:明天停止上班、停止上課。 臺北市溪山實驗國民小學:今天停止上班、停止上課。 臺北市溪山實驗國民小學:明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 6,
+      "pid": "12714",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-21",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "eff0774838abe1ac30ed782dc31f3c8d6686d5fb21db2faac53cc17d47d6fe30"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c98e14e0f345232e58d68f89846a719cedef984ba52009e2825029df13a568c6",
+      "event_date": "2025-10-20",
+      "exact_taipei_text": "明天照常上班、照常上課。 臺北市士林區平等國民小學:明天停止上班、停止上課。 臺北市士林區陽明山國民小學:明天停止上班、停止上課。 臺北市士林區雙溪國民小學:明天停止上班、停止上課。 臺北市湖田實驗國民小學:明天停止上班、停止上課。 臺北市溪山實驗國民小學:明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 6,
+      "pid": "12713",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-10-20",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a0d91282494429edf97b13547a4468f10d9fd7e71ba4da7cf4fc91311ac3a89d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a2b6f78bd644f53ecb85294aa702a184a33a276cfa4013e9636f1754ce2b3627",
+      "event_date": "2025-10-19",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12709",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-20",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2cda2ce575275f69816b59c9ae83ddb2d807a90c068dca6a07409a6407d9ad19"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4d8f6092dcad5c25ae1dbc8b71856368acca66356a242147e9905fd919adbee3",
+      "event_date": "2025-10-18",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12708",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8baf3012e13a330561a09f036ffbfbbd123a956f5eb58cfca3fdeeff3f2cf34e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "958bd5a8e026b97c7646bce46a4fecff34932b69dcb8dadf54feebe4e8f80ebc",
+      "event_date": "2025-10-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12692",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "71a1649dc0130d7cb311c7e42cdd438649eb9448cf2ba86bd3767525e34acf52"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "63725ad197b54251033ff30ec48f5c88c5bba94f40f34655456af36552b6a752",
+      "event_date": "2025-10-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12691",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c09b062be858f61f061542ade03aa662afcc16f48cab78e7978fc39e9eec1e7b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3d2eee282980d2720719c592981811475c62b067b00b3eeb45ca317fff5e7e1b",
+      "event_date": "2025-10-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12690",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "aa4870091dc50e0fcf31bf560e2a346e05225478e4591cd7fdb655a89e1a3d09"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c4c67948abbc9128aab909b6e75ea9a6054babd8fef45c35fdc409a16effe390",
+      "event_date": "2025-10-03",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12689",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-03",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fffeb0f4c09cb79ec4d58de0547b2858027fa3b265c7157b6fd3797f761b976c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "98612d2483a3d81d3d92861d4deefa76203f4642dc322ae466dbb20c3ba4821d",
+      "event_date": "2025-10-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12687",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-02",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "611c9b7d0ff641bf31ed1b3564fd2cc4381a29439a6d81a183362b6da40303d5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2d9ee119e16e7588b361ee0c0d5fd337451e8b7c6736b3e2e1b61d39278984ce",
+      "event_date": "2025-10-01",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12684",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-10-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "015beef6bea7b0e82aaf8b8dedad90d784f96f781b439b654158da76fad17e80"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1f8861e11f68e7847dd729c579bda6ed0e868871eca06ec54d7779979492f021",
+      "event_date": "2025-09-30",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12682",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9bb3f8ba0092cd3b4f47ca5fc144a41dea98a264b2ab04d18ebd60a9676e0ce4"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "fbc4b376345e8c389f27a03229114600e0bbbfe41e65ee839031ba88f62faf83",
+      "event_date": "2025-09-29",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12681",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2042b660b04fb2433e30974abb19ace6020b9913b84de708f748705a121f81a8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "77dada839b1bff7469c7e23bdc3b8739393dbcb030fc963b9f9134745ec13c5b",
+      "event_date": "2025-09-28",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12680",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b63bedfe53f18126d2c623fc0595a4f12acb1b8ac37b965c64c62ea9347b4d49"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "45034d9e7d74b4c9a3f81dedb2ac99e4da0d1f2ebddf58dc4a122a19f3e5e3ab",
+      "event_date": "2025-09-27",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12679",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7ded22f0464e433f624acc79bc1bf0d06f75d46f8cc7a58f9acb855a2e997487"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "518c81fa2ed5f8d3c5a4a5782eaaeb79e162d446e19ec6ee0dafc64aa30348e0",
+      "event_date": "2025-09-26",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12678",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "22d9f9830748a7db5a18c658101a2fc77793f7c029794fbc73cee0ca2833d220"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "285cedfe9e4d4515a74d09ae2a9fdda65ea5d62c340a8490d00daf02f6e8178e",
+      "event_date": "2025-09-25",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "12676",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ef80e0f15a4c0df5106eaf625303d340c51ae8f4b1cadf22082a8ec3776a4cdf"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "68541d174f5ed74671b9ca2a3cd0dac71df66076aa2fcda5a1a27e8d3a935122",
+      "event_date": "2025-09-24",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "12673",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-24",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "97dfb45b7ec362c33836a9ca48c1bb91f4cfb366d9a2a30c9c1718f98dadb496"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "158701c113bd0cec378ba350a50754e0db4a34f01870ad1cf9f53acadeb53baf",
+      "event_date": "2025-09-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 7,
+      "pid": "12672",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-09-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b7133579791006d7f162d1e7979b84a5c7b6c65488e764737d65fd08adc3ef20"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3edb816e9cc3370950838f094ba0a6c05ef66c87bd81ec0b836fd8c8f82adb53",
+      "event_date": "2025-09-22",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12670",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-09-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "cd75c9d35ed654ba1e59a34e998d91603da72fd682b980a98d93c1ae707adff8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b4c292f33e09ba43ecc448d28089bd1d80881eafe6eee84c5dfc0b0a09fc6751",
+      "event_date": "2025-09-21",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12669",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-08-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c675829a5d9f7bf03b5b495effb65b2ab9a6a391fda4a4d0be1bc886800bc46c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "511adf38f9009d4c55f2daded245fe81413fb6b92218234460ef19067c221237",
+      "event_date": "2025-08-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12652",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "45ffb2d99993d3041c0e1c450c3ce59893e90bac2f7984cdaa4f2090a1f63836"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "362a85a872ffdfa700feab347972ecf496859d08185a16ab76442dc00865eaeb",
+      "event_date": "2025-08-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12651",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "beaaebaf173c0e45ea978850f1bcc97f6bbd554744723b76bc3653a7349fd47d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "541a946a89b021668c83a8c917ce49369b97493f57e901638e91405cd7f42d78",
+      "event_date": "2025-08-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12650",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "1ea06098b230b7e4e85c953747c626daa9248cb839950b10378d5ed1a180124e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a65f32809119640dbf2821f8b6c91e4bda2baaebf98935d6a1f744159cb65776",
+      "event_date": "2025-08-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 14,
+      "pid": "12647",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "edda036b7db6a70ba20185ad65b25486f4d1e87e50e42055cd93cfe3ca60ea29"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7841730c1e2323d9e3b4821f0702c5390fd651515bfd6967bbd57344d03ce2e5",
+      "event_date": "2025-08-13",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12646",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-08-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8eadc1c74ae232994bd19110f1d06b5f0a7cd7fadf91ba6611a4e57de200ee53"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4a003852a6bf9cc605863d1cd587974774c97624d89c9ab92503843833485c29",
+      "event_date": "2025-08-12",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12637",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-08-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c9cc6aa8aab6ae2387dc969d92dcd12d30dda69d52a539ec2adbdd7d5bc3c84c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e4810af60b316b058701a3f859037f1a1d5a9e9d476fbbbae6e1bc3b5e7876d2",
+      "event_date": "2025-08-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12632",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5d44fea995786adac89dc275ae674608824e0f75c40e1c7ca9c1741446991d28"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5a4806e7a62daade4637a5cca195d3a49d49ae72f41d823b953e4074496580be",
+      "event_date": "2025-08-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12631",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "67f7e0f8817a44ee71e19ccc28053709735e038931e1f177a611c5dcd300564c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "718b31ce090a2044063bf97b0bb816966ca8835f85f0ff68791b4796c68b19dd",
+      "event_date": "2025-08-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "12630",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ac90c36bdbec2ab9598e9c90e68c1e614507c2041eb231a74b1439e035a54400"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "dd32bef4c87e4b792f8179292193cefa867f8315c4301f2c9764d11b0d449bca",
+      "event_date": "2025-08-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 6,
+      "pid": "12628",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "91030a8ba62909640926951ddeab2aad5de025e0ec6c8fba652b5b828d3993ec"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d8a3c201065689c0059ae3646a6a16606d609e48c3401f88cb6b272ed6b13ebf",
+      "event_date": "2025-08-03",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12627",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2c1c35aaeb352ee6d1502ffd73ee110edf8fb7b35fca469712c2f2436ae8b336"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a2edf53b0b6ba2868a1c6818803737add5197d8d026513b3e1d3f4c9e1820f79",
+      "event_date": "2025-08-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12626",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d98aa9783b6c4db82de6c7a6c04b7813f37d00e08f680a3e809961d9691de03c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f5227e2591f2989a29579fc832271f4e9bf4254e9234c5b8d30d5d3b79632a43",
+      "event_date": "2025-08-01",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 7,
+      "pid": "12625",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-08-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "044d6405beef3241c60cc4577b1a7dec0e1b55831d10d36ae81acd3a01c6fcc3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "23d9c239b51df4fe34df3e46a65d41ba567c8a96a6a3b907f2a15ef462f69018",
+      "event_date": "2025-07-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 8,
+      "pid": "12624",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "3246e808e834aa11a131e021f72d207043f218029178c309fd7559f91df41594"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f847a5f70e756668b176e3ffdea5ca9a938abaaf570601f12ed149bd614d946a",
+      "event_date": "2025-07-30",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 7,
+      "pid": "12622",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c1708ad59d38f5014e4e861a064b71eae2080947b1eb686da46c9fc4e37d064b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ff3ded5ce488787dc6f8637ac4514c8a811e7f68f06db030d4b02b255fb1ba35",
+      "event_date": "2025-07-29",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "12620",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "17f6b44ae3310183184413a7360a1d5abdbbfb9392435f9a3dc0446097415c16"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c8ee5a1329448e2a4c80a23853c40d4a17ca2e28526b484d770399b95f06ae63",
+      "event_date": "2025-07-28",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12619",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "29a92c71ceb9249f882e47a38cefadf5bfc58c96d01f689ea1ad343fa5eb3d72"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1c0947e062051dfa895607c0b9beae635d04f9bb27ae8b5e1b232973e1ef5030",
+      "event_date": "2025-07-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12612",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b6364208fd6e768acf94656b77c1db1945f49bee7f4f1e1f9f6fb6e788613c2c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ef619f84a894e25b807d8b029cfaae05e1ea1592e59933dab7f808adde7d6ef6",
+      "event_date": "2025-07-15",
+      "exact_taipei_text": "尚未宣布消息",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "12611",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-07-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c81f09baefd9dcb54ca003b83cbfa5dc8e8c33ad1f7849797156166e9166942b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d8ac74d3de55dbec9e70ed1884596e7774e38eb6588a61276f8352d305c70511",
+      "event_date": "2025-07-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12609",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fb224cd1b695e6d052db9456818802a7256882ea4495ea89873642669035f715"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "00b20bd07c9dbb14091ed99f390bac784932259b021af427bce3c054714e47c4",
+      "event_date": "2025-07-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12607",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a0ef242e8ec77064663c2db766bbe343585709b5eda91545fb3237d963998700"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a45ee1aab890ef37a5129d5c56cbb8536275c29e99cad95c184b32e4f01fe1e8",
+      "event_date": "2025-07-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12606",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e01d842f7187738284ed2a50a92e428616b124339d5c3b47e450ec2c6e4a826d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "fdfc3e30eb25cea248cadb55b01373b0961ba2cdd7823a087615505981725b5d",
+      "event_date": "2025-07-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 7,
+      "pid": "12602",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-10",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4dbc11d0dc2d64f360d24e60da93e20aafbf249658ecf7b1612485566e4c5fac"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "48ae391ce22dae6a518e66e5d7101c7ad8f41539c0dd66e58401c1580bcd8a7e",
+      "event_date": "2025-07-09",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 5,
+      "pid": "12600",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "23d00fb05853142cdcf4d3b998782b44a1393130f7cd71f468f9616bd1e9a321"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "23cd16ea6e137a154f6133948406692cab6c390bdd7985f4cb8c7192f51c29e3",
+      "event_date": "2025-07-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "12597",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-07-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "910e2dbd2660ba1be21cea84c8021642ec913af20086f082e4d8b3a5a908a900"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1bf3dfe78a07ec1a08410e18937db6b61891b897b152c4c46134f0fadd9282e7",
+      "event_date": "2025-07-07",
+      "exact_taipei_text": "今天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12594",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-07-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "98445fee50afe944dbbf2bda4202d3a09d71309de1560e6aa93a1ce57ef293e5"
+      ],
+      "closure_dates": [
+        "2025-07-06"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "fff387c2f513070f7d616a4146855536d146a6e6c14b88d5e2c822ee063b4b40",
+      "event_date": "2025-07-06",
+      "exact_taipei_text": "今天未達停止上班及上課標準。 明天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12593",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-07-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ea181d7c3c0304d5fd3668cbbb1f7e0cf02e95def3a597bb86b70b30da80c47d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "95f05ef2709e1c6ea517bbced78472fd7d2053ae7a7a346e7f2c01fdf7c871d6",
+      "event_date": "2025-07-05",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12592",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2025-06-16",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dbbc38317953cc0abbf9ca06ca5d3ae7988302886c444d04962e31b9046e1662"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0fb96d2f7eafae5dd32d625bca1fab20a26688e8109b5b7fc33bfbc776b16cac",
+      "event_date": "2025-06-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12577",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-05-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "42abbf7f95865d4f0a5efb00ae5ba000437130682c34826e955466658ea9b049"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "eca66f4e329f6d3a9b5607b6454d4e3d125c1eae154faba7d11ecd8c4e4c9f60",
+      "event_date": "2025-05-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12458",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-05-20",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7efdac7903615b6cb86b062f5d68f0aa448d5aa1a0110360c624d8cdcc805dd7"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a535b3b4cf9530cdba3db375d78fa514c95ce9872e4580f96bad0aee0dae9a11",
+      "event_date": "2025-05-19",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12449",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-03-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "10d12e9cc4aeddda6725b99fc886148543f6c636574222fbf399f82642a144e7"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7f5dcd44d93b73e0c22921690427a6f9aff99b7e59bf817e8902d851710c9569",
+      "event_date": "2025-03-18",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12333",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2025-01-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "0b5098f459e58548bbb2ee4737f68e0cd5a58d98928e240932c377b46dfb4ac5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a1f0feae9600af7dfa871474a8b7db5368c6447be17154fd14b0ca3d4439d773",
+      "event_date": "2025-01-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "12275",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a0f336c58f7229c863b5a361ad1d1af86f0e3a1cfa7b4f6dcb4f8347779089e8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c076a7aca7465aa156a36fcfc04c2c0cd748f56ccfe56d6a71102b4f9a4affd4",
+      "event_date": "2024-11-16",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12189",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-11-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2c821251833a0932f277f1c5aa43890929fa884ee62663e12d09186483556fb7"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ae574dbae734345e2aada3f8916b9b7d6d5c08e832f11c3275e78dba5075b3b0",
+      "event_date": "2024-11-15",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12188",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-11-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d98fb3a2b4b0aadffb4209789a5ed0d9dc02055d7b026cb0d27aa0a7d988e2ef"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "22fe6b587dd6a52d0c5b492dd5c886e68eaf03d1b27c09c2ed8822c0e80fa614",
+      "event_date": "2024-11-14",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12185",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-11-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "68660368d551345f0c73b815460559f27cd7b83f8dafef439604270c6e37b851"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d0ef6658f03c8b643bf5a051cec293f3ccf52d7f25e7d712f310280a675e6a52",
+      "event_date": "2024-11-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12182",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9beb55f50c228105e702c89c5c10eab2d2fa2eccd1b6499cdd52550ae737b2b8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "77782efa78a38c0402a9a9080f0c1a09af5b92460514f22d127e5409aae5d373",
+      "event_date": "2024-11-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12177",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fb9a92d126a185a772cbb4e678c9ee3f94d8821900495989bc51e02c534dd829"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5bd99d8d0c5caf8d19b028c76f50d17f5295f810da510f311cde936f95379967",
+      "event_date": "2024-11-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12176",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2bf05323a14e8edc8fe5fb88c1b6382fb427246708afe25dc5b853b82b602d38"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8933049f4c73ae3f302096901b5a91c24bc1b6d9b1fd82251be86042d3b64859",
+      "event_date": "2024-11-03",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12175",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "89c82820c0ca6434b4bfe5e7c4ed5063d48cbac892a02deb7078a34d61a55acd"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7e24e2726d788748f9b857f7cbe4ed6590d8ba4c42dc6e04c98b6dba0d9a3b79",
+      "event_date": "2024-11-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12174",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-11-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2e75add902da85ad8e0dd02ed14d2bebb34e3d33f501a49cbe3a224ebeb94ec3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "aaa33c007da21046855f9ad69e2738217adcdb9557a5430f8bab104c5eb5a121",
+      "event_date": "2024-11-01",
+      "exact_taipei_text": "今天照常上班、照常上課。 臺北市私立立人國際國民中小學 (小學部):今天停止上班、停止上課。 臺北市指南實驗國民小學附設幼兒園:今天照常上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12173",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-11-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "23c1dc4d07793dadac44d216c69fca5752bbcb656705539b87529e0f0d5718a6"
+      ],
+      "closure_dates": [
+        "2024-10-31"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "266891f48bb5e8cffb4430bd5c00af46fd832c617d3c9ebe19346d74520843e8",
+      "event_date": "2024-10-31",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天照常上班、照常上課。 臺北市私立立人國際國民中小學 (小學部):明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12171",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-11-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8030a1e3e1c0218fb5a64673f116639756f05db6d0f572d3896d4c4b4ed955ea"
+      ],
+      "closure_dates": [
+        "2024-10-31"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3c2364381e52660a725799d9d69c5a94d26834e1e80ad9e4a464e391069ecb5f",
+      "event_date": "2024-10-30",
+      "exact_taipei_text": "今天照常上班、照常上課。 明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12170",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2024-11-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "15e6a8f97f009461d2a123cf301ada28c5e5bb91b367c922ad3094e70c0321c1"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "892789f3d429d86208e6ade64ffb153a0b9ed27292090af38ed61942379ac8a4",
+      "event_date": "2024-10-29",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12169",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-10-28",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "33a4d8563f5ee0cb1145f44b1aaeecc5aa569a8cbff7850d01a79447c37475f2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "3694d39f6a0c5479c490f3124ff7358a44be19d0168cd181007911cec8eb3097",
+      "event_date": "2024-10-25",
+      "exact_taipei_text": "臺北市士林區陽明山國民小學:今天停止上班、停止上課。 臺北市北投區湖田里:今天停止上班、停止上課。 臺北市立格致國民中學:今天停止上班、停止上課。 臺北市湖田實驗國民小學:今天停止上班、停止上課。 臺北市華岡藝術學校:今天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12164",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-10-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "208710af012ba17e1c9854764c51c5291129ce1cd1ea41f09cc58532dfcf016d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "cb6259814ba68a34a048e940769fe0903c7418d6f789c0f81702bde5baa20170",
+      "event_date": "2024-10-24",
+      "exact_taipei_text": "臺北市士林區陽明山國民小學:明天停止上班、停止上課。 臺北市北投區湖田里:明天停止上班、停止上課。 臺北市立格致國民中學:明天停止上班、停止上課。 臺北市湖田實驗國民小學:明天停止上班、停止上課。 臺北市華岡藝術學校:明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "12162",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a90a7603120928203337b7ec5592c8415d62d0b21dcc3e52821253be2bc67bf0"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b4292dc5e768e0a37caaa809c74a82b0cbf22059b433372d765ce16d6d18ab29",
+      "event_date": "2024-10-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12149",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-10-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "cf81cac1cfd8159a877681d031e0c6768165155f0d90b3ecf13269acb62d0280"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "48459ec44d083309fe66c3cf2c26fbeedab5088b6dd1893943c665a7a446c62d",
+      "event_date": "2024-10-04",
+      "exact_taipei_text": "今天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12148",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-10-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9f546d1489a9bcaeef83cccd879808ab763eb2b9eb77c5054658d2a9885da882"
+      ],
+      "closure_dates": [
+        "2024-10-03"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "dded3a156b8f6fb1cb852a4e68f9f268e398159966987583171af54ad793ac48",
+      "event_date": "2024-10-03",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12147",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-10-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "79e6ee7c41c01e97381cb3add4da88510ae5d9754626a5cdaff8376a75d3ee0d"
+      ],
+      "closure_dates": [
+        "2024-10-02",
+        "2024-10-03"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "1ce5cf52302d20d41eefb8336475f10ecc7a9486bf5c48eec2bbfaa867b65fed",
+      "event_date": "2024-10-02",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12146",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2024-10-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5db153d9a06a7f72949e58ef8907c24c8a3bb26a65857d474f6766f71716c26f"
+      ],
+      "closure_dates": [
+        "2024-10-02"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1d89879215fb01f8383746deba3cf735cd13231295ddd5a0c13cc65a00438ed9",
+      "event_date": "2024-10-01",
+      "exact_taipei_text": "尚未列入警戒區。 明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12145",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2024-10-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2427da1f6cd9c3c8ec247256280f6a6305a1faf89f90cdc0b67cb0576edc9585"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f0b4e58bccfe7dee6e7ae1fe093bee41cc23723ed3038308f90c096da0ca746f",
+      "event_date": "2024-09-30",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12144",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-09-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5df000de6be555a24cd0bf7101f3925fce2f4c737bebbc5bfbe9f9d564920c6c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0ee8e899d164f2383ba605b54f7dcdb4243ed03a5dce8fd6189c20a6463b7793",
+      "event_date": "2024-09-29",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "12142",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-09-10",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8a20a980d61369431a62f477031bc71fb5e767e86af719e6ec557c8c4e083fa1"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "be3096058225552862eefb738ec35db6c3f45964e154fb8e983e68baeb9ea057",
+      "event_date": "2024-09-09",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12031",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-09-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4ab621dcab97e24f80a6c6134bdcf983912a6ffa843791fb3e4368f48ae19aac"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a3497fa4ef910ed0258cf8b7e8bd04c8777659054e88480029d811e0fcaa5c8d",
+      "event_date": "2024-09-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12029",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "687e6a28935f43aaeef434601a75f6f40050dd7c04fc0c899566f6faaf80923a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b7cc020fa0d1e56d8bfbc67d7dd43569928e5d9ad704004946d8076a877d37d1",
+      "event_date": "2024-08-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12007",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5aa53abe186940ed520123ccd36fcdc620717c4e701c0063a15cc55826a4e6ff"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e0fb1192728fce09920541414e485a0b22bd68b1caabb161e032731bec338578",
+      "event_date": "2024-08-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12003",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "cd394ad97928209809bb40368c4cd8f710229534056a25bfd3d0764add93c707"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "698d417cbf212ca8a768b1037bf0c385bc524d6598a375abd4fae6971160fcf5",
+      "event_date": "2024-08-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12002",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8cc5f7c55652142d572c395a0a343244af91d4d1f8f789f6acfac382d306e85a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2feb5ade6e394774a235318d9a4bd3767a06a67abbffe9aedbc3000feee54047",
+      "event_date": "2024-08-03",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12001",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c948ec4d0a52212c91a9e5f8a7e91fa72e756d53bbda4e94fbca3601ab972b6d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "46d419add8fdcfe3f22dd26a2dec473e3427794d65e8e8cea402ab1945bee3d9",
+      "event_date": "2024-08-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "12000",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c48593c4c6db75379978a73611ec693f1c12372e008902c969738aeebb99ad83"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "70efb0406ad4529d7eb5f08bcb77124b5e09d3efbfa88e331cbfdb77391be755",
+      "event_date": "2024-08-01",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11999",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-08-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "deaf3bb1601a23154e7e8019be1e8e560577a0e6a0d25067a0ed69c3157f3054"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a0d015284259b468bc195445de16dc7890006e7970694cefd3c1b536cc94375d",
+      "event_date": "2024-07-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11997",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-07-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d9a8134a1a200fefd48458b1afe56b547b4aa9822cf43e78ca230837e5c687e9"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ec14574f78ea36077c2061e97fe7a7932c116b24331b59fc8c1fc4665a317829",
+      "event_date": "2024-07-30",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11996",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-07-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "96507afcd29d2ec2e65b2683339cf7eb72d26f9cceae176fa2d6f55f2185d7b3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "344273d6c519517e373b118d31243e06b8f2ee68b25be5618e7a940787dba12a",
+      "event_date": "2024-07-29",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "11993",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-07-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "61cfa04e81655fa935f6259a7d370c77225ab39241af5ff5c28ec2d14463d9ec"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5543a820fb0dd62a8dca566ef2d7f49855acd5e51df910ed0007d7c16f8aa5c1",
+      "event_date": "2024-07-28",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "11992",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-07-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9a1b0e8c217dbb3acd2690e5383430cab0823164f34cb29ee287ec3c7e0a6665"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f37603e52e59d21716baf2a92fa89b112b4e39fbc7be3efc68cb3acced843305",
+      "event_date": "2024-07-27",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 6,
+      "pid": "11991",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-07-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "1abb0fdccc0892fef6f1ef39380579e3c4570986383f673f1c5ff0fe527579f4"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d63a39cb52e4b0bf9a47bb93550aef80ce7532516dbe75c47a2f4f5bee365ca2",
+      "event_date": "2024-07-26",
+      "exact_taipei_text": "今天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11990",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-07-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a3635effe5e2cc414ae5c32e401844056c127665c693a9992d1e52e8a0545b48"
+      ],
+      "closure_dates": [
+        "2024-07-25"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "2be1e2326deda8e6a3f2f71470b82a3e47f4273a6d23d77155466c22380aa640",
+      "event_date": "2024-07-25",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11989",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-07-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dac67f06548824d5f6bc6394628dd7a53b0cb423949e6b203c573718746cd511"
+      ],
+      "closure_dates": [
+        "2024-07-24",
+        "2024-07-25"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "b8dd24d13f122dc2f2b64c34bd9d9f686d964754441e7a95838af87dcb376578",
+      "event_date": "2024-07-24",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11988",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2024-07-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a1fd03502e964bcbf464cbc487e09a1e1409523d950710ebc079ed827f9cd1f3"
+      ],
+      "closure_dates": [
+        "2024-07-24"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ae7d3f439e2cebeb1e558bd57326604a11965f92ed79014cc6fbe81b09824174",
+      "event_date": "2024-07-23",
+      "exact_taipei_text": "明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11987",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2024-07-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5a1f9e41aeef17bfb02127bf9f5369d9db579ed5fb28a412a98706a04aae5a4e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "23c3efe92d84108251617e6c5a579f0d6ee52747909d8fd6e5744df0c6472818",
+      "event_date": "2024-07-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11975",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-29",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6d73267da903c1c468a5ec2d6004a20ad151401c49b60415baa28924cc433eb5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "bfa0f45975175b33da538b1575a5788e9a957f3bd7dd375a9e0bb22148cc32d6",
+      "event_date": "2024-04-26",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11932",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d0a5b33be5e1fa3d41e58086717050a4e58b09410c1dee09ccd5ab70e4594fc9"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4905d55322e0fb57bb9b160be7c945c46e7134df740efb03e97254043eb6c2b6",
+      "event_date": "2024-04-25",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11929",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f3c83b401bf9f52206f77876feed750446e51e10a63a110b5d3c7df30b336bcb"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d646a08bf91ca34211104560a1150a4badcfd3cea61a9c736fc6ed5a2355a353",
+      "event_date": "2024-04-24",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11914",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-24",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9585c260d2487f7227d3264173b6ad042f60ad88324816ea165108212bb3d240"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2f56be74e5f22365344cbb79e0ddc0c5e78e216957eff31cdb6474311ad4bd9d",
+      "event_date": "2024-04-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11913",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f2aaf88a7fd3891190fa0c3e8faec390cc6e6527528dab9b23d11b94de72cf0e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "cbae4dea6296354f9b13effb560a61bc1c178a6276f202242fe55caec99d915b",
+      "event_date": "2024-04-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11910",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "2683c8e79dcd3e9c8a8bb31b3a855b1b3317829085ae3903c0e53ef00172a10c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0289a57674de83e8fe59d937b3cef5623729710488cf6b2cc5881103390b3078",
+      "event_date": "2024-04-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11909",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d39b62c2ef55c6ba939230fb2b0351550b506c17bb8560f7137da883b2e394b2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d3c2c4ce8704decf3f0a5484bb2f8315cc2a12df18ff47582c42405bb75f1234",
+      "event_date": "2024-04-20",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11908",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "87963f491355f2fd87715f25c41f68d69947afec573d944194d31ce8060de586"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2a7cd3a7762898370b8886134fafe7c344c3c4adb2a6143e9bebdd25dd4e5c56",
+      "event_date": "2024-04-19",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11907",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f1a202912c6f5e9eb3c8807eb10bc3f4f683e68e7090418d742988a59d2d8529"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "09caed59c774881623a3c4d14513d232b92ccb041c3d178cde1d8e70ddd17ed5",
+      "event_date": "2024-04-18",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11906",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8e648983f1159996ba093b18667caf9454fe714920006f1bb198d5a35e57c91a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9d92294656fad8c6774603a95a3cf535333ad6fb18701fd5f56158aa5a2b199b",
+      "event_date": "2024-04-17",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11901",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-17",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dda33f3e54a36953ebf10a91cf2150b885915ab2949a6c74fe1e503026110f51"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "15e51a646984f707f14a210057d0941ceb33552ae409ebaee99e295c8dbcbae2",
+      "event_date": "2024-04-16",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11899",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-16",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "08a8c297180152fbd143c1f4f319acaae821feaf51ecddfa85deef3309bd4be5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2931f7413a95eb0b1a086be8ef62116e195992e21978f142fb11c996a764295f",
+      "event_date": "2024-04-15",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11897",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c1b9ed6275f3553c8427ac058b02986ca1e81816f823dce762ba6e56cfe73a69"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0accd7984a288ae24d1d438aad95d613d16113c52def8139966c4934d311a45e",
+      "event_date": "2024-04-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11894",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "14ee9844a7e90151cf00b40b3bdaf0d0554ea1ab157611ab774d5d88b619892c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8d2648a2211e40492aa620fc66c0a170e6bc1f2a92b85bcdc3a8d1201f9c2fde",
+      "event_date": "2024-04-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11893",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4cb0c154d36b24e0f6e53faa466407dc7dc48b0c6bf20abac15be7abcf63d722"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b09da8f73d1f8ce5e853cb9b764bce080c3be1c4aa345569b53b021d6a9f263b",
+      "event_date": "2024-04-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11892",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "89e3922f04c88dc79ea68a80d6aa0bde4d051957645174979f3b98e3037948d2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "52802ff59e4b30831bcc9a1bcab82a53e292cfcae7cdf54b74273379ac4571be",
+      "event_date": "2024-04-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11891",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "eb72d52eeba4df79bf4e0de5367f93e95a1146994fe99d7e525661c8b268228b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "fbeb12eb3a59f6945f6029dc4cf9d65dfb3e3162e0583030def45ad1883bc414",
+      "event_date": "2024-04-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11890",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ffd281fdaf200d156869453f1452bdac8684837c48cf4d378d707f604eda2f76"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e82c4a3ba5424f040f34db9587850e6fab43220d923bfd25f5980b777c1fae01",
+      "event_date": "2024-04-09",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11889",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "39254d9102418eb7f43f195901e85e4d1d4c680b9300ec5aa6907b360ccf0e66"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "61ef5a33d6b58efbb18a5720333854f710267d25bbc0db83c09468416e75d246",
+      "event_date": "2024-04-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11882",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "68b839a43923270ced699ea19321facee9e8c9c063a4946693fdb345ca945bd3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b22b3e6e33230699c836cab9bfeb29a73f4ab49748e92987cc0fa79bd0f94b1f",
+      "event_date": "2024-04-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11880",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b0b1f11da3bb6b4896e685829c0f531f22b639d93c089b60a8a3b44841afeb8d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "45935049e8dd9d64cb64843359ea7a8f2231bd9fa871bdaddb39a65c4952a3f1",
+      "event_date": "2024-04-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11879",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fb7891e0ec0d32a20d1fc30fe1692fe4833cecb90ab7c54ede7743af1f9d82e6"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0466306722e1aa51d759abd74f91e02dbc9adb59031c5a1b273fe93bdd8da98e",
+      "event_date": "2024-04-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11878",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e8e0b98fea0b7a387fd3a485ff9188d6286500d25a2a11545896c5b5897c8421"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f88044e0e5e3e1da380699d03cbd89afdd7b63e5baa9304d8307c29be4a41a40",
+      "event_date": "2024-04-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11877",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-04-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "3750f61cc3cc462205c10b4be6673e98c6deb0ab24b873e4cc088f4b37ed9482"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b48afa14e661ae926e70f5fbed97f473b727b768b23340e7778e4629f3ec4003",
+      "event_date": "2024-04-03",
+      "exact_taipei_text": "今天照常上班、照常上課。 國立臺灣師範大學附屬高級中學（高中部一年級）:今天上午11:00起照常上班、停止上課。 臺北市立大安高級工業職業學校:今天下午照常上班、停止上課。 臺北市立民族實驗國民中學:今天照常上班、停止上課。 臺北市立景美女子高級中學（三年級）:今天照常上班、停止上課。 臺北市立誠正國民中學:今天下午照常上班、停止上課。 臺北市私立稻江高級商業職業學校:今天照常上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "11876",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2024-01-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "561cd1c2f00cf59bd58fcecfcc018f2c80a4ca18e4a8ec4847005ca1b88271b7"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "f9aef43347a6ff50d29d854ea6a15a78e466a1be0b9db484ba15bae781c5ed5c",
+      "event_date": "2024-01-24",
+      "exact_taipei_text": "臺北市士林區陽明山國民小學:今天照常上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "11781",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-01-24",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8239ac9716d456cad258eaeaaa075db59d81a1c60d264f6f2e181c71ad6642b8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_automatic_full_market_closure",
+      "detail_raw_sha256": "665399b736c74cdb5a864ff85b323a14d9c1f6c3a44088ee4fb27dbfc0b5ab6f",
+      "event_date": "2024-01-23",
+      "exact_taipei_text": "臺北市士林區陽明山國民小學:今天照常上班、停止上課。 臺北市士林區陽明山國民小學:明天照常上班、停止上課。 臺北市湖田實驗國民小學:今天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "11780",
+      "today_status": "partial_or_local",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2024-01-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fa05a58bb36651d4af9a30206c28188a4d9364d61b2b8e53d0c598cf397ad880"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4a80f85330d1d6e0a5e738c9e2bee45a5b771673fd1b8db6e660b9bca2cb04f8",
+      "event_date": "2024-01-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11779",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-10-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e140d9efba101db86abbb4fb13e56b2672215d93b231ded630dcaf3adff88bd8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "72b39cf7a97d5857336097bf2be06f97a2e7658696b66a0a48274da0741b61b3",
+      "event_date": "2023-10-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 17,
+      "pid": "11594",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-10-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e69ddca239e5e19701ff61b21ff33b486d1efb45c9216525da676c5bd9a430e2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4bb08d5355c24cc05d8bfa83a2cda9ba7e302043aec8551590bab17642721d4c",
+      "event_date": "2023-10-05",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "11547",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-10-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c66d25900dd1cc9ba4ca5a5ce3de4485069f90aa20b1c52b2cc692e8b9ea14b8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "bd38fd188bdffedfd167364429a82c05ab66c26d42c8ae8a2cb660f789957d27",
+      "event_date": "2023-10-04",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "11545",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-09-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "37add04dd464859c585cf3c370f942255cabd8139113d6ffd23b755bcf784b8c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "19192456754de0e8a8a7651348b29e6e989f89140b5699d70a9de40721f75943",
+      "event_date": "2023-09-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11528",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "97c466b4b266223af1586e1b76e02e48cf0dc9ecb4f490632671f5e50d83b414"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "6785d0977cdb2dafc0a00c45e42829aa38f8426fdb27b837aa11dd0cab455e61",
+      "event_date": "2023-09-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11526",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9d6a0214567f0dd5ebfb2206b07af17550ae33a0c6612d435e7d6fe0254b2941"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "b70f7ed9899667e3f7abf43cfd3509f360734e48c09b860bb7cd55d2d8fd6ec9",
+      "event_date": "2023-09-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11525",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "356ba95f21d6734aa0cbe6fb464b748795e2200b87e5194b49f0d6295c30bb1e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4a66d9be7589558250fcad583c510dbc9560139bee5c88b4be53a82538d38790",
+      "event_date": "2023-09-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11522",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "247ddc7a8f8cacf17cb919741f85003f2697b7ee433bc069e7821b13398a9ad3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7734a0258bcee3a59c4fa5e3b0c4623c655c3bde5481a0f8f668f9828c416d77",
+      "event_date": "2023-09-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 14,
+      "pid": "11521",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "bf4407b863b9a90a7ea8c4a454d8509bc3e70fc541cbbd86953473ecbb4e87b6"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ccbca69b64cd815b4872aa52b4b828016b0e63dcc477a5d8e20a173557392d58",
+      "event_date": "2023-09-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 17,
+      "pid": "11520",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-09-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "abc3aefa74e7697d46236ce35112e714217a4716b1e2bcd4697e3e0fe7568e83"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e632d7e78a7ecc4e592e8bd5ab2ba99f5c4d56ea02f5c31627356ecce4791a7f",
+      "event_date": "2023-09-03",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11518",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-09-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e18e399b4b48d6fb37eb0ff49951189ed1b634b2f19a70c7d02ea75f531d5229"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2d367616f99d28a041c7f62e0e749950ce57266ed1af23aaaa03f636eef646ed",
+      "event_date": "2023-09-02",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11517",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-09-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7de2e01423552cd38cb0032549664b56e7b7da179d4a2a083e7e25be1f5a2296"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "01b36917d667c9b108127ff532437d5e1e9971cf781a4a5c4512af4e5906e26a",
+      "event_date": "2023-08-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "11513",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a9749facd3dbaf9f7a128fcf8c80bc90418105bb55c48aff621e015a615b3ed6"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "03e851e4982e66bd0eead63406c929545b988d8be81102d008b2b026afb32cbd",
+      "event_date": "2023-08-30",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11512",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-08-30",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "15ec8cc375c32f1e6e3cac5bd9302bc508c62122acd61f273527b8c7fca50ae1"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "63ae3cc4a7e86b2d8a31327eac9b379fdcb448cbf405b6eff376d975fe315b5f",
+      "event_date": "2023-08-29",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11509",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-08-28",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "caf058210b6f7019fc2da73ba53a97ee83492bf4df968b6e0b569554d8eb0c26"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9c4eecb3144b7cb5b6fc5c62ecdf7fde77ba1abbe3f321d0a37803260e1d2d65",
+      "event_date": "2023-08-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11497",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-18",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "88edea64c922073f9298aae22053ae2e12e020c091688370177a2a2f3b5516c2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "700ed4cf019b56056f6b50f852a2ef5c25e58a1e2c560f75d9f718d173a95eaa",
+      "event_date": "2023-08-17",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11493",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "02fd753cf5db8719bfcd376048d32b60c929c8e930744b0227c84a3c3434ae88"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ecd951cf6f9fa3994cc35a7cdb30fadf8393c36ca55ea63a483392d3a6b48e7f",
+      "event_date": "2023-08-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11489",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d889e5a80ef06e77693bf110d18a1406d6fd6fed8a7ea7fb8cb281ca6cc8ffab"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c5640ac146934d2c8fb6a9967c2e46f77f5f5e6289d1fefe09cf5e43da029d63",
+      "event_date": "2023-08-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11488",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "1bb0f7bd16d559838e6bca9072e57106fc2e199f928f65a656d44cdf8a58906d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "362604f99be86668e4c8ad240c64fb08ded6ed74278bc7c6b12b0cee69651c0e",
+      "event_date": "2023-08-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11487",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "21ea1f2693a4339b5648e7495ddb3a2620a60e3f7affa3f4c1de22b6a669d3e2"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "86c99ee17438d8b183472c46a4f1de84cb3f9328c26aa75caccf5d93aaf6b869",
+      "event_date": "2023-08-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11485",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-10",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f0afa0f22cf859d5c4b61ed3e6dfa6528847bfe589ca1692b5b5f78b6feffeaf"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1c2fe87193e1e3e8627eb57cc0e9d558aae87275fe47a3734c74e1e22c078513",
+      "event_date": "2023-08-09",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11478",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-10",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dcf65875f9f36b783e3344c2eabde114f7910901a68e908bade72b3d7809137b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "dced22e6303ad6069815625e63cf7d79315c169aaea2af4932a5900c8de65e24",
+      "event_date": "2023-08-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11477",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-08",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6d266bf110a6e9cad66ad1bc09c3487a39acd8a56fc07f7d308524a49ec26882"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "6c9e0e6fdaf0bfa0267f6e5bb704ea255f948b8880120ad1059e4cea4ad3bcab",
+      "event_date": "2023-08-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11476",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b24a06159ad649e06ad51a1d6a0c2925e7f5e6c674f1182e6c982c2666d0d10a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3282302b7ed2775297210a99478d60251608cb30e8adfeedc0835764db084b0f",
+      "event_date": "2023-08-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11474",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "41ff3b3812e4fd5d74c95475abacecca7907e94213d9bf389edb03b7d94b764a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ab56fc7bd11499c3b1a0dc1a800a55df51b0dc3b7affb03384a19d383547d93b",
+      "event_date": "2023-08-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "11473",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-08-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "3ebffb75737b9820eae1dd556db32fe211b0f27831a83db19295f76771c099b6"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9aee9fadd012a7cc32e1b1b0f6d9e8c020a78a0208948762a13d0df36a626e8a",
+      "event_date": "2023-08-04",
+      "exact_taipei_text": "今天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 10,
+      "pid": "11472",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-08-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b949a6f34ac3ad3cdf2f61f8081361a40bd4e08ad0105edd1b9cf9ee21c1ad1d"
+      ],
+      "closure_dates": [
+        "2023-08-03"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "f82e3f7dac8f825761cddd1d3e319f366292df9ef825838b0d9e14bf3db2b311",
+      "event_date": "2023-08-03",
+      "exact_taipei_text": "今天停止上班、停止上課。 明天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11469",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-08-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e1f9ed04d8af23dcf67865d1377f6e0e69216b49b718c4e5f67486f44afdac86"
+      ],
+      "closure_dates": [
+        "2023-08-03"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7bf66a2cb5204feb4edc969af29ecd4d8529688f39b7ab0505d09f35a0a651ba",
+      "event_date": "2023-08-02",
+      "exact_taipei_text": "明天停止上班、停止上課。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11468",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2023-07-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "89a3e48423d1b84cf76acb4fbaec8ca3b5755b6562d4d8b669056a7de7825533"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "2c7d10354889e8930abeac066670f3bd70cb1b9be8d08940aeebe50318fd911e",
+      "event_date": "2023-07-28",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 14,
+      "pid": "11466",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-07-28",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "33e23b919d7f375e905aab3ec1d5ea43f013d115bbb609a69fc1663c076168a4"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8a8acbcb400683b90215f1902a3328febf36e9f1c794ae5250d1603fe9095d0a",
+      "event_date": "2023-07-27",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11465",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-07-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "60987a2cb0bbbe8d103261fb04fe6528177c13d4ca4e090308206e9beb91a793"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1283c04c3241213d9e10554739d16128a512d5aac29fc257f56d37d69c728dfe",
+      "event_date": "2023-07-26",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "11463",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-07-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "cb078a22100d38ccadfa445689f1c7107ea6cdffb321d79b75bcd7e6953af9f1"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "de1ae801521763c679e0dd53d57e6afab1e4342de7aa5707b46a51c88b27eb1a",
+      "event_date": "2023-07-25",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11462",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2023-06-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e27196222dd86b315a57a6919a66d8456aac35f8135bf604858ade447b8cd53b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a8e1287af135bb7c6afef78810d73e621bf41e21b6eff5216740a5c13a1ebf98",
+      "event_date": "2023-05-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11405",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-05-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6e76030e684e2e94bdf34c77917722b26a1ea97534892e794ee4d68000ad5569"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f12546c2b43be6565dcbeaf51f5a935ef290a8291bb399dff562597f8e1c56f8",
+      "event_date": "2023-05-30",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11403",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-05-19",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f5b3542a090f0754189059f09a7ae5a94318e6a624f02f6dcd3b119eca0c660d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "55578ca9a850e34b53b3103c9be79ca89c8f34854d5835b412c9902a3cbdac62",
+      "event_date": "2023-05-19",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11394",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2023-04-20",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "40c1c088f49ec76e19d5d6337100405922e26b3ae03068eef17bc7c8c6e41324"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ef889be11990561a69394a6ca4d7a3e3f1b5dcad8e97fe2ece5c82f408b4c1f8",
+      "event_date": "2023-04-20",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11391",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-11-01",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a7cc52f2c57df580d5808ab0d2847ef4bd4561cf95ed0a3dc08dfdfcee3c5c24"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9420063a94a3c7113a2e3ef67db939723a4d4df6461a916560adef9d76525070",
+      "event_date": "2022-10-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11154",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-10-17",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5adfa5770960149b2e55aad430559d134ae32d5a8163838aea062588a52d84bc"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "262d304a923bcd6d0189b7f486f2fd403a84058e36b1bc748b583c077e3aa6ec",
+      "event_date": "2022-10-16",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11130",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-10-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "c68ebc8841916404e9b1ffad11b30db40a889d4d62237592f6af782a86c8d34d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "25eaae5c1932bbea670f525519be77e46ac7340490a5c5e2505a88cdb32e7167",
+      "event_date": "2022-10-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11125",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-10-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "93a75d63b0a66e570c79c2b44534e3a9976fb7fac1205d6cba42abee2ff87ed5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "39e23eb1e2d1a193e80bf968d50c7cb19db2317fae91aac7708e3a49e11916b6",
+      "event_date": "2022-10-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11124",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-20",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "54632c84b730e7c04a4421f7117c0a452b6523a269bb3acfd4523e301eda4fea"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8093e0298a67e7e3b59f3466dfd987b4b2e3be8543605614f575231607f42086",
+      "event_date": "2022-09-19",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11110",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-19",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "651fb726cf257140f06fd94109855e175459d251d72a7059d18b118c6d61da1c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3bd81d7cf3947820720e727fefbb69e04c98526648f20770047e4ea957f11046",
+      "event_date": "2022-09-18",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11109",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6f1f10bcb80f61441f229db15217dea9746dd49078884eb1b86880af63f35e09"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "656aec392a012062a8183fabd379b8fe30dd821f475f78061b7569d84169f21d",
+      "event_date": "2022-09-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11099",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a8e2287a8aa147a9047495d865c78309f57005d46330b902cc6b3cb44b6fcf78"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1f8bc4d84714b5c908a46146af2ac83cb37ab81c680e1048db3418477eb901a3",
+      "event_date": "2022-09-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11097",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a7d4f61fdc71371b5f81b2dd1e4a7a0380c7e2c8aa7fe53f2e8ff26449aa94f6"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "84a3ab780dd95ce9c78e9fd7272663ac3b18e1c054eed4f05211815f3da725ad",
+      "event_date": "2022-09-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "11091",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7439c492bddf2557cf40b0af4d28824b3c2be7e8cee9aed54d629372380ca34b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9abdafa64ff695882b783d9687386d4be8e419a78668a660fa4db27cb478fab0",
+      "event_date": "2022-09-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "11087",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2022-09-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b2c2ec9095e9d5e9b5cfad270d07569c869df3a7e721b78caec6979395d6bce1"
+      ],
+      "closure_dates": [
+        "2022-09-04"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "779665683bb53568de394d515b1d95bbac2a4e931db5d934255ceccd0e4cb381",
+      "event_date": "2022-09-04",
+      "exact_taipei_text": "今天未達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 11,
+      "pid": "11086",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2022-09-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "d1661845766f0525537e9323db9c9451cd5a43185c796bc1aa792d3419175503"
+      ],
+      "closure_dates": [
+        "2022-09-03",
+        "2022-09-04"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "201a532af8ea535fc19e946a1c84ab14c307b8cc078054a9d8939b11e0328bac",
+      "event_date": "2022-09-03",
+      "exact_taipei_text": "今天未達停止上班及上課標準。 明天未達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11085",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2022-09-05",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4edf39d74e4720a8fbc31a40cca86d6bba5f52258bc9a6d4c9e2f82f5e760b96"
+      ],
+      "closure_dates": [
+        "2022-09-03"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "755e956f501217d6306599e37c008acec74be9ab888eaea68f898d8a6df9cd41",
+      "event_date": "2022-09-02",
+      "exact_taipei_text": "明天未達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "11084",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2021-10-15",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "114ef0921e3bb05ebd827477a7d75886a734f48ed24d85db8a4d69cf91a02b66"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5c14c79e99e2e91a3707e93ba26b38dba333726f8d344b99ba68fbecb00b9f3c",
+      "event_date": "2021-10-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10767",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-10-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "24a3f328bdd6d226e5ff4318fb7a4678cd8c7d94f66577e1c039875794eb75c8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "319bd14bed410d5792ed2ff2a486849c766c13cf5156769188c67c4d8dab6429",
+      "event_date": "2021-10-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "10765",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-10-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6fb9604db71b26fa278de40ec66d1274802c20f129af8144b06993fd2a40f0fa"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "c83e4eb883f3230a7e791e48aba164b2f4e09269d62d5918b916c051ee7f0c6b",
+      "event_date": "2021-10-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 6,
+      "pid": "10763",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-10-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "e9eba0a548674a0165da45f29cfc232c8d411fa7e87cad085f3e65676298b98b"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5df295695e4701379d7f19337360229594702057ab353d1393a426911f194634",
+      "event_date": "2021-10-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10762",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-09-16",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "792297b85e2ebafe0cc617729e4a84de8786e61258e495f315aef3818ba7da20"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4611d2b4d0510f161d0d90521bf88da39202ac23c4ad052410af268173f52747",
+      "event_date": "2021-09-14",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10744",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-09-14",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "154afd91556ede62a41b80526cc28b03654bd8c40107289611b224e8b3ac2cb8"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "7def4930f23230ec4d876c6248c6e767de8a137bfae0eace5a43799238bd7491",
+      "event_date": "2021-09-13",
+      "exact_taipei_text": "今天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 19,
+      "pid": "10742",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2021-09-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "65fcb06a3a33a9dc4f7c6d653d17ddc81a7988cc7601481dfce5c0f71de6d17a"
+      ],
+      "closure_dates": [
+        "2021-09-12"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "c47d3232be063c90a61925bc96cbdeb7ddd84051388da939682b2f90d1835642",
+      "event_date": "2021-09-12",
+      "exact_taipei_text": "今天已達停止上班及上課標準。 明天照常上班、照常上課。",
+      "manual_review_required": false,
+      "other_city_count": 19,
+      "pid": "10738",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2021-09-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4a77ad534c4d3b421df7ef97c4f4ee690a43a167e37fddf6125bdd0328ae1f54"
+      ],
+      "closure_dates": [
+        "2021-09-12"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3955cd4037daca6f80ded53fed111b816aa97291f73480f9bf5ef62cadf4da8d",
+      "event_date": "2021-09-11",
+      "exact_taipei_text": "今天照常上班、照常上課。 明天已達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "10737",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2021-09-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "9bd8281dbc30468e7ba6d62495a56eeea7755471af34a98147b6d12f40bf438e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e4b4c06f3944ec75281c92e306735ec947466acb05b58f9388783ffdbb7dbf78",
+      "event_date": "2021-09-10",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "10735",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2021-08-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a7161bc11cd2d76092e3085e26f5112f39ac4b928ee2fe264df85e9c4f790ae3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "4c3f5520d14c2bf480c21dda1ebe71a1cac6e06e1433e1b14b29f31afc0933e1",
+      "event_date": "2021-08-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10709",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "987194b89209eef5cc7742abc4038ca1ba6217ea4b576099b176750879252960"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1723477f5a08abfacfb0a77f15f24d1d38c383c869e2ddc375bcb2d8de23ba6a",
+      "event_date": "2021-08-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10708",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-10",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ac8314933747a303d04623cb53896ededdb52d06b91486088db7d31948b41144"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "06a8a58887ca4706b09321be06d37c2899ce8ee6310c22e8848776a7f0808425",
+      "event_date": "2021-08-09",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10707",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "42979f35156051c5b1e3e8f1515ad8933fd8abdea17d288ac41dfcc4018e5697"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "62d437b77307d4c593ca9c6d61e8bf239d20545a0555239e020ed2ceed2dd276",
+      "event_date": "2021-08-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "10706",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "8836b91950a4d5ce13e34b130cc1e71f37e21cb88cb3d6ab514c810c8f294110"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9192e159a7e0368b8536bf82590c3c33fb595aadea69d715a400c8135b5ac36e",
+      "event_date": "2021-08-07",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 10,
+      "pid": "10705",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "a03b20a8cb75f9d52c2457d85d6e6187de15cb44b506b3dd52dc7d1893be29f0"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "69a2a6e07863e0fff0658a22d4bc173e9ed7a0f8f9af557e484a3493b93268cc",
+      "event_date": "2021-08-06",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 7,
+      "pid": "10704",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "0765c708ac5cb5fa6bb21876b1bd14cb72bb9b56aa51fee2687c74c544e804e5"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e3206ef448124801f7b7dd81b81894546c610d2cf0e8e1a85c44040e67405fac",
+      "event_date": "2021-08-05",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10703",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-03",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "1a5d91a2a50bc9127df544eeb0ef99c42cd01969e80b46ad2a34be0887bc7234"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e45d2ffdff1e11c6f5eb98428c5c28a5f8f2541fa41e4758a71e7d7226d68d9a",
+      "event_date": "2021-08-02",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "10701",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-02",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "3d70c1205749970d6c0e975ce38c2b192c975d543415404fc8385ba8a8fe600d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5d1e7c9c6963356ea591a3df5ba20855dc19d58be02f247067a5892c78106ab0",
+      "event_date": "2021-08-01",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10700",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-08-02",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "ccf836869fac27a26079267c7257d2355b5fc8e8511ae8e8ea33982b8b04820d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "61a4487d0f626e4701d2dd42c94b4c64d1b8f4a1a963a2747e2585aded6952c2",
+      "event_date": "2021-07-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10699",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-07-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "19b6bb2bfb1c6970f67c9a396b33ef175d4a34c7db247a8b07bff709bacfb733"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "42c5e76e91603721e9a55ff043e3afce92ea97fd734c567e347a4b29f7863ea4",
+      "event_date": "2021-07-24",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 3,
+      "pid": "10697",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-07-26",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "99ccd5feab8dc8fc7f24eeb3d408604d3e44069443f41225eb941f31dbb58e66"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a573dc88cced1ceac52c826713b24478725e96f829c6340532069749bc6089d3",
+      "event_date": "2021-07-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10696",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-07-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "267ea07aa86cf40e86f7b414b44efb96879786f2b92c334fb91d8c086a563707"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "f32adc623a4f3f7ff036b917d2cc448b2190cd117c63df22141fba666330f76b",
+      "event_date": "2021-07-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10695",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-06-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f5976cf44ef8d1d998838af1b999422aa5215e5c9b26d0f56ec2f56ba679d35f"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "3c9d1ea8d9ca774320f770a03499f9e0d897b7a973b2136ee9e173ce6d859dd8",
+      "event_date": "2021-06-24",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10677",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-06-23",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "5f3b478ef9d347ecd285274aacb219946ed20f9ecd9c1754c65944fc7f69da2d"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "080957b6dd935eaf401178742ce8441d413e84bc8a7521c54f64449569b694c7",
+      "event_date": "2021-06-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10672",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-06-22",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "f3ab2749e4506f299f6eeddf79dacbb648d92afa1ace518ae8b67b5d356c3313"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "0e3f4b2270a88cb0d25ceac45315d320389e8c7390973320c8afe1eed60dbec6",
+      "event_date": "2021-06-21",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10670",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-06-07",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b5ae06fe7874a6a5ef1cac7835652a682707364b71ca9565e4f8f74d9c7301fe"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "e9b807d923b8a32dab64c0c9a6d0a95004506fbe75157825dc44f96573b8294e",
+      "event_date": "2021-06-04",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10658",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-06-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "b4e3939578e3aee86ab24278e332dfa37b5002472c36930d995ce9a40976d05c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "a781bd708cadf47a9782c3797b4b44e397b5dedec67906320bbdc6d0ae657b6c",
+      "event_date": "2021-06-03",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 18,
+      "pid": "10657",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2021-05-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7b3be531ff997edfb57e8383ab1e973261a86abf48a1996424240c0887430000"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "226dc3e35d33f2e98d88a9ef8ab78a0fd008915274c28a52aec68b35acb23942",
+      "event_date": "2021-04-13",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10640",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-01-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7c6eec5192f2d10259d70df441d4fa7b435bac89a3100cdb4ec19ce99b1f4e00"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "8621218c513f8fff8b4dacace7d523b0dfa6cf9ace1966f547ac3ff8740b3993",
+      "event_date": "2021-01-12",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10537",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-01-13",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "be87ebd0bb71fafe8e412ef35131145f23fdfac235daf3fcd0375eedc5d57d46"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "ebc51d3d7381279fc6a4e6f8a2f52dedcc0dbc71dd8a7573d4c957899126cc6f",
+      "event_date": "2021-01-08",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10536",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2021-01-04",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "6289020d4445d9cebafd399a3598ce69763b84e3a6afc4114c0a772df3e3217a"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "125b660fa4495ec5c7253f0ac5dba1d0cb092c67e81a32abc5ac2cbcea11dfe9",
+      "event_date": "2020-12-31",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10525",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-12-31",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "62f65445411a45b2f115595215efdf36bb0d9f61fad3a7eb786fde87a735d677"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "d4a34e87702ad6ad9fdf189372db1a0098279f372805e31f633c075f3cc3f39c",
+      "event_date": "2020-12-30",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10524",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-11-09",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "3537d0165147142b4841c0c0209a8ca342ee381c9f55694eff1b203a997ae235"
+      ],
+      "closure_dates": [
+        "2020-11-07"
+      ],
+      "derived_market_closure": "market_closed_full_day",
+      "detail_raw_sha256": "7cf9f1525ddcc7269fd1a8085c75fa0c8c273b6f4c2d6fab48412110099f0a2a",
+      "event_date": "2020-11-07",
+      "exact_taipei_text": "今天未達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 23,
+      "pid": "10307",
+      "today_status": "full_day_stop",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2020-11-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "bf45ad2c55ff7e3dbfd0f6b13edefd2b3507d0183f46421b8add7b4c4931a2a2"
+      ],
+      "closure_dates": [
+        "2020-11-07"
+      ],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "825e38134b419b8aed4fcb63acc13581b54953290631c605aae4bdb21e2dbb21",
+      "event_date": "2020-11-06",
+      "exact_taipei_text": "尚未列入警戒區。 明天未達停止上班及上課標準。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "10304",
+      "today_status": "normal",
+      "tomorrow_status": "full_day_stop"
+    },
+    {
+      "announce_date": "2020-11-06",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "7d27e6477fce2ae85e30b24e2e3d1d81a5af9ef47b918e379bbe5041dcb7f1bd"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9a28ef4e35945728e7ef77ea6e5a805648ba5ba2dc4f0b7d7f588267e80d6abc",
+      "event_date": "2020-11-05",
+      "exact_taipei_text": "尚未列入警戒區。",
+      "manual_review_required": false,
+      "other_city_count": 22,
+      "pid": "10303",
+      "today_status": "normal",
+      "tomorrow_status": "normal"
+    },
+    {
+      "announce_date": "2020-08-28",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "488fe5039beaccb4e6ccfb6774e779baf1300338e3349c3d20b7a64da45a6c34"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "071a36cc8f8f470d15a78702b08eb2d7afe8d0bd645a642f7fdf77c48c4efcf1",
+      "event_date": "2020-08-27",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10261",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-08-27",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "85add6d59c82e20b770024a5fe1a8a127bd0a4ac5aa7b84323177fa5dd9230f0"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "5c50b27c12768a3b6ef0f17fa75b412fb129eb47bc98b5fc36cb43135fcef243",
+      "event_date": "2020-08-26",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 1,
+      "pid": "10259",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-08-12",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "fb902b4ad505e1014f5099855a9e6f96cfb54042ba16d9d312fb99234d5b93a3"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "9bee6e2d0bba0a93c870622a4f6db249296e3696b1eb3e4d8904af1d5cbf3926",
+      "event_date": "2020-08-11",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10247",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-08-11",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "4580be96217013b1cb24833b64cf1117a67a057dff87896936fa97e3db3782ba",
+        "e4f1045c178eddd73175e7acdf340bea0680440e4a215ad48790de2390e0ca28"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "905904517962b467ece990eac9f5140a2857f694c001b4febdbfd8c13defea1c",
+      "event_date": "2020-08-10",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "10246",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-05-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "75286b88c19bdebbd2d8ac65654f86a64d42faf04a51f64d9dc02fdf6eb1dc6e"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "42c800727e3971d6367d91b3db2b044617ee37c6ac5d0260c0ac9ca88e201766",
+      "event_date": "2020-05-23",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 2,
+      "pid": "10162",
+      "today_status": "normal",
+      "tomorrow_status": null
+    },
+    {
+      "announce_date": "2020-05-25",
+      "attachment_fetched": true,
+      "attachment_sha256s": [
+        "dde31b1f7fc0563922a493d9efae5bbabfda62777a62eb78eb6f885ffcbc6d9c"
+      ],
+      "closure_dates": [],
+      "derived_market_closure": "no_natural_disaster_closure",
+      "detail_raw_sha256": "1c768ef80b2ab6a07b775f38821c7f09a2a6eab989bf132229627dc11859ba87",
+      "event_date": "2020-05-22",
+      "exact_taipei_text": "(臺北市未列入停班停課名單)",
+      "manual_review_required": false,
+      "other_city_count": 4,
+      "pid": "10161",
+      "today_status": "normal",
+      "tomorrow_status": null
+    }
+  ],
+  "schema_version": "2.0.0",
+  "source_url": "https://www.dgpa.gov.tw/informationlist?uid=374",
+  "target_period_end": "2025-12-31",
+  "target_period_start": "2020-01-01"
+}

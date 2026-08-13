@@ -1,0 +1,217 @@
+{
+  "audit_type": "taiex_dgpa_source_coverage_2020_2025",
+  "coverage_complete": true,
+  "duplicate_pids": [],
+  "hard_page_cap": 60,
+  "pages": [
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-001:r0008-4c137e1c4ecb.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 1,
+      "raw_sha256": "4c137e1c4ecb741f9d385d06a8bb41eaddd4bbc8474c9d7f812f86cc6db6371a",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-002:r0008-5f3bf8ff609a.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 2,
+      "raw_sha256": "5f3bf8ff609a779aebc381c0481187637da24fb6a765593808f597feb7921463",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=2"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-003:r0006-a9d31133cb07.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 3,
+      "raw_sha256": "a9d31133cb07e77b4e0270b17efe04ed7377a40293323b2c6c498bbe8f7062c0",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=3"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-004:r0006-3c744a69c721.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 4,
+      "raw_sha256": "3c744a69c721f5b0c4a2c63d06e38a23b2f1dad837a43dbe22fe03b3f4fc4e8f",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=4"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-005:r0006-4b7f6e7d9be1.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 5,
+      "raw_sha256": "4b7f6e7d9be1bb95785b1ba7f6d473335df2f0e2e3337b55d2402de2cd84b1d5",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=5"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-006:r0006-693975a70ccb.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 6,
+      "raw_sha256": "693975a70ccb8a871d8129f5ca11a8cb5b41ef9ba047ce75f8f32f8c540d2d6c",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=6"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-007:r0006-9371e0887377.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 7,
+      "raw_sha256": "9371e088737734ab09d301133976bf70d25fdea1808e1803cfdf40a8132a4a6b",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=7"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-008:r0006-ffe1cc63fdc6.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 8,
+      "raw_sha256": "ffe1cc63fdc6c9a40b2b3d4201447d7b680a9513959849339c4963c6f9fdb4cc",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=8"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-009:r0006-a1ae9f068814.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 9,
+      "raw_sha256": "a1ae9f06881494358da1a7df06778b933cd155048a1b4a4392c0f0f137b653ce",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=9"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-010:r0006-834159217b9e.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 10,
+      "raw_sha256": "834159217b9e0e0d58762ff9903026bc66b059a080b249ffc2fb0191c523c9b7",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=10"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-011:r0006-151de59e91fa.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 11,
+      "raw_sha256": "151de59e91fa7e921ffdc28bd36f1658df5c522d7bf940c85ae905797ca99b9e",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=11"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-012:r0006-f285839cc54d.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 12,
+      "raw_sha256": "f285839cc54d80cf0f5d96575383da2b6d863c93f0a8ca614510bdce055a06e5",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=12"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-013:r0006-10c95b73da73.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 13,
+      "raw_sha256": "10c95b73da732e1ace93129110770c3e5abd408d782fc9d34fbe8d103dc384d6",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=13"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-014:r0006-56f166a7a42e.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 14,
+      "raw_sha256": "56f166a7a42e3ecc997d23b179ec1195412ba91f4de09d31bf157ab044560cac",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=14"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-015:r0006-3049d127b696.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 15,
+      "raw_sha256": "3049d127b6960d89177bf653f63eeb8dda5976d1159f585455b966ff8a7fa6b2",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=15"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-016:r0006-d4163f63608f.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 16,
+      "raw_sha256": "d4163f63608f4f07078c3d2f679cd23fc6454d17eb0c3225320c8804a7a09419",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=16"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-017:r0006-905b9dd7a12c.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 17,
+      "raw_sha256": "905b9dd7a12c4428aca1644a9fdf6874873f77fcb3bc669859c0f2fb64165b9b",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=17"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-018:r0006-febc92d3d7c8.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 18,
+      "raw_sha256": "febc92d3d7c898b0bd4d40fe18b097f77b3868daaf8d24b452680f482b92900e",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=18"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-019:r0006-302d7c40fd9e.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 19,
+      "raw_sha256": "302d7c40fd9ebbfdeb2bcb740cb8aa5062a008593407136cc427364d8e7dcf98",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=19"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-020:r0006-572a65cf896c.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 20,
+      "raw_sha256": "572a65cf896cb7c906c5020d789a7e9efc1025bffd992bc0a4b73be5d5df4cf6",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=20"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-021:r0006-d82473e9c93b.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 21,
+      "raw_sha256": "d82473e9c93b9f45963606a9c098795c583841e4a2e2f8fdc21734493485d984",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=21"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-022:r0006-f5db3d0e326b.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 22,
+      "raw_sha256": "f5db3d0e326b1c7797392e364c0d59f13ac7d33a856abce74dfb42a198c3c65f",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=22"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-023:r0006-a8ee679b055a.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 23,
+      "raw_sha256": "a8ee679b055ad76a0393f9538573311b1f9d0672ae7146faebedbfe1a8143f13",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=23"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-024:r0006-59923db12390.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 24,
+      "raw_sha256": "59923db1239079f206df9ef9115b9b543ebd2f9386c5239766c0898a0e167188",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=24"
+    },
+    {
+      "artifact_id": "dgpa_natural_disaster_suspension:list-page-025:r0006-9c9ac87ce152.manifest",
+      "entry_count": 10,
+      "http_status": 200,
+      "page": 25,
+      "raw_sha256": "9c9ac87ce152dfca738153356f9ea05b53ef9a2b71b9d542b3e02658172117c7",
+      "url": "https://www.dgpa.gov.tw/informationlist?uid=374&page=25"
+    }
+  ],
+  "pages_traversed": 25,
+  "schema_version": "2.0.0",
+  "source_url": "https://www.dgpa.gov.tw/informationlist?uid=374",
+  "target_period_end": "2025-12-31",
+  "target_period_entries": 221,
+  "target_period_start": "2020-01-01",
+  "terminated_reason": "oldest_event_2019-10-31_before_2020-01-01",
+  "total_entries_seen": 250,
+  "unresolved_count": 0
+}
