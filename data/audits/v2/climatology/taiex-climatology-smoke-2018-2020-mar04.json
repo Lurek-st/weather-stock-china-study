@@ -1,0 +1,1400 @@
+{
+  "anchor_binding": {
+    "anchor_id": "twse_exchange_taipei_101",
+    "anchor_role": "primary",
+    "anchor_type": "official_exchange_location",
+    "building": "Taipei 101",
+    "coordinate": {
+      "latitude": 25.0338352,
+      "longitude": 121.5644995
+    },
+    "coordinate_derivation_method": "geocoding",
+    "cross_check": "reverse geocode of the coordinate resolves to Taipei 101 premises (市府路45號)",
+    "geocoder": "Nominatim (OpenStreetMap)",
+    "geocoder_query": "Taipei 101",
+    "geocoder_result": {
+      "address_road": "信義路五段",
+      "name": "台北101",
+      "osm_id": 1159328965,
+      "osm_type": "way"
+    },
+    "geocoding_date": "2026-08-13",
+    "market_id": "taiex",
+    "official_postal_address": "3F, 9F-12F, 15F, No.7, Sec.5, Xinyi Rd., Taipei City 110615, Taiwan (R.O.C.)",
+    "official_source_url": "https://www.twse.com.tw/en/about/company/map.html"
+  },
+  "audit_type": "taiex_climatology_smoke",
+  "baseline_years": [
+    2018,
+    2019,
+    2020
+  ],
+  "center_calendar_day": {
+    "day": 4,
+    "month": 3
+  },
+  "climatology_mean_pct": 66.097696,
+  "code_sha256": {
+    "build_taiex_climatology_smoke.py": "44157a8be1300a5ea72cb98217bab3af4db8571dcc46de6efabe66e60aa99396",
+    "common_calendar.py": "8664b520ef65fcc480f75039cdb47fcf806503b04ea238260a074d7fb6f40afa",
+    "tcc_exposure.py": "269eeaff55620b7c02872e2e26cddb0a605cd36a8e9da12ffe37e8d73782c137",
+    "temporal_integration.py": "576ccc5a9c452a69abcbd65ea462d2cb09d3b638f8d1ecbc0839db754a8a5bf5"
+  },
+  "common_calendar": "fixed_365_day",
+  "common_calendar_mapping": "leap Mar01+ maps to non-leap common day; Feb29 excluded",
+  "contract_version": "stage5e1_smoke_v1",
+  "daily_exposure_sha256": "3ef2fcd2bade6ab44225e130126ea17435574ffbab44706695c70c77693d6a63",
+  "daily_exposures": [
+    {
+      "actual_date": "2018-02-17",
+      "baseline_year": 2018,
+      "common_doy": 48,
+      "common_label": {
+        "day": 17,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.654645,
+      "smoke_anomaly_pct": 33.556949,
+      "smoke_z": 0.995302,
+      "window_end_utc": "2018-02-17T01:00:00+00:00",
+      "window_start_utc": "2018-02-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-18",
+      "baseline_year": 2018,
+      "common_doy": 49,
+      "common_label": {
+        "day": 18,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 25.319862,
+      "smoke_anomaly_pct": -40.777834,
+      "smoke_z": -1.209474,
+      "window_end_utc": "2018-02-18T01:00:00+00:00",
+      "window_start_utc": "2018-02-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-19",
+      "baseline_year": 2018,
+      "common_doy": 50,
+      "common_label": {
+        "day": 19,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 1.582372,
+      "smoke_anomaly_pct": -64.515324,
+      "smoke_z": -1.91353,
+      "window_end_utc": "2018-02-19T01:00:00+00:00",
+      "window_start_utc": "2018-02-18T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-20",
+      "baseline_year": 2018,
+      "common_doy": 51,
+      "common_label": {
+        "day": 20,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-02-20T01:00:00+00:00",
+      "window_start_utc": "2018-02-19T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-21",
+      "baseline_year": 2018,
+      "common_doy": 52,
+      "common_label": {
+        "day": 21,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-02-21T01:00:00+00:00",
+      "window_start_utc": "2018-02-20T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-22",
+      "baseline_year": 2018,
+      "common_doy": 53,
+      "common_label": {
+        "day": 22,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-02-22T01:00:00+00:00",
+      "window_start_utc": "2018-02-21T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-23",
+      "baseline_year": 2018,
+      "common_doy": 54,
+      "common_label": {
+        "day": 23,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-02-23T01:00:00+00:00",
+      "window_start_utc": "2018-02-22T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-24",
+      "baseline_year": 2018,
+      "common_doy": 55,
+      "common_label": {
+        "day": 24,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 95.170346,
+      "smoke_anomaly_pct": 29.07265,
+      "smoke_z": 0.862297,
+      "window_end_utc": "2018-02-24T01:00:00+00:00",
+      "window_start_utc": "2018-02-23T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-25",
+      "baseline_year": 2018,
+      "common_doy": 56,
+      "common_label": {
+        "day": 25,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 95.461634,
+      "smoke_anomaly_pct": 29.363938,
+      "smoke_z": 0.870937,
+      "window_end_utc": "2018-02-25T01:00:00+00:00",
+      "window_start_utc": "2018-02-24T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-26",
+      "baseline_year": 2018,
+      "common_doy": 57,
+      "common_label": {
+        "day": 26,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.166257,
+      "smoke_anomaly_pct": 33.068561,
+      "smoke_z": 0.980817,
+      "window_end_utc": "2018-02-26T01:00:00+00:00",
+      "window_start_utc": "2018-02-25T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-27",
+      "baseline_year": 2018,
+      "common_doy": 58,
+      "common_label": {
+        "day": 27,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 43.843916,
+      "smoke_anomaly_pct": -22.25378,
+      "smoke_z": -0.660049,
+      "window_end_utc": "2018-02-27T01:00:00+00:00",
+      "window_start_utc": "2018-02-26T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-02-28",
+      "baseline_year": 2018,
+      "common_doy": 59,
+      "common_label": {
+        "day": 28,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 63.868634,
+      "smoke_anomaly_pct": -2.229062,
+      "smoke_z": -0.066114,
+      "window_end_utc": "2018-02-28T01:00:00+00:00",
+      "window_start_utc": "2018-02-27T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-01",
+      "baseline_year": 2018,
+      "common_doy": 60,
+      "common_label": {
+        "day": 1,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 45.462774,
+      "smoke_anomaly_pct": -20.634922,
+      "smoke_z": -0.612034,
+      "window_end_utc": "2018-03-01T01:00:00+00:00",
+      "window_start_utc": "2018-02-28T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-02",
+      "baseline_year": 2018,
+      "common_doy": 61,
+      "common_label": {
+        "day": 2,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 25.734349,
+      "smoke_anomaly_pct": -40.363347,
+      "smoke_z": -1.197181,
+      "window_end_utc": "2018-03-02T01:00:00+00:00",
+      "window_start_utc": "2018-03-01T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-03",
+      "baseline_year": 2018,
+      "common_doy": 62,
+      "common_label": {
+        "day": 3,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 45.954677,
+      "smoke_anomaly_pct": -20.143019,
+      "smoke_z": -0.597444,
+      "window_end_utc": "2018-03-03T01:00:00+00:00",
+      "window_start_utc": "2018-03-02T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-04",
+      "baseline_year": 2018,
+      "common_doy": 63,
+      "common_label": {
+        "day": 4,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 75.632923,
+      "smoke_anomaly_pct": 9.535227,
+      "smoke_z": 0.282816,
+      "window_end_utc": "2018-03-04T01:00:00+00:00",
+      "window_start_utc": "2018-03-03T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-05",
+      "baseline_year": 2018,
+      "common_doy": 64,
+      "common_label": {
+        "day": 5,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 29.997462,
+      "smoke_anomaly_pct": -36.100234,
+      "smoke_z": -1.070736,
+      "window_end_utc": "2018-03-05T01:00:00+00:00",
+      "window_start_utc": "2018-03-04T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-06",
+      "baseline_year": 2018,
+      "common_doy": 65,
+      "common_label": {
+        "day": 6,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-03-06T01:00:00+00:00",
+      "window_start_utc": "2018-03-05T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-07",
+      "baseline_year": 2018,
+      "common_doy": 66,
+      "common_label": {
+        "day": 7,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 82.484767,
+      "smoke_anomaly_pct": 16.387071,
+      "smoke_z": 0.486042,
+      "window_end_utc": "2018-03-07T01:00:00+00:00",
+      "window_start_utc": "2018-03-06T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-08",
+      "baseline_year": 2018,
+      "common_doy": 67,
+      "common_label": {
+        "day": 8,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2018-03-08T01:00:00+00:00",
+      "window_start_utc": "2018-03-07T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-09",
+      "baseline_year": 2018,
+      "common_doy": 68,
+      "common_label": {
+        "day": 9,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 90.799647,
+      "smoke_anomaly_pct": 24.701951,
+      "smoke_z": 0.732662,
+      "window_end_utc": "2018-03-09T01:00:00+00:00",
+      "window_start_utc": "2018-03-08T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-10",
+      "baseline_year": 2018,
+      "common_doy": 69,
+      "common_label": {
+        "day": 10,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 23.715133,
+      "smoke_anomaly_pct": -42.382563,
+      "smoke_z": -1.257071,
+      "window_end_utc": "2018-03-10T01:00:00+00:00",
+      "window_start_utc": "2018-03-09T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-11",
+      "baseline_year": 2018,
+      "common_doy": 70,
+      "common_label": {
+        "day": 11,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 5.788684,
+      "smoke_anomaly_pct": -60.309012,
+      "smoke_z": -1.788771,
+      "window_end_utc": "2018-03-11T01:00:00+00:00",
+      "window_start_utc": "2018-03-10T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-12",
+      "baseline_year": 2018,
+      "common_doy": 71,
+      "common_label": {
+        "day": 12,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 9.031346,
+      "smoke_anomaly_pct": -57.06635,
+      "smoke_z": -1.692593,
+      "window_end_utc": "2018-03-12T01:00:00+00:00",
+      "window_start_utc": "2018-03-11T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-13",
+      "baseline_year": 2018,
+      "common_doy": 72,
+      "common_label": {
+        "day": 13,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 8.246104,
+      "smoke_anomaly_pct": -57.851592,
+      "smoke_z": -1.715883,
+      "window_end_utc": "2018-03-13T01:00:00+00:00",
+      "window_start_utc": "2018-03-12T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-14",
+      "baseline_year": 2018,
+      "common_doy": 73,
+      "common_label": {
+        "day": 14,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 65.058043,
+      "smoke_anomaly_pct": -1.039653,
+      "smoke_z": -0.030836,
+      "window_end_utc": "2018-03-14T01:00:00+00:00",
+      "window_start_utc": "2018-03-13T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-15",
+      "baseline_year": 2018,
+      "common_doy": 74,
+      "common_label": {
+        "day": 15,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 77.276212,
+      "smoke_anomaly_pct": 11.178516,
+      "smoke_z": 0.331556,
+      "window_end_utc": "2018-03-15T01:00:00+00:00",
+      "window_start_utc": "2018-03-14T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-16",
+      "baseline_year": 2018,
+      "common_doy": 75,
+      "common_label": {
+        "day": 16,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 87.032797,
+      "smoke_anomaly_pct": 20.935101,
+      "smoke_z": 0.620937,
+      "window_end_utc": "2018-03-16T01:00:00+00:00",
+      "window_start_utc": "2018-03-15T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-17",
+      "baseline_year": 2018,
+      "common_doy": 76,
+      "common_label": {
+        "day": 17,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 96.918748,
+      "smoke_anomaly_pct": 30.821052,
+      "smoke_z": 0.914155,
+      "window_end_utc": "2018-03-17T01:00:00+00:00",
+      "window_start_utc": "2018-03-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-18",
+      "baseline_year": 2018,
+      "common_doy": 77,
+      "common_label": {
+        "day": 18,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 25.093676,
+      "smoke_anomaly_pct": -41.00402,
+      "smoke_z": -1.216183,
+      "window_end_utc": "2018-03-18T01:00:00+00:00",
+      "window_start_utc": "2018-03-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2018-03-19",
+      "baseline_year": 2018,
+      "common_doy": 78,
+      "common_label": {
+        "day": 19,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 62.037707,
+      "smoke_anomaly_pct": -4.059989,
+      "smoke_z": -0.12042,
+      "window_end_utc": "2018-03-19T01:00:00+00:00",
+      "window_start_utc": "2018-03-18T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-17",
+      "baseline_year": 2019,
+      "common_doy": 48,
+      "common_label": {
+        "day": 17,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2019-02-17T01:00:00+00:00",
+      "window_start_utc": "2019-02-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-18",
+      "baseline_year": 2019,
+      "common_doy": 49,
+      "common_label": {
+        "day": 18,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.478698,
+      "smoke_anomaly_pct": 33.381002,
+      "smoke_z": 0.990084,
+      "window_end_utc": "2019-02-18T01:00:00+00:00",
+      "window_start_utc": "2019-02-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-19",
+      "baseline_year": 2019,
+      "common_doy": 50,
+      "common_label": {
+        "day": 19,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 79.478355,
+      "smoke_anomaly_pct": 13.380659,
+      "smoke_z": 0.396872,
+      "window_end_utc": "2019-02-19T01:00:00+00:00",
+      "window_start_utc": "2019-02-18T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-20",
+      "baseline_year": 2019,
+      "common_doy": 51,
+      "common_label": {
+        "day": 20,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 23.120998,
+      "smoke_anomaly_pct": -42.976698,
+      "smoke_z": -1.274693,
+      "window_end_utc": "2019-02-20T01:00:00+00:00",
+      "window_start_utc": "2019-02-19T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-21",
+      "baseline_year": 2019,
+      "common_doy": 52,
+      "common_label": {
+        "day": 21,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 98.558295,
+      "smoke_anomaly_pct": 32.460599,
+      "smoke_z": 0.962784,
+      "window_end_utc": "2019-02-21T01:00:00+00:00",
+      "window_start_utc": "2019-02-20T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-22",
+      "baseline_year": 2019,
+      "common_doy": 53,
+      "common_label": {
+        "day": 22,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.576891,
+      "smoke_anomaly_pct": 33.479195,
+      "smoke_z": 0.992996,
+      "window_end_utc": "2019-02-22T01:00:00+00:00",
+      "window_start_utc": "2019-02-21T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-23",
+      "baseline_year": 2019,
+      "common_doy": 54,
+      "common_label": {
+        "day": 23,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2019-02-23T01:00:00+00:00",
+      "window_start_utc": "2019-02-22T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-24",
+      "baseline_year": 2019,
+      "common_doy": 55,
+      "common_label": {
+        "day": 24,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.987852,
+      "smoke_anomaly_pct": 33.890156,
+      "smoke_z": 1.005185,
+      "window_end_utc": "2019-02-24T01:00:00+00:00",
+      "window_start_utc": "2019-02-23T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-25",
+      "baseline_year": 2019,
+      "common_doy": 56,
+      "common_label": {
+        "day": 25,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 95.623665,
+      "smoke_anomaly_pct": 29.525969,
+      "smoke_z": 0.875743,
+      "window_end_utc": "2019-02-25T01:00:00+00:00",
+      "window_start_utc": "2019-02-24T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-26",
+      "baseline_year": 2019,
+      "common_doy": 57,
+      "common_label": {
+        "day": 26,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 99.421966,
+      "smoke_anomaly_pct": 33.32427,
+      "smoke_z": 0.988401,
+      "window_end_utc": "2019-02-26T01:00:00+00:00",
+      "window_start_utc": "2019-02-25T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-27",
+      "baseline_year": 2019,
+      "common_doy": 58,
+      "common_label": {
+        "day": 27,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 65.009564,
+      "smoke_anomaly_pct": -1.088132,
+      "smoke_z": -0.032274,
+      "window_end_utc": "2019-02-27T01:00:00+00:00",
+      "window_start_utc": "2019-02-26T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-02-28",
+      "baseline_year": 2019,
+      "common_doy": 59,
+      "common_label": {
+        "day": 28,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 98.750596,
+      "smoke_anomaly_pct": 32.6529,
+      "smoke_z": 0.968488,
+      "window_end_utc": "2019-02-28T01:00:00+00:00",
+      "window_start_utc": "2019-02-27T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-01",
+      "baseline_year": 2019,
+      "common_doy": 60,
+      "common_label": {
+        "day": 1,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 66.051852,
+      "smoke_anomaly_pct": -0.045844,
+      "smoke_z": -0.00136,
+      "window_end_utc": "2019-03-01T01:00:00+00:00",
+      "window_start_utc": "2019-02-28T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-02",
+      "baseline_year": 2019,
+      "common_doy": 61,
+      "common_label": {
+        "day": 2,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 60.060767,
+      "smoke_anomaly_pct": -6.036929,
+      "smoke_z": -0.179056,
+      "window_end_utc": "2019-03-02T01:00:00+00:00",
+      "window_start_utc": "2019-03-01T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-03",
+      "baseline_year": 2019,
+      "common_doy": 62,
+      "common_label": {
+        "day": 3,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 74.389367,
+      "smoke_anomaly_pct": 8.291671,
+      "smoke_z": 0.245932,
+      "window_end_utc": "2019-03-03T01:00:00+00:00",
+      "window_start_utc": "2019-03-02T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-04",
+      "baseline_year": 2019,
+      "common_doy": 63,
+      "common_label": {
+        "day": 4,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 70.761869,
+      "smoke_anomaly_pct": 4.664173,
+      "smoke_z": 0.13834,
+      "window_end_utc": "2019-03-04T01:00:00+00:00",
+      "window_start_utc": "2019-03-03T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-05",
+      "baseline_year": 2019,
+      "common_doy": 64,
+      "common_label": {
+        "day": 5,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2019-03-05T01:00:00+00:00",
+      "window_start_utc": "2019-03-04T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-06",
+      "baseline_year": 2019,
+      "common_doy": 65,
+      "common_label": {
+        "day": 6,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 40.678511,
+      "smoke_anomaly_pct": -25.419185,
+      "smoke_z": -0.753935,
+      "window_end_utc": "2019-03-06T01:00:00+00:00",
+      "window_start_utc": "2019-03-05T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-07",
+      "baseline_year": 2019,
+      "common_doy": 66,
+      "common_label": {
+        "day": 7,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 99.993926,
+      "smoke_anomaly_pct": 33.89623,
+      "smoke_z": 1.005365,
+      "window_end_utc": "2019-03-07T01:00:00+00:00",
+      "window_start_utc": "2019-03-06T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-08",
+      "baseline_year": 2019,
+      "common_doy": 67,
+      "common_label": {
+        "day": 8,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 95.570279,
+      "smoke_anomaly_pct": 29.472583,
+      "smoke_z": 0.874159,
+      "window_end_utc": "2019-03-08T01:00:00+00:00",
+      "window_start_utc": "2019-03-07T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-09",
+      "baseline_year": 2019,
+      "common_doy": 68,
+      "common_label": {
+        "day": 9,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 99.797981,
+      "smoke_anomaly_pct": 33.700285,
+      "smoke_z": 0.999554,
+      "window_end_utc": "2019-03-09T01:00:00+00:00",
+      "window_start_utc": "2019-03-08T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-10",
+      "baseline_year": 2019,
+      "common_doy": 69,
+      "common_label": {
+        "day": 10,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 83.539606,
+      "smoke_anomaly_pct": 17.44191,
+      "smoke_z": 0.517329,
+      "window_end_utc": "2019-03-10T01:00:00+00:00",
+      "window_start_utc": "2019-03-09T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-11",
+      "baseline_year": 2019,
+      "common_doy": 70,
+      "common_label": {
+        "day": 11,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 89.910918,
+      "smoke_anomaly_pct": 23.813222,
+      "smoke_z": 0.706302,
+      "window_end_utc": "2019-03-11T01:00:00+00:00",
+      "window_start_utc": "2019-03-10T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-12",
+      "baseline_year": 2019,
+      "common_doy": 71,
+      "common_label": {
+        "day": 12,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 9.24132,
+      "smoke_anomaly_pct": -56.856376,
+      "smoke_z": -1.686365,
+      "window_end_utc": "2019-03-12T01:00:00+00:00",
+      "window_start_utc": "2019-03-11T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-13",
+      "baseline_year": 2019,
+      "common_doy": 72,
+      "common_label": {
+        "day": 13,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 22.934049,
+      "smoke_anomaly_pct": -43.163647,
+      "smoke_z": -1.280238,
+      "window_end_utc": "2019-03-13T01:00:00+00:00",
+      "window_start_utc": "2019-03-12T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-14",
+      "baseline_year": 2019,
+      "common_doy": 73,
+      "common_label": {
+        "day": 14,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 16.544809,
+      "smoke_anomaly_pct": -49.552887,
+      "smoke_z": -1.469743,
+      "window_end_utc": "2019-03-14T01:00:00+00:00",
+      "window_start_utc": "2019-03-13T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-15",
+      "baseline_year": 2019,
+      "common_doy": 74,
+      "common_label": {
+        "day": 15,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 94.878791,
+      "smoke_anomaly_pct": 28.781095,
+      "smoke_z": 0.85365,
+      "window_end_utc": "2019-03-15T01:00:00+00:00",
+      "window_start_utc": "2019-03-14T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-16",
+      "baseline_year": 2019,
+      "common_doy": 75,
+      "common_label": {
+        "day": 16,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 92.685553,
+      "smoke_anomaly_pct": 26.587857,
+      "smoke_z": 0.788598,
+      "window_end_utc": "2019-03-16T01:00:00+00:00",
+      "window_start_utc": "2019-03-15T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-17",
+      "baseline_year": 2019,
+      "common_doy": 76,
+      "common_label": {
+        "day": 17,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 71.75275,
+      "smoke_anomaly_pct": 5.655054,
+      "smoke_z": 0.167729,
+      "window_end_utc": "2019-03-17T01:00:00+00:00",
+      "window_start_utc": "2019-03-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-18",
+      "baseline_year": 2019,
+      "common_doy": 77,
+      "common_label": {
+        "day": 18,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 66.176755,
+      "smoke_anomaly_pct": 0.079059,
+      "smoke_z": 0.002345,
+      "window_end_utc": "2019-03-18T01:00:00+00:00",
+      "window_start_utc": "2019-03-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2019-03-19",
+      "baseline_year": 2019,
+      "common_doy": 78,
+      "common_label": {
+        "day": 19,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 70.437225,
+      "smoke_anomaly_pct": 4.339529,
+      "smoke_z": 0.128711,
+      "window_end_utc": "2019-03-19T01:00:00+00:00",
+      "window_start_utc": "2019-03-18T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-17",
+      "baseline_year": 2020,
+      "common_doy": 48,
+      "common_label": {
+        "day": 17,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 84.783541,
+      "smoke_anomaly_pct": 18.685845,
+      "smoke_z": 0.554224,
+      "window_end_utc": "2020-02-17T01:00:00+00:00",
+      "window_start_utc": "2020-02-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-18",
+      "baseline_year": 2020,
+      "common_doy": 49,
+      "common_label": {
+        "day": 18,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 67.043999,
+      "smoke_anomaly_pct": 0.946303,
+      "smoke_z": 0.028067,
+      "window_end_utc": "2020-02-18T01:00:00+00:00",
+      "window_start_utc": "2020-02-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-19",
+      "baseline_year": 2020,
+      "common_doy": 50,
+      "common_label": {
+        "day": 19,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 17.428575,
+      "smoke_anomaly_pct": -48.669121,
+      "smoke_z": -1.443531,
+      "window_end_utc": "2020-02-19T01:00:00+00:00",
+      "window_start_utc": "2020-02-18T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-20",
+      "baseline_year": 2020,
+      "common_doy": 51,
+      "common_label": {
+        "day": 20,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 21.669466,
+      "smoke_anomaly_pct": -44.42823,
+      "smoke_z": -1.317745,
+      "window_end_utc": "2020-02-20T01:00:00+00:00",
+      "window_start_utc": "2020-02-19T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-21",
+      "baseline_year": 2020,
+      "common_doy": 52,
+      "common_label": {
+        "day": 21,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 15.08115,
+      "smoke_anomaly_pct": -51.016546,
+      "smoke_z": -1.513155,
+      "window_end_utc": "2020-02-21T01:00:00+00:00",
+      "window_start_utc": "2020-02-20T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-22",
+      "baseline_year": 2020,
+      "common_doy": 53,
+      "common_label": {
+        "day": 22,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 9.20961,
+      "smoke_anomaly_pct": -56.888086,
+      "smoke_z": -1.687306,
+      "window_end_utc": "2020-02-22T01:00:00+00:00",
+      "window_start_utc": "2020-02-21T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-23",
+      "baseline_year": 2020,
+      "common_doy": 54,
+      "common_label": {
+        "day": 23,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 98.789745,
+      "smoke_anomaly_pct": 32.692049,
+      "smoke_z": 0.969649,
+      "window_end_utc": "2020-02-23T01:00:00+00:00",
+      "window_start_utc": "2020-02-22T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-24",
+      "baseline_year": 2020,
+      "common_doy": 55,
+      "common_label": {
+        "day": 24,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 16.421751,
+      "smoke_anomaly_pct": -49.675945,
+      "smoke_z": -1.473393,
+      "window_end_utc": "2020-02-24T01:00:00+00:00",
+      "window_start_utc": "2020-02-23T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-25",
+      "baseline_year": 2020,
+      "common_doy": 56,
+      "common_label": {
+        "day": 25,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 3.403231,
+      "smoke_anomaly_pct": -62.694465,
+      "smoke_z": -1.859523,
+      "window_end_utc": "2020-02-25T01:00:00+00:00",
+      "window_start_utc": "2020-02-24T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-26",
+      "baseline_year": 2020,
+      "common_doy": 57,
+      "common_label": {
+        "day": 26,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 21.421974,
+      "smoke_anomaly_pct": -44.675722,
+      "smoke_z": -1.325086,
+      "window_end_utc": "2020-02-26T01:00:00+00:00",
+      "window_start_utc": "2020-02-25T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-27",
+      "baseline_year": 2020,
+      "common_doy": 58,
+      "common_label": {
+        "day": 27,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2020-02-27T01:00:00+00:00",
+      "window_start_utc": "2020-02-26T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-02-28",
+      "baseline_year": 2020,
+      "common_doy": 59,
+      "common_label": {
+        "day": 28,
+        "month": 2
+      },
+      "daily_tcc_exposure_pct": 98.490082,
+      "smoke_anomaly_pct": 32.392386,
+      "smoke_z": 0.960761,
+      "window_end_utc": "2020-02-28T01:00:00+00:00",
+      "window_start_utc": "2020-02-27T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-01",
+      "baseline_year": 2020,
+      "common_doy": 60,
+      "common_label": {
+        "day": 1,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 35.821642,
+      "smoke_anomaly_pct": -30.276054,
+      "smoke_z": -0.89799,
+      "window_end_utc": "2020-03-01T01:00:00+00:00",
+      "window_start_utc": "2020-02-29T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-02",
+      "baseline_year": 2020,
+      "common_doy": 61,
+      "common_label": {
+        "day": 2,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 99.918042,
+      "smoke_anomaly_pct": 33.820346,
+      "smoke_z": 1.003115,
+      "window_end_utc": "2020-03-02T01:00:00+00:00",
+      "window_start_utc": "2020-03-01T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-03",
+      "baseline_year": 2020,
+      "common_doy": 62,
+      "common_label": {
+        "day": 3,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 53.464105,
+      "smoke_anomaly_pct": -12.633591,
+      "smoke_z": -0.374713,
+      "window_end_utc": "2020-03-03T01:00:00+00:00",
+      "window_start_utc": "2020-03-02T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-04",
+      "baseline_year": 2020,
+      "common_doy": 63,
+      "common_label": {
+        "day": 4,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 72.537893,
+      "smoke_anomaly_pct": 6.440197,
+      "smoke_z": 0.191017,
+      "window_end_utc": "2020-03-04T01:00:00+00:00",
+      "window_start_utc": "2020-03-03T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-05",
+      "baseline_year": 2020,
+      "common_doy": 64,
+      "common_label": {
+        "day": 5,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 100.0,
+      "smoke_anomaly_pct": 33.902304,
+      "smoke_z": 1.005545,
+      "window_end_utc": "2020-03-05T01:00:00+00:00",
+      "window_start_utc": "2020-03-04T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-06",
+      "baseline_year": 2020,
+      "common_doy": 65,
+      "common_label": {
+        "day": 6,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 59.615553,
+      "smoke_anomaly_pct": -6.482143,
+      "smoke_z": -0.192261,
+      "window_end_utc": "2020-03-06T01:00:00+00:00",
+      "window_start_utc": "2020-03-05T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-07",
+      "baseline_year": 2020,
+      "common_doy": 66,
+      "common_label": {
+        "day": 7,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 67.719303,
+      "smoke_anomaly_pct": 1.621607,
+      "smoke_z": 0.048097,
+      "window_end_utc": "2020-03-07T01:00:00+00:00",
+      "window_start_utc": "2020-03-06T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-08",
+      "baseline_year": 2020,
+      "common_doy": 67,
+      "common_label": {
+        "day": 8,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 76.340307,
+      "smoke_anomaly_pct": 10.242611,
+      "smoke_z": 0.303797,
+      "window_end_utc": "2020-03-08T01:00:00+00:00",
+      "window_start_utc": "2020-03-07T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-09",
+      "baseline_year": 2020,
+      "common_doy": 68,
+      "common_label": {
+        "day": 9,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 15.452026,
+      "smoke_anomaly_pct": -50.64567,
+      "smoke_z": -1.502155,
+      "window_end_utc": "2020-03-09T01:00:00+00:00",
+      "window_start_utc": "2020-03-08T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-10",
+      "baseline_year": 2020,
+      "common_doy": 69,
+      "common_label": {
+        "day": 10,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 99.797202,
+      "smoke_anomaly_pct": 33.699506,
+      "smoke_z": 0.99953,
+      "window_end_utc": "2020-03-10T01:00:00+00:00",
+      "window_start_utc": "2020-03-09T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-11",
+      "baseline_year": 2020,
+      "common_doy": 70,
+      "common_label": {
+        "day": 11,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 70.95411,
+      "smoke_anomaly_pct": 4.856414,
+      "smoke_z": 0.144042,
+      "window_end_utc": "2020-03-11T01:00:00+00:00",
+      "window_start_utc": "2020-03-10T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-12",
+      "baseline_year": 2020,
+      "common_doy": 71,
+      "common_label": {
+        "day": 12,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 89.513354,
+      "smoke_anomaly_pct": 23.415658,
+      "smoke_z": 0.694511,
+      "window_end_utc": "2020-03-12T01:00:00+00:00",
+      "window_start_utc": "2020-03-11T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-13",
+      "baseline_year": 2020,
+      "common_doy": 72,
+      "common_label": {
+        "day": 13,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 91.552153,
+      "smoke_anomaly_pct": 25.454457,
+      "smoke_z": 0.754982,
+      "window_end_utc": "2020-03-13T01:00:00+00:00",
+      "window_start_utc": "2020-03-12T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-14",
+      "baseline_year": 2020,
+      "common_doy": 73,
+      "common_label": {
+        "day": 14,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 99.935446,
+      "smoke_anomaly_pct": 33.83775,
+      "smoke_z": 1.003631,
+      "window_end_utc": "2020-03-14T01:00:00+00:00",
+      "window_start_utc": "2020-03-13T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-15",
+      "baseline_year": 2020,
+      "common_doy": 74,
+      "common_label": {
+        "day": 15,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 4.702617,
+      "smoke_anomaly_pct": -61.395079,
+      "smoke_z": -1.820984,
+      "window_end_utc": "2020-03-15T01:00:00+00:00",
+      "window_start_utc": "2020-03-14T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-16",
+      "baseline_year": 2020,
+      "common_doy": 75,
+      "common_label": {
+        "day": 16,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 0.695989,
+      "smoke_anomaly_pct": -65.401707,
+      "smoke_z": -1.939821,
+      "window_end_utc": "2020-03-16T01:00:00+00:00",
+      "window_start_utc": "2020-03-15T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-17",
+      "baseline_year": 2020,
+      "common_doy": 76,
+      "common_label": {
+        "day": 17,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 78.420719,
+      "smoke_anomaly_pct": 12.323023,
+      "smoke_z": 0.365502,
+      "window_end_utc": "2020-03-17T01:00:00+00:00",
+      "window_start_utc": "2020-03-16T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-18",
+      "baseline_year": 2020,
+      "common_doy": 77,
+      "common_label": {
+        "day": 18,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 28.97035,
+      "smoke_anomaly_pct": -37.127346,
+      "smoke_z": -1.1012,
+      "window_end_utc": "2020-03-18T01:00:00+00:00",
+      "window_start_utc": "2020-03-17T23:00:00+00:00"
+    },
+    {
+      "actual_date": "2020-03-19",
+      "baseline_year": 2020,
+      "common_doy": 78,
+      "common_label": {
+        "day": 19,
+        "month": 3
+      },
+      "daily_tcc_exposure_pct": 83.185831,
+      "smoke_anomaly_pct": 17.088135,
+      "smoke_z": 0.506836,
+      "window_end_utc": "2020-03-19T01:00:00+00:00",
+      "window_start_utc": "2020-03-18T23:00:00+00:00"
+    }
+  ],
+  "deterministic_rebuild": "audit is deterministic (byte-identical across repeated builds from the same raw artifact)",
+  "expected_daily_count": 93,
+  "feb29_exclusion": "excluded_from_smoothing_pool",
+  "historical_backfill_run": false,
+  "hourly_support_rule": "window boundary bracketing hourly breakpoints (07:00, 08:00, 09:00 Taipei)",
+  "missing_count": 0,
+  "missing_timestamps": [],
+  "observed_daily_count": 93,
+  "oracle": {
+    "circular_membership_31": {
+      "unique": true,
+      "window_size": 93
+    },
+    "climatology_mean": {
+      "oracle": 66.097695581,
+      "production": 66.097695581
+    },
+    "exact_hour_2h": {
+      "oracle": 0.55,
+      "production": 0.55
+    },
+    "feb29_exclusion": {
+      "no_feb29_in_actual_dates": true
+    },
+    "half_hour": {
+      "oracle": 0.075,
+      "production": 0.075
+    }
+  },
+  "oracle_pass": true,
+  "raw_zip_sha256": [
+    "f15d3334ea543179a14b6b6cb9fc6d0884d5118fa7c07eee1d660af8eb634986",
+    "71fb4fdbca59949d0188a548a11a20604e9e4ae7fd4ecf71269a7276c0ad4817",
+    "50b34c1350b2de5d15846a2e3fa9285f634717b579cd97908e04777b90e250bb"
+  ],
+  "research_usable": false,
+  "schema_version": "2.0.0",
+  "smoke_reference_sd_pct": 33.715339,
+  "smoke_residual_sd_pct": 33.715339,
+  "smoke_z_note": "smoke_z_for_algorithm_validation only; research_usable=false",
+  "spatial_audit_binding": {
+    "audit": "data/audits/v2/spatial/taiex-spatial-interpolation-acceptance.json",
+    "grid_resolution_degrees": 0.25,
+    "primary_spatial_estimator": "bilinear"
+  },
+  "temporal_integration_method": "piecewise_linear_time_integration",
+  "temporal_support_count": 279,
+  "transport_timestamp_count": 291,
+  "window_radius_days": 15
+}
