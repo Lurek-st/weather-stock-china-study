@@ -11,3 +11,4 @@ pyarrow>=17.0.0
 requests>=2.32.0
 xarray>=2024.6.0
 netCDF4>=1.7.1
+tzdata>=2024.1
