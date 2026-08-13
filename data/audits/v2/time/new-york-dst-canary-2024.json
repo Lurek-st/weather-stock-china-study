@@ -1,0 +1,175 @@
+{
+  "audit_type": "new_york_dst_canary",
+  "code_sha256": {
+    "build_new_york_dst_canary.py": "7089c54ded59c649bb52ecb3da0ee972db82c5a8217d550fe98350eaa202e89d",
+    "session_time.py": "294cd23f96e0577b814e9485c014e4790cd31ce0aee2bf4936236e67ca2d4c27",
+    "temporal_integration.py": "576ccc5a9c452a69abcbd65ea462d2cb09d3b638f8d1ecbc0839db754a8a5bf5"
+  },
+  "evidence": {
+    "canary_trading_date_evidence": {
+      "2024_03_08_present": true,
+      "2024_03_09_saturday_absent": true,
+      "2024_03_10_sunday_absent": true,
+      "2024_03_11_present": true,
+      "note": "2024-03-08 and 2024-03-11 both have official NYSE short-volume files; the weekend (Mar 9/10) has none.",
+      "retrieval_date": "2026-08-13",
+      "source_authority": "NYSE official FTP short-volume data",
+      "source_url": "https://ftp.nyse.com/ShortData/NYSEshvol/NYSEshvol2024/NYSEshvol202403/"
+    },
+    "historical_evidence": [
+      {
+        "issue_year": 2021,
+        "quote": "NYSE Rule 1.1 defines 'Core Trading Hours' as the hours between 9:30 a.m. through 4:00 p.m. ET and NYSE Rule 7.34 provides ... (2) the Core Trading Session, which ... begins at 9:30 a.m. and concludes at 4:00 p.m. ET.",
+        "retrieval_date": "2026-08-13",
+        "source_authority": "U.S. SEC — Cboe Exchange proposed rule change (Release No. 34-93819)",
+        "source_url": "https://www.sec.gov/rules/sro/cboe/2021/34-93819.pdf"
+      },
+      {
+        "issue_date": "2022-03-28",
+        "quote": "NYSE Rule 1.1 defines 'Core Trading Hours' as the hours between 9:30 a.m. through 4:00 p.m. ET.",
+        "retrieval_date": "2026-08-13",
+        "source_authority": "Federal Register / govinfo.gov — SEC Sunshine Act Meeting (2022-06383)",
+        "source_url": "https://www.govinfo.gov/content/pkg/FR-2022-03-28/pdf/2022-06383.pdf"
+      }
+    ],
+    "historical_scope_statement": "2020-2025 target horizon: no evidence found of a change from the 09:30 local core open; bounded check only (NOT a full 30-year session-history reconstruction).",
+    "session_evidence": {
+      "core_close": "4:00 p.m. ET",
+      "core_open": "9:30 a.m. ET (Core Trading Session)",
+      "early_trading_session": "7:00 a.m. to 9:30 a.m. ET (Tapes B & C; NOT the core open)",
+      "note": "Pre-Opening and Early Trading Session are pre-market sessions, not the primary core open.",
+      "pre_opening_session": "6:30 a.m. ET (orders queued until 9:30 Core Open Auction)",
+      "retrieval_date": "2026-08-13",
+      "source_authority": "New York Stock Exchange (NYSE) official website",
+      "source_url": "https://www.nyse.com/trade/hours-calendars"
+    }
+  },
+  "fall_pure_function_regression": {
+    "after_fallback_2024_11_04": {
+      "core_close_local": "2024-11-04T16:00:00-05:00",
+      "core_open_local": "2024-11-04T09:30:00-05:00",
+      "core_open_local_clock": "09:30:00",
+      "core_open_utc": "2024-11-04T14:30:00+00:00",
+      "hourly_support_count": 4,
+      "hourly_support_timestamps": [
+        "2024-11-04T12:00:00+00:00",
+        "2024-11-04T13:00:00+00:00",
+        "2024-11-04T14:00:00+00:00",
+        "2024-11-04T15:00:00+00:00"
+      ],
+      "timezone": "America/New_York",
+      "trading_date": "2024-11-04",
+      "utc_offset_seconds": -18000.0,
+      "utc_offset_str": "-0500",
+      "window_end_local": "2024-11-04T09:30:00-05:00",
+      "window_end_utc": "2024-11-04T14:30:00+00:00",
+      "window_minutes_before": 120,
+      "window_start_local": "2024-11-04T07:30:00-05:00",
+      "window_start_utc": "2024-11-04T12:30:00+00:00"
+    },
+    "before_fallback_2024_11_01": {
+      "core_close_local": "2024-11-01T16:00:00-04:00",
+      "core_open_local": "2024-11-01T09:30:00-04:00",
+      "core_open_local_clock": "09:30:00",
+      "core_open_utc": "2024-11-01T13:30:00+00:00",
+      "hourly_support_count": 4,
+      "hourly_support_timestamps": [
+        "2024-11-01T11:00:00+00:00",
+        "2024-11-01T12:00:00+00:00",
+        "2024-11-01T13:00:00+00:00",
+        "2024-11-01T14:00:00+00:00"
+      ],
+      "timezone": "America/New_York",
+      "trading_date": "2024-11-01",
+      "utc_offset_seconds": -14400.0,
+      "utc_offset_str": "-0400",
+      "window_end_local": "2024-11-01T09:30:00-04:00",
+      "window_end_utc": "2024-11-01T13:30:00+00:00",
+      "window_minutes_before": 120,
+      "window_start_local": "2024-11-01T07:30:00-04:00",
+      "window_start_utc": "2024-11-01T11:30:00+00:00"
+    }
+  },
+  "gate": true,
+  "historical_backfill_run": false,
+  "historical_core_open_status": "nyse_2020_2025_core_open_evidence = provisionally_stable_09_30",
+  "market_id": "sp500",
+  "no_network_attestation": {
+    "cds_requests": 0,
+    "era5_fetched": false,
+    "note": "only required_hourly_support_timestamps constructed; no weather data fetched",
+    "weather_raw_downloaded": 0
+  },
+  "primary_exposure_window": "[core_open - 120 minutes, core_open) = 07:30-09:30 local",
+  "reproducibility": "deterministic (byte-identical across repeated builds; pure functions, no network)",
+  "schema_version": "2.0.0",
+  "session_regime": {
+    "core_close_local": "16:00",
+    "core_open_local": "09:30"
+  },
+  "session_regime_note": "DST is a timezone-regime property, never a new session regime",
+  "spring_canary": {
+    "after_dst_2024_03_11": {
+      "core_close_local": "2024-03-11T16:00:00-04:00",
+      "core_open_local": "2024-03-11T09:30:00-04:00",
+      "core_open_local_clock": "09:30:00",
+      "core_open_utc": "2024-03-11T13:30:00+00:00",
+      "hourly_support_count": 4,
+      "hourly_support_timestamps": [
+        "2024-03-11T11:00:00+00:00",
+        "2024-03-11T12:00:00+00:00",
+        "2024-03-11T13:00:00+00:00",
+        "2024-03-11T14:00:00+00:00"
+      ],
+      "timezone": "America/New_York",
+      "trading_date": "2024-03-11",
+      "utc_offset_seconds": -14400.0,
+      "utc_offset_str": "-0400",
+      "window_end_local": "2024-03-11T09:30:00-04:00",
+      "window_end_utc": "2024-03-11T13:30:00+00:00",
+      "window_minutes_before": 120,
+      "window_start_local": "2024-03-11T07:30:00-04:00",
+      "window_start_utc": "2024-03-11T11:30:00+00:00"
+    },
+    "before_dst_2024_03_08": {
+      "core_close_local": "2024-03-08T16:00:00-05:00",
+      "core_open_local": "2024-03-08T09:30:00-05:00",
+      "core_open_local_clock": "09:30:00",
+      "core_open_utc": "2024-03-08T14:30:00+00:00",
+      "hourly_support_count": 4,
+      "hourly_support_timestamps": [
+        "2024-03-08T12:00:00+00:00",
+        "2024-03-08T13:00:00+00:00",
+        "2024-03-08T14:00:00+00:00",
+        "2024-03-08T15:00:00+00:00"
+      ],
+      "timezone": "America/New_York",
+      "trading_date": "2024-03-08",
+      "utc_offset_seconds": -18000.0,
+      "utc_offset_str": "-0500",
+      "window_end_local": "2024-03-08T09:30:00-05:00",
+      "window_end_utc": "2024-03-08T14:30:00+00:00",
+      "window_minutes_before": 120,
+      "window_start_local": "2024-03-08T07:30:00-05:00",
+      "window_start_utc": "2024-03-08T12:30:00+00:00"
+    },
+    "local_wall_clock_invariant": true,
+    "utc_one_hour_shift": true
+  },
+  "temporal_integration_oracle": {
+    "constant_field": {
+      "match": true,
+      "oracle": 0.4,
+      "production": 0.4
+    },
+    "linear_field": {
+      "match": true,
+      "oracle": 0.15,
+      "production": 0.15
+    },
+    "oracle_pass": true
+  },
+  "temporal_reference_exchange": "NYSE / U.S. core cash-equity trading session",
+  "timezone": "America/New_York",
+  "timezone_regime": "America/New_York (IANA); UTC offset derived per date by the engine"
+}
