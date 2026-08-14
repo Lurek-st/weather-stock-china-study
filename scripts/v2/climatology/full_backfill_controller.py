@@ -43,6 +43,10 @@ from typing import Any, Callable
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from scripts.v2.climatology.cds_service_health import (
+    DEFAULT_DATASET_ID,
+    make_dataset_health_checker,
+)
 from scripts.v2.climatology.production_canary import (
     EXPECTED_TIMEZONE_CANARY_HASH,
     REQUEST_IDENTITY_CONTRACT_VERSION,
@@ -365,8 +369,14 @@ def run_year_batch(
 
     Authorization kill switch is enforced by the CALLER (the CLI); this
     function additionally re-verifies the authorization binding before any
-    retrieve.  ``health_checker`` is injected for tests (Stage 5E-3C itself
-    performs no HTTP).
+    retrieve.
+
+    ``health_checker`` is the dataset-specific runtime health callable.  It is
+    REQUIRED for live batch execution (Stage 5E-3C-R1 fail-closed contract):
+    a ``None`` checker MUST NOT be interpreted as healthy.  Tests inject fake
+    checkers; the real CLI wires ``make_dataset_health_checker`` AFTER the
+    authorization kill switch / binding checks, so no health HTTP happens when
+    not authorized.
     """
     root = root or repo_root()
     binding = verify_authorization_binding(root)
@@ -374,6 +384,10 @@ def run_year_batch(
         raise V2Error("authorization binding invalid (hash mismatch); 0 network")
     if not binding["live_backfill_authorized"]:
         raise V2Error("live_backfill_authorized != true; authorization kill switch engaged")
+    if health_checker is None:
+        # Stage 5E-3C-R1: no implicit healthy fallback.  A live batch without a
+        # dataset-specific health checker is a wiring defect -> FAIL CLOSED.
+        raise V2Error("dataset-specific health checker required (None not allowed for live batch)")
     append_event({"event_type": "batch_started", "batch_year": year}, root)
     units = year_units(plan, year)
     classification = classify_units(plan, root)
@@ -383,8 +397,6 @@ def run_year_batch(
     new_retrieves = 0
 
     def _health_ok() -> bool:
-        if health_checker is None:
-            return True
         health = health_checker()
         return health.get("dataset_available") is True
 
@@ -574,7 +586,16 @@ def main(argv: list[str] | None = None) -> int:
                 indent=2,
             ))
             return 1
-        print(json.dumps(run_year_batch(plan, year, root), ensure_ascii=False, indent=2))
+        # Stage 5E-3C-R1: ONLY after kill switch + binding pass do we construct
+        # the real dataset-specific health checker (construction is network-free;
+        # the first fetch happens inside run_year_batch BEFORE the first
+        # retrieve).  Kill switch false => health client never constructed.
+        health_checker = make_dataset_health_checker(dataset_id=DEFAULT_DATASET_ID)
+        print(json.dumps(
+            run_year_batch(plan, year, root, health_checker=health_checker),
+            ensure_ascii=False,
+            indent=2,
+        ))
         return 0
     parser.error("require --status, --dry-run --year, --retry-unit, or --live --year")
     return 2
