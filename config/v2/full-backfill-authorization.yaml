@@ -1,11 +1,23 @@
-# Stage 5E-3C full backfill authorization CANDIDATE (frozen; NOT yet live).
+# Stage 5E-3C-A full backfill authorization — APPROVED / ACTIVE.
 #
-# This file is the NETWORK KILL SWITCH.  live_backfill_authorized MUST stay
-# false until the control layer accepts Stage 5E-3C and issues a separate
-# minimal activation checkpoint.  WorkBuddy must NEVER flip it to true on its
-# own.
+# Control layer approved the Stage 5E-3C authorization candidate
+# (authorization_candidate_hash = 37df1df9...) on 2026-08-14 and issued the
+# Stage 5E-3C-A activation checkpoint.  The authorization is now ACTIVE.
 #
-# authorization_candidate_hash binds:
+# This file is the NETWORK KILL SWITCH.  live_backfill_authorized = true
+# authorizes the FROZEN controlled full-backfill controller ONLY, executing
+# strictly under the frozen policy:
+#   - one baseline year per invocation (--year YYYY); no --all / no one-shot
+#   - max 32 formal slots per invocation; concurrency = 1
+#   - dataset-specific service-health check (pre-batch + every 8 NEW
+#     retrieves); non-available -> STOP / operational_deferred
+#   - automatic retry = false (health and CDS)
+#   - accepted request pre-network skip; year-boundary forced stop
+#
+# Activation itself does NOT mean execution has started: execution_started /
+# full_backfill_started remain false until a future execution stage runs.
+#
+# authorization_candidate_hash binds (unchanged by activation):
 #   global_backfill_plan_hash + controller_policy_hash +
 #   request_identity_contract_version + global_spatial_anchor_registry_hash +
 #   timezone_canary_hash
@@ -14,9 +26,9 @@
 # authorization is automatically invalid (no silent inheritance of older
 # permissions).
 authorization_schema_version: "1.0.0"
-live_backfill_authorized: false
-authorization_state: "candidate_for_control_layer"
-control_layer_approval_required: true
+live_backfill_authorized: true
+authorization_state: "approved"
+control_layer_approval_required: false
 
 bound_hashes:
   global_backfill_plan_hash: "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf"
