@@ -184,6 +184,7 @@
   "derived": {
     "consumed_extras": 0,
     "consumed_support": 360,
+    "expected_sha256": "e9b32bbcd233e1a6448cceb11d9114ef08f6ce8de0c8aca9d33cac7212d9499f",
     "first_date": "2007-01-01",
     "last_date": "2007-03-31",
     "missing": 0,
@@ -236,7 +237,7 @@
       "pass": true
     }
   ],
-  "final_request_id": "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3",
+  "final_request_id": "a65d8f589338b97a30f9981f37253aa20c2041e344c8187eead06c3b123b4945",
   "gates": {
     "canary_research_usable": true,
     "frozen": false,
@@ -245,6 +246,8 @@
     "research_ready": false
   },
   "idempotency": {
+    "corrected_request_pre_network_skip": true,
+    "corrected_request_resolves_via": "request_binding_sidecar",
     "first_execution_retrieve_calls": 1,
     "pre_network_skip": true,
     "repeat_execution_retrieve_calls": 0,
@@ -254,7 +257,10 @@
     "cds_retrieve_calls_total": 1,
     "era5_downloads_accepted": 1,
     "nominatim_calls": 0,
-    "other_weather_network_calls": 0
+    "original_stage_retrieve_calls": 1,
+    "other_weather_network_calls": 0,
+    "r1_retrieve_calls": 0,
+    "total_lifetime_retrieve_calls_for_raw": 1
   },
   "oracle": {
     "max_abs_diff": 2.85883e-07,
@@ -348,6 +354,30 @@
       "tcc"
     ]
   },
+  "request_identity": {
+    "binds_exact_transport_dates_times": true,
+    "canonicalization": "dates/times/variable/product_type sorted; area positional N/W/S/E; dict keys sorted",
+    "corrected_final_request_id": "a65d8f589338b97a30f9981f37253aa20c2041e344c8187eead06c3b123b4945",
+    "legacy_final_request_id": "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3",
+    "request_dates_count": 90,
+    "request_identity_contract_version": "1.1.0",
+    "request_identity_status": "corrected",
+    "request_times": [
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00"
+    ],
+    "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+  },
+  "request_identity_repair": {
+    "binding_type": "corrected_request_identity_requalification",
+    "original_manifest_unchanged": true,
+    "raw_immutable": true,
+    "repair_network_calls": 0,
+    "stage": "5E-3A-R1"
+  },
   "schema_version": "2.0.0",
   "scientific_contract": {
     "anchor_hash": "1ec0a4db24d69b1f6e2e8dfe6098adba1a8e5ffa16f9e7c353926d4455cb970e",
@@ -359,7 +389,6 @@
     ],
     "batching": "quarterly",
     "common_calendar": "fixed_365_day",
-    "contract_version": "2.0.0",
     "core_open_local": "09:30",
     "data_format": "netcdf",
     "dataset": "reanalysis-era5-single-levels",
@@ -372,11 +401,111 @@
     "product_type": [
       "reanalysis"
     ],
+    "request_dates": [
+      "2007-01-01",
+      "2007-01-02",
+      "2007-01-03",
+      "2007-01-04",
+      "2007-01-05",
+      "2007-01-06",
+      "2007-01-07",
+      "2007-01-08",
+      "2007-01-09",
+      "2007-01-10",
+      "2007-01-11",
+      "2007-01-12",
+      "2007-01-13",
+      "2007-01-14",
+      "2007-01-15",
+      "2007-01-16",
+      "2007-01-17",
+      "2007-01-18",
+      "2007-01-19",
+      "2007-01-20",
+      "2007-01-21",
+      "2007-01-22",
+      "2007-01-23",
+      "2007-01-24",
+      "2007-01-25",
+      "2007-01-26",
+      "2007-01-27",
+      "2007-01-28",
+      "2007-01-29",
+      "2007-01-30",
+      "2007-01-31",
+      "2007-02-01",
+      "2007-02-02",
+      "2007-02-03",
+      "2007-02-04",
+      "2007-02-05",
+      "2007-02-06",
+      "2007-02-07",
+      "2007-02-08",
+      "2007-02-09",
+      "2007-02-10",
+      "2007-02-11",
+      "2007-02-12",
+      "2007-02-13",
+      "2007-02-14",
+      "2007-02-15",
+      "2007-02-16",
+      "2007-02-17",
+      "2007-02-18",
+      "2007-02-19",
+      "2007-02-20",
+      "2007-02-21",
+      "2007-02-22",
+      "2007-02-23",
+      "2007-02-24",
+      "2007-02-25",
+      "2007-02-26",
+      "2007-02-27",
+      "2007-02-28",
+      "2007-03-01",
+      "2007-03-02",
+      "2007-03-03",
+      "2007-03-04",
+      "2007-03-05",
+      "2007-03-06",
+      "2007-03-07",
+      "2007-03-08",
+      "2007-03-09",
+      "2007-03-10",
+      "2007-03-11",
+      "2007-03-12",
+      "2007-03-13",
+      "2007-03-14",
+      "2007-03-15",
+      "2007-03-16",
+      "2007-03-17",
+      "2007-03-18",
+      "2007-03-19",
+      "2007-03-20",
+      "2007-03-21",
+      "2007-03-22",
+      "2007-03-23",
+      "2007-03-24",
+      "2007-03-25",
+      "2007-03-26",
+      "2007-03-27",
+      "2007-03-28",
+      "2007-03-29",
+      "2007-03-30",
+      "2007-03-31"
+    ],
+    "request_identity_contract_version": "1.1.0",
+    "request_times": [
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00"
+    ],
     "temporal_estimator": "piecewise_linear_time_integration",
-    "timezone": "America/New_York",
-    "timezone_provider": {
+    "timezone": {
       "provider": "tzdata",
-      "timezone_canary_hash": null,
+      "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e",
+      "timezone_name": "America/New_York",
       "version": "2026.3"
     },
     "variable": [
@@ -393,7 +522,8 @@
   "timezone": {
     "provider": {
       "provider": "tzdata",
-      "timezone_canary_hash": null,
+      "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e",
+      "timezone_name": "America/New_York",
       "version": "2026.3"
     }
   }

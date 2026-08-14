@@ -68,6 +68,16 @@ CANARY_DOWNLOAD_FORMAT = "zip"
 CANARY_GRID_RESOLUTION = 0.25
 CANARY_SPATIAL_CONTRACT_VERSION = "2.0.0"
 
+# The request identity contract is versioned independently of the spatial
+# contract.  Any semantic change to what is bound into final_request_id must
+# bump this version (breaking identity equivalence for historical request ids).
+REQUEST_IDENTITY_CONTRACT_VERSION = "1.1.0"
+
+TIMESTAMP_AUDIT_PATH = "data/audits/v2/time/historical-timezone-canary-1991-2020.json"
+GLOBAL_SPATIAL_AUDIT_PATH = "data/audits/v2/spatial/global-exchange-anchor-qualification.json"
+EXPECTED_TIMEZONE_CANARY_HASH = "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+LEGACY_FINAL_REQUEST_ID = "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
+
 # Expected pure planning counts (verified by tests; fail before network if wrong).
 EXPECTED_PERIOD_DAYS = 90
 EXPECTED_DAILY_EXPOSURES = 90
@@ -124,45 +134,109 @@ def load_sp500_anchor(root: Path | None = None) -> dict[str, Any]:
     raise V2Error("sp500 anchor missing from spatial-anchors.yaml")
 
 
+def load_timezone_fingerprint(root: Path | None = None) -> dict[str, Any]:
+    """Fail-closed timezone provider fingerprint from the qualification audit.
+
+    The canonical fingerprint lives at ``audit["fingerprint"]``:
+    ``timezone_canary_hash`` (64 lowercase hex) plus the nested provider
+    record.  ANY missing/malformed/mismatched part raises V2Error; this loader
+    never returns ``None`` for the hash, so a production request identity can
+    never be built on an unqualified timezone fingerprint.
+    """
+    root = root or repo_root()
+    audit_path = root / TIMESTAMP_AUDIT_PATH
+    if not audit_path.exists():
+        raise V2Error("timezone qualification audit missing; cannot build request identity")
+    try:
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as exc:
+        raise V2Error(f"timezone qualification audit unreadable: {type(exc).__name__}") from exc
+    fingerprint = audit.get("fingerprint")
+    if not isinstance(fingerprint, dict):
+        raise V2Error("timezone qualification audit has no fingerprint object")
+    canary_hash = fingerprint.get("timezone_canary_hash")
+    if not isinstance(canary_hash, str) or len(canary_hash) != 64:
+        raise V2Error("timezone_canary_hash missing or not 64 chars")
+    if not all(c in "0123456789abcdef" for c in canary_hash):
+        raise V2Error("timezone_canary_hash is not lowercase hex")
+    provider = fingerprint.get("provider")
+    if not isinstance(provider, dict):
+        raise V2Error("timezone fingerprint has no provider record")
+    provider_name = provider.get("timezone_data_provider")
+    provider_version = provider.get("timezone_data_version")
+    if provider_name != "tzdata":
+        raise V2Error(f"timezone provider mismatch: expected tzdata, found {provider_name!r}")
+    if provider_version != "2026.3":
+        raise V2Error(f"timezone provider version mismatch: expected 2026.3, found {provider_version!r}")
+    return {
+        "provider": provider_name,
+        "version": provider_version,
+        "timezone_canary_hash": canary_hash,
+    }
+
+
+def load_global_registry_hash(root: Path | None = None) -> str:
+    """Fail-closed global spatial registry hash from the 5C-G qualification audit."""
+    root = root or repo_root()
+    audit_path = root / GLOBAL_SPATIAL_AUDIT_PATH
+    if not audit_path.exists():
+        raise V2Error("global spatial audit missing; cannot build request identity")
+    try:
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as exc:
+        raise V2Error(f"global spatial audit unreadable: {type(exc).__name__}") from exc
+    registry_hash = audit.get("global_registry_hash")
+    if not isinstance(registry_hash, str) or not registry_hash:
+        raise V2Error("global_registry_hash missing or empty")
+    return registry_hash
+
+
 def anchor_payload() -> dict[str, Any]:
-    """The frozen scientific payload bound into final_request_id."""
+    """The frozen scientific payload bound into final_request_id.
+
+    Stage 5E-3A-R1 contract: the payload binds the EXACT transport dates /
+    times (not just the period label) and a non-null, qualified timezone
+    canary hash, under a versioned request identity contract.
+    """
     root = repo_root()
     anchor = load_sp500_anchor(root)
-    tz_check = validate_provider_runtime(root)
-    timezone_canary_hash = None
-    try:
-        audit = json.loads((root / "data/audits/v2/time/historical-timezone-canary-1991-2020.json").read_text(encoding="utf-8"))
-        timezone_canary_hash = audit.get("timezone_canary_hash")
-    except Exception:
-        timezone_canary_hash = None
-    global_registry_hash = None
-    try:
-        audit = json.loads((root / "data/audits/v2/spatial/global-exchange-anchor-qualification.json").read_text(encoding="utf-8"))
-        global_registry_hash = audit.get("global_registry_hash")
-    except Exception:
-        global_registry_hash = None
+    validate_provider_runtime(root)
+    tz_fingerprint = load_timezone_fingerprint(root)
+    global_registry_hash = load_global_registry_hash(root)
+    transport = cds_request()
     return {
-        "contract_version": CANARY_SPATIAL_CONTRACT_VERSION,
+        "request_identity_contract_version": REQUEST_IDENTITY_CONTRACT_VERSION,
         "market_id": CANARY_MARKET,
         "period": CANARY_PERIOD,
         "batching": "quarterly",
         "dataset": CANARY_DATASET,
-        "product_type": CANARY_PRODUCT_TYPE,
-        "variable": [CANARY_VARIABLE],
+        "product_type": _canonical_strings(CANARY_PRODUCT_TYPE),
+        "variable": _canonical_strings([CANARY_VARIABLE]),
+        "request_dates": _canonical_strings(transport["date"]),
+        "request_times": _canonical_strings(transport["time"]),
         "data_format": CANARY_DATA_FORMAT,
         "download_format": CANARY_DOWNLOAD_FORMAT,
         "era5_resolution_degrees": CANARY_GRID_RESOLUTION,
-        "area": EXPECTED_AREA_NWS_E,
+        "area": list(EXPECTED_AREA_NWS_E),
         "anchor_hash": anchor["anchor_hash"],
         "global_spatial_anchor_registry_hash": global_registry_hash,
-        "timezone_provider": {"provider": tz_check["provider"], "version": tz_check["expected_version"], "timezone_canary_hash": timezone_canary_hash},
-        "timezone": CANARY_TIMEZONE,
+        "timezone": {
+            "timezone_name": CANARY_TIMEZONE,
+            "provider": tz_fingerprint["provider"],
+            "version": tz_fingerprint["version"],
+            "timezone_canary_hash": tz_fingerprint["timezone_canary_hash"],
+        },
         "core_open_local": CANARY_CORE_OPEN_LOCAL,
         "window_minutes": CANARY_WINDOW_MINUTES,
         "temporal_estimator": "piecewise_linear_time_integration",
         "common_calendar": "fixed_365_day",
         "feb29_policy": "excluded_from_smoothing_pool",
     }
+
+
+def _canonical_strings(values: list[str]) -> list[str]:
+    """Deduplicate + sort strings for order-independent canonical identity."""
+    return sorted(set(values))
 
 
 # ---------------------------------------------------------------------------
@@ -257,14 +331,41 @@ def dst_control_rows() -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 
+def _canonical_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Deep-canonicalize list-valued identity fields before hashing.
+
+    ``request_dates`` / ``request_times`` / ``variable`` / ``product_type``
+    are semantically unordered sets; sorting them makes a semantically
+    identical request (shuffled ordering) hash to the SAME request id.
+    ``area`` stays positional (N/W/S/E) and is never sorted.
+    """
+    canonical = {}
+    for key, value in payload.items():
+        if key in {"request_dates", "request_times", "variable", "product_type"} and isinstance(value, list):
+            canonical[key] = _canonical_strings(value)
+        elif isinstance(value, dict):
+            canonical[key] = _canonical_payload(value)
+        elif isinstance(value, list):
+            canonical[key] = list(value)
+        else:
+            canonical[key] = value
+    return canonical
+
+
 def final_request_id(payload: dict[str, Any] | None = None) -> str:
     """Canonical SHA256 of the frozen scientific payload (order-independent).
+
+    List-valued identity fields (dates/times/variable/product_type) are
+    canonicalized before serialization, so a semantically identical request
+    with shuffled ordering yields the SAME id, while changed membership
+    yields a DIFFERENT id.  ``area`` remains positional (N/W/S/E).
 
     Does NOT bind retrieved_at / temp paths / machine / absolute paths.
     Code hashes live in the audit, not in the request id.
     """
     payload = payload or anchor_payload()
-    canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False)
+    canonical_payload = _canonical_payload(payload)
+    canonical = json.dumps(canonical_payload, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
@@ -325,17 +426,28 @@ def exact_grid_check(summary: dict[str, Any]) -> dict[str, Any]:
 def lookup_accepted_request(store: RawArtifactStore, request_id: str) -> dict[str, Any]:
     """Verify an accepted artifact for ``request_id``; returns metadata or None.
 
-    FAIL CLOSED when a manifest mentions the id but the acceptance predicates
-    are not satisfied (missing raw, SHA mismatch, status != final, incomplete
-    validation metadata, request-id mismatch).
+    FAIL CLOSED when a manifest/binding mentions the id but the acceptance
+    predicates are not satisfied (missing raw, SHA mismatch, status != final,
+    incomplete validation metadata, request-id mismatch).
     """
     result = store.lookup_by_final_request_id(request_id)
     if result is None:
         return {"found": False, "skip": False, "reason": "no_accepted_request"}
     manifest = json.loads(result.manifest_path.read_text(encoding="utf-8"))
     problems: list[str] = []
-    if manifest.get("final_request_id") != request_id:
-        problems.append("request-id mismatch")
+    direct_match = manifest.get("final_request_id") == request_id
+    binding_match = None
+    if not direct_match:
+        for binding_path in sorted(result.manifest_path.parent.glob(f"{result.manifest_path.stem}.request-binding-*.json")):
+            try:
+                binding = json.loads(binding_path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if binding.get("new_final_request_id") == request_id:
+                binding_match = binding
+                break
+        if binding_match is None:
+            problems.append("request-id mismatch (no direct or binding match)")
     if manifest.get("status") != "final":
         problems.append(f"status={manifest.get('status')} != final")
     if not result.artifact_path.exists():
@@ -351,6 +463,8 @@ def lookup_accepted_request(store: RawArtifactStore, request_id: str) -> dict[st
         "found": True,
         "skip": True,
         "reason": "accepted_request_already_present",
+        "binding_type": binding_match.get("binding_type") if binding_match else "direct_manifest",
+        "legacy_final_request_id": manifest.get("final_request_id"),
         "artifact_id": manifest["artifact_id"],
         "sha256": manifest["sha256"],
         "bytes": manifest["content_length"],
@@ -433,6 +547,97 @@ def preflight(root: Path | None = None) -> dict[str, Any]:
         "preexisting": lookup,
         "plan_counts": counts,
         "cds_operational_snapshot": snapshot,
+    }
+
+
+# ---------------------------------------------------------------------------
+# R1: corrected-identity requalification (ZERO network; raw stays immutable)
+# ---------------------------------------------------------------------------
+
+
+def requalify_existing_raw(root: Path | None = None) -> dict[str, Any]:
+    """Bind the existing accepted raw artifact to the corrected request identity.
+
+    Stage 5E-3A-R1: the original raw ZIP and its manifest are NEVER modified.
+    An append-only ``.request-binding-<prefix>.json`` sidecar records that the
+    unchanged raw satisfies the corrected identity.  Fails closed unless the
+    original CDS request payload exactly equals the corrected canonical
+    transport payload (dates/times/variable/area/format) AND all validation
+    predicates pass.
+    """
+    import hashlib as _hashlib
+
+    root = root or repo_root()
+    legacy_id = LEGACY_FINAL_REQUEST_ID
+    store = RawArtifactStore(root / RAW_BASE)
+    legacy_lookup = lookup_accepted_request(store, legacy_id)
+    if not legacy_lookup["found"]:
+        raise V2Error("legacy accepted raw artifact not found; cannot requalify")
+
+    # Re-verify the original CDS request payload equals the corrected canonical
+    # transport payload (dates/times/variable/area/format must be identical).
+    manifest = json.loads(Path(legacy_lookup["manifest_path"]).read_text(encoding="utf-8"))
+    original_request = manifest["request"]
+    corrected_request = cds_request()
+    request_mismatch: list[str] = []
+    if sorted(original_request.get("date", [])) != sorted(corrected_request["date"]):
+        request_mismatch.append("dates differ")
+    if sorted(original_request.get("time", [])) != sorted(corrected_request["time"]):
+        request_mismatch.append("times differ")
+    if sorted(original_request.get("variable", [])) != sorted(corrected_request["variable"]):
+        request_mismatch.append("variable differs")
+    if original_request.get("area") != corrected_request["area"]:
+        request_mismatch.append("area differs")
+    if original_request.get("data_format") != corrected_request["data_format"]:
+        request_mismatch.append("data_format differs")
+    if original_request.get("download_format") != corrected_request["download_format"]:
+        request_mismatch.append("download_format differs")
+    if original_request.get("product_type") != corrected_request["product_type"]:
+        request_mismatch.append("product_type differs")
+    if request_mismatch:
+        raise V2Error("original CDS request payload differs from corrected canonical transport: " + "; ".join(request_mismatch))
+
+    corrected_id = final_request_id()
+    tz_fp = load_timezone_fingerprint(root)
+    anchor = load_sp500_anchor(root)
+    global_hash = load_global_registry_hash(root)
+    exact_payload_hash = _hashlib.sha256(
+        json.dumps(corrected_request, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    ).hexdigest()
+
+    manifest_path = Path(legacy_lookup["manifest_path"])
+    binding_path = store.bind_existing_artifact_to_final_request_id(
+        legacy_final_request_id=legacy_id,
+        new_final_request_id=corrected_id,
+        manifest_path=manifest_path,
+        raw_sha256=legacy_lookup["sha256"],
+        raw_bytes=legacy_lookup["bytes"],
+        exact_cds_request_payload_hash=exact_payload_hash,
+        anchor_hash=anchor["anchor_hash"],
+        global_registry_hash=global_hash,
+        timezone_provider=tz_fp["provider"],
+        timezone_version=tz_fp["version"],
+        timezone_canary_hash=tz_fp["timezone_canary_hash"],
+        reason="Stage5E3A-R1 identity contract repair",
+        validation_predicates={
+            "raw_sha256_exact": legacy_lookup["sha256"] == "e20edd7a29ac96cfcd7da09a81c7614e52385bee3e31f9b7b14999aa73c723fc",
+            "raw_bytes_exact": legacy_lookup["bytes"] == 55637,
+            "status_final": manifest.get("status") == "final",
+            "container_validation_passed": (manifest.get("validation_metadata") or {}).get("container_validation_passed") is True,
+            "exact_grid": (manifest.get("validation_metadata") or {}).get("exact_grid", {}).get("passed") is True,
+            "exact_timestamps_450": len(original_request.get("date", [])) * len(original_request.get("time", [])) == 450,
+            "tcc_only": sorted(manifest.get("request", {}).get("variable", [])) == ["total_cloud_cover"],
+        },
+    )
+    return {
+        "binding_path": str(binding_path.relative_to(root / RAW_BASE)) if binding_path.is_relative_to(root / RAW_BASE) else str(binding_path),
+        "legacy_final_request_id": legacy_id,
+        "corrected_final_request_id": corrected_id,
+        "raw_sha256": legacy_lookup["sha256"],
+        "raw_bytes": legacy_lookup["bytes"],
+        "original_manifest_unchanged": True,
+        "exact_cds_request_payload_hash": exact_payload_hash,
+        "request_mismatch": [],
     }
 
 
@@ -644,12 +849,16 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Stage 5E-3A production canary (sp500/2007Q1; at most one CDS retrieve)")
     parser.add_argument("--preflight", action="store_true", help="print machine-readable preflight gate (offline)")
     parser.add_argument("--live", action="store_true", help="perform the gated live retrieve (exactly one; fail closed)")
+    parser.add_argument("--requalify", action="store_true", help="R1: bind existing raw to corrected identity (zero network)")
     parser.add_argument("--extract", action="store_true", help="extract 90 daily exposures from the accepted raw (offline)")
     parser.add_argument("--root", type=Path, default=repo_root())
     args = parser.parse_args(argv)
     root = args.root
     if args.preflight:
         print(json.dumps(preflight(root), ensure_ascii=False, indent=2))
+        return 0
+    if args.requalify:
+        print(json.dumps(requalify_existing_raw(root), ensure_ascii=False, indent=2))
         return 0
     if args.live:
         outcome = run_live(root)
@@ -659,7 +868,7 @@ def main(argv: list[str] | None = None) -> int:
         outcome = extract_daily_exposures(root)
         print(json.dumps({k: v for k, v in outcome.items() if k != "rows"}, ensure_ascii=False, indent=2))
         return 0
-    parser.error("require --preflight, --live or --extract")
+    parser.error("require --preflight, --live, --requalify or --extract")
     return 2
 
 

@@ -245,19 +245,89 @@ class RawArtifactStore:
         status != final, container validation not passed) is treated as a
         broken/partial acceptance and the caller MUST fail closed rather than
         silently re-download.
+
+        Resolution order:
+        1. direct manifest ``final_request_id`` match;
+        2. a valid ``.request-binding-<prefix>.json`` sidecar whose
+           ``new_final_request_id`` matches (corrected-identity requalification
+           of an existing raw artifact; the raw bytes stay immutable).
         """
         for manifest_path in sorted(self.base.glob("*/r*-*.manifest.json")) + sorted(self.base.glob("*/*/r*-*.manifest.json")):
             try:
                 manifest = load_json(manifest_path)
             except Exception:
                 continue
-            if manifest.get("final_request_id") != final_request_id:
-                continue
             artifact_path = manifest_path.with_name(
                 manifest_path.name.replace(".manifest.json", self._suffix_from_manifest(manifest))
             )
-            return ArtifactResult(artifact_path, manifest_path, manifest["revision"], False)
+            if manifest.get("final_request_id") == final_request_id:
+                return ArtifactResult(artifact_path, manifest_path, manifest["revision"], False)
+            # Sidecar binding path: a corrected identity may bind this artifact.
+            for binding_path in sorted(manifest_path.parent.glob(f"{manifest_path.stem}.request-binding-*.json")):
+                try:
+                    binding = load_json(binding_path)
+                except Exception:
+                    continue
+                if binding.get("new_final_request_id") == final_request_id:
+                    return ArtifactResult(artifact_path, manifest_path, manifest["revision"], False)
         return None
+
+    def bind_existing_artifact_to_final_request_id(
+        self,
+        *,
+        legacy_final_request_id: str,
+        new_final_request_id: str,
+        manifest_path: Path,
+        raw_sha256: str,
+        raw_bytes: int,
+        exact_cds_request_payload_hash: str,
+        anchor_hash: str,
+        global_registry_hash: str,
+        timezone_provider: str,
+        timezone_version: str,
+        timezone_canary_hash: str,
+        reason: str,
+        validation_predicates: dict[str, Any] | None = None,
+    ) -> Path:
+        """Create an append-only corrected-identity binding sidecar.
+
+        Does NOT copy the raw ZIP and does NOT rewrite the original manifest:
+        the legacy ``final_request_id`` remains the historical first-retrieval
+        fact.  The sidecar records that the EXISTING raw (unchanged bytes)
+        satisfies the corrected scientific request identity.
+
+        Returns the binding sidecar path.  Refuses to overwrite an existing
+        binding with the same ``new_final_request_id``.
+        """
+        if not manifest_path.exists():
+            raise V2Error("original manifest missing; cannot bind existing artifact")
+        stem = manifest_path.stem
+        binding_path = manifest_path.parent / f"{stem}.request-binding-{new_final_request_id[:8]}.json"
+        if binding_path.exists():
+            raise V2Error("append-only collision: binding sidecar already exists; refusing to overwrite")
+        binding = {
+            "binding_schema_version": "1.0.0",
+            "binding_type": "corrected_request_identity_requalification",
+            "new_final_request_id": new_final_request_id,
+            "legacy_final_request_id": legacy_final_request_id,
+            "artifact_id": f"{self.base.name}:{manifest_path.parent.name}:{stem}",
+            "raw_sha256": raw_sha256,
+            "raw_bytes": raw_bytes,
+            "original_manifest_path": str(manifest_path.relative_to(self.base)) if manifest_path.is_relative_to(self.base) else str(manifest_path),
+            "exact_cds_request_payload_hash": exact_cds_request_payload_hash,
+            "anchor_hash": anchor_hash,
+            "global_registry_hash": global_registry_hash,
+            "timezone": {
+                "provider": timezone_provider,
+                "version": timezone_version,
+                "timezone_canary_hash": timezone_canary_hash,
+            },
+            "reason": reason,
+            "validation_predicates": validation_predicates or {},
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+        write_json(binding_path, binding)
+        return binding_path
 
     @staticmethod
     def _suffix_from_manifest(manifest: dict[str, Any]) -> str:

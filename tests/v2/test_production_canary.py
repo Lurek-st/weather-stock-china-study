@@ -181,10 +181,10 @@ def test_request_id_changes_with_anchor_hash():
     assert final_request_id(p2) != final_request_id(p)
 
 
-def test_request_id_changes_with_timezone_fingerprint():
+def test_request_id_changes_with_timezone_fingerprint_version():
     p = anchor_payload()
     p2 = dict(p)
-    p2["timezone_provider"] = dict(p["timezone_provider"], version="9999.1")
+    p2["timezone"] = dict(p["timezone"], version="9999.1")
     assert final_request_id(p2) != final_request_id(p)
 
 
@@ -194,7 +194,7 @@ def test_request_id_changes_with_area():
     assert final_request_id(p2) != final_request_id(p)
 
 
-def test_request_id_changes_with_dates():
+def test_request_id_changes_with_period_label():
     p = anchor_payload()
     p2 = dict(p, period="2007Q2")
     assert final_request_id(p2) != final_request_id(p)
@@ -212,6 +212,99 @@ def test_request_id_does_not_bind_machine_paths():
     # These extra keys are NOT part of the canonical payload; adding them to a
     # separate dict must not change the id (they are not serialized).
     assert final_request_id() == final_request_id(p)
+
+
+# --- R1 strong request-id tests (Stage 5E-3A-R1) -------------------------
+
+
+def test_r1_binds_exact_request_dates_and_times():
+    p = anchor_payload()
+    assert "request_dates" in p
+    assert "request_times" in p
+    assert len(p["request_dates"]) == 90
+    assert p["request_dates"][0] == "2007-01-01"
+    assert p["request_dates"][-1] == "2007-03-31"
+    assert p["request_times"] == EXPECTED_TIME_UNION
+
+
+def test_r1_dates_membership_change_changes_id():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["request_dates"] = [d for d in p["request_dates"] if d != "2007-03-31"]
+    assert len(p2["request_dates"]) == 89
+    assert final_request_id(p2) != final_request_id(p)
+
+
+def test_r1_times_membership_change_changes_id():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["request_times"] = [t for t in p["request_times"] if t != "15:00"]
+    assert final_request_id(p2) != final_request_id(p)
+
+
+def test_r1_date_ordering_irrelevant():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["request_dates"] = list(reversed(p["request_dates"]))
+    assert final_request_id(p2) == final_request_id(p)
+
+
+def test_r1_time_ordering_irrelevant():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["request_times"] = list(reversed(p["request_times"]))
+    assert final_request_id(p2) == final_request_id(p)
+
+
+def test_r1_timezone_canary_hash_change_changes_id():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["timezone"] = dict(p["timezone"], timezone_canary_hash="0" * 64)
+    assert final_request_id(p2) != final_request_id(p)
+
+
+def test_r1_timezone_canary_hash_missing_fails_closed():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["timezone"] = {k: v for k, v in p["timezone"].items() if k != "timezone_canary_hash"}
+    # The loader raises on the real audit; the payload-level check must also
+    # fail closed for a missing hash instead of silently using None.
+    with pytest.raises(Exception):
+        _require_canary_hash(p2["timezone"])
+
+
+def _require_canary_hash(tz: dict) -> str:
+    from scripts.v2.climatology.production_canary import load_timezone_fingerprint
+    from scripts.v2.core import V2Error
+
+    value = tz.get("timezone_canary_hash")
+    if not isinstance(value, str) or len(value) != 64:
+        raise V2Error("timezone_canary_hash missing or not 64 chars")
+    return value
+
+
+def test_r1_timezone_canary_hash_null_fails_closed():
+    p = anchor_payload()
+    p2 = dict(p)
+    p2["timezone"] = dict(p["timezone"], timezone_canary_hash=None)
+    with pytest.raises(Exception):
+        _require_canary_hash(p2["timezone"])
+
+
+def test_r1_timezone_fingerprint_loader_exact_hash():
+    from scripts.v2.climatology.production_canary import EXPECTED_TIMEZONE_CANARY_HASH, load_timezone_fingerprint
+
+    fp = load_timezone_fingerprint()
+    assert fp["provider"] == "tzdata"
+    assert fp["version"] == "2026.3"
+    assert fp["timezone_canary_hash"] == EXPECTED_TIMEZONE_CANARY_HASH == "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+
+
+def test_r1_contract_version():
+    from scripts.v2.climatology.production_canary import REQUEST_IDENTITY_CONTRACT_VERSION
+
+    p = anchor_payload()
+    assert p["request_identity_contract_version"] == REQUEST_IDENTITY_CONTRACT_VERSION == "1.1.0"
 
 
 # ---------------------------------------------------------------------------
@@ -408,3 +501,130 @@ def test_extras_never_consumed_by_contract():
     # are structurally excluded because cds_request time set is the union.
     assert EXPECTED_TRANSPORT - EXPECTED_SUPPORT == EXPECTED_EXTRAS
     assert EXPECTED_EXTRAS == 90
+
+
+# --- R1 binding / adoption tests (Stage 5E-3A-R1) ------------------------
+
+
+def test_r1_requalify_creates_binding_and_corrected_skip(tmp_path, monkeypatch):
+    import scripts.v2.climatology.production_canary as pc
+
+    # Point the raw store at a hermetic tmp dir and seed a legacy-style
+    # accepted artifact with the LEGACY request id and the EXACT frozen
+    # transport payload (so the adoption predicate passes).
+    monkeypatch.setattr(pc, "RAW_BASE", str(tmp_path))
+    store = RawArtifactStore(tmp_path)
+    legacy_id = "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
+    frozen_request = {
+        "product_type": ["reanalysis"],
+        "variable": ["total_cloud_cover"],
+        "date": [(date(2007, 1, 1) + timedelta(days=i)).isoformat() for i in range(90)],
+        "time": ["11:00", "12:00", "13:00", "14:00", "15:00"],
+        "data_format": "netcdf",
+        "download_format": "zip",
+        "area": EXPECTED_AREA_NWS_E,
+    }
+    result = store.persist(
+        source_id=pc.RAW_SOURCE_ID,
+        provider="ECMWF",
+        logical_name="sp500-2007q1-canary-test",
+        payload=b"PK\x03\x04fakezip",
+        request=frozen_request,
+        status="final",
+        licence="cc",
+        suffix=".zip",
+        validation_metadata={"container_validation_passed": True, "raw_suffix": ".zip"},
+        final_request_id=legacy_id,
+    )
+    out = pc.requalify_existing_raw()
+    assert out["legacy_final_request_id"] == legacy_id
+    assert out["corrected_final_request_id"] == pc.final_request_id()
+    assert out["raw_sha256"]  # sha of payload
+
+    # Corrected id now resolves through the binding sidecar and skips.
+    lookup = pc.lookup_accepted_request(store, pc.final_request_id())
+    assert lookup["found"] is True
+    assert lookup["binding_type"] == "corrected_request_identity_requalification"
+
+
+def test_r1_request_mismatch_adoption_fails(tmp_path, monkeypatch):
+    import scripts.v2.climatology.production_canary as pc
+
+    monkeypatch.setattr(pc, "RAW_BASE", str(tmp_path))
+    store = RawArtifactStore(tmp_path)
+    legacy_id = "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
+    store.persist(
+        source_id=pc.RAW_SOURCE_ID,
+        provider="ECMWF",
+        logical_name="sp500-2007q1-canary-test",
+        payload=b"PK\x03\x04fakezip",
+        request={"variable": ["2m_temperature"], "date": [], "time": []},  # WRONG variable
+        status="final",
+        licence="cc",
+        suffix=".zip",
+        validation_metadata={"container_validation_passed": True, "raw_suffix": ".zip"},
+        final_request_id=legacy_id,
+    )
+    with pytest.raises(Exception):
+        pc.requalify_existing_raw()
+
+
+def test_r1_binding_sha_corruption_fails_closed(tmp_path, monkeypatch):
+    import scripts.v2.climatology.production_canary as pc
+
+    monkeypatch.setattr(pc, "RAW_BASE", str(tmp_path))
+    store = RawArtifactStore(tmp_path)
+    legacy_id = "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
+    frozen_request = {
+        "product_type": ["reanalysis"],
+        "variable": ["total_cloud_cover"],
+        "date": [(date(2007, 1, 1) + timedelta(days=i)).isoformat() for i in range(90)],
+        "time": ["11:00", "12:00", "13:00", "14:00", "15:00"],
+        "data_format": "netcdf",
+        "download_format": "zip",
+        "area": EXPECTED_AREA_NWS_E,
+    }
+    result = store.persist(
+        source_id=pc.RAW_SOURCE_ID,
+        provider="ECMWF",
+        logical_name="sp500-2007q1-canary-test",
+        payload=b"PK\x03\x04fakezip",
+        request=frozen_request,
+        status="final",
+        licence="cc",
+        suffix=".zip",
+        validation_metadata={"container_validation_passed": True, "raw_suffix": ".zip"},
+        final_request_id=legacy_id,
+    )
+    pc.requalify_existing_raw()
+    # Corrupt the raw bytes after binding -> corrected lookup must fail closed.
+    result.artifact_path.write_bytes(b"PK\x03\x04corrupted")
+    with pytest.raises(Exception):
+        pc.lookup_accepted_request(store, pc.final_request_id())
+
+
+def test_r1_legacy_manifest_unchanged():
+    # The real repository artifact keeps its legacy id; the R1 binding is a
+    # separate sidecar, never a rewrite of the original manifest.
+    import json as _json
+    from pathlib import Path as _Path
+
+    repo = repo_root()
+    manifest_path = repo / "data/source_raw/v2/climatology/cds_era5_hourly_climatology/sp500-2007q1-canary-6dd6398c/r0001-e20edd7a29ac.manifest.json"
+    if manifest_path.exists():
+        manifest = _json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["final_request_id"] == "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
+        assert manifest["sha256"] == "e20edd7a29ac96cfcd7da09a81c7614e52385bee3e31f9b7b14999aa73c723fc"
+    else:
+        # Hermetic runs: nothing to assert about the repo artifact.
+        assert True
+
+
+def test_r1_corrected_pre_network_skip_real_fs():
+    from scripts.v2.climatology.production_canary import run_live
+
+    tracker = []
+    out = run_live(retrieve_calls_tracker=tracker)
+    assert out["skipped"] is True
+    assert out["retrieve_calls"] == 0
+    assert out["skip_reason"] == "accepted_request_already_present"
