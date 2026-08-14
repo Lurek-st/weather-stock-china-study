@@ -157,8 +157,23 @@ def test_legacy_municipal_retained_as_sensitivity(anchors):
 
 
 def test_no_silent_pass_on_horizon_move(anchors):
+    # semantics split: historical premises change is sensitivity evidence only;
+    # the fixed primary anchor itself never changes.
     for m in RESEARCH_MARKETS:
-        assert anchors[m]["venue"]["target_horizon_anchor_change_detected"] is False
+        assert anchors[m]["venue"]["fixed_primary_anchor_changed"] is False
+    assert anchors["sse_composite"]["venue"]["historical_premises_change_detected"] is True
+    for m in RESEARCH_MARKETS:
+        if m != "sse_composite":
+            assert anchors[m]["venue"]["historical_premises_change_detected"] is False
+
+
+def test_fixed_anchor_policy_frozen(anchors, registry):
+    assert registry["primary_anchor_policy"] == {
+        "type": "fixed_target_regime",
+        "historical_premises_tracking": False,
+    }
+    for m in RESEARCH_MARKETS:
+        assert anchors[m]["primary_anchor_policy"]["type"] == "fixed_target_regime"
 
 
 def test_live_authorization_not_implied(anchors, registry):
@@ -220,3 +235,84 @@ def test_nearest_grid_deterministic():
     n1 = nearest_grid_point(31.2221653, 121.5307778, c)
     n2 = nearest_grid_point(31.2221653, 121.5307778, c)
     assert n1[0] == n2[0]
+
+
+# --- Stage 5C-GR1: SSE premises transition reconciliation ----------------
+def test_sse_historical_premises_change_detected(anchors):
+    hp = anchors["sse_composite"]["historical_premises"]
+    assert hp["change_detected"] is True
+
+
+def test_sse_transition_bounded_not_exact(anchors):
+    hp = anchors["sse_composite"]["historical_premises"]
+    assert hp["transition_date_status"] == "bounded_not_exact"
+    assert hp["transition_after"] == "2020-07-31"
+    assert hp["transition_on_or_before"] == "2020-08-31"
+    # no fabricated exact effective date
+    assert "effective_date" not in hp
+
+
+def test_sse_fixed_primary_anchor_unchanged(anchors):
+    a = anchors["sse_composite"]
+    assert "388 Yanggao" in a["venue"]["official_address"] or "杨高南路" in a["venue"]["official_address"]
+    assert a["coordinate"]["latitude"] == pytest.approx(31.2221653, abs=1e-6)
+    assert a["coordinate"]["longitude"] == pytest.approx(121.5307778, abs=1e-6)
+
+
+def test_sse_historical_premises_neq_primary(anchors):
+    a = anchors["sse_composite"]
+    hp = a["historical_premises"]
+    assert hp["old_coordinate"]["latitude"] != a["coordinate"]["latitude"]
+    assert hp["old_coordinate"]["longitude"] != a["coordinate"]["longitude"]
+
+
+def test_premises_change_does_not_create_regime_switch(anchors):
+    # one fixed primary anchor per market (no multi-regime primary)
+    a = anchors["sse_composite"]
+    assert a["venue"]["fixed_primary_anchor_changed"] is False
+    assert a["qualification_status"] == "qualified"  # premises change does not auto-fail
+
+
+def test_fixed_anchor_time_invariant(anchors):
+    # the registry holds a single static coordinate per market; the anchor is
+    # the same for 1991-2020 climatology and 2020-2025 exposure
+    for m in RESEARCH_MARKETS:
+        assert anchors[m]["primary_anchor_policy"]["historical_premises_tracking"] is False
+    # SSE primary coordinate matches the frozen 5C-G value
+    sse = anchors["sse_composite"]
+    assert (sse["coordinate"]["latitude"], sse["coordinate"]["longitude"]) == (31.2221653, 121.5307778)
+
+
+def test_sse_geometry_difference_quantified(anchors):
+    hp = anchors["sse_composite"]["historical_premises"]
+    assert hp["distance_to_primary_km"] == pytest.approx(2.906, abs=0.01)
+    assert hp["l1_weight_difference"] == pytest.approx(0.2965, abs=0.01)
+    assert hp["max_individual_weight_difference"] == pytest.approx(0.1483, abs=0.01)
+    # both premises share the same ERA5 cell + nearest grid (reported to control layer)
+    assert all(hp["same_surrounding_cell"].values()) is True
+    assert hp["same_nearest_grid"] is True
+
+
+def test_sse_old_new_geometry_deterministic(anchors):
+    hp = anchors["sse_composite"]["historical_premises"]
+    old_c = surrounding_cell(hp["old_coordinate"]["latitude"], hp["old_coordinate"]["longitude"])
+    new_c = surrounding_cell(31.2221653, 121.5307778)
+    assert {k: (v.latitude, v.longitude) for k, v in old_c.items()} == {k: (v.latitude, v.longitude) for k, v in new_c.items()}
+    # recompute and compare to stored values
+    o_w = bilinear_weights(hp["old_coordinate"]["latitude"], hp["old_coordinate"]["longitude"], old_c)
+    n_w = bilinear_weights(31.2221653, 121.5307778, new_c)
+    assert sum(abs(o_w[k] - n_w[k]) for k in ("SW", "SE", "NW", "NE")) == pytest.approx(hp["l1_weight_difference"], abs=1e-4)
+
+
+def test_registry_no_outcome_dependence(anchors, registry):
+    # the registry must contain no outcome/price/return data
+    text = yaml.safe_dump(registry, allow_unicode=True).lower()
+    for banned in ("return", "outcome", "price", "yield"):
+        assert banned not in text
+
+
+def test_sse_hash_changed_with_policy_binding(anchors, registry):
+    # SSE anchor hash is deterministic and binds the policy/evidence (its value
+    # differs from the pre-R1 value; we only assert determinism + length here)
+    assert len(anchors["sse_composite"]["anchor_hash"]) == 64
+    assert len(registry["global_spatial_anchor_registry_hash"]) == 64

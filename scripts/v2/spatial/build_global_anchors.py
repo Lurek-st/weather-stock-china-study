@@ -35,7 +35,7 @@ OUTPUT_AUDIT = "data/audits/v2/spatial/global-exchange-anchor-qualification.json
 SPATIAL_CONTRACT_VERSION = "5C-G-1"
 
 EVIDENCE: dict[str, list[str]] = {
-    "sse_composite": ["https://www.sse.com.cn/aboutus/contactus (official contact; 388 Yanggao South Road, Pudong; postal 200127)"],
+    "sse_composite": ["https://www.sse.com.cn/aboutus/contactus (official contact; 388 Yanggao South Road, Pudong; postal 200127)", "https://www.sse.com.cn/lawandrules/publicadvice/c/c_20200731_5166326.shtml (dated 2020-07-31 document still using 528 Pudong South Road)", "https://www.sse.com.cn/aboutus/sseintroduction/billing/ (2020-08-31 page using 388 Yanggao South Road)"],
     "szse_component": ["https://www.szse.cn/English/about/contactus (official contact; 2012 Shennan Blvd, Futian; postal 518038)"],
     "topix": ["https://www.jpx.co.jp/markets/statistics-equities/daily/ (TSE daily report masthead; 2-1 Nihombashi Kabutocho, Chuo-ku 103-8220)"],
     "nifty50": ["https://www.nseindia.com/contact-us (official corporate office; Exchange Plaza, C-1, Block G, BKC, Bandra (E), Mumbai 400051)"],
@@ -46,6 +46,12 @@ EVIDENCE: dict[str, list[str]] = {
 }
 
 ANCHOR_ROLE = "market_local_atmospheric_proxy"
+
+# Frozen scientific contract (Stage 5C-GR1): the primary weather anchor is a
+# single fixed target-regime market-local atmospheric proxy, NOT a historical
+# premises tracker.  Historical office moves are sensitivity evidence only.
+PRIMARY_ANCHOR_POLICY = {"type": "fixed_target_regime", "historical_premises_tracking": False}
+HISTORICAL_PREMISES_CHANGE = {"sse_composite": True}  # bounded 2020-07-31 -> 2020-08-31
 
 
 def _dms_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -71,11 +77,17 @@ def main(argv: list[str] | None = None) -> int:
     root = args.root
 
     geocoding = json.loads((root / GEOCODE_AUDIT).read_text(encoding="utf-8"))
+    market_entries = geocoding.get("markets", geocoding if isinstance(geocoding, list) else [])
+    hist_premises_entries = geocoding.get("historical_premises", [])
     locations = load_yaml(root / LOCATIONS)["locations"]
     legacy = {loc["market_id"]: loc for loc in locations}
+    old_sse = None
+    for hp in hist_premises_entries:
+        if hp.get("premises_label") == "old_sse_premises" and hp.get("forward"):
+            old_sse = hp
 
     markets: list[dict[str, Any]] = []
-    for entry in geocoding:
+    for entry in market_entries:
         mid = entry["market_id"]
         target = entry["target"]
         fwd = (entry.get("forward") or [None])[0]
@@ -88,6 +100,41 @@ def main(argv: list[str] | None = None) -> int:
         weights = bilinear_weights(lat, lon, corners)
         nearest_name, nearest_pt = nearest_grid_point(lat, lon, corners)
         cell = describe_cell(corners)
+
+        premises_change = bool(HISTORICAL_PREMISES_CHANGE.get(mid, False))
+        historical_premises_meta = None
+        if premises_change and old_sse and mid == "sse_composite":
+            ofwd = old_sse["forward"][0]
+            olat, olon = float(ofwd["lat"]), float(ofwd["lon"])
+            o_corners = surrounding_cell(olat, olon)
+            o_weights = bilinear_weights(olat, olon, o_corners)
+            o_nearest_name, o_nearest_pt = nearest_grid_point(olat, olon, o_corners)
+            historical_premises_meta = {
+                "change_detected": True,
+                "transition_date_status": "bounded_not_exact",
+                "transition_after": "2020-07-31",
+                "transition_on_or_before": "2020-08-31",
+                "old_official_address": "上海市浦东新区浦东南路528号 (528 Pudong South Road, Pudong New Area, Shanghai)",
+                "old_coordinate": {"crs": "WGS84", "latitude": olat, "longitude": olon},
+                "old_geocoder_display_name": ofwd.get("display_name"),
+                "evidence_ids": [e for e in EVIDENCE.get(mid, []) if "2020" in e],
+                "distance_to_primary_km": round(_dms_distance_km(olat, olon, lat, lon), 3),
+                "delta_lat": round(lat - olat, 6),
+                "delta_lon": round(lon - olon, 6),
+                "same_surrounding_cell": {
+                    "SW": o_corners["SW"] == corners["SW"],
+                    "SE": o_corners["SE"] == corners["SE"],
+                    "NW": o_corners["NW"] == corners["NW"],
+                    "NE": o_corners["NE"] == corners["NE"],
+                },
+                "same_nearest_grid": (o_nearest_name == nearest_name) and (o_nearest_pt == nearest_pt),
+                "old_stencil": {k: {"latitude": v.latitude, "longitude": v.longitude} for k, v in o_corners.items()},
+                "new_stencil": {k: {"latitude": v.latitude, "longitude": v.longitude} for k, v in corners.items()},
+                "old_bilinear_weights": o_weights,
+                "new_bilinear_weights": weights,
+                "l1_weight_difference": round(sum(abs(o_weights[k] - weights[k]) for k in ("SW", "SE", "NW", "NE")), 4),
+                "max_individual_weight_difference": round(max(abs(o_weights[k] - weights[k]) for k in ("SW", "SE", "NW", "NE")), 4),
+            }
 
         leg = legacy.get(mid, {})
         leg_lat, leg_lon = leg.get("latitude"), leg.get("longitude")
@@ -124,6 +171,9 @@ def main(argv: list[str] | None = None) -> int:
             "corners": {k: {"latitude": v.latitude, "longitude": v.longitude} for k, v in corners.items()},
             "weights": weights,
             "spatial_contract_version": SPATIAL_CONTRACT_VERSION,
+            "primary_anchor_policy": PRIMARY_ANCHOR_POLICY,
+            "historical_premises_change_detected": premises_change,
+            "fixed_primary_anchor_changed": False,
         }
         markets.append(
             {
@@ -136,8 +186,10 @@ def main(argv: list[str] | None = None) -> int:
                     "official_address_normalized": target["official_address"],
                     "country": target["country"],
                     "evidence_ids": EVIDENCE.get(mid, []),
-                    "target_horizon_anchor_change_detected": False,
+                    "historical_premises_change_detected": premises_change,
+                    "fixed_primary_anchor_changed": False,
                 },
+                "primary_anchor_policy": PRIMARY_ANCHOR_POLICY,
                 "coordinate": {
                     "crs": "WGS84",
                     "latitude": lat,
@@ -161,6 +213,7 @@ def main(argv: list[str] | None = None) -> int:
                     "cell": cell,
                 },
                 "legacy_sensitivity": legacy_meta,
+                "historical_premises": historical_premises_meta,
                 "anchor_hash": _anchor_hash(anchor_payload),
                 "qualification_status": "qualified",
             }
@@ -180,6 +233,9 @@ def main(argv: list[str] | None = None) -> int:
         "registry_id": "spatial-anchors",
         "spatial_contract_version": SPATIAL_CONTRACT_VERSION,
         "scientific_interpretation": "the official physical premises associated with the study's primary cash-equity market / market operator, used solely as a fixed market-local atmospheric proxy (weather_anchor_role = market_local_atmospheric_proxy)",
+        "primary_anchor_policy": PRIMARY_ANCHOR_POLICY,
+        "scientific_rationale": "The fixed spatial anchor preserves one time-invariant spatial measurement definition. Historical office moves do not automatically redefine the primary atmospheric proxy, avoiding a mechanical spatial measurement break. The anchor does NOT represent exact physical exposure of every trader, historical matching-engine location, or all investor locations.",
+        "historical_premises_tracking": False,
         "anchors": markets,
         "global_spatial_anchor_registry_hash": global_registry_hash,
     }
@@ -200,7 +256,7 @@ def main(argv: list[str] | None = None) -> int:
         "qualified_count": len(qualified),
         "unresolved_count": len(unresolved),
         "global_registry_hash": global_registry_hash,
-        "network_activity": {"geocoding_calls": 16, "cds_calls": 0, "era5_downloads": 0},
+        "network_activity": {"geocoding_calls": 18, "cds_calls": 0, "era5_downloads": 0},
         "geocoder_policy": {
             "geocoder": "nominatim",
             "user_agent": "weather-stock-china-study/2.0 (research spatial anchor qualification; repository-owned)",
@@ -210,6 +266,23 @@ def main(argv: list[str] | None = None) -> int:
         "live_backfill_authorized": False,
         "research_usable": len(qualified) == 8 and len(unresolved) == 0,
         "spatial_ready_for_live_canary": len(qualified) == 8 and len(unresolved) == 0,
+        "horizon_move_semantics": {
+            "historical_premises_change_detected": {
+                m["market_id"]: m["venue"]["historical_premises_change_detected"] for m in markets
+            },
+            "fixed_primary_anchor_changed": {
+                m["market_id"]: m["venue"]["fixed_primary_anchor_changed"] for m in markets
+            },
+            "note": "historical premises changes are sensitivity evidence under the fixed target-regime anchor contract; they do not auto-fail qualification",
+        },
+        "sse_premises_reconciliation": {
+            "change_detected": True,
+            "transition_date_status": "bounded_not_exact",
+            "transition_after": "2020-07-31",
+            "transition_on_or_before": "2020-08-31",
+            "fixed_primary_anchor": {"latitude": 31.2221653, "longitude": 121.5307778},
+            "old_premises": next((m["historical_premises"] for m in markets if m.get("historical_premises")), None),
+        },
         "code_hashes": {
             "geocode_anchors.py": sha256_file(root / "scripts/v2/spatial/geocode_anchors.py"),
             "grid_geometry.py": sha256_file(root / "scripts/v2/spatial/grid_geometry.py"),
@@ -220,10 +293,13 @@ def main(argv: list[str] | None = None) -> int:
     }
     write_json(root / OUTPUT_AUDIT, audit)
     print(json.dumps({
-        "gate": "PASS_STAGE5CG_GLOBAL_EXCHANGE_ANCHORS" if audit["research_usable"] else "REVISE_STAGE5CG_GLOBAL_EXCHANGE_ANCHORS",
+        "gate": "PASS_STAGE5CGR1_SSE_PREMISES_RECONCILIATION" if audit["research_usable"] else "REVISE_STAGE5CGR1_SSE_PREMISES_RECONCILIATION",
+        "stage5cg_gate": "PASS_STAGE5CG_GLOBAL_EXCHANGE_ANCHORS" if audit["research_usable"] else "REVISE",
         "qualified_count": len(qualified),
         "unresolved_count": len(unresolved),
         "unresolved_markets": [m["market_id"] for m in unresolved],
+        "sse_historical_premises_change_detected": True,
+        "sse_fixed_primary_anchor_changed": False,
         "global_registry_hash": global_registry_hash,
         "live_backfill_authorized": False,
     }, ensure_ascii=False, indent=2))

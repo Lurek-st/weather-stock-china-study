@@ -199,6 +199,27 @@ def _street_ok(target: dict[str, Any], hit: dict[str, Any]) -> bool:
     return any(a in addr_text or a in display for a in aliases)
 
 
+# Historical premises sensitivity targets (not primary anchors).  SSE moved its
+# official premises from 528 Pudong South Road to 388 Yanggao South Road within
+# 2020 (dated official evidence 2020-07-31 -> 2020-08-31); under the fixed
+# target-regime anchor contract this is sensitivity evidence, not a regime switch.
+HISTORICAL_PREMISES: list[dict[str, Any]] = [
+    {
+        "market_id": "sse_composite",
+        "premises_label": "old_sse_premises",
+        "venue_entity": "Shanghai Stock Exchange (former premises)",
+        "official_address": "528 Pudong South Road, Pudong New Area, Shanghai, China",
+        "official_address_zh": "上海市浦东新区浦东南路528号",
+        "country": "China",
+        "city": "Shanghai",
+        "city_aliases": ["shanghai", "上海市", "上海"],
+        "street_aliases": ["浦东南路", "pudong south"],
+        "house_number": "528",
+        "queries": ["528 Pudong South Road Shanghai", "浦东南路528号 上海", "528 Pudong South Road Shanghai China"],
+    },
+]
+
+
 POI_TYPES = {"stock_exchange", "exchange", "office", "company", "commercial", "building", "yes"}
 
 
@@ -265,11 +286,50 @@ def main(argv: list[str] | None = None) -> int:
         if hits:
             r["_reverse"] = reverse(hits[0]["lat"], hits[0]["lon"])
             time.sleep(1.1)
-    cache_path.write_text(json.dumps({x["market_id"]: x for x in results}, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # historical premises sensitivity geocoding (not primary anchors)
+    hp_results: list[dict[str, Any]] = []
+    for target in HISTORICAL_PREMISES:
+        key = f"{target['market_id']}:{target['premises_label']}"
+        if key in cache and cache[key].get("forward") and cache[key].get("selection"):
+            entry = cache[key]
+            entry["_from_cache"] = True
+        else:
+            entry = {"queries_tried": [], "forward": [], "selection": None}
+            for qi, query in enumerate(target["queries"]):
+                hits = forward(query)
+                entry["queries_tried"].append(query)
+                validated = [h for h in hits if _country_ok(target, h) and _city_ok(target, h)]
+                if validated:
+                    hn = target.get("house_number", "")
+                    def hp_score(h: dict[str, Any]) -> tuple:
+                        aligned = 0 if _street_ok(target, h) else 1
+                        number_ok = 0 if (hn and hn in (h.get("display_name") or "").lower()) or not hn else 1
+                        return (aligned, number_ok)
+                    best = min(validated, key=hp_score)
+                    entry["forward"] = [best]
+                    entry["selection"] = {
+                        "query_used": query,
+                        "query_index": qi,
+                        "street_aligned": _street_ok(target, best),
+                        "house_number_match": bool(hn) and hn in (best.get("display_name") or "").lower(),
+                        "poi_type": best.get("type"),
+                        "rationale": "historical premises sensitivity (not a primary anchor)",
+                    }
+                    break
+                time.sleep(1.1)
+            cache[key] = entry
+        if "_reverse" not in entry and entry.get("forward"):
+            entry["_reverse"] = reverse(entry["forward"][0]["lat"], entry["forward"][0]["lon"])
+            time.sleep(1.1)
+        hp_results.append({"market_id": target["market_id"], "premises_label": target["premises_label"], "target": target, **entry})
+
+    all_results = {"markets": results, "historical_premises": hp_results}
+    cache_path.write_text(json.dumps(all_results, ensure_ascii=False, indent=2), encoding="utf-8")
 
     out = root / OUTPUT_PATH
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    out.write_text(json.dumps(all_results, ensure_ascii=False, indent=2), encoding="utf-8")
     for r in results:
         hits = r.get("forward") or []
         rev = r.get("_reverse") or {}
@@ -281,6 +341,11 @@ def main(argv: list[str] | None = None) -> int:
             print(f"{r['market_id']:15s} NO VALIDATED RESULT (queries tried: {len(r.get('queries_tried', []))})")
         if rev:
             print(f"{'':15s} reverse={rev.get('display_name','')[:68]}")
+    for r in hp_results:
+        hits = r.get("forward") or []
+        if hits:
+            h = hits[0]
+            print(f"HIST-{r['premises_label']:18s} lat={h.get('lat')} lon={h.get('lon')} | {h.get('display_name','')[:60]}")
     return 0
 
 

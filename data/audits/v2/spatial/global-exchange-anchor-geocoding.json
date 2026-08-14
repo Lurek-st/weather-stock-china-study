@@ -1,140 +1,185 @@
-[
-  {
-    "market_id": "sse_composite",
-    "target": {
+{
+  "markets": [
+    {
       "market_id": "sse_composite",
-      "venue_entity": "Shanghai Stock Exchange",
-      "official_address": "388 Yanggao South Road, Pudong New Area, Shanghai, China",
-      "official_address_zh": "上海市浦东新区杨高南路388号",
-      "country": "China",
-      "city": "Shanghai",
-      "city_aliases": [
-        "shanghai",
-        "上海市",
-        "上海"
+      "target": {
+        "market_id": "sse_composite",
+        "venue_entity": "Shanghai Stock Exchange",
+        "official_address": "388 Yanggao South Road, Pudong New Area, Shanghai, China",
+        "official_address_zh": "上海市浦东新区杨高南路388号",
+        "country": "China",
+        "city": "Shanghai",
+        "city_aliases": [
+          "shanghai",
+          "上海市",
+          "上海"
+        ],
+        "street_aliases": [
+          "杨高南路",
+          "yanggao",
+          "金融交易广场"
+        ],
+        "queries": [
+          "上海金融交易广场 上海",
+          "388 Yanggao South Road Shanghai",
+          "Shanghai Stock Exchange Pudong Shanghai China"
+        ]
+      },
+      "queries_tried": [
+        "上海金融交易广场 上海"
       ],
-      "street_aliases": [
-        "杨高南路",
-        "yanggao",
-        "金融交易广场"
+      "forward": [
+        {
+          "place_id": 225061333,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 1427705405,
+          "lat": "31.2221653",
+          "lon": "121.5307778",
+          "category": "landuse",
+          "type": "commercial",
+          "place_rank": 24,
+          "importance": 0.08007911268787668,
+          "addresstype": "commercial",
+          "name": "上海金融交易广场",
+          "display_name": "上海金融交易广场, 张家楼, 潍坊新村街道, 严桥, 浦东新区, 上海市, 中国",
+          "address": {
+            "commercial": "上海金融交易广场",
+            "quarter": "张家楼",
+            "suburb": "潍坊新村街道",
+            "village": "严桥",
+            "city": "浦东新区",
+            "state": "上海市",
+            "ISO3166-2-lvl4": "CN-SH",
+            "country": "中国",
+            "country_code": "cn"
+          },
+          "boundingbox": [
+            "31.2209679",
+            "31.2237975",
+            "121.5294387",
+            "121.5326735"
+          ],
+          "_query_index": 0,
+          "_street_aligned": true
+        }
       ],
-      "queries": [
-        "上海金融交易广场 上海",
-        "388 Yanggao South Road Shanghai",
-        "Shanghai Stock Exchange Pudong Shanghai China"
-      ]
-    },
-    "queries_tried": [
-      "上海金融交易广场 上海"
-    ],
-    "forward": [
-      {
-        "place_id": 225061333,
+      "selection": {
+        "query_used": "上海金融交易广场 上海",
+        "query_index": 0,
+        "street_aligned": true,
+        "poi_type": "commercial",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 223481039,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
         "osm_type": "way",
-        "osm_id": 1427705405,
-        "lat": "31.2221653",
-        "lon": "121.5307778",
-        "category": "landuse",
-        "type": "commercial",
-        "place_rank": 24,
-        "importance": 0.08007911268787668,
-        "addresstype": "commercial",
-        "name": "上海金融交易广场",
-        "display_name": "上海金融交易广场, 张家楼, 潍坊新村街道, 严桥, 浦东新区, 上海市, 中国",
+        "osm_id": 860581989,
+        "lat": "31.2228589",
+        "lon": "121.5299359",
+        "category": "highway",
+        "type": "residential",
+        "place_rank": 26,
+        "importance": 0.05341244602121001,
+        "addresstype": "road",
+        "name": "竹林路",
+        "display_name": "竹林路, 张家楼, 潍坊新村街道, 严桥, 浦东新区, 上海市, 200120, 中国",
         "address": {
-          "commercial": "上海金融交易广场",
+          "road": "竹林路",
           "quarter": "张家楼",
           "suburb": "潍坊新村街道",
           "village": "严桥",
           "city": "浦东新区",
           "state": "上海市",
           "ISO3166-2-lvl4": "CN-SH",
+          "postcode": "200120",
           "country": "中国",
           "country_code": "cn"
         },
         "boundingbox": [
-          "31.2209679",
-          "31.2237975",
-          "121.5294387",
-          "121.5326735"
-        ],
-        "_query_index": 0,
-        "_street_aligned": true
+          "31.2218456",
+          "31.2238325",
+          "121.5293994",
+          "121.5308208"
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "上海金融交易广场 上海",
-      "query_index": 0,
-      "street_aligned": true,
-      "poi_type": "commercial",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 223481039,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "way",
-      "osm_id": 860581989,
-      "lat": "31.2228589",
-      "lon": "121.5299359",
-      "category": "highway",
-      "type": "residential",
-      "place_rank": 26,
-      "importance": 0.05341244602121001,
-      "addresstype": "road",
-      "name": "竹林路",
-      "display_name": "竹林路, 张家楼, 潍坊新村街道, 严桥, 浦东新区, 上海市, 200120, 中国",
-      "address": {
-        "road": "竹林路",
-        "quarter": "张家楼",
-        "suburb": "潍坊新村街道",
-        "village": "严桥",
-        "city": "浦东新区",
-        "state": "上海市",
-        "ISO3166-2-lvl4": "CN-SH",
-        "postcode": "200120",
-        "country": "中国",
-        "country_code": "cn"
-      },
-      "boundingbox": [
-        "31.2218456",
-        "31.2238325",
-        "121.5293994",
-        "121.5308208"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "szse_component",
-    "target": {
+    {
       "market_id": "szse_component",
-      "venue_entity": "Shenzhen Stock Exchange",
-      "official_address": "2012 Shennan Boulevard, Futian District, Shenzhen, Guangdong, China",
-      "official_address_zh": "深圳市福田区深南大道2012号",
-      "country": "China",
-      "city": "Shenzhen",
-      "city_aliases": [
-        "shenzhen",
-        "深圳市",
-        "深圳"
+      "target": {
+        "market_id": "szse_component",
+        "venue_entity": "Shenzhen Stock Exchange",
+        "official_address": "2012 Shennan Boulevard, Futian District, Shenzhen, Guangdong, China",
+        "official_address_zh": "深圳市福田区深南大道2012号",
+        "country": "China",
+        "city": "Shenzhen",
+        "city_aliases": [
+          "shenzhen",
+          "深圳市",
+          "深圳"
+        ],
+        "street_aliases": [
+          "深南大道",
+          "shennan"
+        ],
+        "queries": [
+          "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China",
+          "深圳证券交易所 深南大道2012号 深圳"
+        ]
+      },
+      "queries_tried": [
+        "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China"
       ],
-      "street_aliases": [
-        "深南大道",
-        "shennan"
+      "forward": [
+        {
+          "place_id": 237948408,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 923157986,
+          "lat": "22.5443046",
+          "lon": "114.0488162",
+          "category": "building",
+          "type": "commercial",
+          "place_rank": 30,
+          "importance": 7.029907682912974e-05,
+          "addresstype": "building",
+          "name": "深圳证券交易所",
+          "display_name": "深圳证券交易所, 2012, 深南大道, 福新社区, 莲花街道, 福田区, 深圳市, 广东省, 518038, 中国",
+          "address": {
+            "building": "深圳证券交易所",
+            "house_number": "2012",
+            "road": "深南大道",
+            "quarter": "福新社区",
+            "suburb": "莲花街道",
+            "city": "福田区",
+            "state": "广东省",
+            "ISO3166-2-lvl4": "CN-GD",
+            "postcode": "518038",
+            "country": "中国",
+            "country_code": "cn"
+          },
+          "boundingbox": [
+            "22.5435921",
+            "22.5448049",
+            "114.0479922",
+            "114.0496400"
+          ],
+          "_query_index": 0,
+          "_street_aligned": true
+        }
       ],
-      "queries": [
-        "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China",
-        "深圳证券交易所 深南大道2012号 深圳"
-      ]
-    },
-    "queries_tried": [
-      "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China"
-    ],
-    "forward": [
-      {
-        "place_id": 237948408,
+      "selection": {
+        "query_used": "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China",
+        "query_index": 0,
+        "street_aligned": true,
+        "poi_type": "commercial",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 236852497,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
         "osm_type": "way",
         "osm_id": 923157986,
@@ -165,89 +210,85 @@
           "22.5448049",
           "114.0479922",
           "114.0496400"
-        ],
-        "_query_index": 0,
-        "_street_aligned": true
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "Shenzhen Stock Exchange 2012 Shennan Boulevard Futian District Shenzhen China",
-      "query_index": 0,
-      "street_aligned": true,
-      "poi_type": "commercial",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 236852497,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "way",
-      "osm_id": 923157986,
-      "lat": "22.5443046",
-      "lon": "114.0488162",
-      "category": "building",
-      "type": "commercial",
-      "place_rank": 30,
-      "importance": 7.029907682912974e-05,
-      "addresstype": "building",
-      "name": "深圳证券交易所",
-      "display_name": "深圳证券交易所, 2012, 深南大道, 福新社区, 莲花街道, 福田区, 深圳市, 广东省, 518038, 中国",
-      "address": {
-        "building": "深圳证券交易所",
-        "house_number": "2012",
-        "road": "深南大道",
-        "quarter": "福新社区",
-        "suburb": "莲花街道",
-        "city": "福田区",
-        "state": "广东省",
-        "ISO3166-2-lvl4": "CN-GD",
-        "postcode": "518038",
-        "country": "中国",
-        "country_code": "cn"
-      },
-      "boundingbox": [
-        "22.5435921",
-        "22.5448049",
-        "114.0479922",
-        "114.0496400"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "topix",
-    "target": {
+    {
       "market_id": "topix",
-      "venue_entity": "Tokyo Stock Exchange, Inc.",
-      "official_address": "2-1 Nihombashi Kabutocho, Chuo-ku, Tokyo 103-8220, Japan",
-      "official_address_zh": "東京都中央区日本橋兜町2-1",
-      "country": "Japan",
-      "city": "Tokyo",
-      "city_aliases": [
-        "tokyo",
-        "tokio",
-        "東京都",
-        "東京",
-        "chuo",
-        "中央区"
-      ],
-      "street_aliases": [
-        "兜町",
-        "kabutocho"
-      ],
-      "queries": [
+      "target": {
+        "market_id": "topix",
+        "venue_entity": "Tokyo Stock Exchange, Inc.",
+        "official_address": "2-1 Nihombashi Kabutocho, Chuo-ku, Tokyo 103-8220, Japan",
+        "official_address_zh": "東京都中央区日本橋兜町2-1",
+        "country": "Japan",
+        "city": "Tokyo",
+        "city_aliases": [
+          "tokyo",
+          "tokio",
+          "東京都",
+          "東京",
+          "chuo",
+          "中央区"
+        ],
+        "street_aliases": [
+          "兜町",
+          "kabutocho"
+        ],
+        "queries": [
+          "Tokyo Stock Exchange 2-1 Nihombashi Kabutocho Chuo-ku Tokyo Japan",
+          "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan",
+          "東京証券取引所 日本橋兜町"
+        ]
+      },
+      "queries_tried": [
         "Tokyo Stock Exchange 2-1 Nihombashi Kabutocho Chuo-ku Tokyo Japan",
-        "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan",
-        "東京証券取引所 日本橋兜町"
-      ]
-    },
-    "queries_tried": [
-      "Tokyo Stock Exchange 2-1 Nihombashi Kabutocho Chuo-ku Tokyo Japan",
-      "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan"
-    ],
-    "forward": [
-      {
-        "place_id": 262567261,
+        "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan"
+      ],
+      "forward": [
+        {
+          "place_id": 262567261,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 181926037,
+          "lat": "35.6826023",
+          "lon": "139.7787960",
+          "category": "amenity",
+          "type": "stock_exchange",
+          "place_rank": 30,
+          "importance": 8.593499656667457e-05,
+          "addresstype": "amenity",
+          "name": "東京証券取引所",
+          "display_name": "東京証券取引所, 1, 日本橋兜町, 中央区, 東京都, 103-8220, 日本",
+          "address": {
+            "amenity": "東京証券取引所",
+            "house_number": "1",
+            "neighbourhood": "日本橋兜町",
+            "city": "中央区",
+            "ISO3166-2-lvl4": "JP-13",
+            "postcode": "103-8220",
+            "country": "日本",
+            "country_code": "jp"
+          },
+          "boundingbox": [
+            "35.6822088",
+            "35.6830952",
+            "139.7782291",
+            "139.7793786"
+          ],
+          "_query_index": 1,
+          "_street_aligned": true
+        }
+      ],
+      "selection": {
+        "query_used": "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan",
+        "query_index": 1,
+        "street_aligned": true,
+        "poi_type": "stock_exchange",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 265965330,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
         "osm_type": "way",
         "osm_id": 181926037,
@@ -275,99 +316,102 @@
           "35.6830952",
           "139.7782291",
           "139.7793786"
-        ],
-        "_query_index": 1,
-        "_street_aligned": true
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "Tokyo Stock Exchange Kabutocho Chuo Tokyo Japan",
-      "query_index": 1,
-      "street_aligned": true,
-      "poi_type": "stock_exchange",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 265965330,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "way",
-      "osm_id": 181926037,
-      "lat": "35.6826023",
-      "lon": "139.7787960",
-      "category": "amenity",
-      "type": "stock_exchange",
-      "place_rank": 30,
-      "importance": 8.593499656667457e-05,
-      "addresstype": "amenity",
-      "name": "東京証券取引所",
-      "display_name": "東京証券取引所, 1, 日本橋兜町, 中央区, 東京都, 103-8220, 日本",
-      "address": {
-        "amenity": "東京証券取引所",
-        "house_number": "1",
-        "neighbourhood": "日本橋兜町",
-        "city": "中央区",
-        "ISO3166-2-lvl4": "JP-13",
-        "postcode": "103-8220",
-        "country": "日本",
-        "country_code": "jp"
-      },
-      "boundingbox": [
-        "35.6822088",
-        "35.6830952",
-        "139.7782291",
-        "139.7793786"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "nifty50",
-    "target": {
+    {
       "market_id": "nifty50",
-      "venue_entity": "National Stock Exchange of India Ltd",
-      "official_address": "Exchange Plaza, C-1, Block G, Bandra Kurla Complex, Bandra (East), Mumbai 400051, India",
-      "country": "India",
-      "city": "Mumbai",
-      "city_aliases": [
-        "mumbai",
-        "bombay",
-        "bandra"
-      ],
-      "street_aliases": [
-        "bandra",
-        "kurla",
-        "exchange plaza",
-        "avenue 3",
-        "g block"
-      ],
-      "queries": [
+      "target": {
+        "market_id": "nifty50",
+        "venue_entity": "National Stock Exchange of India Ltd",
+        "official_address": "Exchange Plaza, C-1, Block G, Bandra Kurla Complex, Bandra (East), Mumbai 400051, India",
+        "country": "India",
+        "city": "Mumbai",
+        "city_aliases": [
+          "mumbai",
+          "bombay",
+          "bandra"
+        ],
+        "street_aliases": [
+          "bandra",
+          "kurla",
+          "exchange plaza",
+          "avenue 3",
+          "g block"
+        ],
+        "queries": [
+          "National Stock Exchange of India Exchange Plaza Bandra Kurla Complex Mumbai India",
+          "national stock exchange bandra kurla complex mumbai",
+          "Exchange Plaza Bandra Kurla Complex Mumbai India"
+        ]
+      },
+      "queries_tried": [
         "National Stock Exchange of India Exchange Plaza Bandra Kurla Complex Mumbai India",
-        "national stock exchange bandra kurla complex mumbai",
-        "Exchange Plaza Bandra Kurla Complex Mumbai India"
-      ]
-    },
-    "queries_tried": [
-      "National Stock Exchange of India Exchange Plaza Bandra Kurla Complex Mumbai India",
-      "national stock exchange bandra kurla complex mumbai"
-    ],
-    "forward": [
-      {
-        "place_id": 249388085,
+        "national stock exchange bandra kurla complex mumbai"
+      ],
+      "forward": [
+        {
+          "place_id": 249388085,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 398288896,
+          "lat": "19.0601927",
+          "lon": "72.8598629",
+          "category": "building",
+          "type": "office",
+          "place_rank": 30,
+          "importance": 7.599526970316652e-05,
+          "addresstype": "building",
+          "name": "National Stock Exchange",
+          "display_name": "National Stock Exchange, Avenue 3, G Block, Bandra Kurla Complex, H/E Ward, Mumbai Zone 3, Mumbai, Mumbai Suburban District, Maharashtra, 400051, India",
+          "address": {
+            "building": "National Stock Exchange",
+            "road": "Avenue 3",
+            "neighbourhood": "G Block",
+            "suburb": "Bandra Kurla Complex",
+            "city_district": "Mumbai Zone 3",
+            "city": "Mumbai",
+            "state_district": "Mumbai Suburban District",
+            "state": "Maharashtra",
+            "ISO3166-2-lvl4": "IN-MH",
+            "postcode": "400051",
+            "country": "India",
+            "country_code": "in"
+          },
+          "boundingbox": [
+            "19.0598045",
+            "19.0607482",
+            "72.8594133",
+            "72.8603410"
+          ],
+          "_query_index": 1,
+          "_street_aligned": true
+        }
+      ],
+      "selection": {
+        "query_used": "national stock exchange bandra kurla complex mumbai",
+        "query_index": 1,
+        "street_aligned": true,
+        "poi_type": "office",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 248292718,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "osm_type": "way",
-        "osm_id": 398288896,
-        "lat": "19.0601927",
-        "lon": "72.8598629",
-        "category": "building",
-        "type": "office",
+        "osm_type": "node",
+        "osm_id": 4713855192,
+        "lat": "19.0599974",
+        "lon": "72.8597758",
+        "category": "office",
+        "type": "diplomatic",
         "place_rank": 30,
         "importance": 7.599526970316652e-05,
-        "addresstype": "building",
-        "name": "National Stock Exchange",
-        "display_name": "National Stock Exchange, Avenue 3, G Block, Bandra Kurla Complex, H/E Ward, Mumbai Zone 3, Mumbai, Mumbai Suburban District, Maharashtra, 400051, India",
+        "addresstype": "office",
+        "name": "French consulate",
+        "display_name": "French consulate, Avenue 3, G Block, Bandra Kurla Complex, H/E Ward, Mumbai Zone 3, Mumbai, Mumbai Suburban District, Maharashtra, 400051, India",
         "address": {
-          "building": "National Stock Exchange",
+          "office": "French consulate",
           "road": "Avenue 3",
           "neighbourhood": "G Block",
           "suburb": "Bandra Kurla Complex",
@@ -381,100 +425,99 @@
           "country_code": "in"
         },
         "boundingbox": [
-          "19.0598045",
-          "19.0607482",
-          "72.8594133",
-          "72.8603410"
-        ],
-        "_query_index": 1,
-        "_street_aligned": true
+          "19.0599474",
+          "19.0600474",
+          "72.8597258",
+          "72.8598258"
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "national stock exchange bandra kurla complex mumbai",
-      "query_index": 1,
-      "street_aligned": true,
-      "poi_type": "office",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 248292718,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "node",
-      "osm_id": 4713855192,
-      "lat": "19.0599974",
-      "lon": "72.8597758",
-      "category": "office",
-      "type": "diplomatic",
-      "place_rank": 30,
-      "importance": 7.599526970316652e-05,
-      "addresstype": "office",
-      "name": "French consulate",
-      "display_name": "French consulate, Avenue 3, G Block, Bandra Kurla Complex, H/E Ward, Mumbai Zone 3, Mumbai, Mumbai Suburban District, Maharashtra, 400051, India",
-      "address": {
-        "office": "French consulate",
-        "road": "Avenue 3",
-        "neighbourhood": "G Block",
-        "suburb": "Bandra Kurla Complex",
-        "city_district": "Mumbai Zone 3",
-        "city": "Mumbai",
-        "state_district": "Mumbai Suburban District",
-        "state": "Maharashtra",
-        "ISO3166-2-lvl4": "IN-MH",
-        "postcode": "400051",
-        "country": "India",
-        "country_code": "in"
-      },
-      "boundingbox": [
-        "19.0599474",
-        "19.0600474",
-        "72.8597258",
-        "72.8598258"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "ftse100",
-    "target": {
+    {
       "market_id": "ftse100",
-      "venue_entity": "London Stock Exchange plc",
-      "official_address": "10 Paternoster Square, London EC4M 7LS, United Kingdom",
-      "country": "United Kingdom",
-      "city": "London",
-      "city_aliases": [
-        "london",
-        "city of london"
+      "target": {
+        "market_id": "ftse100",
+        "venue_entity": "London Stock Exchange plc",
+        "official_address": "10 Paternoster Square, London EC4M 7LS, United Kingdom",
+        "country": "United Kingdom",
+        "city": "London",
+        "city_aliases": [
+          "london",
+          "city of london"
+        ],
+        "street_aliases": [
+          "paternoster"
+        ],
+        "queries": [
+          "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom",
+          "10 Paternoster Square London United Kingdom"
+        ]
+      },
+      "queries_tried": [
+        "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom"
       ],
-      "street_aliases": [
-        "paternoster"
+      "forward": [
+        {
+          "place_id": 280096281,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 11199935,
+          "lat": "51.5150440",
+          "lon": "-0.0990793",
+          "category": "amenity",
+          "type": "stock_exchange",
+          "place_rank": 30,
+          "importance": 9.307927061870783e-05,
+          "addresstype": "amenity",
+          "name": "London Stock Exchange",
+          "display_name": "London Stock Exchange, 10, Paternoster Square, West Smithfield, St Paul's, City of London, Greater London, England, EC4M 7LS, United Kingdom",
+          "address": {
+            "amenity": "London Stock Exchange",
+            "house_number": "10",
+            "road": "Paternoster Square",
+            "neighbourhood": "West Smithfield",
+            "quarter": "St Paul's",
+            "city": "City of London",
+            "ISO3166-2-lvl6": "GB-LND",
+            "state": "England",
+            "ISO3166-2-lvl4": "GB-ENG",
+            "postcode": "EC4M 7LS",
+            "country": "United Kingdom",
+            "country_code": "gb"
+          },
+          "boundingbox": [
+            "51.5146713",
+            "51.5154352",
+            "-0.0996076",
+            "-0.0985195"
+          ],
+          "_query_index": 0,
+          "_street_aligned": true
+        }
       ],
-      "queries": [
-        "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom",
-        "10 Paternoster Square London United Kingdom"
-      ]
-    },
-    "queries_tried": [
-      "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom"
-    ],
-    "forward": [
-      {
-        "place_id": 280096281,
+      "selection": {
+        "query_used": "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom",
+        "query_index": 0,
+        "street_aligned": true,
+        "poi_type": "stock_exchange",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 280206458,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "osm_type": "relation",
-        "osm_id": 11199935,
-        "lat": "51.5150440",
-        "lon": "-0.0990793",
-        "category": "amenity",
-        "type": "stock_exchange",
+        "osm_type": "way",
+        "osm_id": 815659578,
+        "lat": "51.5149388",
+        "lon": "-0.0990570",
+        "category": "shop",
+        "type": "convenience",
         "place_rank": 30,
         "importance": 9.307927061870783e-05,
-        "addresstype": "amenity",
-        "name": "London Stock Exchange",
-        "display_name": "London Stock Exchange, 10, Paternoster Square, West Smithfield, St Paul's, City of London, Greater London, England, EC4M 7LS, United Kingdom",
+        "addresstype": "shop",
+        "name": "Sainsbury's Local",
+        "display_name": "Sainsbury's Local, 10, Paternoster Square, West Smithfield, St Paul's, City of London, Greater London, England, EC4M 7DX, United Kingdom",
         "address": {
-          "amenity": "London Stock Exchange",
+          "shop": "Sainsbury's Local",
           "house_number": "10",
           "road": "Paternoster Square",
           "neighbourhood": "West Smithfield",
@@ -483,94 +526,93 @@
           "ISO3166-2-lvl6": "GB-LND",
           "state": "England",
           "ISO3166-2-lvl4": "GB-ENG",
-          "postcode": "EC4M 7LS",
+          "postcode": "EC4M 7DX",
           "country": "United Kingdom",
           "country_code": "gb"
         },
         "boundingbox": [
-          "51.5146713",
-          "51.5154352",
-          "-0.0996076",
-          "-0.0985195"
-        ],
-        "_query_index": 0,
-        "_street_aligned": true
+          "51.5147758",
+          "51.5150665",
+          "-0.0992263",
+          "-0.0989038"
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "London Stock Exchange 10 Paternoster Square London EC4M 7LS United Kingdom",
-      "query_index": 0,
-      "street_aligned": true,
-      "poi_type": "stock_exchange",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 280206458,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "way",
-      "osm_id": 815659578,
-      "lat": "51.5149388",
-      "lon": "-0.0990570",
-      "category": "shop",
-      "type": "convenience",
-      "place_rank": 30,
-      "importance": 9.307927061870783e-05,
-      "addresstype": "shop",
-      "name": "Sainsbury's Local",
-      "display_name": "Sainsbury's Local, 10, Paternoster Square, West Smithfield, St Paul's, City of London, Greater London, England, EC4M 7DX, United Kingdom",
-      "address": {
-        "shop": "Sainsbury's Local",
-        "house_number": "10",
-        "road": "Paternoster Square",
-        "neighbourhood": "West Smithfield",
-        "quarter": "St Paul's",
-        "city": "City of London",
-        "ISO3166-2-lvl6": "GB-LND",
-        "state": "England",
-        "ISO3166-2-lvl4": "GB-ENG",
-        "postcode": "EC4M 7DX",
-        "country": "United Kingdom",
-        "country_code": "gb"
-      },
-      "boundingbox": [
-        "51.5147758",
-        "51.5150665",
-        "-0.0992263",
-        "-0.0989038"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "dax",
-    "target": {
+    {
       "market_id": "dax",
-      "venue_entity": "Deutsche Börse AG (Xetra operator)",
-      "official_address": "Mergenthalerallee 61, 65760 Eschborn, Germany",
-      "country": "Germany",
-      "city": "Eschborn",
-      "city_aliases": [
-        "eschborn",
-        "frankfurt am main",
-        "frankfurt"
-      ],
-      "street_aliases": [
-        "mergenthalerallee",
-        "eschborn"
-      ],
-      "queries": [
+      "target": {
+        "market_id": "dax",
+        "venue_entity": "Deutsche Börse AG (Xetra operator)",
+        "official_address": "Mergenthalerallee 61, 65760 Eschborn, Germany",
+        "country": "Germany",
+        "city": "Eschborn",
+        "city_aliases": [
+          "eschborn",
+          "frankfurt am main",
+          "frankfurt"
+        ],
+        "street_aliases": [
+          "mergenthalerallee",
+          "eschborn"
+        ],
+        "queries": [
+          "Deutsche Börse Mergenthalerallee 61 65760 Eschborn Germany",
+          "Mergenthalerallee 61 65760 Eschborn Germany",
+          "Deutsche Börse Eschborn Germany"
+        ]
+      },
+      "queries_tried": [
         "Deutsche Börse Mergenthalerallee 61 65760 Eschborn Germany",
-        "Mergenthalerallee 61 65760 Eschborn Germany",
-        "Deutsche Börse Eschborn Germany"
-      ]
-    },
-    "queries_tried": [
-      "Deutsche Börse Mergenthalerallee 61 65760 Eschborn Germany",
-      "Mergenthalerallee 61 65760 Eschborn Germany"
-    ],
-    "forward": [
-      {
+        "Mergenthalerallee 61 65760 Eschborn Germany"
+      ],
+      "forward": [
+        {
+          "place_id": 138967049,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "node",
+          "osm_id": 5903420437,
+          "lat": "50.1359276",
+          "lon": "8.5696832",
+          "category": "office",
+          "type": "company",
+          "place_rank": 30,
+          "importance": 0.5233957985952767,
+          "addresstype": "office",
+          "name": "Deutsche Börse AG",
+          "display_name": "Deutsche Börse AG, 61, Mergenthalerallee, Gewerbegebiet Süd, Eschborn, Main-Taunus-Kreis, Hessen, 65760, Deutschland",
+          "address": {
+            "office": "Deutsche Börse AG",
+            "house_number": "61",
+            "road": "Mergenthalerallee",
+            "commercial": "Gewerbegebiet Süd",
+            "town": "Eschborn",
+            "municipality": "Eschborn",
+            "county": "Main-Taunus-Kreis",
+            "state": "Hessen",
+            "ISO3166-2-lvl4": "DE-HE",
+            "postcode": "65760",
+            "country": "Deutschland",
+            "country_code": "de"
+          },
+          "boundingbox": [
+            "50.1358776",
+            "50.1359776",
+            "8.5696332",
+            "8.5697332"
+          ],
+          "_query_index": 1,
+          "_street_aligned": true
+        }
+      ],
+      "selection": {
+        "query_used": "Mergenthalerallee 61 65760 Eschborn Germany",
+        "query_index": 1,
+        "street_aligned": true,
+        "poi_type": "company",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
         "place_id": 138967049,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
         "osm_type": "node",
@@ -603,97 +645,96 @@
           "50.1359776",
           "8.5696332",
           "8.5697332"
-        ],
-        "_query_index": 1,
-        "_street_aligned": true
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "Mergenthalerallee 61 65760 Eschborn Germany",
-      "query_index": 1,
-      "street_aligned": true,
-      "poi_type": "company",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 138967049,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "node",
-      "osm_id": 5903420437,
-      "lat": "50.1359276",
-      "lon": "8.5696832",
-      "category": "office",
-      "type": "company",
-      "place_rank": 30,
-      "importance": 0.5233957985952767,
-      "addresstype": "office",
-      "name": "Deutsche Börse AG",
-      "display_name": "Deutsche Börse AG, 61, Mergenthalerallee, Gewerbegebiet Süd, Eschborn, Main-Taunus-Kreis, Hessen, 65760, Deutschland",
-      "address": {
-        "office": "Deutsche Börse AG",
-        "house_number": "61",
-        "road": "Mergenthalerallee",
-        "commercial": "Gewerbegebiet Süd",
-        "town": "Eschborn",
-        "municipality": "Eschborn",
-        "county": "Main-Taunus-Kreis",
-        "state": "Hessen",
-        "ISO3166-2-lvl4": "DE-HE",
-        "postcode": "65760",
-        "country": "Deutschland",
-        "country_code": "de"
-      },
-      "boundingbox": [
-        "50.1358776",
-        "50.1359776",
-        "8.5696332",
-        "8.5697332"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "sp500",
-    "target": {
+    {
       "market_id": "sp500",
-      "venue_entity": "New York Stock Exchange",
-      "official_address": "11 Wall Street, New York, NY 10005, United States",
-      "country": "United States",
-      "city": "New York",
-      "city_aliases": [
-        "new york",
-        "new york city",
-        "manhattan"
+      "target": {
+        "market_id": "sp500",
+        "venue_entity": "New York Stock Exchange",
+        "official_address": "11 Wall Street, New York, NY 10005, United States",
+        "country": "United States",
+        "city": "New York",
+        "city_aliases": [
+          "new york",
+          "new york city",
+          "manhattan"
+        ],
+        "street_aliases": [
+          "wall street"
+        ],
+        "queries": [
+          "New York Stock Exchange 11 Wall Street New York NY 10005 United States",
+          "11 Wall Street New York United States"
+        ]
+      },
+      "queries_tried": [
+        "New York Stock Exchange 11 Wall Street New York NY 10005 United States"
       ],
-      "street_aliases": [
-        "wall street"
+      "forward": [
+        {
+          "place_id": 357051585,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 278053530,
+          "lat": "40.7070653",
+          "lon": "-74.0111761",
+          "category": "amenity",
+          "type": "stock_exchange",
+          "place_rank": 30,
+          "importance": 9.175936522464359e-05,
+          "addresstype": "amenity",
+          "name": "New York Stock Exchange",
+          "display_name": "New York Stock Exchange, 11, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10271, United States",
+          "address": {
+            "amenity": "New York Stock Exchange",
+            "house_number": "11",
+            "road": "Wall Street",
+            "neighbourhood": "Financial District",
+            "quarter": "Lower Manhattan",
+            "suburb": "Manhattan",
+            "county": "New York County",
+            "city": "New York",
+            "state": "New York",
+            "ISO3166-2-lvl4": "US-NY",
+            "postcode": "10271",
+            "country": "United States",
+            "country_code": "us"
+          },
+          "boundingbox": [
+            "40.7066568",
+            "40.7073927",
+            "-74.0115875",
+            "-74.0108331"
+          ],
+          "_query_index": 0,
+          "_street_aligned": true
+        }
       ],
-      "queries": [
-        "New York Stock Exchange 11 Wall Street New York NY 10005 United States",
-        "11 Wall Street New York United States"
-      ]
-    },
-    "queries_tried": [
-      "New York Stock Exchange 11 Wall Street New York NY 10005 United States"
-    ],
-    "forward": [
-      {
-        "place_id": 357051585,
+      "selection": {
+        "query_used": "New York Stock Exchange 11 Wall Street New York NY 10005 United States",
+        "query_index": 0,
+        "street_aligned": true,
+        "poi_type": "stock_exchange",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 356980919,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "osm_type": "way",
-        "osm_id": 278053530,
-        "lat": "40.7070653",
-        "lon": "-74.0111761",
-        "category": "amenity",
-        "type": "stock_exchange",
+        "osm_type": "node",
+        "osm_id": 2824828203,
+        "lat": "40.7071407",
+        "lon": "-74.0108650",
+        "category": "place",
+        "type": "house",
         "place_rank": 30,
         "importance": 9.175936522464359e-05,
-        "addresstype": "amenity",
-        "name": "New York Stock Exchange",
-        "display_name": "New York Stock Exchange, 11, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10271, United States",
+        "addresstype": "place",
+        "name": "",
+        "display_name": "11, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10005, United States",
         "address": {
-          "amenity": "New York Stock Exchange",
           "house_number": "11",
           "road": "Wall Street",
           "neighbourhood": "Financial District",
@@ -703,117 +744,112 @@
           "city": "New York",
           "state": "New York",
           "ISO3166-2-lvl4": "US-NY",
-          "postcode": "10271",
+          "postcode": "10005",
           "country": "United States",
           "country_code": "us"
         },
         "boundingbox": [
-          "40.7066568",
-          "40.7073927",
-          "-74.0115875",
-          "-74.0108331"
-        ],
-        "_query_index": 0,
-        "_street_aligned": true
+          "40.7070907",
+          "40.7071907",
+          "-74.0109150",
+          "-74.0108150"
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "New York Stock Exchange 11 Wall Street New York NY 10005 United States",
-      "query_index": 0,
-      "street_aligned": true,
-      "poi_type": "stock_exchange",
-      "rationale": "street-aligned named POI"
     },
-    "warning": null,
-    "_reverse": {
-      "place_id": 356980919,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "node",
-      "osm_id": 2824828203,
-      "lat": "40.7071407",
-      "lon": "-74.0108650",
-      "category": "place",
-      "type": "house",
-      "place_rank": 30,
-      "importance": 9.175936522464359e-05,
-      "addresstype": "place",
-      "name": "",
-      "display_name": "11, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10005, United States",
-      "address": {
-        "house_number": "11",
-        "road": "Wall Street",
-        "neighbourhood": "Financial District",
-        "quarter": "Lower Manhattan",
-        "suburb": "Manhattan",
-        "county": "New York County",
-        "city": "New York",
-        "state": "New York",
-        "ISO3166-2-lvl4": "US-NY",
-        "postcode": "10005",
-        "country": "United States",
-        "country_code": "us"
-      },
-      "boundingbox": [
-        "40.7070907",
-        "40.7071907",
-        "-74.0109150",
-        "-74.0108150"
-      ]
-    },
-    "_from_cache": true
-  },
-  {
-    "market_id": "bse50",
-    "target": {
+    {
       "market_id": "bse50",
-      "venue_entity": "Beijing Stock Exchange",
-      "official_address": "Jinyang Building, No.26-D Financial Street, Xicheng District, Beijing 100033, China",
-      "official_address_zh": "北京市西城区金融大街丁26号金阳大厦",
-      "country": "China",
-      "city": "Beijing",
-      "city_aliases": [
-        "beijing",
-        "北京市",
-        "北京",
-        "xicheng",
-        "西城"
-      ],
-      "street_aliases": [
-        "金融大街",
-        "financial street",
-        "金阳大厦",
-        "jinyang",
-        "学院胡同"
-      ],
-      "queries": [
+      "target": {
+        "market_id": "bse50",
+        "venue_entity": "Beijing Stock Exchange",
+        "official_address": "Jinyang Building, No.26-D Financial Street, Xicheng District, Beijing 100033, China",
+        "official_address_zh": "北京市西城区金融大街丁26号金阳大厦",
+        "country": "China",
+        "city": "Beijing",
+        "city_aliases": [
+          "beijing",
+          "北京市",
+          "北京",
+          "xicheng",
+          "西城"
+        ],
+        "street_aliases": [
+          "金融大街",
+          "financial street",
+          "金阳大厦",
+          "jinyang",
+          "学院胡同"
+        ],
+        "queries": [
+          "北京证券交易所 金融大街丁26号 金阳大厦 北京",
+          "金阳大厦 北京",
+          "金融大街26号 北京",
+          "北京证券交易所 北京"
+        ]
+      },
+      "queries_tried": [
         "北京证券交易所 金融大街丁26号 金阳大厦 北京",
-        "金阳大厦 北京",
-        "金融大街26号 北京",
-        "北京证券交易所 北京"
-      ]
-    },
-    "queries_tried": [
-      "北京证券交易所 金融大街丁26号 金阳大厦 北京",
-      "金阳大厦 北京"
-    ],
-    "forward": [
-      {
-        "place_id": 221027099,
+        "金阳大厦 北京"
+      ],
+      "forward": [
+        {
+          "place_id": 221027099,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 521048313,
+          "lat": "39.9116568",
+          "lon": "116.3542641",
+          "category": "building",
+          "type": "yes",
+          "place_rank": 30,
+          "importance": 8.344167238875436e-05,
+          "addresstype": "building",
+          "name": "金阳大厦",
+          "display_name": "金阳大厦, 学院胡同, 北京金融街, 金融街街道, 首都功能核心区, 西城区, 北京市, 100032, 中国",
+          "address": {
+            "building": "金阳大厦",
+            "road": "学院胡同",
+            "commercial": "北京金融街",
+            "suburb": "金融街街道",
+            "city": "西城区",
+            "ISO3166-2-lvl4": "CN-BJ",
+            "postcode": "100032",
+            "country": "中国",
+            "country_code": "cn"
+          },
+          "boundingbox": [
+            "39.9108740",
+            "39.9121886",
+            "116.3539508",
+            "116.3545865"
+          ],
+          "_query_index": 1,
+          "_street_aligned": true
+        }
+      ],
+      "selection": {
+        "query_used": "金阳大厦 北京",
+        "query_index": 1,
+        "street_aligned": true,
+        "poi_type": "yes",
+        "rationale": "street-aligned named POI"
+      },
+      "warning": null,
+      "_reverse": {
+        "place_id": 219919354,
         "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
         "osm_type": "way",
-        "osm_id": 521048313,
-        "lat": "39.9116568",
-        "lon": "116.3542641",
-        "category": "building",
-        "type": "yes",
-        "place_rank": 30,
-        "importance": 8.344167238875436e-05,
-        "addresstype": "building",
-        "name": "金阳大厦",
-        "display_name": "金阳大厦, 学院胡同, 北京金融街, 金融街街道, 首都功能核心区, 西城区, 北京市, 100032, 中国",
+        "osm_id": 42488873,
+        "lat": "39.9116578",
+        "lon": "116.3548203",
+        "category": "highway",
+        "type": "secondary",
+        "place_rank": 26,
+        "importance": 0.053416775005722096,
+        "addresstype": "road",
+        "name": "广成街",
+        "display_name": "广成街, 北京金融街, 金融街街道, 首都功能核心区, 西城区, 北京市, 100032, 中国",
         "address": {
-          "building": "金阳大厦",
-          "road": "学院胡同",
+          "road": "广成街",
           "commercial": "北京金融街",
           "suburb": "金融街街道",
           "city": "西城区",
@@ -823,53 +859,123 @@
           "country_code": "cn"
         },
         "boundingbox": [
-          "39.9108740",
-          "39.9121886",
-          "116.3539508",
-          "116.3545865"
-        ],
-        "_query_index": 1,
-        "_street_aligned": true
+          "39.9087581",
+          "39.9126122",
+          "116.3547437",
+          "116.3548220"
+        ]
       }
-    ],
-    "selection": {
-      "query_used": "金阳大厦 北京",
-      "query_index": 1,
-      "street_aligned": true,
-      "poi_type": "yes",
-      "rationale": "street-aligned named POI"
-    },
-    "warning": null,
-    "_reverse": {
-      "place_id": 219919354,
-      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-      "osm_type": "way",
-      "osm_id": 42488873,
-      "lat": "39.9116578",
-      "lon": "116.3548203",
-      "category": "highway",
-      "type": "secondary",
-      "place_rank": 26,
-      "importance": 0.053416775005722096,
-      "addresstype": "road",
-      "name": "广成街",
-      "display_name": "广成街, 北京金融街, 金融街街道, 首都功能核心区, 西城区, 北京市, 100032, 中国",
-      "address": {
-        "road": "广成街",
-        "commercial": "北京金融街",
-        "suburb": "金融街街道",
-        "city": "西城区",
-        "ISO3166-2-lvl4": "CN-BJ",
-        "postcode": "100032",
-        "country": "中国",
-        "country_code": "cn"
-      },
-      "boundingbox": [
-        "39.9087581",
-        "39.9126122",
-        "116.3547437",
-        "116.3548220"
-      ]
     }
-  }
-]
+  ],
+  "historical_premises": [
+    {
+      "market_id": "sse_composite",
+      "premises_label": "old_sse_premises",
+      "target": {
+        "market_id": "sse_composite",
+        "premises_label": "old_sse_premises",
+        "venue_entity": "Shanghai Stock Exchange (former premises)",
+        "official_address": "528 Pudong South Road, Pudong New Area, Shanghai, China",
+        "official_address_zh": "上海市浦东新区浦东南路528号",
+        "country": "China",
+        "city": "Shanghai",
+        "city_aliases": [
+          "shanghai",
+          "上海市",
+          "上海"
+        ],
+        "street_aliases": [
+          "浦东南路",
+          "pudong south"
+        ],
+        "house_number": "528",
+        "queries": [
+          "528 Pudong South Road Shanghai",
+          "浦东南路528号 上海",
+          "528 Pudong South Road Shanghai China"
+        ]
+      },
+      "queries_tried": [
+        "528 Pudong South Road Shanghai"
+      ],
+      "forward": [
+        {
+          "place_id": 224004605,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "node",
+          "osm_id": 5465586259,
+          "lat": "31.2383263",
+          "lon": "121.5067600",
+          "category": "office",
+          "type": "company",
+          "place_rank": 30,
+          "importance": 7.91126878766616e-05,
+          "addresstype": "office",
+          "name": "Ingenics Consulting Co., Ltd. Office Shanghai",
+          "display_name": "Ingenics Consulting Co., Ltd. Office Shanghai, 528, 浦东南路, 陆家渡, 陆家嘴街道, 浦东新区, 上海市, 200010, 中国",
+          "address": {
+            "office": "Ingenics Consulting Co., Ltd. Office Shanghai",
+            "house_number": "528",
+            "road": "浦东南路",
+            "quarter": "陆家渡",
+            "suburb": "陆家嘴街道",
+            "city": "浦东新区",
+            "state": "上海市",
+            "ISO3166-2-lvl4": "CN-SH",
+            "postcode": "200010",
+            "country": "中国",
+            "country_code": "cn"
+          },
+          "boundingbox": [
+            "31.2382763",
+            "31.2383763",
+            "121.5067100",
+            "121.5068100"
+          ]
+        }
+      ],
+      "selection": {
+        "query_used": "528 Pudong South Road Shanghai",
+        "query_index": 0,
+        "street_aligned": true,
+        "house_number_match": true,
+        "poi_type": "company",
+        "rationale": "historical premises sensitivity (not a primary anchor)"
+      },
+      "_reverse": {
+        "place_id": 224516520,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "node",
+        "osm_id": 5465586259,
+        "lat": "31.2383263",
+        "lon": "121.5067600",
+        "category": "office",
+        "type": "company",
+        "place_rank": 30,
+        "importance": 7.91126878766616e-05,
+        "addresstype": "office",
+        "name": "Ingenics Consulting Co., Ltd. Office Shanghai",
+        "display_name": "Ingenics Consulting Co., Ltd. Office Shanghai, 528, 浦东南路, 陆家渡, 陆家嘴街道, 浦东新区, 上海市, 200010, 中国",
+        "address": {
+          "office": "Ingenics Consulting Co., Ltd. Office Shanghai",
+          "house_number": "528",
+          "road": "浦东南路",
+          "quarter": "陆家渡",
+          "suburb": "陆家嘴街道",
+          "city": "浦东新区",
+          "state": "上海市",
+          "ISO3166-2-lvl4": "CN-SH",
+          "postcode": "200010",
+          "country": "中国",
+          "country_code": "cn"
+        },
+        "boundingbox": [
+          "31.2382763",
+          "31.2383763",
+          "121.5067100",
+          "121.5068100"
+        ]
+      }
+    }
+  ]
+}

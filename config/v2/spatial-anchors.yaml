@@ -1,7 +1,7 @@
 {
   "anchors": [
     {
-      "anchor_hash": "ea5e6525fac23f01d3d66e6060d17087a31dae37309c21eff6a1a52dbc9cd8b8",
+      "anchor_hash": "5b08ce72b5c0a56b6eb2ff06adabf8260e1a84279dd7c132d1d55f2ad94f1c07",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -74,6 +74,83 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": {
+        "change_detected": true,
+        "delta_lat": -0.016161,
+        "delta_lon": 0.024018,
+        "distance_to_primary_km": 2.906,
+        "evidence_ids": [
+          "https://www.sse.com.cn/lawandrules/publicadvice/c/c_20200731_5166326.shtml (dated 2020-07-31 document still using 528 Pudong South Road)",
+          "https://www.sse.com.cn/aboutus/sseintroduction/billing/ (2020-08-31 page using 388 Yanggao South Road)"
+        ],
+        "l1_weight_difference": 0.2965,
+        "max_individual_weight_difference": 0.1483,
+        "new_bilinear_weights": {
+          "NE": 0.10940414672542466,
+          "NW": 0.7792570532745767,
+          "SE": 0.013707053274557887,
+          "SW": 0.09763174672544074
+        },
+        "new_stencil": {
+          "NE": {
+            "latitude": 31.25,
+            "longitude": 121.75
+          },
+          "NW": {
+            "latitude": 31.25,
+            "longitude": 121.5
+          },
+          "SE": {
+            "latitude": 31.0,
+            "longitude": 121.75
+          },
+          "SW": {
+            "latitude": 31.0,
+            "longitude": 121.5
+          }
+        },
+        "old_bilinear_weights": {
+          "NE": 0.025777372607999602,
+          "NW": 0.927527827392003,
+          "SE": 0.001262627391999906,
+          "SW": 0.045432172607997465
+        },
+        "old_coordinate": {
+          "crs": "WGS84",
+          "latitude": 31.2383263,
+          "longitude": 121.50676
+        },
+        "old_geocoder_display_name": "Ingenics Consulting Co., Ltd. Office Shanghai, 528, 浦东南路, 陆家渡, 陆家嘴街道, 浦东新区, 上海市, 200010, 中国",
+        "old_official_address": "上海市浦东新区浦东南路528号 (528 Pudong South Road, Pudong New Area, Shanghai)",
+        "old_stencil": {
+          "NE": {
+            "latitude": 31.25,
+            "longitude": 121.75
+          },
+          "NW": {
+            "latitude": 31.25,
+            "longitude": 121.5
+          },
+          "SE": {
+            "latitude": 31.0,
+            "longitude": 121.75
+          },
+          "SW": {
+            "latitude": 31.0,
+            "longitude": 121.5
+          }
+        },
+        "same_nearest_grid": true,
+        "same_surrounding_cell": {
+          "NE": true,
+          "NW": true,
+          "SE": true,
+          "SW": true
+        },
+        "transition_after": "2020-07-31",
+        "transition_date_status": "bounded_not_exact",
+        "transition_on_or_before": "2020-08-31"
+      },
       "legacy_sensitivity": {
         "distance_km": 5.504,
         "municipal_coordinate": {
@@ -89,22 +166,29 @@
         }
       },
       "market_id": "sse_composite",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
         "country": "China",
         "entity_name": "Shanghai Stock Exchange",
         "evidence_ids": [
-          "https://www.sse.com.cn/aboutus/contactus (official contact; 388 Yanggao South Road, Pudong; postal 200127)"
+          "https://www.sse.com.cn/aboutus/contactus (official contact; 388 Yanggao South Road, Pudong; postal 200127)",
+          "https://www.sse.com.cn/lawandrules/publicadvice/c/c_20200731_5166326.shtml (dated 2020-07-31 document still using 528 Pudong South Road)",
+          "https://www.sse.com.cn/aboutus/sseintroduction/billing/ (2020-08-31 page using 388 Yanggao South Road)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": true,
         "official_address": "388 Yanggao South Road, Pudong New Area, Shanghai, China",
         "official_address_normalized": "388 Yanggao South Road, Pudong New Area, Shanghai, China",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "上海金融交易广场"
       }
     },
     {
-      "anchor_hash": "09536d11b4b3aff43244ed25eabe3df5a11d7e076d5813d79b27b442103f15d7",
+      "anchor_hash": "d3cfd4993d3977b7f3d4fd50a1240b2c3bee8d4a4468f276339df42be300086e",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -177,6 +261,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 0.942,
         "municipal_coordinate": {
@@ -192,6 +277,10 @@
         }
       },
       "market_id": "szse_component",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -200,14 +289,15 @@
         "evidence_ids": [
           "https://www.szse.cn/English/about/contactus (official contact; 2012 Shennan Blvd, Futian; postal 518038)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "2012 Shennan Boulevard, Futian District, Shenzhen, Guangdong, China",
         "official_address_normalized": "2012 Shennan Boulevard, Futian District, Shenzhen, Guangdong, China",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "深圳证券交易所"
       }
     },
     {
-      "anchor_hash": "a56b1c6ea420f477880a4d60cd7f0fa462699c912e41275695b41c3e815d1b9f",
+      "anchor_hash": "2127b10e194538b43eebff3feee8d75952e1a638ceba1be12908473c4b434b95",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -280,6 +370,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 11.628,
         "municipal_coordinate": {
@@ -295,6 +386,10 @@
         }
       },
       "market_id": "topix",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -303,14 +398,15 @@
         "evidence_ids": [
           "https://www.jpx.co.jp/markets/statistics-equities/daily/ (TSE daily report masthead; 2-1 Nihombashi Kabutocho, Chuo-ku 103-8220)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "2-1 Nihombashi Kabutocho, Chuo-ku, Tokyo 103-8220, Japan",
         "official_address_normalized": "2-1 Nihombashi Kabutocho, Chuo-ku, Tokyo 103-8220, Japan",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "東京証券取引所"
       }
     },
     {
-      "anchor_hash": "ff560406d7cea1c379011ba7583f939d2fb27d89ec00d47342e4874218e36c9b",
+      "anchor_hash": "cf6dda611198edbe17b821ac79efa74c15c74909600a4fe617099a93fdc292a8",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -383,6 +479,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 2.57,
         "municipal_coordinate": {
@@ -398,6 +495,10 @@
         }
       },
       "market_id": "nifty50",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -406,14 +507,15 @@
         "evidence_ids": [
           "https://www.nseindia.com/contact-us (official corporate office; Exchange Plaza, C-1, Block G, BKC, Bandra (E), Mumbai 400051)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "Exchange Plaza, C-1, Block G, Bandra Kurla Complex, Bandra (East), Mumbai 400051, India",
         "official_address_normalized": "Exchange Plaza, C-1, Block G, Bandra Kurla Complex, Bandra (East), Mumbai 400051, India",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "National Stock Exchange"
       }
     },
     {
-      "anchor_hash": "f32199f73e4d7e5a26453a431c954b16bd875d8cda04b80172891d5afe5b7d12",
+      "anchor_hash": "8e55354f83f1781b5b1b87b0a49be749ab705e133d3b64f7a108644fb1615e10",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -486,6 +588,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 2.162,
         "municipal_coordinate": {
@@ -501,6 +604,10 @@
         }
       },
       "market_id": "ftse100",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -509,14 +616,15 @@
         "evidence_ids": [
           "https://www.londonstockexchange.com/contact (official head office; 10 Paternoster Square, London EC4M 7LS)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "10 Paternoster Square, London EC4M 7LS, United Kingdom",
         "official_address_normalized": "10 Paternoster Square, London EC4M 7LS, United Kingdom",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "London Stock Exchange"
       }
     },
     {
-      "anchor_hash": "5b6bbeed91a8317c03fd4b571f66678811c2be445e13a1f6b64b87f0a5c0f05a",
+      "anchor_hash": "d19b7842e345daaf843811ff3e53e320edc40919eb5c13b050a9b004e52fe0f0",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -589,6 +697,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 8.484,
         "municipal_coordinate": {
@@ -604,6 +713,10 @@
         }
       },
       "market_id": "dax",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -612,14 +725,15 @@
         "evidence_ids": [
           "https://www.deutsche-boerse.com (Deutsche Börse AG privacy/legal notices; Mergenthalerallee 61, 65760 Eschborn)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "Mergenthalerallee 61, 65760 Eschborn, Germany",
         "official_address_normalized": "Mergenthalerallee 61, 65760 Eschborn, Germany",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "Deutsche Börse AG"
       }
     },
     {
-      "anchor_hash": "50b00f51fd51b025d15b2ea1827bb26fc6112e45bfd7e363ed6bdf43d3e6bdcb",
+      "anchor_hash": "1ec0a4db24d69b1f6e2e8dfe6098adba1a8e5ffa16f9e7c353926d4455cb970e",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -692,6 +806,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 0.773,
         "municipal_coordinate": {
@@ -707,6 +822,10 @@
         }
       },
       "market_id": "sp500",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -715,14 +834,15 @@
         "evidence_ids": [
           "https://www.nyse.com (NYSE official premises; 11 Wall Street, New York, NY 10005)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "11 Wall Street, New York, NY 10005, United States",
         "official_address_normalized": "11 Wall Street, New York, NY 10005, United States",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "New York Stock Exchange"
       }
     },
     {
-      "anchor_hash": "e5af34456f7e10b6f2a0520dd0299cd15ad67c8510fb7d0eb6a5763500c7da4f",
+      "anchor_hash": "7c0addfbef08a123ba54d428f6cb77978c5154f26b555bb198dad78d3ed0dd38",
       "coordinate": {
         "crs": "WGS84",
         "derivation_method": "nominatim_forward_geocode",
@@ -795,6 +915,7 @@
         },
         "resolution_degrees": 0.25
       },
+      "historical_premises": null,
       "legacy_sensitivity": {
         "distance_km": 4.607,
         "municipal_coordinate": {
@@ -810,6 +931,10 @@
         }
       },
       "market_id": "bse50",
+      "primary_anchor_policy": {
+        "historical_premises_tracking": false,
+        "type": "fixed_target_regime"
+      },
       "qualification_status": "qualified",
       "venue": {
         "anchor_role": "market_local_atmospheric_proxy",
@@ -818,16 +943,23 @@
         "evidence_ids": [
           "https://www.bse.cn/application/Contact_info.html + https://www.bse.cn/about_neeq/grxxbhgzs.html (official; 金融大街丁26号金阳大厦, Beijing 100033)"
         ],
+        "fixed_primary_anchor_changed": false,
+        "historical_premises_change_detected": false,
         "official_address": "Jinyang Building, No.26-D Financial Street, Xicheng District, Beijing 100033, China",
         "official_address_normalized": "Jinyang Building, No.26-D Financial Street, Xicheng District, Beijing 100033, China",
-        "target_horizon_anchor_change_detected": false,
         "venue_name": "金阳大厦"
       }
     }
   ],
-  "global_spatial_anchor_registry_hash": "82f8eb10b700702a43d84f94a4d3a5b7b80c9e7a3aec1139a995a61a6646271c",
+  "global_spatial_anchor_registry_hash": "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38",
+  "historical_premises_tracking": false,
+  "primary_anchor_policy": {
+    "historical_premises_tracking": false,
+    "type": "fixed_target_regime"
+  },
   "registry_id": "spatial-anchors",
   "schema_version": "2.0.0",
   "scientific_interpretation": "the official physical premises associated with the study's primary cash-equity market / market operator, used solely as a fixed market-local atmospheric proxy (weather_anchor_role = market_local_atmospheric_proxy)",
+  "scientific_rationale": "The fixed spatial anchor preserves one time-invariant spatial measurement definition. Historical office moves do not automatically redefine the primary atmospheric proxy, avoiding a mechanical spatial measurement break. The anchor does NOT represent exact physical exposure of every trader, historical matching-engine location, or all investor locations.",
   "spatial_contract_version": "5C-G-1"
 }
