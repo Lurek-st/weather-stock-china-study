@@ -1,0 +1,666 @@
+{
+  "audit_type": "era5_backfill_plan",
+  "baseline": {
+    "common_calendar": "365_day_fixed",
+    "end": "2020-12-31",
+    "feb29": "excluded_from_climatology_observation_pool",
+    "start": "1991-01-01"
+  },
+  "batching": {
+    "monthly": {
+      "aggregate_max_fields_per_request": 155,
+      "markets": [
+        {
+          "cds_field_count": 45302,
+          "extras_count": 1502,
+          "grid_cell_values": 181208,
+          "market_id": "sse_composite",
+          "max_fields_per_request": 155,
+          "median_amplification": 1.032258,
+          "median_fields_per_request": 128,
+          "p95_fields_per_request": 128,
+          "request_count": 360,
+          "support_count": 43800,
+          "transport_count": 45302
+        },
+        {
+          "cds_field_count": 45302,
+          "extras_count": 1502,
+          "grid_cell_values": 181208,
+          "market_id": "szse_component",
+          "max_fields_per_request": 155,
+          "median_amplification": 1.032258,
+          "median_fields_per_request": 128,
+          "p95_fields_per_request": 128,
+          "request_count": 360,
+          "support_count": 43800,
+          "transport_count": 45302
+        },
+        {
+          "cds_field_count": 33930,
+          "extras_count": 1080,
+          "grid_cell_values": 135720,
+          "market_id": "topix",
+          "max_fields_per_request": 96,
+          "median_amplification": 1.032258,
+          "median_fields_per_request": 96,
+          "p95_fields_per_request": 96,
+          "request_count": 360,
+          "support_count": 32850,
+          "transport_count": 33930
+        },
+        {
+          "cds_field_count": 43800,
+          "extras_count": 0,
+          "grid_cell_values": 175200,
+          "market_id": "nifty50",
+          "max_fields_per_request": 124,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 124,
+          "p95_fields_per_request": 124,
+          "request_count": 360,
+          "support_count": 43800,
+          "transport_count": 43800
+        },
+        {
+          "cds_field_count": 34710,
+          "extras_count": 1860,
+          "grid_cell_values": 138840,
+          "market_id": "ftse100",
+          "max_fields_per_request": 124,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 93,
+          "p95_fields_per_request": 124,
+          "request_count": 360,
+          "support_count": 32850,
+          "transport_count": 34710
+        },
+        {
+          "cds_field_count": 34705,
+          "extras_count": 1855,
+          "grid_cell_values": 138820,
+          "market_id": "dax",
+          "max_fields_per_request": 124,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 93,
+          "p95_fields_per_request": 124,
+          "request_count": 360,
+          "support_count": 32850,
+          "transport_count": 34705
+        },
+        {
+          "cds_field_count": 45510,
+          "extras_count": 1710,
+          "grid_cell_values": 182040,
+          "market_id": "sp500",
+          "max_fields_per_request": 155,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 124,
+          "p95_fields_per_request": 155,
+          "request_count": 360,
+          "support_count": 43800,
+          "transport_count": 45510
+        },
+        {
+          "cds_field_count": 45302,
+          "extras_count": 1502,
+          "grid_cell_values": 181208,
+          "market_id": "bse50",
+          "max_fields_per_request": 155,
+          "median_amplification": 1.032258,
+          "median_fields_per_request": 128,
+          "p95_fields_per_request": 128,
+          "request_count": 360,
+          "support_count": 43800,
+          "transport_count": 45302
+        }
+      ],
+      "strategy": "monthly",
+      "totals": {
+        "cds_field_count": 328561,
+        "extras_count": 11011,
+        "grid_cell_values": 1314244,
+        "request_count": 2880,
+        "support_count": 317550,
+        "transport_count": 328561
+      }
+    },
+    "quarterly": {
+      "aggregate_max_fields_per_request": 465,
+      "markets": [
+        {
+          "cds_field_count": 44497,
+          "extras_count": 697,
+          "grid_cell_values": 177988,
+          "market_id": "sse_composite",
+          "max_fields_per_request": 465,
+          "median_amplification": 1.010989,
+          "median_fields_per_request": 372,
+          "p95_fields_per_request": 372,
+          "request_count": 120,
+          "support_count": 43800,
+          "transport_count": 44497
+        },
+        {
+          "cds_field_count": 44497,
+          "extras_count": 697,
+          "grid_cell_values": 177988,
+          "market_id": "szse_component",
+          "max_fields_per_request": 465,
+          "median_amplification": 1.010989,
+          "median_fields_per_request": 372,
+          "p95_fields_per_request": 372,
+          "request_count": 120,
+          "support_count": 43800,
+          "transport_count": 44497
+        },
+        {
+          "cds_field_count": 33234,
+          "extras_count": 384,
+          "grid_cell_values": 132936,
+          "market_id": "topix",
+          "max_fields_per_request": 279,
+          "median_amplification": 1.010989,
+          "median_fields_per_request": 279,
+          "p95_fields_per_request": 279,
+          "request_count": 120,
+          "support_count": 32850,
+          "transport_count": 33234
+        },
+        {
+          "cds_field_count": 43800,
+          "extras_count": 0,
+          "grid_cell_values": 175200,
+          "market_id": "nifty50",
+          "max_fields_per_request": 368,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 368,
+          "p95_fields_per_request": 368,
+          "request_count": 120,
+          "support_count": 43800,
+          "transport_count": 43800
+        },
+        {
+          "cds_field_count": 38310,
+          "extras_count": 5460,
+          "grid_cell_values": 153240,
+          "market_id": "ftse100",
+          "max_fields_per_request": 368,
+          "median_amplification": 1.333333,
+          "median_fields_per_request": 360,
+          "p95_fields_per_request": 368,
+          "request_count": 120,
+          "support_count": 32850,
+          "transport_count": 38310
+        },
+        {
+          "cds_field_count": 38310,
+          "extras_count": 5460,
+          "grid_cell_values": 153240,
+          "market_id": "dax",
+          "max_fields_per_request": 368,
+          "median_amplification": 1.333333,
+          "median_fields_per_request": 360,
+          "p95_fields_per_request": 368,
+          "request_count": 120,
+          "support_count": 32850,
+          "transport_count": 38310
+        },
+        {
+          "cds_field_count": 49185,
+          "extras_count": 5385,
+          "grid_cell_values": 196740,
+          "market_id": "sp500",
+          "max_fields_per_request": 460,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 368,
+          "p95_fields_per_request": 460,
+          "request_count": 120,
+          "support_count": 43800,
+          "transport_count": 49185
+        },
+        {
+          "cds_field_count": 44497,
+          "extras_count": 697,
+          "grid_cell_values": 177988,
+          "market_id": "bse50",
+          "max_fields_per_request": 465,
+          "median_amplification": 1.010989,
+          "median_fields_per_request": 372,
+          "p95_fields_per_request": 372,
+          "request_count": 120,
+          "support_count": 43800,
+          "transport_count": 44497
+        }
+      ],
+      "strategy": "quarterly",
+      "totals": {
+        "cds_field_count": 336330,
+        "extras_count": 18780,
+        "grid_cell_values": 1345320,
+        "request_count": 960,
+        "support_count": 317550,
+        "transport_count": 336330
+      }
+    },
+    "yearly": {
+      "aggregate_max_fields_per_request": 1830,
+      "markets": [
+        {
+          "cds_field_count": 44318,
+          "extras_count": 518,
+          "grid_cell_values": 177272,
+          "market_id": "sse_composite",
+          "max_fields_per_request": 1830,
+          "median_amplification": 1.00274,
+          "median_fields_per_request": 1464,
+          "p95_fields_per_request": 1468,
+          "request_count": 30,
+          "support_count": 43800,
+          "transport_count": 44318
+        },
+        {
+          "cds_field_count": 44318,
+          "extras_count": 518,
+          "grid_cell_values": 177272,
+          "market_id": "szse_component",
+          "max_fields_per_request": 1830,
+          "median_amplification": 1.00274,
+          "median_fields_per_request": 1464,
+          "p95_fields_per_request": 1468,
+          "request_count": 30,
+          "support_count": 43800,
+          "transport_count": 44318
+        },
+        {
+          "cds_field_count": 32964,
+          "extras_count": 114,
+          "grid_cell_values": 131856,
+          "market_id": "topix",
+          "max_fields_per_request": 1101,
+          "median_amplification": 1.00274,
+          "median_fields_per_request": 1098,
+          "p95_fields_per_request": 1101,
+          "request_count": 30,
+          "support_count": 32850,
+          "transport_count": 32964
+        },
+        {
+          "cds_field_count": 43800,
+          "extras_count": 0,
+          "grid_cell_values": 175200,
+          "market_id": "nifty50",
+          "max_fields_per_request": 1460,
+          "median_amplification": 1.0,
+          "median_fields_per_request": 1460,
+          "p95_fields_per_request": 1460,
+          "request_count": 30,
+          "support_count": 43800,
+          "transport_count": 43800
+        },
+        {
+          "cds_field_count": 43800,
+          "extras_count": 10950,
+          "grid_cell_values": 175200,
+          "market_id": "ftse100",
+          "max_fields_per_request": 1460,
+          "median_amplification": 1.333333,
+          "median_fields_per_request": 1460,
+          "p95_fields_per_request": 1460,
+          "request_count": 30,
+          "support_count": 32850,
+          "transport_count": 43800
+        },
+        {
+          "cds_field_count": 43800,
+          "extras_count": 10950,
+          "grid_cell_values": 175200,
+          "market_id": "dax",
+          "max_fields_per_request": 1460,
+          "median_amplification": 1.333333,
+          "median_fields_per_request": 1460,
+          "p95_fields_per_request": 1460,
+          "request_count": 30,
+          "support_count": 32850,
+          "transport_count": 43800
+        },
+        {
+          "cds_field_count": 54750,
+          "extras_count": 10950,
+          "grid_cell_values": 219000,
+          "market_id": "sp500",
+          "max_fields_per_request": 1825,
+          "median_amplification": 1.25,
+          "median_fields_per_request": 1825,
+          "p95_fields_per_request": 1825,
+          "request_count": 30,
+          "support_count": 43800,
+          "transport_count": 54750
+        },
+        {
+          "cds_field_count": 44318,
+          "extras_count": 518,
+          "grid_cell_values": 177272,
+          "market_id": "bse50",
+          "max_fields_per_request": 1830,
+          "median_amplification": 1.00274,
+          "median_fields_per_request": 1464,
+          "p95_fields_per_request": 1468,
+          "request_count": 30,
+          "support_count": 43800,
+          "transport_count": 44318
+        }
+      ],
+      "strategy": "yearly",
+      "totals": {
+        "cds_field_count": 352068,
+        "extras_count": 34518,
+        "grid_cell_values": 1408272,
+        "request_count": 240,
+        "support_count": 317550,
+        "transport_count": 352068
+      }
+    }
+  },
+  "batching_comparison": {
+    "monthly": {
+      "amplification": 1.0347,
+      "max_fields_per_request": 155,
+      "requests": 2880,
+      "transport_count": 328561
+    },
+    "quarterly": {
+      "amplification": 1.0591,
+      "max_fields_per_request": 465,
+      "requests": 960,
+      "transport_count": 336330
+    },
+    "yearly": {
+      "amplification": 1.1087,
+      "max_fields_per_request": 1830,
+      "requests": 240,
+      "transport_count": 352068
+    }
+  },
+  "canonical_storage": {
+    "audits_manifests_mb": 0.565,
+    "baseline_anomaly_table_mb": 36.692,
+    "climatology_table_mb": 1.223,
+    "daily_exposure_table_mb": 36.692
+  },
+  "cds_limit_snapshot": {
+    "dataset": "reanalysis-era5-single-levels",
+    "documented_field_limit": 120000,
+    "field_semantics": "1 item/field = 1 variable on a (2D) field at 1 level at 1 timestep; grid cells are within the requested area and do not multiply the field count",
+    "mutable_operational_limit": true,
+    "recheck_required_before_live": true,
+    "retrieval_guidance": "small requests preferred; monthly example is the documented approach for whole-year ERA5 downloads",
+    "retrieved_at": "2026-08-14",
+    "sources": [
+      "https://confluence.ecmwf.int/display/CKB/Climate+Data+Store+%28CDS%29+documentation (last reviewed 10/2024)",
+      "https://forum.ecmwf.int/t/cdsapi-limitations-and-restrictions/1639 (ECMWF Staff, 2019: ERA5 hourly limited to 120,000 fields)"
+    ],
+    "volume_size_limit_gb": 175
+  },
+  "code_hashes": {
+    "backfill_planner.py": "bc206261d9a1a5d91c03d32a3f213a08fc758f34fff3f898ff7e1f7f830e30a9",
+    "build_era5_backfill_plan.py": "eefd46feb036ff77d0052dd9f84b55eab65aba2f8df114eb408f7c16079a1f2f"
+  },
+  "daily_exposure_counts": {
+    "per_market": 10950,
+    "total": 87600
+  },
+  "disk_free_snapshot": {
+    "C:": {
+      "free_gb": 174.1,
+      "total_gb": 400.0,
+      "used_gb": 225.9
+    },
+    "D:": {
+      "free_gb": 425.6,
+      "total_gb": 551.6,
+      "used_gb": 126.0
+    }
+  },
+  "disk_ratio": 0.000848,
+  "empirical_storage_samples": {
+    "fitted_model": {
+      "fixed_overhead_bytes": 24978.5,
+      "marginal_bytes_per_timestamp": 23.54
+    },
+    "note": "NetCDF is internally deflated (ZIP ~== NetCDF); fixed file overhead dominates small files; linear per-timestamp extrapolation overestimates large files",
+    "samples": [
+      {
+        "bytes_per_grid_cell_value_zip": 71.57,
+        "bytes_per_transport_timestamp_zip": 286.29,
+        "grid_cell_value_count": 384,
+        "grid_point_count": 4,
+        "label": "smoke-2018",
+        "nc_bytes": 27309,
+        "path": ".local\\source-raw\\v2\\climatology\\cds_era5_hourly_climatology_smoke\\taiex-tcc-smoke-2018\\r0001-f15d3334ea54.zip",
+        "raw_sha256": "f15d3334ea543179a14b6b6cb9fc6d0884d5118fa7c07eee1d660af8eb634986",
+        "timestamp_count": 96,
+        "variable_count": 1,
+        "zip_bytes": 27484
+      },
+      {
+        "bytes_per_grid_cell_value_zip": 71.57,
+        "bytes_per_transport_timestamp_zip": 286.29,
+        "grid_cell_value_count": 384,
+        "grid_point_count": 4,
+        "label": "smoke-2019",
+        "nc_bytes": 27309,
+        "path": ".local\\source-raw\\v2\\climatology\\cds_era5_hourly_climatology_smoke\\taiex-tcc-smoke-2019\\r0001-71fb4fdbca59.zip",
+        "raw_sha256": "71fb4fdbca59949d0188a548a11a20604e9e4ae7fd4ecf71269a7276c0ad4817",
+        "timestamp_count": 96,
+        "variable_count": 1,
+        "zip_bytes": 27484
+      },
+      {
+        "bytes_per_grid_cell_value_zip": 69.4,
+        "bytes_per_transport_timestamp_zip": 277.62,
+        "grid_cell_value_count": 396,
+        "grid_point_count": 4,
+        "label": "smoke-2020",
+        "nc_bytes": 27309,
+        "path": ".local\\source-raw\\v2\\climatology\\cds_era5_hourly_climatology_smoke\\taiex-tcc-smoke-2020\\r0001-50b34c1350b2.zip",
+        "raw_sha256": "50b34c1350b2de5d15846a2e3fa9285f634717b579cd97908e04777b90e250bb",
+        "timestamp_count": 99,
+        "variable_count": 1,
+        "zip_bytes": 27484
+      },
+      {
+        "bytes_per_grid_cell_value_zip": 529.92,
+        "bytes_per_transport_timestamp_zip": 2119.67,
+        "grid_cell_value_count": 48,
+        "grid_point_count": 4,
+        "label": "spatial-pilot-preopen",
+        "nc_bytes": 25261,
+        "path": ".local\\source-raw\\v2\\spatial\\cds_era5_hourly_spatial\\taiex-tcc-stencil-preopen\\r0001-e0e5893ea92d.zip",
+        "raw_sha256": "e0e5893ea92da157dc6e9c20b43fa7e9423072221da593f0c7bf03ebb279a473",
+        "timestamp_count": 12,
+        "variable_count": 1,
+        "zip_bytes": 25436
+      }
+    ]
+  },
+  "historical_backfill_run": false,
+  "live_backfill_authorized": false,
+  "markets": [
+    "sse_composite",
+    "szse_component",
+    "topix",
+    "nifty50",
+    "ftse100",
+    "dax",
+    "sp500",
+    "bse50"
+  ],
+  "no_network_attestation": {
+    "cds_api_calls": 0,
+    "era5_downloads": 0
+  },
+  "parallelism_queue": {
+    "candidate_concurrency": 2,
+    "default_concurrency": 1,
+    "note": "CDS queue / dynamic operational limits; no load test performed"
+  },
+  "peak_vs_retained": {
+    "note": "peak includes in-flight extracted NetCDF + temp working space; raw is tiny so peak ~= retained x 1.3",
+    "peak_mb": 196.5,
+    "retained_mb": 151.154
+  },
+  "per_market": [
+    {
+      "core_open": "09:30",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 8,
+      "market_id": "sse_composite",
+      "scientific_support_count": 43800,
+      "support_set_count": 43800,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "core_open": "09:30",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 8,
+      "market_id": "szse_component",
+      "scientific_support_count": 43800,
+      "support_set_count": 43800,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "core_open": "09:00",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 8,
+      "market_id": "topix",
+      "scientific_support_count": 32850,
+      "support_set_count": 32850,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "core_open": "09:15",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 0,
+      "market_id": "nifty50",
+      "scientific_support_count": 43800,
+      "support_set_count": 43800,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "core_open": "08:00",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 0,
+      "market_id": "ftse100",
+      "scientific_support_count": 32850,
+      "support_set_count": 32850,
+      "timezone": "Europe/London"
+    },
+    {
+      "core_open": "09:00",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 0,
+      "market_id": "dax",
+      "scientific_support_count": 32850,
+      "support_set_count": 32850,
+      "timezone": "Europe/Berlin"
+    },
+    {
+      "core_open": "09:30",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 0,
+      "market_id": "sp500",
+      "scientific_support_count": 43800,
+      "support_set_count": 43800,
+      "timezone": "America/New_York"
+    },
+    {
+      "core_open": "09:30",
+      "daily_exposure_count": 10950,
+      "days_with_feb29_support": 8,
+      "market_id": "bse50",
+      "scientific_support_count": 43800,
+      "support_set_count": 43800,
+      "timezone": "Asia/Shanghai"
+    }
+  ],
+  "recommended_batching": {
+    "status": "planning recommendation, not yet live-authorized",
+    "strategy": "monthly"
+  },
+  "reproducibility": "deterministic (pure functions + read-only raw measurement; no network)",
+  "research_usable": false,
+  "resumability_idempotency": {
+    "artifact_hash_differs": "new immutable artifact, never overwrite",
+    "example_planning_id": "91391328b16b3993ee46bc6a9187b31143e6fa02afc921b4abbb6e8d6d01e0d5",
+    "partial_never_accepted": true,
+    "planning_request_id": "deterministic SHA256 over market_id+period+request payload; live id must bind spatial anchor hash once qualified",
+    "raw_artifact_store_ready": "append-only semantics present; needs_extension: live spatial anchor hash binding",
+    "retry_safe": true,
+    "skip_if_accepted_same_id": "append-only RawArtifactStore: identical final request_id -> validate hash/audit -> SKIP"
+  },
+  "retention_scenarios": {
+    "r1_retain_all_raw": {
+      "note": "maximum provenance / exact reprocessing; no deletion decision made in this planning round",
+      "retained_mb": 151.154
+    },
+    "r2_validate_then_archive": {
+      "note": "raw may be archived/relocated AFTER daily exposures + raw hashes + audits + independent verification are frozen; no deletion in this round"
+    },
+    "r3_external_storage": {
+      "note": "planning only; no upload/delete performed"
+    }
+  },
+  "schema_version": "2.0.0",
+  "spatial_readiness": {
+    "global_spatial_anchor_status": "blocking_before_live_backfill",
+    "live_backfill_authorized": false,
+    "note": "Stage 5C methodology is frozen (official exchange anchor + algorithmic 0.25 deg surrounding cell + 4-point bilinear); only Taipei is qualified; the 8 research markets are NOT yet qualified",
+    "official_exchange_anchor_qualified": {
+      "bse50": false,
+      "dax": false,
+      "ftse100": false,
+      "nifty50": false,
+      "sp500": false,
+      "sse_composite": false,
+      "szse_component": false,
+      "topix": false
+    },
+    "spatial_geometry_assumption": "four_grid_points_per_market"
+  },
+  "storage_estimates": {
+    "monthly": {
+      "model_note": "LOW = fitted fixed+margin; BASE = observed median avg rate; HIGH = median x 1.5 overhead allowance",
+      "raw_base_mb": 89.709,
+      "raw_high_mb": 134.564,
+      "raw_low_mb": 75.982
+    },
+    "quarterly": {
+      "model_note": "LOW = fitted fixed+margin; BASE = observed median avg rate; HIGH = median x 1.5 overhead allowance",
+      "raw_base_mb": 91.831,
+      "raw_high_mb": 137.746,
+      "raw_low_mb": 30.419
+    },
+    "yearly": {
+      "model_note": "LOW = fitted fixed+margin; BASE = observed median avg rate; HIGH = median x 1.5 overhead allowance",
+      "raw_base_mb": 96.128,
+      "raw_high_mb": 144.191,
+      "raw_low_mb": 13.621
+    }
+  },
+  "timestamp_layers": {
+    "cartesian_extras": {
+      "monthly": 11011,
+      "quarterly": 18780,
+      "yearly": 34518
+    },
+    "raw_expected": "== transport_requested at planning level (validated per batch: support subset of transport)",
+    "scientific_daily_exposures": 87600,
+    "scientific_temporal_support_timestamps": 317550,
+    "transport_requested_timestamps": {
+      "monthly": 328561,
+      "quarterly": 336330,
+      "yearly": 352068
+    }
+  }
+}
