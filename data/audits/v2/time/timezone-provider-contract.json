@@ -1,0 +1,31 @@
+{
+  "audit_type": "timezone_provider_contract",
+  "code_hashes": {
+    "build_timezone_provider_contract_audit.py": "99c715a73bcdce798e21c1c342d26ced856a4b309b4d21221e4c8c51f02ba50c",
+    "timezone-provider.yaml": "c93c39a468ab878f0b17912c5a8f479bb1d22baf0ecdc4c38d17ac7fb32cee77",
+    "timezone_provider.py": "e426a6f12256b4e6d985f35c33901818fb02d9fdf51e9c4dacc64d62595e791e"
+  },
+  "dependency_manifest_binding": {
+    "pinned_line": "tzdata==2026.3",
+    "requirements_has_exact_pin": true
+  },
+  "exact_version": "2026.3",
+  "fingerprint_binding_present": true,
+  "historical_backfill_run": false,
+  "no_network_attestation": {
+    "cds_api_calls": 0,
+    "era5_downloads": 0
+  },
+  "provider": "tzdata",
+  "qualification_audit": "data/audits/v2/time/historical-timezone-canary-1991-2020.json",
+  "reproducibility": "deterministic (byte-identical across repeated builds; pure functions, no network)",
+  "research_usable": true,
+  "runtime": {
+    "actual_version": "2026.3",
+    "provider_type_match": true,
+    "runtime_match": true,
+    "version_exact_match": true
+  },
+  "schema_version": "2.0.0",
+  "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+}

@@ -1,0 +1,11 @@
+# Timezone provider contract — single source of truth for the IANA tzdb used by
+# historical timezone qualification (Stage 5B-3) and future 1991-2020
+# climatology exposure.
+#
+# The exact version is frozen so a rebuilt environment reproduces the SAME
+# historical UTC offsets / DST transitions that the qualification audit was
+# generated against.  A future control layer may deliberately re-qualify a new
+# tzdata version, but the runtime guard must NOT silently accept a mismatch.
+provider: tzdata
+version: "2026.3"
+qualification_audit: data/audits/v2/time/historical-timezone-canary-1991-2020.json
