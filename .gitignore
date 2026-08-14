@@ -42,6 +42,14 @@ data/source_raw/v2/**/r*-*
 data/canonical/v2/**/*.parquet
 data/canonical/v2/**/*.csv
 data/canonical/v2/**/*.json
+
+# pytest local basetemp
+.tmp-test-basetemp/
+
+# Stage 5E-3C+ full-backfill durable runtime state (progress journal/snapshot;
+# NOT tracked; authority = canonical plan + raw store + append-only journal)
+data/state/v2/climatology/full-backfill/
+
 data/panel/v2/**/*.parquet
 data/panel/v2/**/*.csv
 data/panel/v2/**/*.json

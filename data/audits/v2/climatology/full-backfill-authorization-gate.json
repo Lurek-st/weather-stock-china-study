@@ -1,0 +1,126 @@
+{
+  "accepted_units": [
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1991q1-prod-194eb264:r0001-6f9af843b4a6",
+      "binding_type": "direct_manifest",
+      "final_request_id": "194eb2641eea1efc560092823dcd959a70b8876f3563bb40151b7491afb78d0f",
+      "ordinal": 8,
+      "sha256": "6f9af843b4a63579c2259c96ab4fe5d50d0127ad6f51fde126bdf921b1263fea",
+      "unit_key": "bse50:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q3-prod-219f1396:r0001-2768943b6c7a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "219f1396daf7b316aef6284be7c4a1bc4a3405832fb8047b5c445eb9873cdee5",
+      "ordinal": 17,
+      "sha256": "2768943b6c7a5cb56255036ede9b7c6f2a8f94bad8989f7ff4534ccacc9ae373",
+      "unit_key": "sse_composite:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q3-prod-6d7124d7:r0001-685180565fa3",
+      "binding_type": "direct_manifest",
+      "final_request_id": "6d7124d751a2aca2bbe92a975acdf6502a8b0309ab6dba50d4af313eb1166ea9",
+      "ordinal": 20,
+      "sha256": "685180565fa3be6367eda4ba57874508e8767084f87f4c5084bf280e0985934b",
+      "unit_key": "nifty50:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q3-prod-35ae09a8:r0001-63addef89395",
+      "binding_type": "direct_manifest",
+      "final_request_id": "35ae09a8b8733c823c979d4bc12db04de657fb354909f164c5c63a871a30eda1",
+      "ordinal": 50,
+      "sha256": "63addef8939594140a340a545be82c5fb9b02989d89596d540da7cba0a164fbc",
+      "unit_key": "szse_component:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q4-prod-5f5ecf79:r0001-7d766899a2d1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "5f5ecf797aa9e63c32afc2c201aeb0e803c534e11bc375df2ca353dd33b823b8",
+      "ordinal": 157,
+      "sha256": "7d766899a2d1b12d66945e98e8e7f6dd26e7cfdc413faf95add88d525b534342",
+      "unit_key": "ftse100:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1996q4-prod-a021caac:r0001-125ceb419bcc",
+      "binding_type": "direct_manifest",
+      "final_request_id": "a021caacd99b71fdd8b2c4791f8f9503085dda0e672c587628072265318c1913",
+      "ordinal": 190,
+      "sha256": "125ceb419bcc94dcb652283839772634777cdeb91fde3ca047ebe8d1bdc7b316",
+      "unit_key": "dax:1996Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-2007q1-canary-6dd6398c:r0001-e20edd7a29ac",
+      "binding_type": "corrected_request_identity_requalification",
+      "final_request_id": "a65d8f589338b97a30f9981f37253aa20c2041e344c8187eead06c3b123b4945",
+      "ordinal": 519,
+      "sha256": "e20edd7a29ac96cfcd7da09a81c7614e52385bee3e31f9b7b14999aa73c723fc",
+      "unit_key": "sp500:2007Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-2020q1-prod-f5aaa714:r0001-0bdae023ec0d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f5aaa714ac0ab5222d5af2c148c8216777bc709a7c70c98f1b3cda3118c21c04",
+      "ordinal": 931,
+      "sha256": "0bdae023ec0dd6d26d404fd65acc1ce019fb67945cf1bc18bbef1bcbbf4e5580",
+      "unit_key": "topix:2020Q1"
+    }
+  ],
+  "audit_type": "full_backfill_authorization_gate",
+  "authorization": {
+    "candidate": true,
+    "control_layer_required": true,
+    "live_backfill_authorized": false
+  },
+  "binding_checks": {
+    "authorization_candidate_hash": true,
+    "controller_policy_hash": true,
+    "global_backfill_plan_hash": true,
+    "global_spatial_anchor_registry_hash": true,
+    "request_identity_contract_version": true,
+    "timezone_canary_hash": true
+  },
+  "binding_verified": true,
+  "controller": {
+    "auto_retry": false,
+    "batch": "one_baseline_year",
+    "concurrency": 1,
+    "health_interval": 8,
+    "progress_after_every_unit": true,
+    "slots_per_batch": 32
+  },
+  "execution_started": false,
+  "formal_plan": {
+    "daily_exposures": 87600,
+    "invariants_hold": true,
+    "markets": 8,
+    "quarters": 4,
+    "units": 960,
+    "years": 30
+  },
+  "full_backfill_started": false,
+  "full_climatology_started": false,
+  "hashes": {
+    "authorization_candidate_hash": "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c",
+    "controller_policy_hash": "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a",
+    "global_backfill_plan_hash": "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf",
+    "spatial_registry_hash": "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38",
+    "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+  },
+  "identity": {
+    "request_ids_count": 960,
+    "unique_request_ids": 960,
+    "version": "1.1.0"
+  },
+  "inventory": {
+    "accepted": 8,
+    "invalid": 0,
+    "missing": 952
+  },
+  "network": {
+    "cds_retrieves": 0,
+    "other_network": 0,
+    "service_health_fetches": 0
+  },
+  "schema_version": "2.0.0",
+  "scope": "Stage 5E-3C: freeze canonical 960-unit plan, controller policy, authorization candidate; ZERO network"
+}

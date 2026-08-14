@@ -1,0 +1,28 @@
+# Stage 5E-3C full backfill authorization CANDIDATE (frozen; NOT yet live).
+#
+# This file is the NETWORK KILL SWITCH.  live_backfill_authorized MUST stay
+# false until the control layer accepts Stage 5E-3C and issues a separate
+# minimal activation checkpoint.  WorkBuddy must NEVER flip it to true on its
+# own.
+#
+# authorization_candidate_hash binds:
+#   global_backfill_plan_hash + controller_policy_hash +
+#   request_identity_contract_version + global_spatial_anchor_registry_hash +
+#   timezone_canary_hash
+#
+# If ANY of these contracts changes, the candidate hash changes and this
+# authorization is automatically invalid (no silent inheritance of older
+# permissions).
+authorization_schema_version: "1.0.0"
+live_backfill_authorized: false
+authorization_state: "candidate_for_control_layer"
+control_layer_approval_required: true
+
+bound_hashes:
+  global_backfill_plan_hash: "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf"
+  controller_policy_hash: "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a"
+  request_identity_contract_version: "1.1.0"
+  global_spatial_anchor_registry_hash: "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38"
+  timezone_canary_hash: "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+
+authorization_candidate_hash: "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c"

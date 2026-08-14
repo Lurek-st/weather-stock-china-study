@@ -1,0 +1,32 @@
+# Stage 5E-3C full backfill controller policy (frozen execution rules).
+#
+# This file defines HOW future full backfill batches may be executed.  It is
+# canonicalized and hashed into controller_policy_hash; any change to these
+# execution rules invalidates the authorization candidate (never silently
+# inherits an older permission).
+controller_schema_version: "1.0.0"
+
+baseline: "1991_2020"
+batching: "quarterly"
+formal_units: 960
+
+execution_order: "year_quarter_market"
+concurrency: 1
+
+max_new_retrieves_per_unit_attempt: 1
+automatic_retry: false
+
+execution_batch: "one_baseline_year"
+max_formal_slots_per_invocation: 32
+
+health_check_interval_new_retrieves: 8
+
+progress_write_frequency: "after_every_unit"
+
+year_boundary_forced_stop: true
+
+accepted_request_policy: "pre_network_skip"
+contract_failure_policy: "stop_immediately"
+operational_failure_policy: "stop_immediately"
+
+authorization_required: true
