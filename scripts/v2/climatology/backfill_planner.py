@@ -229,3 +229,116 @@ def planning_request_id(market_id: str, period: str, payload: dict[str, Any]) ->
         ensure_ascii=False,
     )
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+# --- Stage 5E-2R1: batching reconciliation (storage + decision matrix) ---
+
+TOTAL_SCIENTIFIC_SUPPORT = 317550  # 8 markets, verified by market_scientific_counts
+
+RECOMMENDATION_WEIGHT_SETS: dict[str, dict[str, float]] = {
+    "balanced": {"requests": 0.25, "amplification": 0.30, "storage": 0.15, "blast_radius": 0.30},
+    "equal": {"requests": 0.25, "amplification": 0.25, "storage": 0.25, "blast_radius": 0.25},
+    "storage_heavy": {"requests": 0.2, "amplification": 0.2, "storage": 0.4, "blast_radius": 0.2},
+}
+
+
+def strategy_storage_estimate(
+    strategy: str,
+    fixed_overhead_bytes: float,
+    marginal_bytes_per_ts: float,
+    summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Estimated compressed raw bytes for a strategy.
+
+    model: file_size(ts) ~= fixed_overhead + marginal * transport_ts (fitted
+    from the measured compatible raw; NetCDF is internally deflated).
+    """
+    summary = summary if summary is not None else strategy_summary(strategy)
+    totals = summary["totals"]
+    fixed = totals["request_count"] * fixed_overhead_bytes
+    variable = marginal_bytes_per_ts * totals["transport_count"]
+    total = fixed + variable
+    return {
+        "strategy": strategy,
+        "request_count": totals["request_count"],
+        "fixed_overhead_bytes": round(fixed, 1),
+        "timestamp_bytes": round(variable, 1),
+        "total_bytes": round(total, 1),
+        "total_mib": round(total / 2**20, 4),
+    }
+
+
+def _max_batch_days(strategy: str) -> int:
+    plan = batch_plan("sse_composite", strategy)
+    return max(b["days"] for b in plan["batches"])
+
+
+def _minmax(values: dict[str, float]) -> dict[str, float]:
+    lo, hi = min(values.values()), max(values.values())
+    if hi == lo:
+        return {k: 0.0 for k in values}
+    return {k: (v - lo) / (hi - lo) for k, v in values.items()}
+
+
+def recommend_batching(
+    fixed_overhead_bytes: float,
+    marginal_bytes_per_ts: float,
+) -> dict[str, Any]:
+    """Transparent, evidence-driven batching recommendation (Stage 5E-2R1).
+
+    Quantitative axes (lower = better): request count, Cartesian amplification,
+    estimated raw storage, blast radius (max days per batch).  Scores are
+    min-max normalized and combined with DOCUMENTED weight sets; the winner is
+    the strategy with the lowest weighted score.  A sensitivity check across
+    weight sets is included so no single criterion can silently win.
+    """
+    strategies = ("monthly", "quarterly", "yearly")
+    summaries = {s: strategy_summary(s) for s in strategies}
+    storage = {
+        s: strategy_storage_estimate(s, fixed_overhead_bytes, marginal_bytes_per_ts, summaries[s])
+        for s in strategies
+    }
+    requests = {s: summaries[s]["totals"]["request_count"] for s in strategies}
+    amplification = {
+        s: summaries[s]["totals"]["transport_count"] / TOTAL_SCIENTIFIC_SUPPORT for s in strategies
+    }
+    blast_days = {s: _max_batch_days(s) for s in strategies}
+
+    normalized = {
+        "requests": _minmax({s: float(requests[s]) for s in strategies}),
+        "amplification": _minmax(amplification),
+        "storage": _minmax({s: storage[s]["total_bytes"] for s in strategies}),
+        "blast_radius": _minmax({s: float(blast_days[s]) for s in strategies}),
+    }
+
+    weight_sets: dict[str, Any] = {}
+    for ws_name, weights in RECOMMENDATION_WEIGHT_SETS.items():
+        scores = {}
+        for s in strategies:
+            scores[s] = round(
+                sum(weights[axis] * normalized[axis][s] for axis in weights), 4
+            )
+        winner = min(scores, key=scores.get)
+        weight_sets[ws_name] = {"weights": weights, "scores": scores, "winner": winner}
+
+    # decision: the strategy with the lowest balanced-weight score; sensitivity
+    # reports whether it is stable across weight sets.
+    balanced_winner = weight_sets["balanced"]["winner"]
+    winners = {weight_sets[k]["winner"] for k in weight_sets}
+    stable = len(winners) == 1
+    return {
+        "strategies": list(strategies),
+        "request_count": requests,
+        "amplification": {k: round(v, 6) for k, v in amplification.items()},
+        "estimated_raw_bytes": {s: storage[s]["total_bytes"] for s in strategies},
+        "estimated_raw_mib": {s: storage[s]["total_mib"] for s in strategies},
+        "blast_radius_max_days": blast_days,
+        "normalized_axes": normalized,
+        "weight_sets": weight_sets,
+        "recommended": balanced_winner,
+        "stable_across_weight_sets": stable,
+        "sensitivity_note": (
+            "recommendation stable across documented weight sets" if stable
+            else "recommendation depends on weight set; see weight_sets"
+        ),
+    }

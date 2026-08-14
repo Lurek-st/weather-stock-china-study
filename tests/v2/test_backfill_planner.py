@@ -162,3 +162,55 @@ def test_support_guard_no_fallback():
     # planner has no fallback to markets.yaml session clock
     source = inspect.getsource(planner_module)
     assert "markets.yaml" not in source
+
+
+# --- Stage 5E-2R1: batching reconciliation ------------------------------
+FITTED_F = 24968.4
+FITTED_M = 24.38
+
+
+def test_strategy_storage_model():
+    monthly = planner_module.strategy_storage_estimate("monthly", FITTED_F, FITTED_M)
+    quarterly = planner_module.strategy_storage_estimate("quarterly", FITTED_F, FITTED_M)
+    yearly = planner_module.strategy_storage_estimate("yearly", FITTED_F, FITTED_M)
+    # fixed overhead dominates: more files -> more total bytes
+    assert monthly["total_bytes"] > quarterly["total_bytes"] > yearly["total_bytes"]
+    # each estimate decomposes into fixed + timestamp components
+    for est in (monthly, quarterly, yearly):
+        assert est["total_bytes"] == pytest.approx(
+            est["fixed_overhead_bytes"] + est["timestamp_bytes"], rel=1e-6
+        )
+
+
+def test_recommendation_deterministic():
+    a = planner_module.recommend_batching(FITTED_F, FITTED_M)
+    b = planner_module.recommend_batching(FITTED_F, FITTED_M)
+    assert a == b
+
+
+def test_recommendation_quarterly_on_machine_evidence():
+    r = planner_module.recommend_batching(FITTED_F, FITTED_M)
+    assert r["recommended"] == "quarterly"
+    assert r["stable_across_weight_sets"] is True
+    # every documented weight set picks quarterly (no single-criterion win)
+    assert {v["winner"] for v in r["weight_sets"].values()} == {"quarterly"}
+
+
+def test_storage_overhead_tradeoff_documented():
+    r = planner_module.recommend_batching(FITTED_F, FITTED_M)
+    # quarterly: ~2/3 fewer requests than monthly, +2.4% amplification
+    assert r["request_count"]["monthly"] == 2880
+    assert r["request_count"]["quarterly"] == 960
+    assert r["amplification"]["quarterly"] == pytest.approx(1.05914, abs=1e-4)
+    assert r["estimated_raw_bytes"]["quarterly"] < r["estimated_raw_bytes"]["monthly"]
+
+
+def test_all_strategies_below_cds_limit():
+    r = planner_module.recommend_batching(FITTED_F, FITTED_M)
+    from scripts.v2.climatology.build_era5_backfill_plan import CDS_LIMIT_SNAPSHOT
+
+    limit = CDS_LIMIT_SNAPSHOT["documented_field_limit"]
+    for s in ("monthly", "quarterly", "yearly"):
+        summary = strategy_summary(s)
+        assert summary["aggregate_max_fields_per_request"] < limit
+    assert r["recommended"] in ("monthly", "quarterly", "yearly")

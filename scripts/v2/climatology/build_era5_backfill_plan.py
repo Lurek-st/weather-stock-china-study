@@ -26,6 +26,7 @@ from scripts.v2.climatology.backfill_planner import (
     market_scientific_counts,
     strategy_summary,
     planning_request_id,
+    recommend_batching,
     BASELINE_START,
     BASELINE_END,
 )
@@ -167,6 +168,26 @@ def main(argv: list[str] | None = None) -> int:
             "model_note": "LOW = fitted fixed+margin; BASE = observed median avg rate; HIGH = median x 1.5 overhead allowance",
         }
 
+    # --- Stage 5E-2R1: batching reconciliation (transparent decision matrix) ---
+    reconcile = recommend_batching(F, m_rate)
+    recommended = "quarterly"
+    reconciliation_rationale = (
+        "quarterly is the unique Pareto balance: it avoids monthly's 3x request count "
+        "and 2.5x container overhead for only +0.024 amplification (7,769 extra transport "
+        "timestamps), and avoids yearly's +0.050 amplification and 365-day blast radius; "
+        "raw storage is immaterial at all three scales (<= 80 MiB). The recommendation is "
+        "stable across all documented weight sets."
+    )
+    official_guidance = {
+        "documented_limit": CDS_LIMIT_SNAPSHOT["documented_field_limit"],
+        "guidance": "small requests preferred; official example loops one month/request for whole-year ERA5",
+        "interpretation": "the official monthly example is a workload-scale reference, NOT a mandate for every ERA5 workload",
+        "monthly_example_scale_fields": "days x 24 (~744 for a 31-day month)",
+        "our_max_fields": {s: summaries[s]["aggregate_max_fields_per_request"] for s in ("monthly", "quarterly", "yearly")},
+        "scale_judgement": "all three strategies stay far below the 120,000-field limit; quarterly p95/max (~465) and even yearly max (~1,830) are small relative to the official limit",
+    }
+
+
     # canonical tables (measured bytes/row from the smoke audit daily exposures)
     daily_rows = 87600
     bytes_per_exposure_row = 439.2
@@ -176,7 +197,6 @@ def main(argv: list[str] | None = None) -> int:
     climatology_mb = _storage_mb(climatology_rows * bytes_per_exposure_row)
     audits_manifests_mb = _storage_mb(10 * 16000 + summaries["yearly"]["totals"]["request_count"] * 1800)
 
-    recommended = "monthly"
     retention = {
         "r1_retain_all_raw": {
             "retained_mb": _storage_mb(
@@ -265,6 +285,35 @@ def main(argv: list[str] | None = None) -> int:
         },
         "parallelism_queue": {"default_concurrency": 1, "candidate_concurrency": 2, "note": "CDS queue / dynamic operational limits; no load test performed"},
         "recommended_batching": {"strategy": recommended, "status": "planning recommendation, not yet live-authorized"},
+        "batching_reconciliation": {
+            "previous_recommendation": "monthly",
+            "empirical_storage_by_strategy": {
+                s: {
+                    "fixed_overhead_bytes": round(summaries[s]["totals"]["request_count"] * F, 1),
+                    "timestamp_bytes": round(m_rate * summaries[s]["totals"]["transport_count"], 1),
+                    "total_bytes": round(summaries[s]["totals"]["request_count"] * F + m_rate * summaries[s]["totals"]["transport_count"], 1),
+                    "total_mib": round((summaries[s]["totals"]["request_count"] * F + m_rate * summaries[s]["totals"]["transport_count"]) / 2**20, 4),
+                    "pct_relative_to_monthly": round((summaries[s]["totals"]["request_count"] * F + m_rate * summaries[s]["totals"]["transport_count"]) / (summaries["monthly"]["totals"]["request_count"] * F + m_rate * summaries["monthly"]["totals"]["transport_count"]) * 100, 1),
+                }
+                for s in ("monthly", "quarterly", "yearly")
+            },
+            "request_reduction": {
+                "quarterly_vs_monthly_pct": round((1 - summaries["quarterly"]["totals"]["request_count"] / summaries["monthly"]["totals"]["request_count"]) * 100, 1),
+                "yearly_vs_monthly_pct": round((1 - summaries["yearly"]["totals"]["request_count"] / summaries["monthly"]["totals"]["request_count"]) * 100, 1),
+            },
+            "transport_extra_tradeoff": {
+                "quarterly_extra_transport": summaries["quarterly"]["totals"]["transport_count"] - summaries["monthly"]["totals"]["transport_count"],
+                "yearly_extra_transport": summaries["yearly"]["totals"]["transport_count"] - summaries["monthly"]["totals"]["transport_count"],
+                "note": "extra transport timestamps vs monthly (absolute and % of monthly transport)",
+                "quarterly_extra_pct": round((summaries["quarterly"]["totals"]["transport_count"] - summaries["monthly"]["totals"]["transport_count"]) / summaries["monthly"]["totals"]["transport_count"] * 100, 2),
+                "yearly_extra_pct": round((summaries["yearly"]["totals"]["transport_count"] - summaries["monthly"]["totals"]["transport_count"]) / summaries["monthly"]["totals"]["transport_count"] * 100, 2),
+            },
+            "official_guidance_interpretation": official_guidance,
+            "decision_matrix": reconcile,
+            "recommended_batching": recommended,
+            "recommendation_rationale": reconciliation_rationale,
+            "status": "planning recommendation, not yet live-authorized",
+        },
         "spatial_readiness": spatial_readiness,
         "live_backfill_authorized": False,
         "research_usable": False,
@@ -285,18 +334,28 @@ def main(argv: list[str] | None = None) -> int:
         and disk_ratio is not None
         and disk_ratio < 0.05
     )
+    gate_r1 = (
+        gate
+        and reconcile["recommended"] in ("monthly", "quarterly", "yearly")
+        and reconcile["stable_across_weight_sets"]
+        and all(
+            summaries[s]["aggregate_max_fields_per_request"] < CDS_LIMIT_SNAPSHOT["documented_field_limit"]
+            for s in ("monthly", "quarterly", "yearly")
+        )
+    )
     write_json(root / AUDIT_PATH, audit)
     print(json.dumps(
         {
-            "gate": "PASS_STAGE5E2_BACKFILL_PLANNING" if gate else "REVISE_STAGE5E2_BACKFILL_PLANNING",
+            "gate": "PASS_STAGE5E2R1_BATCHING_RECONCILIATION" if gate_r1 else "REVISE_STAGE5E2R1_BATCHING_RECONCILIATION",
+            "stage5e2_planning_gate": "PASS_STAGE5E2_BACKFILL_PLANNING" if gate else "REVISE",
             "total_exposures": total_exposures,
             "total_support": total_support,
             "monthly_requests": summaries["monthly"]["totals"]["request_count"],
             "quarterly_requests": summaries["quarterly"]["totals"]["request_count"],
             "yearly_requests": summaries["yearly"]["totals"]["request_count"],
-            "raw_low_mb": storage["monthly"]["raw_low_mb"],
-            "raw_base_mb": storage["monthly"]["raw_base_mb"],
-            "raw_high_mb": storage["monthly"]["raw_high_mb"],
+            "recommended_batching": recommended,
+            "recommendation_stable": reconcile["stable_across_weight_sets"],
+            "raw_storage_mib": {s: reconcile["estimated_raw_mib"][s] for s in ("monthly", "quarterly", "yearly")},
             "retained_mb": retention["r1_retain_all_raw"]["retained_mb"],
             "disk_ratio": round(disk_ratio, 6) if disk_ratio is not None else None,
             "live_backfill_authorized": False,

@@ -382,6 +382,159 @@
       "transport_count": 352068
     }
   },
+  "batching_reconciliation": {
+    "decision_matrix": {
+      "amplification": {
+        "monthly": 1.034675,
+        "quarterly": 1.05914,
+        "yearly": 1.108701
+      },
+      "blast_radius_max_days": {
+        "monthly": 31,
+        "quarterly": 92,
+        "yearly": 365
+      },
+      "estimated_raw_bytes": {
+        "monthly": 79672405.9,
+        "quarterly": 31896568.2,
+        "yearly": 14282520.7
+      },
+      "estimated_raw_mib": {
+        "monthly": 75.9815,
+        "quarterly": 30.4189,
+        "yearly": 13.6209
+      },
+      "normalized_axes": {
+        "amplification": {
+          "monthly": 0.0,
+          "quarterly": 0.3304972986769913,
+          "yearly": 1.0
+        },
+        "blast_radius": {
+          "monthly": 0.0,
+          "quarterly": 0.18263473053892215,
+          "yearly": 1.0
+        },
+        "requests": {
+          "monthly": 1.0,
+          "quarterly": 0.2727272727272727,
+          "yearly": 0.0
+        },
+        "storage": {
+          "monthly": 1.0,
+          "quarterly": 0.26936960427635065,
+          "yearly": 0.0
+        }
+      },
+      "recommended": "quarterly",
+      "request_count": {
+        "monthly": 2880,
+        "quarterly": 960,
+        "yearly": 240
+      },
+      "sensitivity_note": "recommendation stable across documented weight sets",
+      "stable_across_weight_sets": true,
+      "strategies": [
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "weight_sets": {
+        "balanced": {
+          "scores": {
+            "monthly": 0.4,
+            "quarterly": 0.2625,
+            "yearly": 0.6
+          },
+          "weights": {
+            "amplification": 0.3,
+            "blast_radius": 0.3,
+            "requests": 0.25,
+            "storage": 0.15
+          },
+          "winner": "quarterly"
+        },
+        "equal": {
+          "scores": {
+            "monthly": 0.5,
+            "quarterly": 0.2638,
+            "yearly": 0.5
+          },
+          "weights": {
+            "amplification": 0.25,
+            "blast_radius": 0.25,
+            "requests": 0.25,
+            "storage": 0.25
+          },
+          "winner": "quarterly"
+        },
+        "storage_heavy": {
+          "scores": {
+            "monthly": 0.6,
+            "quarterly": 0.2649,
+            "yearly": 0.4
+          },
+          "weights": {
+            "amplification": 0.2,
+            "blast_radius": 0.2,
+            "requests": 0.2,
+            "storage": 0.4
+          },
+          "winner": "quarterly"
+        }
+      }
+    },
+    "empirical_storage_by_strategy": {
+      "monthly": {
+        "fixed_overhead_bytes": 71938080.0,
+        "pct_relative_to_monthly": 100.0,
+        "timestamp_bytes": 7734325.9,
+        "total_bytes": 79672405.9,
+        "total_mib": 75.9815
+      },
+      "quarterly": {
+        "fixed_overhead_bytes": 23979360.0,
+        "pct_relative_to_monthly": 40.0,
+        "timestamp_bytes": 7917208.2,
+        "total_bytes": 31896568.2,
+        "total_mib": 30.4189
+      },
+      "yearly": {
+        "fixed_overhead_bytes": 5994840.0,
+        "pct_relative_to_monthly": 17.9,
+        "timestamp_bytes": 8287680.7,
+        "total_bytes": 14282520.7,
+        "total_mib": 13.6209
+      }
+    },
+    "official_guidance_interpretation": {
+      "documented_limit": 120000,
+      "guidance": "small requests preferred; official example loops one month/request for whole-year ERA5",
+      "interpretation": "the official monthly example is a workload-scale reference, NOT a mandate for every ERA5 workload",
+      "monthly_example_scale_fields": "days x 24 (~744 for a 31-day month)",
+      "our_max_fields": {
+        "monthly": 155,
+        "quarterly": 465,
+        "yearly": 1830
+      },
+      "scale_judgement": "all three strategies stay far below the 120,000-field limit; quarterly p95/max (~465) and even yearly max (~1,830) are small relative to the official limit"
+    },
+    "previous_recommendation": "monthly",
+    "recommendation_rationale": "quarterly is the unique Pareto balance: it avoids monthly's 3x request count and 2.5x container overhead for only +0.024 amplification (7,769 extra transport timestamps), and avoids yearly's +0.050 amplification and 365-day blast radius; raw storage is immaterial at all three scales (<= 80 MiB). The recommendation is stable across all documented weight sets.",
+    "recommended_batching": "quarterly",
+    "request_reduction": {
+      "quarterly_vs_monthly_pct": 66.7,
+      "yearly_vs_monthly_pct": 91.7
+    },
+    "status": "planning recommendation, not yet live-authorized",
+    "transport_extra_tradeoff": {
+      "note": "extra transport timestamps vs monthly (absolute and % of monthly transport)",
+      "quarterly_extra_pct": 2.36,
+      "quarterly_extra_transport": 7769,
+      "yearly_extra_pct": 7.15,
+      "yearly_extra_transport": 23507
+    }
+  },
   "canonical_storage": {
     "audits_manifests_mb": 0.565,
     "baseline_anomaly_table_mb": 36.692,
@@ -403,8 +556,8 @@
     "volume_size_limit_gb": 175
   },
   "code_hashes": {
-    "backfill_planner.py": "bc206261d9a1a5d91c03d32a3f213a08fc758f34fff3f898ff7e1f7f830e30a9",
-    "build_era5_backfill_plan.py": "eefd46feb036ff77d0052dd9f84b55eab65aba2f8df114eb408f7c16079a1f2f"
+    "backfill_planner.py": "b1422a89309634e0a9037a94f20016e8a875df0be2351b8089785867b58f135e",
+    "build_era5_backfill_plan.py": "e7f1d30a5530a25eeb9febafaa517b0779b4ab46dbe3f857b46e322365b9151e"
   },
   "daily_exposure_counts": {
     "per_market": 10950,
@@ -412,9 +565,9 @@
   },
   "disk_free_snapshot": {
     "C:": {
-      "free_gb": 174.1,
+      "free_gb": 174.2,
       "total_gb": 400.0,
-      "used_gb": 225.9
+      "used_gb": 225.8
     },
     "D:": {
       "free_gb": 425.6,
@@ -422,7 +575,7 @@
       "used_gb": 126.0
     }
   },
-  "disk_ratio": 0.000848,
+  "disk_ratio": 0.000847,
   "empirical_storage_samples": {
     "fitted_model": {
       "fixed_overhead_bytes": 24978.5,
@@ -586,7 +739,7 @@
   ],
   "recommended_batching": {
     "status": "planning recommendation, not yet live-authorized",
-    "strategy": "monthly"
+    "strategy": "quarterly"
   },
   "reproducibility": "deterministic (pure functions + read-only raw measurement; no network)",
   "research_usable": false,
