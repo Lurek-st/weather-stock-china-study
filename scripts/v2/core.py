@@ -195,6 +195,7 @@ class RawArtifactStore:
         error: str | None = None,
         retrieved_at: datetime | None = None,
         validation_metadata: dict[str, Any] | None = None,
+        final_request_id: str | None = None,
     ) -> ArtifactResult:
         digest = sha256_bytes(payload)
         target_dir = self.base / source_id / logical_name
@@ -229,9 +230,39 @@ class RawArtifactStore:
             "error": redact_local_path(error) if error else None,
             "request": redact_structure(request),
             "validation_metadata": redact_structure(validation_metadata) if validation_metadata else None,
+            "final_request_id": final_request_id,
         }
         write_json(manifest_path, manifest)
         return ArtifactResult(artifact_path, manifest_path, revision, False)
+
+    def lookup_by_final_request_id(self, final_request_id: str) -> ArtifactResult | None:
+        """Find an accepted artifact whose manifest binds ``final_request_id``.
+
+        Request-aware pre-network idempotency: a production runner calls this
+        BEFORE constructing the CDS client.  ``None`` means no accepted
+        artifact exists yet.  An artifact whose manifest mentions the id but
+        fails the acceptance predicates (missing raw file, SHA mismatch,
+        status != final, container validation not passed) is treated as a
+        broken/partial acceptance and the caller MUST fail closed rather than
+        silently re-download.
+        """
+        for manifest_path in sorted(self.base.glob("*/r*-*.manifest.json")) + sorted(self.base.glob("*/*/r*-*.manifest.json")):
+            try:
+                manifest = load_json(manifest_path)
+            except Exception:
+                continue
+            if manifest.get("final_request_id") != final_request_id:
+                continue
+            artifact_path = manifest_path.with_name(
+                manifest_path.name.replace(".manifest.json", self._suffix_from_manifest(manifest))
+            )
+            return ArtifactResult(artifact_path, manifest_path, manifest["revision"], False)
+        return None
+
+    @staticmethod
+    def _suffix_from_manifest(manifest: dict[str, Any]) -> str:
+        validation = manifest.get("validation_metadata") or {}
+        return validation.get("raw_suffix", ".zip") if isinstance(validation, dict) else ".zip"
 
 
 def relative_humidity(temp_c: pd.Series, dew_c: pd.Series) -> pd.Series:
