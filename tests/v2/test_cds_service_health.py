@@ -264,6 +264,41 @@ def test_default_fetch_json_bounded_no_retry():
 
 
 # ---------------------------------------------------------------------------
+# Stage 5E-4A-R1: endpoint migration (official catalogue API v1)
+# ---------------------------------------------------------------------------
+
+
+def test_health_collection_url_is_official_catalogue_v1():
+    # The health authority endpoint is the official structured catalogue API,
+    # NOT the STAC-browser frontend shell (which serves SPA HTML, not JSON).
+    # Locking the exact constant prevents silent regression to the old path.
+    assert HEALTH_COLLECTION_URL == (
+        "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/"
+        "reanalysis-era5-single-levels"
+    )
+    assert "stac-browser" not in HEALTH_COLLECTION_URL
+
+
+def test_default_checker_fetches_new_url_exactly_once(monkeypatch):
+    # The REAL default checker (no injected fetcher) must use the migrated
+    # official catalogue URL, exactly one fetch, and no fallback/retry.
+    import scripts.v2.climatology.cds_service_health as sh
+
+    calls = []
+
+    def spy_fetch_json(url: str, timeout: float):
+        calls.append(url)
+        return {"id": DEFAULT_DATASET_ID, "cads": None}  # shape irrelevant; spy only
+
+    monkeypatch.setattr(sh, "fetch_json", spy_fetch_json)
+    checker = make_dataset_health_checker()  # default transport path
+    result = checker()
+    assert len(calls) == 1  # exactly one authoritative fetch
+    assert calls[0] == HEALTH_COLLECTION_URL  # migrated endpoint, no fallback
+    assert result["dataset_available"] is False  # missing sanity field -> fail closed
+
+
+# ---------------------------------------------------------------------------
 # Controller integration: missing checker (spec 14)
 # ---------------------------------------------------------------------------
 

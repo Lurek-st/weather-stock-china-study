@@ -43,11 +43,15 @@ from scripts.v2.core import V2Error
 DEFAULT_DATASET_ID = "reanalysis-era5-single-levels"
 
 # Official Data Stores STAC catalogue collection endpoint for the target
-# dataset.  Stage 5E-3C-R1 never requests it (injected fetcher only); the real
-# fetch belongs to the future authorized live execution stage.
+# dataset.  Stage 5E-4A-R1: migrated from the STAC-browser frontend path
+# (/stac-browser/collections/<id>/collection.json) which now serves the SPA
+# HTML shell instead of structured JSON, to the official structured catalogue
+# API path (/api/catalogue/v1/collections/<id>).  The endpoint is the ONLY
+# transport; no fallback URL / discovery is introduced.  The real fetch
+# belongs to the authorized live execution stage.
 HEALTH_COLLECTION_URL = (
-    "https://cds.climate.copernicus.eu/stac-browser/collections/"
-    "reanalysis-era5-single-levels/collection.json"
+    "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/"
+    "reanalysis-era5-single-levels"
 )
 
 # The structured field carrying the dataset-specific sanity status.
