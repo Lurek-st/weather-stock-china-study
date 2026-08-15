@@ -51,6 +51,11 @@ ROOT = repo_root()
 PLAN = load_plan(ROOT)
 YEAR = 1992  # all 32 slots missing -> clean batch for interval tests
 
+from tests.v2.fixtures.r2_hermetic_helpers import (
+    fake_derived_extractor,
+    fake_execute_persisting,
+)
+
 
 # ---------------------------------------------------------------------------
 # Fake transport / fixtures
@@ -304,6 +309,9 @@ def test_run_year_batch_none_checker_fails_closed(tmp_path, monkeypatch):
 @pytest.fixture
 def hermetic(tmp_path, monkeypatch):
     import scripts.v2.climatology.full_backfill_controller as ctl
+    import scripts.v2.climatology.derived_store as ds
+
+    from tests.v2.fixtures.r2_hermetic_helpers import assert_isolation
 
     payload = {
         "authorization_schema_version": "1.0.0",
@@ -328,7 +336,9 @@ def hermetic(tmp_path, monkeypatch):
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))
-    return {"root": ROOT, "tmp": tmp_path}
+    monkeypatch.setattr(ds, "DERIVED_BASE", str(tmp_path / "derived"))
+    assert_isolation(ctl.RAW_BASE, ds.DERIVED_BASE, ROOT)
+    return {"root": ROOT, "tmp": tmp_path, "derived": tmp_path / "derived"}
 
 
 class OkClient:
@@ -347,14 +357,12 @@ def test_health_precedes_first_retrieve(hermetic, monkeypatch):
 
     def fake_execute(unit, root=None, client_factory=None, retrieve_calls_tracker=None):
         order.append("retrieve")
-        return {
-            "skipped": False, "market_id": unit["market_id"], "period": unit["period"],
-            "retrieve_calls": 1, "request_id": "x" * 64, "artifact_id": "a",
-            "sha256": "y" * 64, "bytes": 1,
-        }
+        return fake_execute_persisting(unit, root=root, retrieve_calls_tracker=retrieve_calls_tracker,
+                                       raw_base=ctl.RAW_BASE)
 
     monkeypatch.setattr(ctl, "execute_unit_once", fake_execute)
-    out = run_year_batch(PLAN, YEAR, root=hermetic["root"], health_checker=health)
+    out = run_year_batch(PLAN, YEAR, root=hermetic["root"], health_checker=health,
+                         derived_extractor=fake_derived_extractor)
     assert out["outcome"] == "batch_completed"
     assert order[0] == "health"
     assert "retrieve" in order
@@ -373,18 +381,13 @@ def test_every_8_new_retrieves_circuit_breaker(hermetic, monkeypatch):
         return {"dataset_available": False, "status": "warning"}
 
     def fake_execute(unit, root=None, client_factory=None, retrieve_calls_tracker=None):
-        if retrieve_calls_tracker is not None:
-            retrieve_calls_tracker.append("cds")
-        return {
-            "skipped": False, "market_id": unit["market_id"], "period": unit["period"],
-            "retrieve_calls": 1, "request_id": "x" * 64, "artifact_id": "a",
-            "sha256": "y" * 64, "bytes": 1,
-        }
+        return fake_execute_persisting(unit, root=root, retrieve_calls_tracker=retrieve_calls_tracker,
+                                       raw_base=ctl.RAW_BASE)
 
     monkeypatch.setattr(ctl, "execute_unit_once", fake_execute)
     tracker = []
     out = run_year_batch(PLAN, YEAR, root=hermetic["root"], health_checker=health,
-                         retrieve_calls_tracker=tracker)
+                         retrieve_calls_tracker=tracker, derived_extractor=fake_derived_extractor)
     assert out["outcome"] == "batch_stopped_service_deferred"
     assert len(tracker) == 8  # exactly 8 NEW retrieves; the 9th was blocked
     assert health_calls["n"] == 2  # pre-batch + after 8
@@ -396,8 +399,8 @@ def test_1991_skips_do_not_count_toward_interval(hermetic, monkeypatch):
     # store with the 3 real 1991 accepted units so classify_units skips them.
     import scripts.v2.climatology.full_backfill_controller as ctl
 
-    from scripts.v2.climatology.production_unit import RAW_BASE
     from scripts.v2.core import RawArtifactStore
+    from tests.v2.fixtures.r2_hermetic_helpers import FAKE_RAW_PAYLOAD
 
     store = RawArtifactStore(hermetic["tmp"] / "raw")
     for unit_key in ("sse_composite:1991Q3", "nifty50:1991Q3", "bse50:1991Q1"):
@@ -406,7 +409,7 @@ def test_1991_skips_do_not_count_toward_interval(hermetic, monkeypatch):
             source_id="cds_era5_hourly_climatology",
             provider="ECMWF",
             logical_name=f"{plan_unit['market_id']}-{plan_unit['period'].lower()}-prod-seed",
-            payload=b"PK\x03\x04seedzip",
+            payload=FAKE_RAW_PAYLOAD,
             request={"variable": ["total_cloud_cover"]},
             status="final",
             licence="cc",
@@ -422,18 +425,13 @@ def test_1991_skips_do_not_count_toward_interval(hermetic, monkeypatch):
         return {"dataset_available": True, "status": "available"}
 
     def fake_execute(unit, root=None, client_factory=None, retrieve_calls_tracker=None):
-        if retrieve_calls_tracker is not None:
-            retrieve_calls_tracker.append("cds")
-        return {
-            "skipped": False, "market_id": unit["market_id"], "period": unit["period"],
-            "retrieve_calls": 1, "request_id": "x" * 64, "artifact_id": "a",
-            "sha256": "y" * 64, "bytes": 1,
-        }
+        return fake_execute_persisting(unit, root=root, retrieve_calls_tracker=retrieve_calls_tracker,
+                                       raw_base=ctl.RAW_BASE)
 
     monkeypatch.setattr(ctl, "execute_unit_once", fake_execute)
     tracker = []
     out = run_year_batch(PLAN, 1991, root=hermetic["root"], health_checker=health,
-                         retrieve_calls_tracker=tracker)
+                         retrieve_calls_tracker=tracker, derived_extractor=fake_derived_extractor)
     # 3 accepted skips + 29 NEW retrieves: pre-batch check + checks at 8/16/24
     # = 4 health calls; 8-count only counts NEW retrieves (skip slots ignored).
     assert out["outcome"] == "batch_completed"

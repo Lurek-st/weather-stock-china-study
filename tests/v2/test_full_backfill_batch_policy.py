@@ -39,11 +39,19 @@ ROOT = repo_root()
 PLAN = load_plan(ROOT)
 YEAR = 1992  # all 32 slots missing in this year -> clean batch
 
+from tests.v2.fixtures.r2_hermetic_helpers import (
+    fake_derived_extractor,
+    fake_execute_persisting,
+)
+
 
 @pytest.fixture
 def hermetic(tmp_path, monkeypatch):
-    """Hermetic controller root: live-authorized binding + empty raw store."""
+    """Hermetic controller root: isolated raw, derived, journal and snapshot."""
     import scripts.v2.climatology.full_backfill_controller as ctl
+    import scripts.v2.climatology.derived_store as ds
+
+    from tests.v2.fixtures.r2_hermetic_helpers import assert_isolation
 
     payload = {
         "authorization_schema_version": "1.0.0",
@@ -68,7 +76,9 @@ def hermetic(tmp_path, monkeypatch):
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))
-    return {"root": ROOT, "tmp": tmp_path}
+    monkeypatch.setattr(ds, "DERIVED_BASE", str(tmp_path / "derived"))
+    assert_isolation(ctl.RAW_BASE, ds.DERIVED_BASE, ROOT)
+    return {"root": ROOT, "tmp": tmp_path, "derived": tmp_path / "derived"}
 
 
 class OkClient:
@@ -117,13 +127,8 @@ def test_health_checked_after_every_8_new_retrieves(hermetic, monkeypatch):
 
     def fake_execute(unit, root=None, client_factory=None, retrieve_calls_tracker=None):
         calls["retrieve"] += 1
-        if retrieve_calls_tracker is not None:
-            retrieve_calls_tracker.append("cds")
-        return {
-            "skipped": False, "market_id": unit["market_id"], "period": unit["period"],
-            "retrieve_calls": 1, "request_id": "x" * 64, "artifact_id": "a",
-            "sha256": "y" * 64, "bytes": 1,
-        }
+        return fake_execute_persisting(unit, root=root, retrieve_calls_tracker=retrieve_calls_tracker,
+                                       raw_base=ctl.RAW_BASE)
 
     monkeypatch.setattr(ctl, "execute_unit_once", fake_execute)
 
@@ -134,6 +139,7 @@ def test_health_checked_after_every_8_new_retrieves(hermetic, monkeypatch):
     out = run_year_batch(
         PLAN, YEAR, root=hermetic["root"],
         health_checker=health, client_factory=OkClient,
+        derived_extractor=fake_derived_extractor,
     )
     # 32 slots; initial + checks at 8/16/24 = 4 health calls.
     assert out["outcome"] == "batch_completed"
@@ -182,13 +188,8 @@ def test_year_boundary_forced_stop(hermetic, monkeypatch):
     from scripts.v2.climatology.full_backfill_controller import read_journal
 
     def fake_execute(unit, root=None, client_factory=None, retrieve_calls_tracker=None):
-        if retrieve_calls_tracker is not None:
-            retrieve_calls_tracker.append("cds")
-        return {
-            "skipped": False, "market_id": unit["market_id"], "period": unit["period"],
-            "retrieve_calls": 1, "request_id": "x" * 64, "artifact_id": "a",
-            "sha256": "y" * 64, "bytes": 1,
-        }
+        return fake_execute_persisting(unit, root=root, retrieve_calls_tracker=retrieve_calls_tracker,
+                                       raw_base=ctl.RAW_BASE)
 
     monkeypatch.setattr(ctl, "execute_unit_once", fake_execute)
     tracker = []
@@ -199,6 +200,7 @@ def test_year_boundary_forced_stop(hermetic, monkeypatch):
     out = run_year_batch(
         PLAN, YEAR, root=hermetic["root"],
         health_checker=health, client_factory=OkClient, retrieve_calls_tracker=tracker,
+        derived_extractor=fake_derived_extractor,
     )
     events = read_journal(hermetic["root"])
     years = {e.get("batch_year") for e in events if e.get("batch_year")}

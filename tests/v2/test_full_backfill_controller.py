@@ -280,10 +280,35 @@ def test_authorization_invalid_on_mismatch(tmp_path, monkeypatch):
 
 
 def test_kill_switch_live_blocked_zero_network(tmp_path, monkeypatch):
+    # The REAL repo is authorized=true since Stage 5E-3C-A; this test injects
+    # an authorized=false authorization to verify the kill switch still blocks
+    # before any client construction (0 network, 0 retrieve).
     import scripts.v2.climatology.full_backfill_controller as ctl
 
-    auth = load_authorization(ROOT)
-    assert auth["live_backfill_authorized"] is False
+    payload = {
+        "authorization_schema_version": "1.0.0",
+        "live_backfill_authorized": False,
+        "authorization_state": "candidate_for_control_layer",
+        "control_layer_approval_required": True,
+        "bound_hashes": {
+            "global_backfill_plan_hash": PLAN["global_backfill_plan_hash"],
+            "controller_policy_hash": controller_policy_hash(ROOT),
+            "request_identity_contract_version": REQUEST_IDENTITY_CONTRACT_VERSION,
+            "global_spatial_anchor_registry_hash": load_global_registry_hash(ROOT),
+            "timezone_canary_hash": EXPECTED_TIMEZONE_CANARY_HASH,
+        },
+    }
+    payload["authorization_candidate_hash"] = authorization_candidate_hash(ROOT)
+    import yaml
+
+    auth_path = tmp_path / "auth.yaml"
+    auth_path.write_text(yaml.safe_dump(payload), encoding="utf-8")
+    monkeypatch.setattr(ctl, "AUTHORIZATION_PATH", str(auth_path))
+    monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
+    monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
+    monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))
+
     # The CLI must fail before any client construction; run_year_batch refuses.
     with pytest.raises(V2Error) as excinfo:
         ctl.run_year_batch(PLAN, 1991, root=ROOT)

@@ -47,10 +47,19 @@ from scripts.v2.climatology.cds_service_health import (
     DEFAULT_DATASET_ID,
     make_dataset_health_checker,
 )
+from scripts.v2.climatology.derived_store import (
+    build_derived_artifact,
+    classify_derived_units,
+    derived_path_for,
+    load_derived_artifact,
+    persist_derived_atomic,
+    validate_derived_artifact,
+)
 from scripts.v2.climatology.production_canary import (
     EXPECTED_TIMEZONE_CANARY_HASH,
     REQUEST_IDENTITY_CONTRACT_VERSION,
     load_global_registry_hash,
+    lookup_accepted_request,
 )
 from scripts.v2.climatology.production_quarter import assert_stage5e3b_authorized
 from scripts.v2.climatology.production_unit import RAW_BASE, RawArtifactStore, execute_unit_once, extract_unit_exposures
@@ -80,6 +89,7 @@ EVENT_TYPES = {
     "unit_retrieve_started",
     "unit_raw_accepted",
     "unit_derived_completed",
+    "unit_derived_failure",
     "unit_operational_failure",
     "unit_validation_failure",
     "unit_contract_failure",
@@ -178,6 +188,14 @@ def verify_authorization_binding(root: Path | None = None) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
+def _raw_store(root: Path | None = None) -> RawArtifactStore:
+    """RawArtifactStore rooted at RAW_BASE (absolute or relative-to-root)."""
+    root = root or repo_root()
+    base = Path(RAW_BASE)
+    path = base if base.is_absolute() else root / base
+    return RawArtifactStore(path)
+
+
 def classify_units(plan: dict[str, Any], root: Path | None = None) -> dict[str, Any]:
     """Classify every formal unit against the RawArtifactStore.
 
@@ -186,7 +204,7 @@ def classify_units(plan: dict[str, Any], root: Path | None = None) -> dict[str, 
     counts as ``invalid`` and FAILS the gate.
     """
     root = root or repo_root()
-    store = RawArtifactStore(root / RAW_BASE)
+    store = _raw_store(root)
     accepted: list[dict[str, Any]] = []
     missing: list[dict[str, Any]] = []
     invalid: list[dict[str, Any]] = []
@@ -271,21 +289,28 @@ def write_snapshot(snapshot: dict[str, Any], root: Path | None = None) -> Path:
 
 
 def reconcile_progress(plan: dict[str, Any], root: Path | None = None) -> dict[str, Any]:
-    """Derive current progress from (plan + journal + raw store), NEVER from a
-    stale snapshot ordinal alone.
+    """Derive current progress from (plan + journal + raw store + derived
+    store), NEVER from a stale snapshot ordinal alone.
 
     Authority: raw store accepted artifacts win over a stale pending journal
-    entry.  If the journal claims accepted but the raw store is missing /
-    SHA-mismatched, that unit is FAIL CLOSED (never pretend success).
+    entry; validated derived artifacts win over stale derived journal entries.
+    If the journal claims accepted but the raw store is missing / SHA-mismatched,
+    that unit is FAIL CLOSED (never pretend success).  A journal
+    ``unit_derived_completed`` without a validated derived artifact is also
+    FAIL CLOSED (derived completeness is never journal-alone).
     """
     root = root or repo_root()
     classification = classify_units(plan, root)
+    derived_cls = classify_derived_units(plan, root, raw_classification=classification)
+    derived_complete_keys = {u["unit_key"] for u in derived_cls["complete"]}
     events = read_journal(root)
     accepted_keys = {u["unit_key"] for u in classification["accepted"]}
     journal_events = {e["unit_key"]: e for e in events if e.get("unit_key")}
     blocked: list[str] = []
     for unit_key, ev in journal_events.items():
         if ev.get("event_type") == "unit_raw_accepted" and unit_key not in accepted_keys:
+            blocked.append(unit_key)
+        if ev.get("event_type") == "unit_derived_completed" and unit_key not in derived_complete_keys:
             blocked.append(unit_key)
         if ev.get("event_type") == "unit_validation_failure":
             blocked.append(unit_key)
@@ -297,8 +322,14 @@ def reconcile_progress(plan: dict[str, Any], root: Path | None = None) -> dict[s
         "authorization_candidate_hash": authorization_candidate_hash(root),
         "formal_units_total": plan["formal_unit_count"],
         "accepted_raw_units": len(classification["accepted"]),
-        "derived_complete_units": len(
-            [e for e in events if e.get("event_type") == "unit_derived_completed" and e.get("unit_key") in accepted_keys]
+        "derived_complete_units": len(derived_complete_keys),
+        "derived_retryable_units": len(
+            {
+                e["unit_key"]
+                for e in events
+                if e.get("event_type") == "unit_derived_failure" and e.get("unit_key")
+            }
+            - derived_complete_keys
         ),
         "pending_units": len(classification["missing"]),
         "operational_retryable_units": len(
@@ -308,7 +339,7 @@ def reconcile_progress(plan: dict[str, Any], root: Path | None = None) -> dict[s
         "current_year": _current_year_from_events(events),
         "last_event_seq": max((e.get("event_seq", 0) for e in events), default=0),
     }
-    return {"snapshot": snapshot, "classification": classification, "events": events}
+    return {"snapshot": snapshot, "classification": classification, "derived": derived_cls, "events": events}
 
 
 def _current_year_from_events(events: list[dict[str, Any]]) -> int | None:
@@ -364,6 +395,7 @@ def run_year_batch(
     health_checker: Callable[[], dict[str, Any]] | None = None,
     client_factory: Callable[[], Any] | None = None,
     retrieve_calls_tracker: list[int] | None = None,
+    derived_extractor: Callable[..., dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Execute AT MOST ONE baseline year (32 formal slots max).
 
@@ -377,6 +409,11 @@ def run_year_batch(
     checkers; the real CLI wires ``make_dataset_health_checker`` AFTER the
     authorization kill switch / binding checks, so no health HTTP happens when
     not authorized.
+
+    ``derived_extractor`` is injectable for hermetic tests (Stage 5E-3C-R2);
+    when None the controller uses the FROZEN scientific engine
+    ``production_unit.extract_unit_exposures``.  It never re-implements the
+    science.
     """
     root = root or repo_root()
     binding = verify_authorization_binding(root)
@@ -438,6 +475,15 @@ def run_year_batch(
                 root,
             )
             results.append({"unit_key": unit["unit_key"], "outcome": "skip_accepted", "retrieve_calls": 0})
+            # Stage 5E-3C-R2: accepted raw SKIPS RETRIEVE, not the whole unit.
+            # The unit still needs derived processing (from the existing raw).
+            derived = _ensure_derived(unit, plan, root, batch_year=year,
+                                      derived_extractor=derived_extractor,
+                                      client_factory=client_factory,
+                                      retrieve_calls_tracker=tracker)
+            if derived["outcome"] != "derived_complete":
+                return {"year": year, "outcome": derived["outcome"], "results": results, "error": derived.get("error")}
+            results.append({"unit_key": unit["unit_key"], "outcome": "derived_complete", "retrieve_calls": 0})
             continue
         if new_retrieves > 0 and new_retrieves % 8 == 0 and not _health_ok():
             append_event(
@@ -514,9 +560,207 @@ def run_year_batch(
             root,
         )
         results.append({"unit_key": unit["unit_key"], "outcome": "raw_accepted", "retrieve_calls": outcome["retrieve_calls"]})
+        # Stage 5E-3C-R2: raw accepted -> derived processing -> progress.
+        derived = _ensure_derived(unit, plan, root, batch_year=year,
+                                  derived_extractor=derived_extractor,
+                                  client_factory=client_factory,
+                                  retrieve_calls_tracker=tracker)
+        if derived["outcome"] != "derived_complete":
+            return {"year": year, "outcome": derived["outcome"], "results": results, "error": derived.get("error")}
+        results.append({"unit_key": unit["unit_key"], "outcome": "derived_complete", "retrieve_calls": 0})
+
+    # Stage 5E-3C-R2 batch completion predicate (spec 15): batch_completed is
+    # emitted ONLY after the full year is raw+derived complete with exact rows.
+    completion = _year_completion_check(plan, year, root)
+    if not completion["complete"]:
+        write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
+        return {"year": year, "outcome": "batch_stopped_incomplete", "results": results, "completion": completion}
     append_event({"event_type": "batch_completed", "batch_year": year}, root)
     write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
-    return {"year": year, "outcome": "batch_completed", "results": results, "new_retrieves": new_retrieves}
+    return {
+        "year": year,
+        "outcome": "batch_completed",
+        "results": results,
+        "new_retrieves": new_retrieves,
+        "completion": completion,
+    }
+
+
+def _ensure_derived(
+    plan_unit: dict[str, Any],
+    plan: dict[str, Any],
+    root: Path | None = None,
+    batch_year: int | None = None,
+    derived_extractor: Callable[..., dict[str, Any]] | None = None,
+    client_factory: Callable[[], Any] | None = None,
+    retrieve_calls_tracker: list[int] | None = None,
+) -> dict[str, Any]:
+    """Ensure a unit's derived exposure artifact exists and is valid.
+
+    Returns ``derived_complete`` on success.  On extraction / validation /
+    persistence failure, records ``unit_derived_failure`` (raw stays accepted,
+    no re-download) and stops the batch.
+    """
+    root = root or repo_root()
+    engine = engine_unit(plan_unit)
+    request_id = plan_unit["final_request_id"]
+
+    # Reuse the raw acceptance lookup to get the accepted raw SHA.  In the
+    # REAL path (derived_extractor is None -> frozen extract_unit_exposures)
+    # an accepted raw MUST exist in the store.  In hermetic TEST mode a fake
+    # extractor may supply raw_sha256 itself (fake execute did not persist).
+    store = _raw_store(root)
+    expected_raw_sha: str | None = None
+    try:
+        lookup = lookup_accepted_request(store, request_id)
+        if lookup["found"]:
+            expected_raw_sha = lookup["sha256"]
+    except V2Error:
+        expected_raw_sha = None
+
+    # Valid derived artifact already exists -> idempotent skip (no re-extract).
+    try:
+        existing = load_derived_artifact(plan_unit, root)
+    except V2Error:
+        existing = None
+    if existing is not None:
+        if expected_raw_sha is None:
+            raise V2Error(f"no accepted raw for derived processing: {plan_unit['unit_key']}")
+        problems = validate_derived_artifact(plan_unit, existing, expected_raw_sha, root)
+        if not problems:
+            append_event(
+                {
+                    "event_type": "unit_derived_completed",
+                    "unit_key": plan_unit["unit_key"],
+                    "final_request_id": request_id,
+                    "batch_year": batch_year,
+                    "raw_sha": expected_raw_sha,
+                    "derived_already_valid": True,
+                },
+                root,
+            )
+            return {"outcome": "derived_complete", "derived_already_valid": True}
+
+    # Stage 5E-3C-R2: run the FROZEN scientific extractor (never a second
+    # implementation).  ``derived_extractor`` is injectable for hermetic tests;
+    # the real controller uses production_unit.extract_unit_exposures.
+    extractor = derived_extractor or extract_unit_exposures
+    try:
+        extract_out = extractor(engine, root=root)
+    except Exception as exc:  # noqa: BLE001 - classified as derived failure
+        append_event(
+            {
+                "event_type": "unit_derived_failure",
+                "unit_key": plan_unit["unit_key"],
+                "final_request_id": request_id,
+                "batch_year": batch_year,
+                "raw_sha": expected_raw_sha,
+                "failure_class": FAILURE_CONTRACT["derived_only"],
+            },
+            root,
+        )
+        write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
+        return {"outcome": "batch_stopped_derived_failure", "error": str(exc)}
+
+    if expected_raw_sha is None:
+        # Hermetic test mode: fall back to the extractor-provided raw SHA.
+        expected_raw_sha = extract_out.get("raw_sha256")
+    if not expected_raw_sha:
+        raise V2Error(f"no accepted raw for derived processing: {plan_unit['unit_key']}")
+
+    artifact = build_derived_artifact(plan_unit, extract_out)
+    problems = validate_derived_artifact(plan_unit, artifact, expected_raw_sha, root)
+    if problems:
+        append_event(
+            {
+                "event_type": "unit_derived_failure",
+                "unit_key": plan_unit["unit_key"],
+                "final_request_id": request_id,
+                "batch_year": batch_year,
+                "raw_sha": expected_raw_sha,
+                "failure_class": FAILURE_CONTRACT["derived_only"],
+            },
+            root,
+        )
+        write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
+        return {"outcome": "batch_stopped_derived_failure", "error": "; ".join(problems)}
+
+    try:
+        persist_derived_atomic(plan_unit, artifact, expected_raw_sha, root)
+    except V2Error as exc:
+        append_event(
+            {
+                "event_type": "unit_derived_failure",
+                "unit_key": plan_unit["unit_key"],
+                "final_request_id": request_id,
+                "batch_year": batch_year,
+                "raw_sha": expected_raw_sha,
+                "failure_class": FAILURE_CONTRACT["derived_only"],
+            },
+            root,
+        )
+        write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
+        return {"outcome": "batch_stopped_derived_failure", "error": str(exc)}
+
+    append_event(
+        {
+            "event_type": "unit_derived_completed",
+            "unit_key": plan_unit["unit_key"],
+            "final_request_id": request_id,
+            "batch_year": batch_year,
+            "raw_sha": expected_raw_sha,
+        },
+        root,
+    )
+    # The derived artifact and append-only event above are the durable
+    # per-unit authorities.  Rebuilding the convenience snapshot here would
+    # rescan and revalidate all 960 formal units after every successful unit,
+    # making a one-year batch quadratic in completed artifacts.  The batch
+    # completion path rebuilds the snapshot once; failure paths still rebuild
+    # it immediately before stopping.
+    return {"outcome": "derived_complete", "derived_already_valid": False}
+
+
+def _year_completion_check(plan: dict[str, Any], year: int, root: Path | None = None) -> dict[str, Any]:
+    """Batch completion predicate: 32 raw + 32 derived + exact scientific rows.
+
+    Only when ALL hold may ``batch_completed`` be emitted (spec 15).
+    """
+    root = root or repo_root()
+    year_plan_units = [u for u in plan["units"] if u["year"] == year]
+    raw_cls = classify_units(plan, root)
+    derived_cls = classify_derived_units(plan, root, raw_classification=raw_cls)
+    raw_by_key = {u["unit_key"]: u for u in raw_cls["accepted"]}
+    derived_by_key = {u["unit_key"]: u for u in derived_cls["complete"]}
+
+    raw_ok = all(u["unit_key"] in raw_by_key for u in year_plan_units)
+    derived_ok = all(u["unit_key"] in derived_by_key for u in year_plan_units)
+    total_rows = 0
+    missing_rows = 0
+    consumed_extras = 0
+    rows_ok = True
+    for unit in year_plan_units:
+        if unit["unit_key"] not in derived_by_key:
+            rows_ok = False
+            continue
+        artifact = load_derived_artifact(unit, root)
+        total_rows += artifact["row_count"]
+        missing_rows += artifact["missing_count"]
+        consumed_extras += artifact["firewall"]["consumed_extras"]
+    expected_rows = 8 * 365  # 2920
+    rows_ok = rows_ok and total_rows == expected_rows and missing_rows == 0 and consumed_extras == 0
+    complete = raw_ok and derived_ok and rows_ok
+    return {
+        "complete": complete,
+        "year": year,
+        "formal_units": len(year_plan_units),
+        "raw_accepted_year": len([u for u in year_plan_units if u["unit_key"] in raw_by_key]),
+        "derived_complete_year": len([u for u in year_plan_units if u["unit_key"] in derived_by_key]),
+        "expected_rows": expected_rows,
+        "actual_rows": total_rows,
+        "missing_rows": missing_rows,
+        "consumed_extras": consumed_extras,
+    }
 
 
 # ---------------------------------------------------------------------------

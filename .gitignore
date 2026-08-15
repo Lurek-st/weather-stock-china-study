@@ -56,3 +56,4 @@ data/panel/v2/**/*.json
 data/audits/v2/*.json
 data/audits/v2/*.md
 Thumbs.db
+.tmp-r2-test/
