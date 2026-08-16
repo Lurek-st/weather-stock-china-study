@@ -57,6 +57,14 @@ RAW_BASE = "data/source_raw/v2/climatology"
 RAW_SOURCE_ID = "cds_era5_hourly_climatology"
 
 
+class ClientConstructionError(RuntimeError):
+    """Real CDS client construction failed before a retrieve could begin."""
+
+
+class PayloadValidationError(V2Error):
+    """Downloaded bytes failed the frozen raw-payload validation contract."""
+
+
 # ---------------------------------------------------------------------------
 # Frozen market contract
 # ---------------------------------------------------------------------------
@@ -271,7 +279,11 @@ def execute_unit_once(
         def retrieve(self, dataset: str, payload: dict[str, Any], target: str) -> None:
             tracker.append(dataset)
             if client_factory is not None:
-                client_factory().retrieve(dataset, payload, target)
+                try:
+                    transport_client = client_factory()
+                except Exception as exc:  # noqa: BLE001 - retain reliable phase
+                    raise ClientConstructionError("CDS client construction failed") from exc
+                transport_client.retrieve(dataset, payload, target)
                 return
             import cdsapi
 
@@ -281,17 +293,26 @@ def execute_unit_once(
     with tempfile.TemporaryDirectory(prefix="weather-stock-v2-q-") as tmp:
         target = Path(tmp) / "quarter.download"
         client.retrieve(CANARY_DATASET, request, str(target))
-        validation = validate_download_container(
-            target,
-            request,
-            area={"area": request["area"]},
-            expected_netcdf_variables=[CANARY_NETCDF_VARIABLE],
-        )
+        try:
+            validation = validate_download_container(
+                target,
+                request,
+                area={"area": request["area"]},
+                expected_netcdf_variables=[CANARY_NETCDF_VARIABLE],
+            )
+        except V2Error as exc:
+            raise PayloadValidationError(
+                f"{unit['market_id']} {unit['period']} container validation failed"
+            ) from exc
         if not validation["container_validation_passed"]:
-            raise V2Error(f"{unit['market_id']} {unit['period']} container validation failed")
+            raise PayloadValidationError(
+                f"{unit['market_id']} {unit['period']} container validation failed"
+            )
         expected = expected_timestamps(request)
         if len(expected) != len(request["date"]) * len(request["time"]):
-            raise V2Error(f"{unit['market_id']} {unit['period']} transport timestamp count mismatch")
+            raise PayloadValidationError(
+                f"{unit['market_id']} {unit['period']} transport timestamp count mismatch"
+            )
         logical_name = f"{unit['market_id']}-{unit['period'].lower()}-prod-{request_id[:8]}"
         result = store.persist(
             source_id=RAW_SOURCE_ID,

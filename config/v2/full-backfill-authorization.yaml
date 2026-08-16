@@ -1,23 +1,11 @@
-# Stage 5E-3C-A full backfill authorization — APPROVED / ACTIVE.
+# Stage 5E-4C-R6 bounded-transport authorization CANDIDATE (NOT live).
 #
-# Control layer approved the Stage 5E-3C authorization candidate
-# (authorization_candidate_hash = 37df1df9...) on 2026-08-14 and issued the
-# Stage 5E-3C-A activation checkpoint.  The authorization is now ACTIVE.
+# This file is the NETWORK KILL SWITCH.  live_backfill_authorized MUST stay
+# false until the control layer accepts Stage 5E-4C-R6 and issues a separate
+# minimal activation checkpoint.  WorkBuddy must NEVER flip it to true on its
+# own.
 #
-# This file is the NETWORK KILL SWITCH.  live_backfill_authorized = true
-# authorizes the FROZEN controlled full-backfill controller ONLY, executing
-# strictly under the frozen policy:
-#   - one baseline year per invocation (--year YYYY); no --all / no one-shot
-#   - max 32 formal slots per invocation; concurrency = 1
-#   - dataset-specific service-health check (pre-batch + every 8 NEW
-#     retrieves); non-available -> STOP / operational_deferred
-#   - automatic retry = false (health and CDS)
-#   - accepted request pre-network skip; year-boundary forced stop
-#
-# Activation itself does NOT mean execution has started: execution_started /
-# full_backfill_started remain false until a future execution stage runs.
-#
-# authorization_candidate_hash binds (unchanged by activation):
+# authorization_candidate_hash binds:
 #   global_backfill_plan_hash + controller_policy_hash +
 #   request_identity_contract_version + global_spatial_anchor_registry_hash +
 #   timezone_canary_hash
@@ -26,15 +14,15 @@
 # authorization is automatically invalid (no silent inheritance of older
 # permissions).
 authorization_schema_version: "1.0.0"
-live_backfill_authorized: true
-authorization_state: "approved"
-control_layer_approval_required: false
+live_backfill_authorized: false
+authorization_state: "candidate_for_control_layer"
+control_layer_approval_required: true
 
 bound_hashes:
   global_backfill_plan_hash: "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf"
-  controller_policy_hash: "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a"
+  controller_policy_hash: "b2ad6ec8f119cedcafba0bc4a1962e8162de4d5060b759fa759ad1251fbfd08b"
   request_identity_contract_version: "1.1.0"
   global_spatial_anchor_registry_hash: "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38"
   timezone_canary_hash: "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
 
-authorization_candidate_hash: "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c"
+authorization_candidate_hash: "a1395ed2a33484bb67a37282db846d2cb1d5e83fe0ab3f6aabe50b5490be9b6a"

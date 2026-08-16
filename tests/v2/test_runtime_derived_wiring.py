@@ -57,7 +57,7 @@ from tests.v2.fixtures.r2_hermetic_helpers import (
 
 ROOT = repo_root()
 PLAN = load_plan(ROOT)
-YEAR = 1992  # all 32 slots missing -> clean batch
+YEAR = 1992  # isolated store makes all 32 slots missing regardless of production
 
 
 @pytest.fixture
@@ -71,6 +71,7 @@ def hermetic(tmp_path, monkeypatch):
     """
     import scripts.v2.climatology.full_backfill_controller as ctl
     import scripts.v2.climatology.derived_store as ds
+    import scripts.v2.climatology.production_unit as production_unit
 
     from tests.v2.fixtures.r2_hermetic_helpers import assert_isolation
 
@@ -97,6 +98,7 @@ def hermetic(tmp_path, monkeypatch):
     auth_path.write_text(yaml.safe_dump(payload), encoding="utf-8")
     monkeypatch.setattr(ctl, "AUTHORIZATION_PATH", str(auth_path))
     monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(production_unit, "RAW_BASE", str(tmp_path / "raw"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))
@@ -278,7 +280,7 @@ def test_classify_derived_units_all_missing_for_missing_raw(hermetic):
     cls = classify_derived_units(PLAN, hermetic["root"])
     assert len(cls["complete"]) == 0
     assert len(cls["invalid"]) == 0
-    # 952 missing raw -> derived missing too (no raw, no derived)
+    # Isolated raw and derived stores are empty, independent of production.
     assert len(cls["missing"]) == 960
 
 

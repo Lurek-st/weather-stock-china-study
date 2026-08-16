@@ -345,6 +345,7 @@ def test_run_year_batch_none_checker_fails_closed(tmp_path, monkeypatch):
 def hermetic(tmp_path, monkeypatch):
     import scripts.v2.climatology.full_backfill_controller as ctl
     import scripts.v2.climatology.derived_store as ds
+    import scripts.v2.climatology.production_unit as production_unit
 
     from tests.v2.fixtures.r2_hermetic_helpers import assert_isolation
 
@@ -368,6 +369,7 @@ def hermetic(tmp_path, monkeypatch):
     auth_path.write_text(yaml.safe_dump(payload), encoding="utf-8")
     monkeypatch.setattr(ctl, "AUTHORIZATION_PATH", str(auth_path))
     monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(production_unit, "RAW_BASE", str(tmp_path / "raw"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))

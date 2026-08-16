@@ -33,10 +33,13 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.metadata
 import json
 import os
+import re
 import sys
-from datetime import date
+import uuid
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -62,7 +65,14 @@ from scripts.v2.climatology.production_canary import (
     lookup_accepted_request,
 )
 from scripts.v2.climatology.production_quarter import assert_stage5e3b_authorized
-from scripts.v2.climatology.production_unit import RAW_BASE, RawArtifactStore, execute_unit_once, extract_unit_exposures
+from scripts.v2.climatology.production_unit import (
+    RAW_BASE,
+    ClientConstructionError,
+    PayloadValidationError,
+    RawArtifactStore,
+    execute_unit_once,
+    extract_unit_exposures,
+)
 from scripts.v2.core import V2Error, load_json, load_yaml, repo_root
 
 PLAN_PATH = "data/audits/v2/climatology/full-era5-backfill-plan-1991-2020.json"
@@ -72,12 +82,17 @@ STATE_DIR = "data/state/v2/climatology/full-backfill"
 JOURNAL_PATH = "data/state/v2/climatology/full-backfill/progress.events.jsonl"
 SNAPSHOT_PATH = "data/state/v2/climatology/full-backfill/progress.snapshot.json"
 SCHEMA_VERSION = "1.0.0"
+ERROR_RECORD_SCHEMA_VERSION = "1.0.0"
+MAX_SANITIZED_MESSAGE_CHARS = 1024
+OLD_CONTROLLER_POLICY_HASH = "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a"
 
 # Failure classification (frozen Stage 5E-3C contract).
 FAILURE_CONTRACT = {
     "pre_network_contract": "non_retryable_until_control_review",
     "service_health_defer": "operational_deferred",
     "operational_retrieve": "retryable_operational",
+    "transport_retry_exhausted": "transport_retry_exhausted",
+    "service_job_terminal_failure": "service_job_terminal_failure",
     "request_contract_rejection": "contract_review_required",
     "payload_validation": "validation_failure_control_review_required",
     "derived_only": "raw_accepted_derived_retry",
@@ -118,9 +133,105 @@ def load_plan(root: Path | None = None) -> dict[str, Any]:
 def load_controller_policy(root: Path | None = None) -> dict[str, Any]:
     root = root or repo_root()
     policy = load_yaml(root / CONTROLLER_POLICY_PATH)
-    if policy.get("controller_schema_version") != "1.0.0":
+    if policy.get("controller_schema_version") != "2.0.0":
         raise V2Error("unexpected controller policy schema version")
+    _validate_controller_policy(policy)
     return policy
+
+
+def _validate_controller_policy(policy: dict[str, Any]) -> None:
+    controller_retry = policy.get("controller_retry") or {}
+    logical = policy.get("logical_retrieve") or {}
+    transport = policy.get("transport") or {}
+    required = {
+        "controller automatic annual retry": controller_retry.get("automatic_annual_retry") is False,
+        "controller operational stop": controller_retry.get("controller_visible_operational_failure")
+        == "stop_immediately",
+        "one logical retrieve": logical.get("max_cds_retrieve_calls_per_unit_attempt") == 1,
+        "accepted pre-network skip": logical.get("accepted_request_policy") == "pre_network_skip",
+        "logical operational stop": logical.get("operational_failure_policy") == "stop_immediately",
+        "three total transport tries": transport.get("maximum_total_tries_per_robust_http_operation") == 3,
+        "transport delay": transport.get("retry_delay_seconds") == 120,
+        "TLS verification": transport.get("tls_verification_enabled") is True,
+        "retryable HTTP statuses": transport.get("retryable_http_statuses")
+        == [408, 429, 500, 502, 503, 504],
+        "retryable exception families": transport.get("retryable_exception_families")
+        == ["ConnectionError", "ReadTimeout", "ChunkedEncodingError"],
+        "SSL not retried": transport.get("ssl_error_automatic_retry") is False,
+        "server Retry-After not used": transport.get("server_retry_after_used") is False,
+        "job polling classification": transport.get("job_polling_classification")
+        == "continuous_job_state_wait_not_controller_retry",
+    }
+    failed = [name for name, passed in required.items() if not passed]
+    if failed:
+        raise V2Error("invalid bounded controller policy: " + ", ".join(failed))
+
+
+def runtime_transport_versions(
+    version_getter: Callable[[str], str] | None = None,
+) -> dict[str, str]:
+    """Read installed distribution versions without constructing a client."""
+    getter = version_getter or importlib.metadata.version
+    names = ("cdsapi", "ecmwf-datastores-client", "multiurl", "requests", "urllib3")
+    versions: dict[str, str] = {}
+    for name in names:
+        try:
+            versions[name] = getter(name)
+        except importlib.metadata.PackageNotFoundError as exc:
+            raise V2Error(f"transport runtime dependency missing: {name}; 0 network") from exc
+    return versions
+
+
+def verify_transport_runtime(
+    policy: dict[str, Any],
+    version_getter: Callable[[str], str] | None = None,
+) -> dict[str, Any]:
+    """Fail closed on version or pinned multiurl semantic drift, before network."""
+    expected = (policy.get("transport") or {}).get("runtime_dependencies") or {}
+    observed = runtime_transport_versions(version_getter)
+    mismatches = {
+        name: {"expected": expected.get(name), "observed": observed.get(name)}
+        for name in observed
+        if expected.get(name) != observed.get(name)
+    }
+    if mismatches:
+        raise V2Error(f"transport runtime version mismatch: {mismatches}; 0 network")
+
+    # This local/static check binds the policy's status semantics to the exact
+    # installed multiurl implementation.  It performs no HTTP operation.
+    from multiurl.retry import RETRIABLE
+
+    expected_statuses = set((policy.get("transport") or {}).get("retryable_http_statuses") or [])
+    if set(RETRIABLE) != expected_statuses:
+        raise V2Error(
+            f"pinned multiurl retry status semantics mismatch: {sorted(RETRIABLE)}; 0 network"
+        )
+    return {"valid": True, "versions": observed, "retryable_http_statuses": sorted(RETRIABLE)}
+
+
+def make_policy_driven_cds_client_factory(
+    policy: dict[str, Any],
+    client_constructor: Callable[..., Any] | None = None,
+    version_getter: Callable[[str], str] | None = None,
+) -> Callable[[], Any]:
+    """Return a lazy real-client factory whose retry settings come from policy."""
+    _validate_controller_policy(policy)
+    transport = policy["transport"]
+
+    def factory() -> Any:
+        verify_transport_runtime(policy, version_getter)
+        constructor = client_constructor
+        if constructor is None:
+            import cdsapi
+
+            constructor = cdsapi.Client
+        return constructor(
+            retry_max=transport["maximum_total_tries_per_robust_http_operation"],
+            sleep_max=transport["retry_delay_seconds"],
+            verify=transport["tls_verification_enabled"],
+        )
+
+    return factory
 
 
 def load_authorization(root: Path | None = None) -> dict[str, Any]:
@@ -237,6 +348,127 @@ def _lookup_accepted(store: RawArtifactStore, request_id: str) -> dict[str, Any]
     return lookup_accepted_request(store, request_id)
 
 
+def _exception_chain(exc: BaseException) -> list[BaseException]:
+    chain: list[BaseException] = []
+    current: BaseException | None = exc
+    while current is not None and current not in chain:
+        chain.append(current)
+        current = current.__cause__ or current.__context__
+    return chain
+
+
+def sanitize_error_message(exc: BaseException) -> str:
+    """Return a bounded durable message with common credential surfaces redacted."""
+    message = str(exc)
+    message = re.sub(r"(?i)(authorization\s*:\s*)[^\r\n]+", r"\1<redacted>", message)
+    message = re.sub(
+        r"(?i)\b(api[_-]?key|token|access[_-]?token|secret|key)\s*[=:]\s*[^\s,;&]+",
+        r"\1=<redacted>",
+        message,
+    )
+    message = re.sub(r"(https?://[^\s?]+)\?[^\s]+", r"\1?<redacted>", message)
+    return message[:MAX_SANITIZED_MESSAGE_CHARS]
+
+
+def _http_status(exc: BaseException) -> int | None:
+    for item in _exception_chain(exc):
+        response = getattr(item, "response", None)
+        status = getattr(response, "status_code", None)
+        if isinstance(status, int):
+            return status
+    return None
+
+
+def _classify_failure(exc: BaseException) -> dict[str, str]:
+    """Classify only stable exception types; otherwise preserve unknown."""
+    import requests.exceptions
+    from ecmwf.datastores.processing import ProcessingFailedError
+
+    chain = _exception_chain(exc)
+    if isinstance(exc, ClientConstructionError):
+        return {
+            "event_type": "unit_operational_failure",
+            "failure_class": FAILURE_CONTRACT["operational_retrieve"],
+            "error_category": "client_construction_failure",
+            "phase": "client_construction",
+        }
+    if any(isinstance(item, PayloadValidationError) for item in chain):
+        return {
+            "event_type": "unit_validation_failure",
+            "failure_class": FAILURE_CONTRACT["payload_validation"],
+            "error_category": "payload_validation_failure",
+            "phase": "payload_validation",
+        }
+    if any(isinstance(item, ProcessingFailedError) for item in chain):
+        return {
+            "event_type": "unit_operational_failure",
+            "failure_class": FAILURE_CONTRACT["service_job_terminal_failure"],
+            "error_category": "service_job_terminal_failure",
+            "phase": "unknown",
+        }
+    if any(isinstance(item, requests.exceptions.SSLError) for item in chain):
+        return {
+            "event_type": "unit_operational_failure",
+            "failure_class": FAILURE_CONTRACT["operational_retrieve"],
+            "error_category": "non_retryable_ssl_failure",
+            "phase": "unknown",
+        }
+    retryable_types = (
+        requests.exceptions.ConnectionError,
+        requests.exceptions.ReadTimeout,
+        requests.exceptions.ChunkedEncodingError,
+    )
+    if any(isinstance(item, retryable_types) for item in chain):
+        return {
+            "event_type": "unit_operational_failure",
+            "failure_class": FAILURE_CONTRACT["transport_retry_exhausted"],
+            "error_category": "transport_retry_exhausted",
+            "phase": "unknown",
+        }
+    if any(isinstance(item, V2Error) for item in chain):
+        return {
+            "event_type": "unit_contract_failure",
+            "failure_class": FAILURE_CONTRACT["request_contract_rejection"],
+            "error_category": "request_contract_rejection",
+            "phase": "unknown",
+        }
+    return {
+        "event_type": "unit_operational_failure",
+        "failure_class": FAILURE_CONTRACT["operational_retrieve"],
+        "error_category": "operational_failure_unknown",
+        "phase": "unknown",
+    }
+
+
+def build_error_record(
+    exc: BaseException,
+    policy: dict[str, Any],
+    transport_versions: dict[str, str],
+    classification: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    classification = classification or _classify_failure(exc)
+    transport = policy["transport"]
+    return {
+        "error_record_schema_version": ERROR_RECORD_SCHEMA_VERSION,
+        "error_category": classification["error_category"],
+        "phase": classification["phase"],
+        "exception_class": f"{type(exc).__module__}.{type(exc).__qualname__}",
+        "http_status": _http_status(exc),
+        "sanitized_message": sanitize_error_message(exc),
+        "transport_runtime_versions": dict(transport_versions),
+        "transport_retry_policy": {
+            "maximum_total_tries_per_robust_http_operation": transport[
+                "maximum_total_tries_per_robust_http_operation"
+            ],
+            "retry_delay_seconds": transport["retry_delay_seconds"],
+            "retryable_http_statuses": list(transport["retryable_http_statuses"]),
+            "retryable_exception_families": list(transport["retryable_exception_families"]),
+            "ssl_error_automatic_retry": transport["ssl_error_automatic_retry"],
+        },
+        "library_retry_count": "unknown",
+    }
+
+
 # ---------------------------------------------------------------------------
 # Progress ledger (append-only journal + derived snapshot)
 # ---------------------------------------------------------------------------
@@ -273,6 +505,7 @@ def append_event(event: dict[str, Any], root: Path | None = None) -> None:
     event = dict(event)
     event["schema_version"] = SCHEMA_VERSION
     event["event_seq"] = len(events) + 1
+    event.setdefault("event_time_utc", datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
     with path.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
 
@@ -286,6 +519,20 @@ def write_snapshot(snapshot: dict[str, Any], root: Path | None = None) -> Path:
     tmp.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     os.replace(tmp, path)
     return path
+
+
+def logical_attempt_number(
+    events: list[dict[str, Any]], unit_key: str, final_request_id: str
+) -> int:
+    """Number logical starts durably observed for this exact unit/request plus one."""
+    prior = sum(
+        1
+        for event in events
+        if event.get("event_type") == "unit_retrieve_started"
+        and event.get("unit_key") == unit_key
+        and event.get("final_request_id") == final_request_id
+    )
+    return prior + 1
 
 
 def reconcile_progress(plan: dict[str, Any], root: Path | None = None) -> dict[str, Any]:
@@ -396,6 +643,7 @@ def run_year_batch(
     client_factory: Callable[[], Any] | None = None,
     retrieve_calls_tracker: list[int] | None = None,
     derived_extractor: Callable[..., dict[str, Any]] | None = None,
+    runtime_version_getter: Callable[[str], str] | None = None,
 ) -> dict[str, Any]:
     """Execute AT MOST ONE baseline year (32 formal slots max).
 
@@ -421,11 +669,23 @@ def run_year_batch(
         raise V2Error("authorization binding invalid (hash mismatch); 0 network")
     if not binding["live_backfill_authorized"]:
         raise V2Error("live_backfill_authorized != true; authorization kill switch engaged")
+    policy = load_controller_policy(root)
+    runtime_check = verify_transport_runtime(policy, runtime_version_getter)
     if health_checker is None:
         # Stage 5E-3C-R1: no implicit healthy fallback.  A live batch without a
         # dataset-specific health checker is a wiring defect -> FAIL CLOSED.
         raise V2Error("dataset-specific health checker required (None not allowed for live batch)")
-    append_event({"event_type": "batch_started", "batch_year": year}, root)
+    invocation_id = str(uuid.uuid4())
+
+    def emit(event: dict[str, Any]) -> None:
+        enriched = dict(event)
+        enriched["invocation_id"] = invocation_id
+        append_event(enriched, root)
+
+    effective_client_factory = client_factory or make_policy_driven_cds_client_factory(
+        policy, version_getter=runtime_version_getter
+    )
+    emit({"event_type": "batch_started", "batch_year": year})
     units = year_units(plan, year)
     classification = classify_units(plan, root)
     accepted_keys = {u["unit_key"] for u in classification["accepted"]}
@@ -441,7 +701,7 @@ def run_year_batch(
     # 8 NEW retrieve attempts (spec 13).  A non-available target dataset stops
     # the batch BEFORE the next retrieve; recorded as operational_deferred.
     if not _health_ok():
-        append_event(
+        emit(
             {
                 "event_type": "unit_service_deferred",
                 "unit_key": None,
@@ -449,44 +709,44 @@ def run_year_batch(
                 "batch_year": year,
                 "service_status": "pre_batch_non_available",
             },
-            root,
         )
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"year": year, "outcome": "batch_stopped_service_deferred", "results": results}
 
     for unit in units:
-        append_event(
+        emit(
             {
                 "event_type": "unit_preflight",
                 "unit_key": unit["unit_key"],
                 "final_request_id": unit["final_request_id"],
                 "batch_year": year,
             },
-            root,
         )
         if unit["unit_key"] in accepted_keys:
-            append_event(
+            emit(
                 {
                     "event_type": "unit_skip_accepted",
                     "unit_key": unit["unit_key"],
                     "final_request_id": unit["final_request_id"],
                     "batch_year": year,
                 },
-                root,
             )
             results.append({"unit_key": unit["unit_key"], "outcome": "skip_accepted", "retrieve_calls": 0})
             # Stage 5E-3C-R2: accepted raw SKIPS RETRIEVE, not the whole unit.
             # The unit still needs derived processing (from the existing raw).
             derived = _ensure_derived(unit, plan, root, batch_year=year,
                                       derived_extractor=derived_extractor,
-                                      client_factory=client_factory,
-                                      retrieve_calls_tracker=tracker)
+                                      client_factory=effective_client_factory,
+                                      retrieve_calls_tracker=tracker,
+                                      invocation_id=invocation_id,
+                                      policy=policy,
+                                      transport_versions=runtime_check["versions"])
             if derived["outcome"] != "derived_complete":
                 return {"year": year, "outcome": derived["outcome"], "results": results, "error": derived.get("error")}
             results.append({"unit_key": unit["unit_key"], "outcome": "derived_complete", "retrieve_calls": 0})
             continue
         if new_retrieves > 0 and new_retrieves % 8 == 0 and not _health_ok():
-            append_event(
+            emit(
                 {
                     "event_type": "unit_service_deferred",
                     "unit_key": unit["unit_key"],
@@ -494,61 +754,51 @@ def run_year_batch(
                     "batch_year": year,
                     "service_status": "post_retrieve_non_available",
                 },
-                root,
             )
             write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
             return {"year": year, "outcome": "batch_stopped_service_deferred", "results": results}
-        append_event(
+        attempt_number = logical_attempt_number(
+            read_journal(root), unit["unit_key"], unit["final_request_id"]
+        )
+        emit(
             {
                 "event_type": "unit_retrieve_started",
                 "unit_key": unit["unit_key"],
                 "final_request_id": unit["final_request_id"],
                 "batch_year": year,
+                "attempt_number": attempt_number,
             },
-            root,
         )
         try:
             outcome = execute_unit_once(
-                engine_unit(unit), root=root, client_factory=client_factory, retrieve_calls_tracker=tracker
+                engine_unit(unit), root=root, client_factory=effective_client_factory,
+                retrieve_calls_tracker=tracker
             )
-        except V2Error as exc:
-            # Classification: V2Error from payload/container validation is a
-            # payload validation failure; other V2Error is a request/contract
-            # rejection.  Neither is automatically retried.
-            msg = str(exc)
-            if any(token in msg for token in ("container", "corrupt", "timestamp", "grid", "variable", "validation")):
-                event_type, failure_class = "unit_validation_failure", FAILURE_CONTRACT["payload_validation"]
-            else:
-                event_type, failure_class = "unit_contract_failure", FAILURE_CONTRACT["request_contract_rejection"]
-            append_event(
-                {
-                    "event_type": event_type,
-                    "unit_key": unit["unit_key"],
-                    "final_request_id": unit["final_request_id"],
-                    "batch_year": year,
-                    "failure_class": failure_class,
-                    "attempt_number": 1,
-                },
-                root,
-            )
-            write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
-            return {"year": year, "outcome": "batch_stopped_" + event_type.replace("unit_", ""), "results": results}
         except Exception as exc:  # noqa: BLE001 - operational failure classification
-            append_event(
+            classification = _classify_failure(exc)
+            emit(
                 {
-                    "event_type": "unit_operational_failure",
+                    "event_type": classification["event_type"],
                     "unit_key": unit["unit_key"],
                     "final_request_id": unit["final_request_id"],
                     "batch_year": year,
-                    "failure_class": FAILURE_CONTRACT["operational_retrieve"],
-                    "attempt_number": 1,
+                    "failure_class": classification["failure_class"],
+                    "attempt_number": attempt_number,
+                    "error_record": build_error_record(
+                        exc, policy, runtime_check["versions"], classification
+                    ),
                 },
-                root,
             )
             write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
-            return {"year": year, "outcome": "batch_stopped_operational_failure", "results": results, "error": str(exc)}
+            suffix = classification["event_type"].replace("unit_", "")
+            return {
+                "year": year,
+                "outcome": "batch_stopped_" + suffix,
+                "results": results,
+                "error": sanitize_error_message(exc),
+            }
         new_retrieves += 1
-        append_event(
+        emit(
             {
                 "event_type": "unit_raw_accepted",
                 "unit_key": unit["unit_key"],
@@ -557,14 +807,16 @@ def run_year_batch(
                 "artifact_id": outcome.get("artifact_id"),
                 "raw_sha": outcome.get("sha256"),
             },
-            root,
         )
         results.append({"unit_key": unit["unit_key"], "outcome": "raw_accepted", "retrieve_calls": outcome["retrieve_calls"]})
         # Stage 5E-3C-R2: raw accepted -> derived processing -> progress.
         derived = _ensure_derived(unit, plan, root, batch_year=year,
                                   derived_extractor=derived_extractor,
-                                  client_factory=client_factory,
-                                  retrieve_calls_tracker=tracker)
+                                  client_factory=effective_client_factory,
+                                  retrieve_calls_tracker=tracker,
+                                  invocation_id=invocation_id,
+                                  policy=policy,
+                                  transport_versions=runtime_check["versions"])
         if derived["outcome"] != "derived_complete":
             return {"year": year, "outcome": derived["outcome"], "results": results, "error": derived.get("error")}
         results.append({"unit_key": unit["unit_key"], "outcome": "derived_complete", "retrieve_calls": 0})
@@ -575,7 +827,7 @@ def run_year_batch(
     if not completion["complete"]:
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"year": year, "outcome": "batch_stopped_incomplete", "results": results, "completion": completion}
-    append_event({"event_type": "batch_completed", "batch_year": year}, root)
+    emit({"event_type": "batch_completed", "batch_year": year})
     write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
     return {
         "year": year,
@@ -594,6 +846,9 @@ def _ensure_derived(
     derived_extractor: Callable[..., dict[str, Any]] | None = None,
     client_factory: Callable[[], Any] | None = None,
     retrieve_calls_tracker: list[int] | None = None,
+    invocation_id: str | None = None,
+    policy: dict[str, Any] | None = None,
+    transport_versions: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """Ensure a unit's derived exposure artifact exists and is valid.
 
@@ -604,6 +859,21 @@ def _ensure_derived(
     root = root or repo_root()
     engine = engine_unit(plan_unit)
     request_id = plan_unit["final_request_id"]
+
+    def emit(event: dict[str, Any]) -> None:
+        enriched = dict(event)
+        if invocation_id is not None:
+            enriched["invocation_id"] = invocation_id
+        append_event(enriched, root)
+
+    def error_record(exc: BaseException) -> dict[str, Any]:
+        effective_policy = policy or load_controller_policy(root)
+        effective_versions = transport_versions or runtime_transport_versions()
+        classification = {
+            "error_category": "derived_processing_failure",
+            "phase": "payload_validation" if isinstance(exc, PayloadValidationError) else "unknown",
+        }
+        return build_error_record(exc, effective_policy, effective_versions, classification)
 
     # Reuse the raw acceptance lookup to get the accepted raw SHA.  In the
     # REAL path (derived_extractor is None -> frozen extract_unit_exposures)
@@ -628,7 +898,7 @@ def _ensure_derived(
             raise V2Error(f"no accepted raw for derived processing: {plan_unit['unit_key']}")
         problems = validate_derived_artifact(plan_unit, existing, expected_raw_sha, root)
         if not problems:
-            append_event(
+            emit(
                 {
                     "event_type": "unit_derived_completed",
                     "unit_key": plan_unit["unit_key"],
@@ -637,7 +907,6 @@ def _ensure_derived(
                     "raw_sha": expected_raw_sha,
                     "derived_already_valid": True,
                 },
-                root,
             )
             return {"outcome": "derived_complete", "derived_already_valid": True}
 
@@ -648,7 +917,7 @@ def _ensure_derived(
     try:
         extract_out = extractor(engine, root=root)
     except Exception as exc:  # noqa: BLE001 - classified as derived failure
-        append_event(
+        emit(
             {
                 "event_type": "unit_derived_failure",
                 "unit_key": plan_unit["unit_key"],
@@ -656,8 +925,8 @@ def _ensure_derived(
                 "batch_year": batch_year,
                 "raw_sha": expected_raw_sha,
                 "failure_class": FAILURE_CONTRACT["derived_only"],
+                "error_record": error_record(exc),
             },
-            root,
         )
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"outcome": "batch_stopped_derived_failure", "error": str(exc)}
@@ -671,7 +940,8 @@ def _ensure_derived(
     artifact = build_derived_artifact(plan_unit, extract_out)
     problems = validate_derived_artifact(plan_unit, artifact, expected_raw_sha, root)
     if problems:
-        append_event(
+        validation_exc = PayloadValidationError("; ".join(problems))
+        emit(
             {
                 "event_type": "unit_derived_failure",
                 "unit_key": plan_unit["unit_key"],
@@ -679,8 +949,8 @@ def _ensure_derived(
                 "batch_year": batch_year,
                 "raw_sha": expected_raw_sha,
                 "failure_class": FAILURE_CONTRACT["derived_only"],
+                "error_record": error_record(validation_exc),
             },
-            root,
         )
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"outcome": "batch_stopped_derived_failure", "error": "; ".join(problems)}
@@ -688,7 +958,7 @@ def _ensure_derived(
     try:
         persist_derived_atomic(plan_unit, artifact, expected_raw_sha, root)
     except V2Error as exc:
-        append_event(
+        emit(
             {
                 "event_type": "unit_derived_failure",
                 "unit_key": plan_unit["unit_key"],
@@ -696,13 +966,13 @@ def _ensure_derived(
                 "batch_year": batch_year,
                 "raw_sha": expected_raw_sha,
                 "failure_class": FAILURE_CONTRACT["derived_only"],
+                "error_record": error_record(exc),
             },
-            root,
         )
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"outcome": "batch_stopped_derived_failure", "error": str(exc)}
 
-    append_event(
+    emit(
         {
             "event_type": "unit_derived_completed",
             "unit_key": plan_unit["unit_key"],
@@ -710,7 +980,6 @@ def _ensure_derived(
             "batch_year": batch_year,
             "raw_sha": expected_raw_sha,
         },
-        root,
     )
     # The derived artifact and append-only event above are the durable
     # per-unit authorities.  Rebuilding the convenience snapshot here would
@@ -830,13 +1099,26 @@ def main(argv: list[str] | None = None) -> int:
                 indent=2,
             ))
             return 1
+        policy = load_controller_policy(root)
+        try:
+            verify_transport_runtime(policy)
+        except V2Error as exc:
+            print(json.dumps({"error": str(exc), "network": 0}, ensure_ascii=False, indent=2))
+            return 1
+        # Only after kill switch + binding + runtime-version checks do we
+        # construct network-capable callables.  The CDS factory itself remains
+        # lazy, so accepted raw is skipped before cdsapi.Client construction.
+        client_factory = make_policy_driven_cds_client_factory(policy)
         # Stage 5E-3C-R1: ONLY after kill switch + binding pass do we construct
         # the real dataset-specific health checker (construction is network-free;
         # the first fetch happens inside run_year_batch BEFORE the first
         # retrieve).  Kill switch false => health client never constructed.
         health_checker = make_dataset_health_checker(dataset_id=DEFAULT_DATASET_ID)
         print(json.dumps(
-            run_year_batch(plan, year, root, health_checker=health_checker),
+            run_year_batch(
+                plan, year, root, health_checker=health_checker,
+                client_factory=client_factory,
+            ),
             ensure_ascii=False,
             indent=2,
         ))

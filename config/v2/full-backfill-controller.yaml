@@ -1,32 +1,52 @@
-# Stage 5E-3C full backfill controller policy (frozen execution rules).
-#
-# This file defines HOW future full backfill batches may be executed.  It is
-# canonicalized and hashed into controller_policy_hash; any change to these
-# execution rules invalidates the authorization candidate (never silently
-# inherits an older permission).
-controller_schema_version: "1.0.0"
-
+# Stage 5E-4C-R6 bounded controller and transport contract.
+# Every semantic field below participates in controller_policy_hash.
+controller_schema_version: "2.0.0"
 baseline: "1991_2020"
 batching: "quarterly"
 formal_units: 960
-
 execution_order: "year_quarter_market"
 concurrency: 1
-
-max_new_retrieves_per_unit_attempt: 1
-automatic_retry: false
-
 execution_batch: "one_baseline_year"
 max_formal_slots_per_invocation: 32
-
 health_check_interval_new_retrieves: 8
-
 progress_write_frequency: "after_every_unit"
-
 year_boundary_forced_stop: true
-
-accepted_request_policy: "pre_network_skip"
-contract_failure_policy: "stop_immediately"
-operational_failure_policy: "stop_immediately"
-
 authorization_required: true
+
+controller_retry:
+  automatic_annual_retry: false
+  controller_visible_operational_failure: "stop_immediately"
+
+logical_retrieve:
+  max_cds_retrieve_calls_per_unit_attempt: 1
+  accepted_request_policy: "pre_network_skip"
+  contract_failure_policy: "stop_immediately"
+  operational_failure_policy: "stop_immediately"
+
+transport:
+  provider: "ECMWF Copernicus Climate Change Service"
+  client_family: "cdsapi-legacy-client"
+  maximum_total_tries_per_robust_http_operation: 3
+  retry_delay_seconds: 120
+  tls_verification_enabled: true
+  retryable_http_statuses:
+    - 408
+    - 429
+    - 500
+    - 502
+    - 503
+    - 504
+  retryable_exception_families:
+    - "ConnectionError"
+    - "ReadTimeout"
+    - "ChunkedEncodingError"
+  ssl_error_automatic_retry: false
+  server_retry_after_used: false
+  job_polling_classification: "continuous_job_state_wait_not_controller_retry"
+  job_submission_post_replay_risk: "bounded_duplicate_remote_job_risk_if_response_is_lost_and_service_does_not_deduplicate"
+  runtime_dependencies:
+    cdsapi: "0.7.7"
+    ecmwf-datastores-client: "0.5.3"
+    multiurl: "0.3.9"
+    requests: "2.34.2"
+    urllib3: "2.7.0"

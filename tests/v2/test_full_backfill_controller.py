@@ -3,7 +3,7 @@
 Covers the frozen Stage 5E-3C contract:
 - canonical 960-unit plan: ordering, uniqueness, exposure invariants
 - request identity v1.1.0 everywhere; timezone + anchor hashes non-null
-- accepted inventory exact 8 / 952 / 0; SP500 corrected binding recognized
+- current durable inventory and 1996 pause point; SP500 corrected binding recognized
 - hashes deterministic and change-sensitive (plan / policy / candidate)
 - authorization kill switch: 0 network when not live-authorized
 - resume / ledger semantics; failure classification; annual batch bound
@@ -163,10 +163,10 @@ def test_plan_rebuild_sample_matches_code():
 # ---------------------------------------------------------------------------
 
 
-def test_inventory_exact_8_952_0():
+def test_inventory_current_170_790_0():
     cls = classify_units(PLAN, ROOT)
-    assert len(cls["accepted"]) == 8
-    assert len(cls["missing"]) == 952
+    assert len(cls["accepted"]) == 170
+    assert len(cls["missing"]) == 790
     assert len(cls["invalid"]) == 0
 
 
@@ -177,19 +177,14 @@ def test_inventory_sp500_corrected_binding_recognized():
     assert sp500[0]["binding_type"] == "corrected_request_identity_requalification"
 
 
-def test_inventory_exact_8_accepted_keys():
+def test_inventory_completed_years_and_1996_pause_point():
     cls = classify_units(PLAN, ROOT)
-    keys = sorted(u["unit_key"] for u in cls["accepted"])
-    assert keys == [
-        "bse50:1991Q1",
-        "dax:1996Q4",
-        "ftse100:1995Q4",
-        "nifty50:1991Q3",
-        "sp500:2007Q1",
-        "sse_composite:1991Q3",
-        "szse_component:1992Q3",
-        "topix:2020Q1",
-    ]
+    keys = {u["unit_key"] for u in cls["accepted"]}
+    for year in range(1991, 1996):
+        assert sum(key.split(":", 1)[1].startswith(str(year)) for key in keys) == 32
+    accepted_1996 = {key for key in keys if key.split(":", 1)[1].startswith("1996")}
+    assert len(accepted_1996) == 8
+    assert "dax:1996Q4" in accepted_1996
 
 
 def test_inventory_no_smoke_units():
@@ -250,7 +245,7 @@ def test_policy_hash_change_sensitive(tmp_path):
     h2 = hashlib_sha256(p2)
     assert h1 != h2
 
-    alt2 = src.replace("automatic_retry: false", "automatic_retry: true")
+    alt2 = src.replace("automatic_annual_retry: false", "automatic_annual_retry: true")
     p3 = json.dumps(yaml.safe_load(alt2), sort_keys=True, ensure_ascii=False)
     h3 = hashlib_sha256(p3)
     assert h1 != h3
@@ -335,12 +330,11 @@ def test_kill_switch_hash_mismatch_zero_network(tmp_path, monkeypatch):
 # ---------------------------------------------------------------------------
 
 
-def test_1991_dry_run_32_slots_3_skip_29_missing():
+def test_1991_dry_run_completed_32_skip_0_missing():
     dr = dry_run_year(PLAN, 1991, ROOT)
     assert dr["formal_slots"] == 32
-    assert dr["existing_accepted_skip"] == 3
-    assert dr["new_missing"] == 29
-    assert set(dr["skipped_unit_keys"]) == {"sse_composite:1991Q3", "nifty50:1991Q3", "bse50:1991Q1"}
+    assert dr["existing_accepted_skip"] == 32
+    assert dr["new_missing"] == 0
 
 
 def test_any_year_slots_leq_32():
@@ -375,16 +369,21 @@ def test_reconcile_accepted_beats_stale_pending_journal(tmp_path, monkeypatch):
     state = reconcile_progress(PLAN, ROOT)
     accepted_keys = {u["unit_key"] for u in state["classification"]["accepted"]}
     assert "sp500:2007Q1" in accepted_keys
-    assert state["snapshot"]["accepted_raw_units"] == 8
+    assert state["snapshot"]["accepted_raw_units"] == 170
     assert "sp500:2007Q1" not in state["snapshot"]["blocked_units"]
 
 
 def test_journal_accepted_but_raw_missing_fails(tmp_path, monkeypatch):
     import scripts.v2.climatology.full_backfill_controller as ctl
+    import scripts.v2.climatology.derived_store as derived_store
+    import scripts.v2.climatology.production_unit as production_unit
 
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "progress.snapshot.json"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(production_unit, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(derived_store, "DERIVED_BASE", str(tmp_path / "derived"))
     # Fabricate an accepted event for a unit whose raw does NOT exist.
     fake_unit = "topix:1991Q1"
     fake_id = next(u["final_request_id"] for u in PLAN["units"] if u["unit_key"] == fake_unit)
@@ -441,13 +440,15 @@ def test_failure_contract_frozen():
 
 
 def test_no_automatic_retry_semantics():
-    # automatic_retry=false + max 1 attempt per unit per invocation are frozen
+    # Annual retry false and one logical retrieve per unit attempt are distinct
+    # from the explicitly bounded physical transport recovery policy.
     # in the controller policy file.
     policy = json.loads(json.dumps(__import__("yaml").safe_load(
         (ROOT / CONTROLLER_POLICY_PATH).read_text(encoding="utf-8")
     )))
-    assert policy["automatic_retry"] is False
-    assert policy["max_new_retrieves_per_unit_attempt"] == 1
+    assert policy["controller_retry"]["automatic_annual_retry"] is False
+    assert policy["logical_retrieve"]["max_cds_retrieve_calls_per_unit_attempt"] == 1
+    assert policy["transport"]["maximum_total_tries_per_robust_http_operation"] == 3
     assert policy["concurrency"] == 1
     assert policy["year_boundary_forced_stop"] is True
 

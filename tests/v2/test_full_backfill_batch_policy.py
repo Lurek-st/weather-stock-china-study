@@ -37,7 +37,7 @@ from scripts.v2.core import repo_root
 
 ROOT = repo_root()
 PLAN = load_plan(ROOT)
-YEAR = 1992  # all 32 slots missing in this year -> clean batch
+YEAR = 1992  # isolated store makes all 32 slots missing regardless of production
 
 from tests.v2.fixtures.r2_hermetic_helpers import (
     fake_derived_extractor,
@@ -50,6 +50,7 @@ def hermetic(tmp_path, monkeypatch):
     """Hermetic controller root: isolated raw, derived, journal and snapshot."""
     import scripts.v2.climatology.full_backfill_controller as ctl
     import scripts.v2.climatology.derived_store as ds
+    import scripts.v2.climatology.production_unit as production_unit
 
     from tests.v2.fixtures.r2_hermetic_helpers import assert_isolation
 
@@ -73,6 +74,7 @@ def hermetic(tmp_path, monkeypatch):
     auth_path.write_text(yaml.safe_dump(payload), encoding="utf-8")
     monkeypatch.setattr(ctl, "AUTHORIZATION_PATH", str(auth_path))
     monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
+    monkeypatch.setattr(production_unit, "RAW_BASE", str(tmp_path / "raw"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path / "state"))
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "state" / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "state" / "progress.snapshot.json"))

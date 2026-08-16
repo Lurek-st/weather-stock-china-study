@@ -34,6 +34,7 @@ from scripts.v2.climatology.full_backfill_controller import (
     authorization_candidate_hash,
     classify_units,
     controller_policy_hash,
+    load_controller_policy,
     load_plan,
     verify_authorization_binding,
 )
@@ -66,10 +67,10 @@ def write_authorization_yaml(root: Path) -> Path:
     """Rewrite the tracked authorization candidate with true computed hashes."""
     payload = _canonical_authorization_payload(root)
     yaml_lines = [
-        "# Stage 5E-3C full backfill authorization CANDIDATE (frozen; NOT yet live).",
+        "# Stage 5E-4C-R6 bounded-transport authorization CANDIDATE (NOT live).",
         "#",
         "# This file is the NETWORK KILL SWITCH.  live_backfill_authorized MUST stay",
-        "# false until the control layer accepts Stage 5E-3C and issues a separate",
+        "# false until the control layer accepts Stage 5E-4C-R6 and issues a separate",
         "# minimal activation checkpoint.  WorkBuddy must NEVER flip it to true on its",
         "# own.",
         "#",
@@ -104,40 +105,22 @@ def write_authorization_yaml(root: Path) -> Path:
 def build_audit(root: Path | None = None) -> dict[str, Any]:
     root = root or repo_root()
     plan = load_plan(root)
+    controller_policy = load_controller_policy(root)
     policy = _canonical_authorization_payload(root)
     binding = verify_authorization_binding(root)
     classification = classify_units(plan, root)
 
-    # 8 accepted formal units must be exactly the frozen set.
-    accepted_keys = sorted(u["unit_key"] for u in classification["accepted"])
-    expected_keys = sorted(
-        [
-            "sp500:2007Q1",
-            "sse_composite:1991Q3",
-            "szse_component:1992Q3",
-            "topix:2020Q1",
-            "nifty50:1991Q3",
-            "ftse100:1995Q4",
-            "dax:1996Q4",
-            "bse50:1991Q1",
-        ]
-    )
-    if len(classification["accepted"]) != 8:
-        raise V2Error(f"accepted={len(classification['accepted'])} != 8")
-    if accepted_keys != expected_keys:
-        raise V2Error(f"accepted unit set mismatch: {accepted_keys}")
-    if len(classification["missing"]) != 952:
-        raise V2Error(f"missing={len(classification['missing'])} != 952")
     if classification["invalid"]:
         raise V2Error(f"invalid={len(classification['invalid'])}; gate FAIL: {classification['invalid'][:3]}")
+    if len(classification["accepted"]) + len(classification["missing"]) != plan["formal_unit_count"]:
+        raise V2Error("raw inventory does not partition the 960-unit canonical plan")
 
     request_ids = [u["final_request_id"] for u in plan["units"]]
     unit_keys = [u["unit_key"] for u in plan["units"]]
     audit = {
-        "schema_version": "2.0.0",
+        "schema_version": "3.0.0",
         "audit_type": "full_backfill_authorization_gate",
-        "scope": "Stage 5E-3C: freeze canonical 960-unit plan, controller policy, authorization candidate; "
-        "ZERO network",
+        "scope": "Stage 5E-4C-R6: bind bounded transport policy and exact runtime dependencies; ZERO network",
         "formal_plan": {
             "units": plan["formal_unit_count"],
             "markets": len(plan["market_order"]),
@@ -152,6 +135,8 @@ def build_audit(root: Path | None = None) -> dict[str, Any]:
             "authorization_candidate_hash": policy["authorization_candidate_hash"],
             "spatial_registry_hash": policy["bound_hashes"]["global_spatial_anchor_registry_hash"],
             "timezone_canary_hash": policy["bound_hashes"]["timezone_canary_hash"],
+            "superseded_controller_policy_hash": "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a",
+            "superseded_authorization_candidate_hash": "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c",
         },
         "identity": {
             "version": REQUEST_IDENTITY_CONTRACT_VERSION,
@@ -165,12 +150,15 @@ def build_audit(root: Path | None = None) -> dict[str, Any]:
         },
         "accepted_units": classification["accepted"],
         "controller": {
-            "concurrency": 1,
-            "batch": "one_baseline_year",
-            "slots_per_batch": 32,
-            "health_interval": 8,
-            "auto_retry": False,
-            "progress_after_every_unit": True,
+            "concurrency": controller_policy["concurrency"],
+            "batch": controller_policy["execution_batch"],
+            "slots_per_batch": controller_policy["max_formal_slots_per_invocation"],
+            "health_interval": controller_policy["health_check_interval_new_retrieves"],
+            "automatic_annual_retry": controller_policy["controller_retry"]["automatic_annual_retry"],
+            "max_logical_retrieves_per_unit_attempt": controller_policy["logical_retrieve"]
+            ["max_cds_retrieve_calls_per_unit_attempt"],
+            "transport": controller_policy["transport"],
+            "progress_after_every_unit": controller_policy["progress_write_frequency"] == "after_every_unit",
         },
         "authorization": {
             "candidate": True,
@@ -182,9 +170,9 @@ def build_audit(root: Path | None = None) -> dict[str, Any]:
             "service_health_fetches": 0,
             "other_network": 0,
         },
-        "execution_started": False,
-        "full_backfill_started": False,
-        "full_climatology_started": False,
+        "execution_started": True,
+        "full_backfill_started": True,
+        "full_climatology_started": True,
         "binding_verified": binding["valid"],
         "binding_checks": binding["checks"],
     }

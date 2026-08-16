@@ -1,12 +1,132 @@
 {
   "accepted_units": [
     {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q1-prod-fc5a65e2:r0001-10d1823fcd8f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "fc5a65e2f054cf7017eed2dea69b5585ff1385d3dfb24c63d40728cbb49b7817",
+      "ordinal": 1,
+      "sha256": "10d1823fcd8f921f80a02de3c834b4d2115ed2e67d6ba86ba2d76bf8fbb482f2",
+      "unit_key": "sse_composite:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1991q1-prod-66723d37:r0001-ec67d72172e9",
+      "binding_type": "direct_manifest",
+      "final_request_id": "66723d3750c05d756b355c09e9c4f88862cc9299f26eb3bb861836e54a1285df",
+      "ordinal": 2,
+      "sha256": "ec67d72172e968d510b831d6692b18bad632f2cd456af9a656348303330fe0e5",
+      "unit_key": "szse_component:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1991q1-prod-9f2edf49:r0001-b458415fd747",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9f2edf4988cb5b7c3a0bf72208b92df99c81fe524c0f57aac8def99b3749bb5e",
+      "ordinal": 3,
+      "sha256": "b458415fd74797eabbd2b651e77fb61e7d7978d29fb52d7429aa198a063f611c",
+      "unit_key": "topix:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q1-prod-4c8b9553:r0001-b5c1ef9d32f9",
+      "binding_type": "direct_manifest",
+      "final_request_id": "4c8b9553d2e6d61a28b4749fa279edcae3c13fc4efe6d0325a30c07a70c0034e",
+      "ordinal": 4,
+      "sha256": "b5c1ef9d32f945cb63b769221b6f70be69f47b91e8c36b11b471ba738324ae6a",
+      "unit_key": "nifty50:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1991q1-prod-967129a4:r0001-6e7bbab501e5",
+      "binding_type": "direct_manifest",
+      "final_request_id": "967129a40fc1d1967d3847306a0370cd9bafd055cde6f66f8bbbba3358dee8fc",
+      "ordinal": 5,
+      "sha256": "6e7bbab501e5b4ceb7ba711627fbf151f1a16b10998289a939eaa316c89a5bf8",
+      "unit_key": "ftse100:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1991q1-prod-730f0348:r0001-288b4981f472",
+      "binding_type": "direct_manifest",
+      "final_request_id": "730f034865967de44f77659f4b8db6fb1a2bf92f0fe3d7bdd78f4ce8ece25d1d",
+      "ordinal": 6,
+      "sha256": "288b4981f4728aee1c994435ae8d45dc6da9e479abc3f95abc4a1298cc2e3bdf",
+      "unit_key": "dax:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1991q1-prod-ff9c18d5:r0001-4f1acbfdc388",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ff9c18d5ed0adc3995f8f090881beb051a6d48f868c3b930d47628290363df20",
+      "ordinal": 7,
+      "sha256": "4f1acbfdc3886953b4c94119c25abbf07b0e0d1964ea4d409182651bff1c4765",
+      "unit_key": "sp500:1991Q1"
+    },
+    {
       "artifact_id": "cds_era5_hourly_climatology:bse50-1991q1-prod-194eb264:r0001-6f9af843b4a6",
       "binding_type": "direct_manifest",
       "final_request_id": "194eb2641eea1efc560092823dcd959a70b8876f3563bb40151b7491afb78d0f",
       "ordinal": 8,
       "sha256": "6f9af843b4a63579c2259c96ab4fe5d50d0127ad6f51fde126bdf921b1263fea",
       "unit_key": "bse50:1991Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q2-prod-0d61daf2:r0001-c39353d688d7",
+      "binding_type": "direct_manifest",
+      "final_request_id": "0d61daf239cbf908771b8369c233d8db598e08fbd88014a5e82bb80403ec1e94",
+      "ordinal": 9,
+      "sha256": "c39353d688d742adef26d1e83a60dd02bd31c4031fe7c83db72663691749d9ac",
+      "unit_key": "sse_composite:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1991q2-prod-29ba0e31:r0001-7565c8982f3d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "29ba0e316e49ae1d4d2d0644ff7a46b5c2ccc5510020a533e11d89b929dbab00",
+      "ordinal": 10,
+      "sha256": "7565c8982f3dfe024094d4f0d48c604663b002f8cc23005588376d29462f47fe",
+      "unit_key": "szse_component:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1991q2-prod-7673bacb:r0001-5b178af790a4",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7673bacb3fcb5d781541137c06040f89e56510ae4557f695cab3599726887c9e",
+      "ordinal": 11,
+      "sha256": "5b178af790a440800ef453da8b6dee7a6f9fef9ce1f66c79bf1ab4d927e797a6",
+      "unit_key": "topix:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q2-prod-b84b76d3:r0001-2b4c04b41796",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b84b76d3aa60c38a86bb7ececeac20c9abf47b7db841f47430606a88232c74fb",
+      "ordinal": 12,
+      "sha256": "2b4c04b41796c76e2fc1e5144738fceb65566867c713037cef070636ce373690",
+      "unit_key": "nifty50:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1991q2-prod-c422ca2f:r0001-64652ba7fd89",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c422ca2f16cba049159cd648b082bf935df679594c8f61a57f262c88793eb214",
+      "ordinal": 13,
+      "sha256": "64652ba7fd895bf850b2420f34ee614b6d20ab7e580bb5fff98ab2bc551dbb15",
+      "unit_key": "ftse100:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1991q2-prod-ac3b6935:r0001-1cbfc1b57dad",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ac3b6935eec8d904e7027e00d58a3b9746fbc6ca4f0ad2c4c7968e0cfea27c4a",
+      "ordinal": 14,
+      "sha256": "1cbfc1b57dada23fdb8d7cd2dfb21955058c23a88f494a1a722653d5209035be",
+      "unit_key": "dax:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1991q2-prod-d9b32c47:r0001-81db4e7b6bfe",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d9b32c470d8456ddc8b34cb8ff4037d3b3e8f9db3dde2f2be4d1a7dc76176dbc",
+      "ordinal": 15,
+      "sha256": "81db4e7b6bfe70a9fdf29f5f167566952eb39461976507f2a375c31401718cff",
+      "unit_key": "sp500:1991Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1991q2-prod-9e956ff1:r0001-477a3fa2c0c7",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9e956ff14844f627a43072de6f3f41b2ddc24dc4926332688029c2a314d741ef",
+      "ordinal": 16,
+      "sha256": "477a3fa2c0c77246c88892dfc4decf69103514b42194d0e2db491e5869b689e6",
+      "unit_key": "bse50:1991Q2"
     },
     {
       "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q3-prod-219f1396:r0001-2768943b6c7a",
@@ -17,12 +137,260 @@
       "unit_key": "sse_composite:1991Q3"
     },
     {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1991q3-prod-1e3d7e70:r0001-154ee56938d2",
+      "binding_type": "direct_manifest",
+      "final_request_id": "1e3d7e70e690b14a3fef3774548607d0e5d72a5f0723cbf47585eaf618bcbd7f",
+      "ordinal": 18,
+      "sha256": "154ee56938d2651e354037833535314a81b075141f9177023e9adc9269f7dfb0",
+      "unit_key": "szse_component:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1991q3-prod-57d17c5d:r0001-987b13df9cd1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "57d17c5de0921b1bb492c668c52ccab60d5ad9daaacfd7412e356f5b1982cc84",
+      "ordinal": 19,
+      "sha256": "987b13df9cd117faa368c8ba71a23e75088a54b740791674fbf9d51c52bef347",
+      "unit_key": "topix:1991Q3"
+    },
+    {
       "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q3-prod-6d7124d7:r0001-685180565fa3",
       "binding_type": "direct_manifest",
       "final_request_id": "6d7124d751a2aca2bbe92a975acdf6502a8b0309ab6dba50d4af313eb1166ea9",
       "ordinal": 20,
       "sha256": "685180565fa3be6367eda4ba57874508e8767084f87f4c5084bf280e0985934b",
       "unit_key": "nifty50:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1991q3-prod-7acea82c:r0001-935e6b76ae3d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7acea82c901434f6a4a03c0f5a0792c68bfdee0bf3799d8a217f054e03900f36",
+      "ordinal": 21,
+      "sha256": "935e6b76ae3d3bcd1ae4a1c142a63f9c8bf83f425f4eb1264250dbfb038f62a6",
+      "unit_key": "ftse100:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1991q3-prod-cacea522:r0001-b46cb8204ea5",
+      "binding_type": "direct_manifest",
+      "final_request_id": "cacea522a9f86ce17a1b0eea7ed1e43691248af53ff36028deb9525ca5162613",
+      "ordinal": 22,
+      "sha256": "b46cb8204ea5e9530e5aeedede38f28b2e874b780437364e63206c20a8a361b2",
+      "unit_key": "dax:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1991q3-prod-c0c13559:r0001-e07845fcafb3",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c0c13559e204c095ede089bda237a904becd5848e66c8599c51cedf312f4673b",
+      "ordinal": 23,
+      "sha256": "e07845fcafb3b0b9b7a97b9628722c023424b8914222481c40791cae6ef48b01",
+      "unit_key": "sp500:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1991q3-prod-b9a9005e:r0001-ed9b8fb71cca",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b9a9005e428060ee71dd0243a7ae74dbb98c94a74510bd30f0a8ee187018a61a",
+      "ordinal": 24,
+      "sha256": "ed9b8fb71ccaf8270fda01c238793d563b2ac8e5617b95d1a676833a3151d065",
+      "unit_key": "bse50:1991Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q4-prod-b66e09b2:r0001-d53e995717b3",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b66e09b2fddaf1441a73c499470e8ab5fb6c56524920062df2e5c1ac23497a15",
+      "ordinal": 25,
+      "sha256": "d53e995717b3279154c26e03c03a8c1c23fca09e0c107e159b9bd47b8cfe9bf8",
+      "unit_key": "sse_composite:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1991q4-prod-7083f2c8:r0001-000ef24b1065",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7083f2c83d4bcc8a8f606861ff6e542ba24e8d3816e7afef57f7aa30ed2bc6dc",
+      "ordinal": 26,
+      "sha256": "000ef24b106594a6aee0c63e24b637b4f88d3eedea9f7074198f106da2e16cdd",
+      "unit_key": "szse_component:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1991q4-prod-f90a4e8f:r0001-d254b73d805f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f90a4e8fb05b483df36e1613a77f83cb4cf00b185eb85ea16b573f8776cbf4ec",
+      "ordinal": 27,
+      "sha256": "d254b73d805f82174f06579f211b7be6fdd1ab1b60f0ab52f0f0d826e60dada0",
+      "unit_key": "topix:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q4-prod-cabbf813:r0001-4a8c359e9b3a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "cabbf813c293874d14408499b351bac7f2167c434934df870a781a3dff1c6068",
+      "ordinal": 28,
+      "sha256": "4a8c359e9b3a5041ecb852227c6b5f70b175917b10b7a90384b3d79d132304de",
+      "unit_key": "nifty50:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1991q4-prod-ee8c33f9:r0001-dc7c7673d9ac",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ee8c33f9c1d5849cdde8021cf729fb5c584c8e04eeafc2b53bbb0fce5e6b1f8d",
+      "ordinal": 29,
+      "sha256": "dc7c7673d9acbeda78b0d49c9d51718757e38c6501fabc8566465811f6ebb3d4",
+      "unit_key": "ftse100:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1991q4-prod-53b902de:r0001-03ce61ab5862",
+      "binding_type": "direct_manifest",
+      "final_request_id": "53b902dec6043aed6cd338084b9f62e93a94327789482dd6cc0ca30edfbafe06",
+      "ordinal": 30,
+      "sha256": "03ce61ab5862fce306c9aad20e7c8e01247945f5ad174ca7b0683065ac027386",
+      "unit_key": "dax:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1991q4-prod-e9164c69:r0001-38dcded6430a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e9164c6981148091e7a934734ff7783c50b7c4a34d32193f5aec68c56b08f04c",
+      "ordinal": 31,
+      "sha256": "38dcded6430ab903da9ba719bb7ae680d274e0ba5e22362d82896aa1e58a7bec",
+      "unit_key": "sp500:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1991q4-prod-e56b4df0:r0001-56b0b52a3875",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e56b4df028bce0648e51a1a579d5ea20191fb0bc63abc718d00e4b1d6302b742",
+      "ordinal": 32,
+      "sha256": "56b0b52a387568096132d55e05c9985da7c083a00c93b1f020bac8fcf5957189",
+      "unit_key": "bse50:1991Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1992q1-prod-3a21349f:r0001-fa95d64ee928",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3a21349f3eac2a7e8f75d1f7a1efa162bb3d8ec39bbdb2ed54643198056f8940",
+      "ordinal": 33,
+      "sha256": "fa95d64ee9283e3c28c9a77a1d5d87d644cf15dbb048d14847161e8af19bbae7",
+      "unit_key": "sse_composite:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q1-prod-5bcda906:r0001-5def748dde42",
+      "binding_type": "direct_manifest",
+      "final_request_id": "5bcda90656bd4596cca4912cc80fd736165287e627bca991528fe0b1576b26fa",
+      "ordinal": 34,
+      "sha256": "5def748dde429e3e3dcee5142c33d0d584e8f7dacadb4067d384104a183de645",
+      "unit_key": "szse_component:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1992q1-prod-82afef2c:r0001-1eaf789fa31e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "82afef2cd13a5ddf2f96aa05074c87c0329cfc4ae00ca810726475d80d0e747d",
+      "ordinal": 35,
+      "sha256": "1eaf789fa31e0ff2799d1dc035d0d41e6cd51e02706286e6f4f1c3ee8aa9e32e",
+      "unit_key": "topix:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1992q1-prod-dde2ceed:r0001-15b8792d4290",
+      "binding_type": "direct_manifest",
+      "final_request_id": "dde2ceed81a227c81ec43391d486700fd0c96dc5f3a1a34c8a4ed70f15327a2c",
+      "ordinal": 36,
+      "sha256": "15b8792d4290720e1947315f69da52d3936ef72f53ad78eb395862d2ba711265",
+      "unit_key": "nifty50:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1992q1-prod-2975228e:r0001-b97ff805be3c",
+      "binding_type": "direct_manifest",
+      "final_request_id": "2975228e9afe22562a2fb9bfe8c08c65913098c5fb7421a3cb37d29adc26495a",
+      "ordinal": 37,
+      "sha256": "b97ff805be3ccb9eab7021ca7c284b353636933f571e614e260e51c311ce05d6",
+      "unit_key": "ftse100:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1992q1-prod-50288acc:r0001-f2ba05d8871d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "50288acc4d7c1ccf47cb729253f1b06f2c64f774ac89361bd150f7ffc1a5830e",
+      "ordinal": 38,
+      "sha256": "f2ba05d8871d169b2368a025b9c28fa3f619f6565f44173fed951ec49f9cb911",
+      "unit_key": "dax:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1992q1-prod-47f9041e:r0001-ae6e72ff830a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "47f9041e076f5b954bfeb3f9eff06721193d7e2d13301f4a45f454911d84ac9b",
+      "ordinal": 39,
+      "sha256": "ae6e72ff830a9194ad2b6ba61dfb7cae563b8743e593a69c2d42b91a3ab5c5d2",
+      "unit_key": "sp500:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1992q1-prod-3cf289ef:r0001-a9f6444c0391",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3cf289ef5b4749b236263a13efbc5e93ad78454d4c7c3241d4fb7fc49cc5e058",
+      "ordinal": 40,
+      "sha256": "a9f6444c03918139aaf074004cdb7d96ed5661a6c73b56d15c5f18e3a844f9a8",
+      "unit_key": "bse50:1992Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1992q2-prod-7c4af648:r0001-6bf3483c8366",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7c4af6485e204701fd29ddde65c4bda7d6b9353b1512c9635317009cb0650432",
+      "ordinal": 41,
+      "sha256": "6bf3483c8366f851de0d4e86b5b2b0f765f41c121e5162600ab953818140baca",
+      "unit_key": "sse_composite:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q2-prod-e14c984f:r0001-55a916cb2979",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e14c984fa241d5c655bbbf6b6e1c258a1fc04359df396a3a293f3a0e0bd9e777",
+      "ordinal": 42,
+      "sha256": "55a916cb2979f467bab66c8767891f60b366c8dc675acdd1d1f568420ad94937",
+      "unit_key": "szse_component:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1992q2-prod-d6db8a9c:r0001-e4bd1e32223e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d6db8a9c580a23cb400e7b470f61c4c638ce85a9cfcd0b0bdca189d1cf1ffa85",
+      "ordinal": 43,
+      "sha256": "e4bd1e32223e834478a56313a7d751fd0497ccea05b4d57c94c9bf9d387f2683",
+      "unit_key": "topix:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1992q2-prod-460a8273:r0001-4c8c7908cbc0",
+      "binding_type": "direct_manifest",
+      "final_request_id": "460a8273f9b0c0a016abe67d37a03fa7e2581bd23f9226465a48b4bec3c67de2",
+      "ordinal": 44,
+      "sha256": "4c8c7908cbc069c668f5fe3013a69f0bcc54fdf666461c8d4ae16f0b9f487f70",
+      "unit_key": "nifty50:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1992q2-prod-c3845822:r0001-5525bf3a743b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c38458220e271525a8da5fc58f6b738d99d8af579e65948e8c27ba2ac33fbb2a",
+      "ordinal": 45,
+      "sha256": "5525bf3a743bcc09231c57ad3ac32cd1d4846105093d26cffeb12906f043744e",
+      "unit_key": "ftse100:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1992q2-prod-820282e7:r0001-174e93c725c0",
+      "binding_type": "direct_manifest",
+      "final_request_id": "820282e76fe73fdc8853486d6c9c220fbc675f7e163c32ef746f53f0dbcf71f8",
+      "ordinal": 46,
+      "sha256": "174e93c725c0faddd32cceda60df9a29df8384e794c7e9f92029a73c18481319",
+      "unit_key": "dax:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1992q2-prod-6478d8ea:r0001-05833484f08c",
+      "binding_type": "direct_manifest",
+      "final_request_id": "6478d8eaba3a8e984a6cd4f475443a54b83f3bcf840455673a4a2683855f3f66",
+      "ordinal": 47,
+      "sha256": "05833484f08ce137f8875934fa441600c13f622a0d622f1cb6e4115446678a45",
+      "unit_key": "sp500:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1992q2-prod-17e56034:r0001-75d1a6f0ef7d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "17e5603429f0647cb764cc3e6c035398430d444484aea1a433e2019340af5a5d",
+      "ordinal": 48,
+      "sha256": "75d1a6f0ef7d66fa5f8027759f0ee1f62f0e1458ba1d2ea7bce0dd4165b4d0e4",
+      "unit_key": "bse50:1992Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1992q3-prod-e6c6a308:r0001-6f987521d02c",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e6c6a3085fbfc195eeab3e36c68abbd0c25a490b4df4ec422d15047834c90e1d",
+      "ordinal": 49,
+      "sha256": "6f987521d02c5ec7c78b6940d6805f84dc1f98f2fb81333db8062d9a4f3641d3",
+      "unit_key": "sse_composite:1992Q3"
     },
     {
       "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q3-prod-35ae09a8:r0001-63addef89395",
@@ -33,12 +401,940 @@
       "unit_key": "szse_component:1992Q3"
     },
     {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1992q3-prod-f3a90984:r0001-5156c65fdf4e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f3a909848eb631b66b7ff53da451552d70aec2d7d80b8b448b7df7f994801d49",
+      "ordinal": 51,
+      "sha256": "5156c65fdf4ea77f9b2b36edf00d5700aa067bc9d363c2d789cb49b13aa57355",
+      "unit_key": "topix:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1992q3-prod-be5fea3c:r0001-e1ac2bee75a4",
+      "binding_type": "direct_manifest",
+      "final_request_id": "be5fea3cde043d6707ea96980729574c36c10e106951ede73ea6227ec11bd163",
+      "ordinal": 52,
+      "sha256": "e1ac2bee75a4d6a48b7bc67f53204fa610dfa0370f5a677b652fb34ca5b9137f",
+      "unit_key": "nifty50:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1992q3-prod-13ed5f9d:r0001-f7f8321601d1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "13ed5f9dd3ea5b5648599aa0d96c238f99405353061315fce96e4b3c2d4970fa",
+      "ordinal": 53,
+      "sha256": "f7f8321601d1e7661e36dc48e2ec20ab10bcbe421f27030bb827787a9ac49c49",
+      "unit_key": "ftse100:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1992q3-prod-ebce3d26:r0001-8ccf6b99867b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ebce3d26d498305b6c2adb023365b4da66e5f755b6f8c1a98a848a7b4cd699d8",
+      "ordinal": 54,
+      "sha256": "8ccf6b99867b08040defc39819d0ef5818c8331b4d6a858dc1e99f5af6d72e8a",
+      "unit_key": "dax:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1992q3-prod-84dcb7dd:r0001-2f2cb2bc9d96",
+      "binding_type": "direct_manifest",
+      "final_request_id": "84dcb7dd3f322b1c135127c0f5988ecb74fc50877ef4761daf0efc5136cadaaa",
+      "ordinal": 55,
+      "sha256": "2f2cb2bc9d966f3ddcd947d5eac79b1ba1900f8a05be41480be8abdbbd0a09e2",
+      "unit_key": "sp500:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1992q3-prod-4cef611f:r0001-fa2136de7bf7",
+      "binding_type": "direct_manifest",
+      "final_request_id": "4cef611f35454adb9d0afdb4e6e95f8c0c85a3189079933c8fd6e76ea3584981",
+      "ordinal": 56,
+      "sha256": "fa2136de7bf7d48ab0da5f0e5bcf13964e6b93388a1742afb4129e865e94293a",
+      "unit_key": "bse50:1992Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1992q4-prod-0cd74078:r0001-7c7b502abec6",
+      "binding_type": "direct_manifest",
+      "final_request_id": "0cd74078a2c2a4f7855e1d9a68cfdcc88fb2923b4ec8587b83dc0a560360e071",
+      "ordinal": 57,
+      "sha256": "7c7b502abec6c9f230cac8d2f18efd7bae17d51bfb97c68e1c791b67586cca70",
+      "unit_key": "sse_composite:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q4-prod-49afc1c3:r0001-c07fd00f2869",
+      "binding_type": "direct_manifest",
+      "final_request_id": "49afc1c35cc295295f5a88aa9e7ed7d09a77641e2a2aeca1182dd976264a246e",
+      "ordinal": 58,
+      "sha256": "c07fd00f2869a48bb10601a3373a7bd32315906230a04386a48ded193cc27d5d",
+      "unit_key": "szse_component:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1992q4-prod-c47ad580:r0001-95847c52ee52",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c47ad58097750629cf2fd292a9a80db245d3c232dc865817c5331baff18c3145",
+      "ordinal": 59,
+      "sha256": "95847c52ee5296ef237e364a752f2615d22503218156a55565651387a125f24f",
+      "unit_key": "topix:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1992q4-prod-270eecf5:r0001-d49d825a8205",
+      "binding_type": "direct_manifest",
+      "final_request_id": "270eecf58ed8961934c73837ff6364478986bc1421ba3cf7f606d93e39982286",
+      "ordinal": 60,
+      "sha256": "d49d825a82059a7b82ea6da7fc4e6332a9bf129b7d4108bbb64ebf77926f8e2d",
+      "unit_key": "nifty50:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1992q4-prod-df383273:r0001-9af02d42d0e8",
+      "binding_type": "direct_manifest",
+      "final_request_id": "df3832734f9f41eada70d2c6361e62906413dbac256e719eaa9da39f43155f8a",
+      "ordinal": 61,
+      "sha256": "9af02d42d0e826deda423e3d039d0689392c39f9218db4135a59d005dec316b6",
+      "unit_key": "ftse100:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1992q4-prod-58f474e7:r0001-0073ac3ebd71",
+      "binding_type": "direct_manifest",
+      "final_request_id": "58f474e7d6327ac527cfe173b027e6d7e82b7826460acb562ddec77b280c4cf4",
+      "ordinal": 62,
+      "sha256": "0073ac3ebd711c729a03e53f6a7bec1fe8e6b7655a4deeaf418b5ac8eefe791b",
+      "unit_key": "dax:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1992q4-prod-7ef996b6:r0001-3f93dbdab7be",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7ef996b68d5964abc3a9f7cc9708aae116c54ce582d91ffb08b884b626241e6e",
+      "ordinal": 63,
+      "sha256": "3f93dbdab7bea1322d5bf28a8e81be4d7b8c5d2a70df792ca32b02ac6b2e64b4",
+      "unit_key": "sp500:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1992q4-prod-82ae5c57:r0001-4c151220018d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "82ae5c57924dd6bc04bc3cf0dfbe06e9871050eb3b3d7bf8adbad2081eded4c8",
+      "ordinal": 64,
+      "sha256": "4c151220018d5fca123c385a52eac9e4bd4e915b1f5f51c689c0761fa2492d4b",
+      "unit_key": "bse50:1992Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1993q1-prod-9516a418:r0001-6e23fa506ab8",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9516a418b24e055e24e1ec4cee821ee4a2ea71d65947afd7d7f72c67149b830a",
+      "ordinal": 65,
+      "sha256": "6e23fa506ab84c2a5f2153940500d4c535626859797e6d91a1c5b3e814930edc",
+      "unit_key": "sse_composite:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1993q1-prod-f758b90e:r0001-0093c597459d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f758b90e6e5d54461e1bc6ffa6db98a81d4d69822ad9321e50ea601680ba3dd9",
+      "ordinal": 66,
+      "sha256": "0093c597459d8fca4226c157521329ecfe79270a338aca78bc7aff14e2a60de4",
+      "unit_key": "szse_component:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1993q1-prod-a1e5f200:r0001-a41b8578c9fd",
+      "binding_type": "direct_manifest",
+      "final_request_id": "a1e5f200b7a87191135b66cc7fe9c2cf7214b5044ce6cd9f9e86b0c1b3e1685a",
+      "ordinal": 67,
+      "sha256": "a41b8578c9fd19b05ee4bb709e64e950714d77557b3107aa1c770812d793b947",
+      "unit_key": "topix:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1993q1-prod-cbf7294b:r0001-524363230ec1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "cbf7294b8c40aa40f52acf48db772aae9173aa6a66fafe595ab4cfdca85df066",
+      "ordinal": 68,
+      "sha256": "524363230ec175bd9120b2d69ff9aaac2d63550697d1986be218c0d28b16f06d",
+      "unit_key": "nifty50:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1993q1-prod-15dc1dc7:r0001-acff11d1dbce",
+      "binding_type": "direct_manifest",
+      "final_request_id": "15dc1dc74f1d71e06290b9b4d6cae7dfb3e6cc646572d8acc87c02f9c4f31339",
+      "ordinal": 69,
+      "sha256": "acff11d1dbce0e1df457b82a6ff37489dbb2b118bf8cac822e6397005ee9fbd0",
+      "unit_key": "ftse100:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1993q1-prod-69ded21d:r0001-da9efe7e6d77",
+      "binding_type": "direct_manifest",
+      "final_request_id": "69ded21d303b96e3704967ac2f2973a5f82279f377bea1f8ca0dd5e56a0202f4",
+      "ordinal": 70,
+      "sha256": "da9efe7e6d7730ce5a8035ed0900e5336e5bf353405b67a01c520c95ddf05477",
+      "unit_key": "dax:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1993q1-prod-2e3c485a:r0001-5558566e5cca",
+      "binding_type": "direct_manifest",
+      "final_request_id": "2e3c485acd60f154bad48e922df0c79abf51f98706a746c44dba8fb14ba029e4",
+      "ordinal": 71,
+      "sha256": "5558566e5cca9c57015e666473cfbdaeb8ed204dd3013997c3caaf3e84f01db8",
+      "unit_key": "sp500:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1993q1-prod-3924e5f0:r0001-63304d88d7ac",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3924e5f027d4faafc5c44969dda12c0d5b22338cb9cdb41a8197e5c3d541000b",
+      "ordinal": 72,
+      "sha256": "63304d88d7ac1e09f97ba4ff1484940769307ae036f891e23b6ce4461ed7f7a3",
+      "unit_key": "bse50:1993Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1993q2-prod-df31ff3b:r0001-b6e5afbd2c2a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "df31ff3bcea90a93bcc3d2051d1712c7bb03c2bc2fcc5f3c7f9c86d109290810",
+      "ordinal": 73,
+      "sha256": "b6e5afbd2c2a8fc2edb56eb5a83117f35b30eede090c608e1b001c41aaba486f",
+      "unit_key": "sse_composite:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1993q2-prod-d1c3ab72:r0001-bb107edc44f3",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d1c3ab72c61790a7b6b72a6d305e687b462248de943b87a860e7f987a543196d",
+      "ordinal": 74,
+      "sha256": "bb107edc44f3333ad940cd59fe0c96e68883a4db717a1cebed0387700b92e2be",
+      "unit_key": "szse_component:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1993q2-prod-fae28b4a:r0001-9f0393589938",
+      "binding_type": "direct_manifest",
+      "final_request_id": "fae28b4a67c38078bfe53936077896f7c36bebba4c1f60f1285d2399d7891d0b",
+      "ordinal": 75,
+      "sha256": "9f0393589938b9853e24f5295f9db2f4923937fa8f2700733881bcdb53990f44",
+      "unit_key": "topix:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1993q2-prod-70da1e6d:r0001-934a77158fa1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "70da1e6d2019584a2c31ba8dd6eb6ab76fba4accf169a584d5ead7b08e482088",
+      "ordinal": 76,
+      "sha256": "934a77158fa1b40f015dbdb094c2ebb6c903cb4f8eb2e7b7c60fc0cb9229978c",
+      "unit_key": "nifty50:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1993q2-prod-77a6040d:r0001-471b61c2c905",
+      "binding_type": "direct_manifest",
+      "final_request_id": "77a6040d51f66667c83c6a3921cdccadcdcff76ebf212756d22dbc8144a1ce33",
+      "ordinal": 77,
+      "sha256": "471b61c2c905adbc2471d35859958fc3dac427fe3ce7b8bba82778562e39144e",
+      "unit_key": "ftse100:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1993q2-prod-0dd51a4f:r0001-b8c210b84e1a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "0dd51a4fc45449ec58ae8da19bd81befc5f77e7becd925f51944b9fa4c254e47",
+      "ordinal": 78,
+      "sha256": "b8c210b84e1a5ec359d93c42db39898163e9cdca67413dd9bf91d72dc5cc3d15",
+      "unit_key": "dax:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1993q2-prod-cede12f7:r0001-2b82d5164e0a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "cede12f7956ebbd1348358fc33df1c112031c14510b9f99959e30e8090cfe0d8",
+      "ordinal": 79,
+      "sha256": "2b82d5164e0aaf86b70d1d92810c6f606a9d99e3f3372087abeb072452093096",
+      "unit_key": "sp500:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1993q2-prod-a9782709:r0001-d97c1d94305d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "a97827095d313a9885f3f9ac68b33112c5b97a1fa0f11845bbd0dd8138df230e",
+      "ordinal": 80,
+      "sha256": "d97c1d94305da9bc30b33ae0705baebc0add2b03ddf301a01f002f5b92648f95",
+      "unit_key": "bse50:1993Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1993q3-prod-42a2c535:r0001-32aec7479c2f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "42a2c535457130d2ffa709893fcaa2668226857080151d1faafb0f5753125669",
+      "ordinal": 81,
+      "sha256": "32aec7479c2fd40c1aea0ed4d878f4f150d218ba3e9b9d58ff59deedbaa46748",
+      "unit_key": "sse_composite:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1993q3-prod-c0b03b86:r0001-95c2b60a85ce",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c0b03b8680c115644b48f272ac374fbd4811f690358dca765649595394b19768",
+      "ordinal": 82,
+      "sha256": "95c2b60a85ce4e168ab933ef5bd836e08af75cee33450a2dd96d15b9ee2f674e",
+      "unit_key": "szse_component:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1993q3-prod-d00922a2:r0001-91b1b9725f51",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d00922a24c9724eaa1664d7a09077b3035f13ad5f60e836b31e174aac524b3e1",
+      "ordinal": 83,
+      "sha256": "91b1b9725f517bb7395cc720a93d11db00d2aa751125e8077c54e404854784c8",
+      "unit_key": "topix:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1993q3-prod-c11c3f69:r0001-46fe706c0a3a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c11c3f69bd17a4c883df32ae1536f5e7f5f1e82822860d4f1e52d18cf11ae003",
+      "ordinal": 84,
+      "sha256": "46fe706c0a3abed2d5c4092e027bd024cb86300c3e30c7e808905a49ec38c943",
+      "unit_key": "nifty50:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1993q3-prod-83cc8802:r0001-19c0b12494ec",
+      "binding_type": "direct_manifest",
+      "final_request_id": "83cc8802a47574e3a534beb5de7780e95e3ff9957414422b28602ee68e76b627",
+      "ordinal": 85,
+      "sha256": "19c0b12494ec688f04f799f42bd039d78ee7242c182359c42a5fef8ce50fbecd",
+      "unit_key": "ftse100:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1993q3-prod-850fde25:r0001-0863caa3972d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "850fde259dd52df5b24019a79025afb396828f26e267bbee642aa38ef825f8cb",
+      "ordinal": 86,
+      "sha256": "0863caa3972d7755d52d5dd7c068f88fd869f43219bed41874316140ffbd8950",
+      "unit_key": "dax:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1993q3-prod-77627604:r0001-695a5b1e6b92",
+      "binding_type": "direct_manifest",
+      "final_request_id": "77627604ce3310f7bf6e4393bd1131a219603a9d2daafe2969f53da8df044ecb",
+      "ordinal": 87,
+      "sha256": "695a5b1e6b929bb272912aab21c96207c21df8abf1403d6a84e0fa30a6e8a818",
+      "unit_key": "sp500:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1993q3-prod-e12573d6:r0001-f13b8e37b005",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e12573d6adcc1a5a8a3dae53e7ce239c4d270093c50e86a66023871b93f7487b",
+      "ordinal": 88,
+      "sha256": "f13b8e37b00505008d07234674176058af3403fbc0346611166928459edfad42",
+      "unit_key": "bse50:1993Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1993q4-prod-7b724e9b:r0001-f5379471ef25",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7b724e9b337b9abcd0300ac1f6fa954da320a38dfc1974dccf9e687437a1bee9",
+      "ordinal": 89,
+      "sha256": "f5379471ef253eeff6a30c0d30363ac13e7683469ef56218d94d3d4b555b1621",
+      "unit_key": "sse_composite:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1993q4-prod-01d25b97:r0001-5cbdcf6ebac0",
+      "binding_type": "direct_manifest",
+      "final_request_id": "01d25b9732ea619f4651db7935292b547d10b390671b8fa1c69706bdfcf248c8",
+      "ordinal": 90,
+      "sha256": "5cbdcf6ebac04934410ac781e9a88bd5e5567b33c3ac86d95bd389f6f67c5239",
+      "unit_key": "szse_component:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1993q4-prod-af079554:r0001-676027188ec5",
+      "binding_type": "direct_manifest",
+      "final_request_id": "af0795549a074ddfc59498a24cb61767a2a4f5ec54d956e7e5ea753bf406e8c9",
+      "ordinal": 91,
+      "sha256": "676027188ec50dfa151a38342fe6c7e792e2dd10c6e58f0ae05179e6c764bc36",
+      "unit_key": "topix:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1993q4-prod-652050fb:r0001-96fca419b0b8",
+      "binding_type": "direct_manifest",
+      "final_request_id": "652050fb6ab0dbc7d66cbf37a0eb558cc82448dc6527831f5e9c7434806eb5ef",
+      "ordinal": 92,
+      "sha256": "96fca419b0b889a26a0e02fe5558316188216052a945763314d5e22af0887b76",
+      "unit_key": "nifty50:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1993q4-prod-2ad8d53f:r0001-48970a99ad00",
+      "binding_type": "direct_manifest",
+      "final_request_id": "2ad8d53f3dde535c6ce07f227260aa74bc965635a0973a061ecd3d9ba3475983",
+      "ordinal": 93,
+      "sha256": "48970a99ad00f7a5105c2ed5455a6dd2e718ee960548684e30632350297c6c4c",
+      "unit_key": "ftse100:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1993q4-prod-114f7821:r0001-9040a68992b7",
+      "binding_type": "direct_manifest",
+      "final_request_id": "114f7821b00c77cdf65c983b0e4230bd7d1419c2d3a6f28094ef7ffde817008f",
+      "ordinal": 94,
+      "sha256": "9040a68992b7defaa0fc470e757eee059b3f7655d084a1038a96ea20c3c056d2",
+      "unit_key": "dax:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1993q4-prod-3d50b817:r0001-427a0d74ebb1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3d50b8178dc5aae0cf95ae50ccfa0dde20df38bf7e430562d092052bf9b5b426",
+      "ordinal": 95,
+      "sha256": "427a0d74ebb19915d31fe6bacf6e11de1e03b9be9b2e11a2df07157fb5107677",
+      "unit_key": "sp500:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1993q4-prod-9ba68db3:r0001-73992be365e3",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9ba68db3a6b25bd9cb6c98d2f9d80257085d7fb706e8b001a0a0e9614b269ec0",
+      "ordinal": 96,
+      "sha256": "73992be365e3c2c44400917c5173107190e00633a81c012d680f0a673ab3a321",
+      "unit_key": "bse50:1993Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1994q1-prod-9470c55b:r0001-676d74be2531",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9470c55b912a8a3bb7703285ef3249cd05ad7c8daec52d54606d33042aead5d6",
+      "ordinal": 97,
+      "sha256": "676d74be2531bae9ebec0d9f9e72b5d786055e5465e0bef93146c54633e31262",
+      "unit_key": "sse_composite:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1994q1-prod-dbea4872:r0001-85c2dda0c803",
+      "binding_type": "direct_manifest",
+      "final_request_id": "dbea4872df96b484836826fde69b11949a7ab981f6f4be52ec93caf6a73db604",
+      "ordinal": 98,
+      "sha256": "85c2dda0c803b2235ea4cb487cdbd0778bf77dfcc018ca07bccc536cf58a8631",
+      "unit_key": "szse_component:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1994q1-prod-93125e16:r0001-3474b9c4c3af",
+      "binding_type": "direct_manifest",
+      "final_request_id": "93125e164aecd03d732caf7c93fa6fd4bce1084717e39878f7ea66268485bb69",
+      "ordinal": 99,
+      "sha256": "3474b9c4c3af84656237f92240d101ffa0115045e55fa45d93f33bad9261e86e",
+      "unit_key": "topix:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1994q1-prod-c52b021b:r0001-84dc32b88634",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c52b021b31724a81eb69e4d961b12f3f3cb2dbf0255aa0a7e3be0c328f6b7057",
+      "ordinal": 100,
+      "sha256": "84dc32b88634f45f8295d8b1897edb3191689ce959d5d597ed4dc19ca417601a",
+      "unit_key": "nifty50:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1994q1-prod-d673f1b8:r0001-5e3b6d6b4fea",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d673f1b80103c9246f8c313ad6e86ee3de9758b945cf8ddc50af92d039037ba3",
+      "ordinal": 101,
+      "sha256": "5e3b6d6b4feaf545cd1065e2dfbc5125881ba6236dd041e2233551a77af549ef",
+      "unit_key": "ftse100:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1994q1-prod-920161a9:r0001-969b4e63b467",
+      "binding_type": "direct_manifest",
+      "final_request_id": "920161a9399e9245f274551f62e5442eaee8b5f698c7a8487abd4c1956dd80f0",
+      "ordinal": 102,
+      "sha256": "969b4e63b46765af208a6644a0f7056eb8d4ea6b4b20f4644027b99ae94efddb",
+      "unit_key": "dax:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1994q1-prod-a08db0dd:r0001-f96ebfe20fd6",
+      "binding_type": "direct_manifest",
+      "final_request_id": "a08db0dd0318d167e889787c99d25b0afb01e694353f4e58c7ce74ce0237602d",
+      "ordinal": 103,
+      "sha256": "f96ebfe20fd67779e8b82f3d6c3211dcd3bc295ac99aeabe68ee058732e83dbd",
+      "unit_key": "sp500:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1994q1-prod-ae7f221b:r0001-08369fb0af03",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ae7f221b047837fa4268275aafb2de2f075aa7c5d5933541702bbdcf8137a222",
+      "ordinal": 104,
+      "sha256": "08369fb0af037bb79e65f82d2817995286e242c9a34330452f7ad4d8f13ae67c",
+      "unit_key": "bse50:1994Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1994q2-prod-1f71b463:r0001-1a2f1865c1b9",
+      "binding_type": "direct_manifest",
+      "final_request_id": "1f71b4639b8927338bfe9af351345a6ea8d5928b2a64f0b22947abefb5e9a875",
+      "ordinal": 105,
+      "sha256": "1a2f1865c1b9ef147b4afcd01218bb4cd38b21a9543e1fce3f4529b5a57e404c",
+      "unit_key": "sse_composite:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1994q2-prod-c91abd16:r0001-ea30a2d7c247",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c91abd16b194b0b2fb04a6d3209d415f5789d94fd2c6cd2549285a614969b773",
+      "ordinal": 106,
+      "sha256": "ea30a2d7c2471d2cee24fbabcdfb7b9748461d825e6b20c8f8b8f5d9c4b72d2d",
+      "unit_key": "szse_component:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1994q2-prod-c97e2908:r0001-34865f07c4d1",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c97e29085f847d5bf6d39fbd4b7f33a41dd767ba3e3dc002f9e53b442a453c75",
+      "ordinal": 107,
+      "sha256": "34865f07c4d1c363471368735c36793c0b33c9e5a7f6dd76f20f9f88299971ba",
+      "unit_key": "topix:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1994q2-prod-c7524c6a:r0001-3321c7d6ee83",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c7524c6a9e504d69aab5bce8f7fc1ed32aa6e72eabe23dbacc26306c4fb0d780",
+      "ordinal": 108,
+      "sha256": "3321c7d6ee83c487caa83e0115c0c42db10e2377d38fa1d9054bfdf1ada06d1e",
+      "unit_key": "nifty50:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1994q2-prod-fef0012a:r0001-003c6d818ba5",
+      "binding_type": "direct_manifest",
+      "final_request_id": "fef0012a890f6d3ab75f37f053736057666370c2776bcecdf29b10c41d40aa82",
+      "ordinal": 109,
+      "sha256": "003c6d818ba59dec6c77b9010b4487e3a00b171be134b0db61fb7b97b044bb41",
+      "unit_key": "ftse100:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1994q2-prod-184fb341:r0001-0e117714298a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "184fb34129abcd28f31acfb7bbe5c84b5dc2231ab7931b34042acfa425e0ec9f",
+      "ordinal": 110,
+      "sha256": "0e117714298ad163d1932785ab4f79ef5c8f0f359d730c3b5f9fbfb3a3c3aa7e",
+      "unit_key": "dax:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1994q2-prod-0f875766:r0001-94082aca1d06",
+      "binding_type": "direct_manifest",
+      "final_request_id": "0f875766048bf6a8bbeb6beb137ab4742ab17daf82a50696503edd898401f77e",
+      "ordinal": 111,
+      "sha256": "94082aca1d0698088ec1322ed12a30c241e03f4978303d7b21e4dd86e4d390ac",
+      "unit_key": "sp500:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1994q2-prod-5b0978c6:r0001-19d00d674785",
+      "binding_type": "direct_manifest",
+      "final_request_id": "5b0978c64edf1dbcdb846996ec28c88434bdb4a7c42ba4f99f84caf26521dba1",
+      "ordinal": 112,
+      "sha256": "19d00d6747852830b4748838d94899ddbc698277dea8220863e0eb9b1bc2c4a3",
+      "unit_key": "bse50:1994Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1994q3-prod-3ad6bd57:r0001-59e93b2214ee",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3ad6bd57f4dcae24e7335e41dc6625a91d548308ba06c9dcf82eda0efd0b3d9f",
+      "ordinal": 113,
+      "sha256": "59e93b2214eeeea38851d24d5b729bc0e18f237b226c6886f39eb98b71914b48",
+      "unit_key": "sse_composite:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1994q3-prod-c9710628:r0001-40f8ffa758fa",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c971062896930610e8234e3a2271c5346d9584fa13e519ea478fcd4b7847d00b",
+      "ordinal": 114,
+      "sha256": "40f8ffa758face74c69cc1e364c50bd8ec3c009e62abcdffe4c510ae119557e9",
+      "unit_key": "szse_component:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1994q3-prod-501baf8b:r0001-a2809166aac5",
+      "binding_type": "direct_manifest",
+      "final_request_id": "501baf8b841c3c79f1b77a0ca4ced4eaae850a234ee837fddf9fbe45cf7f9878",
+      "ordinal": 115,
+      "sha256": "a2809166aac55849c1c5ad3915c4bd978d04304ae142ea5e7ca754b2c1a1fedf",
+      "unit_key": "topix:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1994q3-prod-3e640fa8:r0001-419463d7b29d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3e640fa8a1fb1226254d66640b2d5f045d43a22e8fc3587131b17038ea52522f",
+      "ordinal": 116,
+      "sha256": "419463d7b29dd03f9dbd989156678510949a3f6f49c01ea68141c923c9ea8ca9",
+      "unit_key": "nifty50:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1994q3-prod-e19e32f1:r0001-60a13065b74a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e19e32f1f640cfff8a63c8264381beb279b6d4fe301b18c78343f1867787b9c6",
+      "ordinal": 117,
+      "sha256": "60a13065b74aed11c05b47b9bdc2cdbfd23a72299fec68b3df93fff6e91bc84c",
+      "unit_key": "ftse100:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1994q3-prod-1920831a:r0001-8776fb64b568",
+      "binding_type": "direct_manifest",
+      "final_request_id": "1920831ae7d39f9d6bea61aaf3c9dd1e7bc4c0455c491e5ec9c34d136f39ba25",
+      "ordinal": 118,
+      "sha256": "8776fb64b5689283b45caae9c79a36e2e2c073c1f670b4ef00549728cbec3036",
+      "unit_key": "dax:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1994q3-prod-b37a64aa:r0001-28c9a396fa4f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b37a64aa433f0e0ea05b0188de4d8c0b466f3bd2926851d84fab12d7fc4a144e",
+      "ordinal": 119,
+      "sha256": "28c9a396fa4fa22e3f3e2ad388ae65f2065eb58005088511fb996c83503e013d",
+      "unit_key": "sp500:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1994q3-prod-e6da2213:r0001-f18a302600fe",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e6da22134580f12ad8c879a647c2e2a10b4f2f92ca26fe4f92dfcbcb2701ac5e",
+      "ordinal": 120,
+      "sha256": "f18a302600feac4639e7081e00061eaff8e6f9c0ab563e41366eaf2725232c42",
+      "unit_key": "bse50:1994Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1994q4-prod-65e20805:r0001-e4cb4a62c98d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "65e2080577ae9eec4d24bc16aaca1aca2ccbbcfeca006a3fc6108ad0a57d07a5",
+      "ordinal": 121,
+      "sha256": "e4cb4a62c98d5bae10201f87269f43038f4a8c2ceb34ce15aa655ea95200045c",
+      "unit_key": "sse_composite:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1994q4-prod-e2615c69:r0001-21556c3de07a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e2615c694e903c645844aaab2e5f745d0621aa984e9b1c80748eaa80fb8a9319",
+      "ordinal": 122,
+      "sha256": "21556c3de07a4b671ed758a829bf7fd273c2e4b59f8e4f57ff32c8a54426f300",
+      "unit_key": "szse_component:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1994q4-prod-fcda807b:r0001-2c456f7ea455",
+      "binding_type": "direct_manifest",
+      "final_request_id": "fcda807b48532a644eec32682e07f5401d24703f41a6c8ccc2855e4c28d54ee6",
+      "ordinal": 123,
+      "sha256": "2c456f7ea455a2bd959dd2e5c6288e6da423a99c14a4e4f7e678f57f3c2e4422",
+      "unit_key": "topix:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1994q4-prod-aad12288:r0001-4b442f082e93",
+      "binding_type": "direct_manifest",
+      "final_request_id": "aad12288f1c23bc740a13dfe963d076c244df295ed9359cc87ddc26e90a292e2",
+      "ordinal": 124,
+      "sha256": "4b442f082e930fd0462983afc0194a93737e6f4e17035785b7ed635b0a2d3e36",
+      "unit_key": "nifty50:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1994q4-prod-ada1385d:r0001-2a44cdc79d52",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ada1385d2220c64d3a77f26ef6a776d2e34136b36ce583ef394cc168337bd37b",
+      "ordinal": 125,
+      "sha256": "2a44cdc79d52e45e464e39dfd2d9a7f4901b1597a22db6f09374fe6cd2269d2a",
+      "unit_key": "ftse100:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1994q4-prod-b2a15028:r0001-75980de5f9aa",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b2a150287684f24759cf7e003bce2eb2721cc8553329661eae15e15a972451a8",
+      "ordinal": 126,
+      "sha256": "75980de5f9aa8f269f0cbb6ece8473d1048043c460ee02f7284cba8745ae5b7b",
+      "unit_key": "dax:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1994q4-prod-ec64f540:r0001-497065da76bd",
+      "binding_type": "direct_manifest",
+      "final_request_id": "ec64f54034c980569054cd7f5186fdbd796bf5b49369bb95070f1e742813c132",
+      "ordinal": 127,
+      "sha256": "497065da76bd5ed3d073d55331d95dba01601274848ed6074653a23bbe16e41a",
+      "unit_key": "sp500:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1994q4-prod-8cf2d348:r0001-63d3a12e6244",
+      "binding_type": "direct_manifest",
+      "final_request_id": "8cf2d348a70aa4d38fa1f626ec89975287c012e91ca6c79b24d08b907dacb198",
+      "ordinal": 128,
+      "sha256": "63d3a12e6244b191650fcfbfa85db4e300ca8f9c65cf6361c04588ecbc62a394",
+      "unit_key": "bse50:1994Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1995q1-prod-8269af0d:r0001-5f768551e89c",
+      "binding_type": "direct_manifest",
+      "final_request_id": "8269af0d2adfe0237fe9d77d46663e178b428ac526d992444c5305367dc9520c",
+      "ordinal": 129,
+      "sha256": "5f768551e89cd9ce5421600419ed3b23f633af6ce68ea5afd1d29d32d388be25",
+      "unit_key": "sse_composite:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1995q1-prod-da153bb4:r0001-7a6bb2c26bfe",
+      "binding_type": "direct_manifest",
+      "final_request_id": "da153bb4c8422487a9d932c2fb79b9b6f3ac40d9614688c9b5cc8ba4f776e87f",
+      "ordinal": 130,
+      "sha256": "7a6bb2c26bfecfc7574fe59ee6c4015b7e79f37866723f7f140b9587e03cf747",
+      "unit_key": "szse_component:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1995q1-prod-34eedbb4:r0001-8179a43e767d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "34eedbb4c206d04283797923291c849ac02b0195c4deeb7203cfda98c0e021cb",
+      "ordinal": 131,
+      "sha256": "8179a43e767d86eae9f1cd88ac51320b3888b045707c85c64c4182f520cf9b6a",
+      "unit_key": "topix:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1995q1-prod-f3bbc147:r0001-6e6360d8ff4f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f3bbc14745ef3be8820eb6c2bce533485ae783e0b73301be229b102fb8d143f7",
+      "ordinal": 132,
+      "sha256": "6e6360d8ff4f84ebb9b683d6da90e4386eba4f0f6aaf8ed251750d36c9238ed6",
+      "unit_key": "nifty50:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q1-prod-0c70c44b:r0001-cb13f6674246",
+      "binding_type": "direct_manifest",
+      "final_request_id": "0c70c44b3bf4cdf8a043ac2005887d480d48112842ff794042d9d82667e50e26",
+      "ordinal": 133,
+      "sha256": "cb13f667424655c033e25c76dc52bf291fcaf51b29d44f6501ce866a9133bc44",
+      "unit_key": "ftse100:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1995q1-prod-7c2eadcb:r0001-c6c31cd9243b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "7c2eadcb9543e2b249a554b356b7bb95464dfa0e07c8a9a031bbaf4fb82b90e1",
+      "ordinal": 134,
+      "sha256": "c6c31cd9243beaf61daa7e7fd8b8f1079de83331c33a7300878ebcb622d43741",
+      "unit_key": "dax:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1995q1-prod-e2a7c8cc:r0001-e25e58e8e857",
+      "binding_type": "direct_manifest",
+      "final_request_id": "e2a7c8cc808c03c701dbc4b3061e2b6df4baa219d54ecafc71a5b4bcbd3d0a0f",
+      "ordinal": 135,
+      "sha256": "e25e58e8e857d5f8eb912ba96a1eb2cfdde66e923bccb6ff9380b27e1d5ee8eb",
+      "unit_key": "sp500:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1995q1-prod-04535b1e:r0001-c15a59ccb551",
+      "binding_type": "direct_manifest",
+      "final_request_id": "04535b1e11f17a8ad89770fd88df32933e3e9585455af7d79d515f5256f572df",
+      "ordinal": 136,
+      "sha256": "c15a59ccb55108181c128b2c42c1b1ae3552ad277f97cb49d7fe9751ce5e21b7",
+      "unit_key": "bse50:1995Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1995q2-prod-1b29c78a:r0001-08e8b4af810b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "1b29c78ae119a19b2e06f8ad589b84d17a64d2f21fee3047527da4eb0431ec66",
+      "ordinal": 137,
+      "sha256": "08e8b4af810b342bb8b64f9cd0930c5c586e5eec3d36dc687776878b9fca4d4f",
+      "unit_key": "sse_composite:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1995q2-prod-87fc94eb:r0001-6b5a3114632e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "87fc94ebd0ce6dce3a94b3bf621814c2be41161753e8412f54143b7f2a8082ec",
+      "ordinal": 138,
+      "sha256": "6b5a3114632eceb1de20336271b12dd71a96c9acc5da3bd6fcef5c95bb8e4a34",
+      "unit_key": "szse_component:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1995q2-prod-595ba534:r0001-11d23e121395",
+      "binding_type": "direct_manifest",
+      "final_request_id": "595ba534a381dd046da29356c2cde47158f883bce4dd58e22b9803630cc4dbb8",
+      "ordinal": 139,
+      "sha256": "11d23e121395275a28dd503e8ad55b29aeb6264c07d4fc2c4b607dbabf7033f5",
+      "unit_key": "topix:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1995q2-prod-92194e8c:r0001-ee0040cb4251",
+      "binding_type": "direct_manifest",
+      "final_request_id": "92194e8cea2965ca5c5a2230358c7f3b757bc2a1ed9640e684a52a0f508c5409",
+      "ordinal": 140,
+      "sha256": "ee0040cb4251a979d1d660ab28de4651931449e7c157b860ffad9565d0fdccf2",
+      "unit_key": "nifty50:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q2-prod-3b8785ae:r0001-35ca07a9671c",
+      "binding_type": "direct_manifest",
+      "final_request_id": "3b8785ae01b976f914c323a95a4ab2c7033ab98d8ed6e9769e20e0ebee97fbd4",
+      "ordinal": 141,
+      "sha256": "35ca07a9671c4a7bebdfb2e21c844b271df7575fc2dee00a54b13ea1b357261e",
+      "unit_key": "ftse100:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1995q2-prod-9cab21d7:r0001-d733535df00d",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9cab21d71b41c6242df4dc61f0749f05506f420829bd0b3e24c6d44b1557a3ff",
+      "ordinal": 142,
+      "sha256": "d733535df00dfe63d2246141b958711139212fcbd85b8edff9aaeee628aad37b",
+      "unit_key": "dax:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1995q2-prod-f1a829bb:r0001-afe4b5077aff",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f1a829bb79db4bfdf2581f2a6d7f29445dc15af5baf84f952590f6a81246cf63",
+      "ordinal": 143,
+      "sha256": "afe4b5077aff378488f8fb9c63d03849a9a938163872b5d3acfedfc2de4a43cc",
+      "unit_key": "sp500:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1995q2-prod-5efd40fb:r0001-8bbca7af920b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "5efd40fb197c887d0a4c20aa22de5a7b903369ab790894f9b441293d1a586fa9",
+      "ordinal": 144,
+      "sha256": "8bbca7af920b890f2090d73eb8e58882728f187b48f2974612cbe0a07b3d837b",
+      "unit_key": "bse50:1995Q2"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1995q3-prod-d6c10eb9:r0001-44ecae0ece18",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d6c10eb967e78933b1a9315c3ed314edb703318831bb7b1e7b50d187fe3312f0",
+      "ordinal": 145,
+      "sha256": "44ecae0ece18e7c4dcf164b04bfe0536bb1f771f4487bc780e510d27ce5ef5f4",
+      "unit_key": "sse_composite:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1995q3-prod-b45699b6:r0001-d8521f3d03ea",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b45699b661e996f44c513ea0a51c51d2d827ede31621405ab60d83e926660a90",
+      "ordinal": 146,
+      "sha256": "d8521f3d03eab6311a5da44f2ba31f7ec2a5e646c01712401492d33cd0b4c71d",
+      "unit_key": "szse_component:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1995q3-prod-229d787a:r0001-eb86a656cf99",
+      "binding_type": "direct_manifest",
+      "final_request_id": "229d787abd86327d4fcb43739a9dda2f7fa058ea3fc7a6ae5865839a7171ef82",
+      "ordinal": 147,
+      "sha256": "eb86a656cf99222e96135beb56333ad86116c778c674319cbdfc36c25795eee8",
+      "unit_key": "topix:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1995q3-prod-8fffe4cb:r0001-46edf99a5e69",
+      "binding_type": "direct_manifest",
+      "final_request_id": "8fffe4cba424e03dd705aec2270af3bcb8fcbc9ef2243cb17976fb4989f913e7",
+      "ordinal": 148,
+      "sha256": "46edf99a5e69b6e4a06e0e1d86d77dacb66d8fb503b66da7ead2f9126d5e351c",
+      "unit_key": "nifty50:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q3-prod-9a27df61:r0001-83c334b9654a",
+      "binding_type": "direct_manifest",
+      "final_request_id": "9a27df619df9c499cc87b7f9722b1a3d9c77c9e4c7ea48dfafb01d8f2df500c8",
+      "ordinal": 149,
+      "sha256": "83c334b9654afd26b2edabf27a00071c4fdac854697f1baa53463e98059cd354",
+      "unit_key": "ftse100:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1995q3-prod-c680a910:r0001-23543a8ca34e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c680a910580653f895df1749584afb9613edbb42396dd0f8ef0b4a60af8a813d",
+      "ordinal": 150,
+      "sha256": "23543a8ca34e8d9631b2a4db196df833088b30a99837a9807143251366081797",
+      "unit_key": "dax:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1995q3-prod-d319dcf9:r0001-ce8c6286d598",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d319dcf9a18b4b8efaa19ac0ea7fc8e67aa7e9efdee0f0912f330ec4f8eeacef",
+      "ordinal": 151,
+      "sha256": "ce8c6286d5986757b72e9583724cc0b1a5281ea9b3be756ac7c63441ac9c1086",
+      "unit_key": "sp500:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1995q3-prod-2f47c3e1:r0001-a94a3dadf078",
+      "binding_type": "direct_manifest",
+      "final_request_id": "2f47c3e1a80bcbb5695cb2087b7afe3ad8470f7ae2ce55a55eeedbd5e6fa193a",
+      "ordinal": 152,
+      "sha256": "a94a3dadf0782e3f98138a9163d2f7c2eba9fa4e8eb769c2577cdeef2ebd0c00",
+      "unit_key": "bse50:1995Q3"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1995q4-prod-09630c58:r0001-e73cbe314915",
+      "binding_type": "direct_manifest",
+      "final_request_id": "09630c58c028915595d19369f4d09b0dd308377a46e2ad287f5efde2daa470d1",
+      "ordinal": 153,
+      "sha256": "e73cbe3149159dc876dbd708829a9a8cbd11455e682b5e0cf1e4d73d50d4fc06",
+      "unit_key": "sse_composite:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1995q4-prod-2195144c:r0001-4452afa4a234",
+      "binding_type": "direct_manifest",
+      "final_request_id": "2195144cf19063c7cb52aa287a68a61d43394ef4408541130e25e09081897b1a",
+      "ordinal": 154,
+      "sha256": "4452afa4a23425814060eed18f5920281ffd94a5e2315398a17d7907cad2177a",
+      "unit_key": "szse_component:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1995q4-prod-463a78ed:r0001-c3bb3bfc9fc7",
+      "binding_type": "direct_manifest",
+      "final_request_id": "463a78ed7d2298b64016fd9f617b0c63030e30f97abb04c38e21d5330d214908",
+      "ordinal": 155,
+      "sha256": "c3bb3bfc9fc7f65f28caa889d2e286687e791421afae429f9ec6cd11fbfbcb10",
+      "unit_key": "topix:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1995q4-prod-967a1767:r0001-404297910a7b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "967a17672d32db0d5f960e9c219331d98b289c1931e0b72bcd924f8855e5eb59",
+      "ordinal": 156,
+      "sha256": "404297910a7b224c848a2ad1fb6957a5ea60c0848181c8ff1dbd645b46d96232",
+      "unit_key": "nifty50:1995Q4"
+    },
+    {
       "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q4-prod-5f5ecf79:r0001-7d766899a2d1",
       "binding_type": "direct_manifest",
       "final_request_id": "5f5ecf797aa9e63c32afc2c201aeb0e803c534e11bc375df2ca353dd33b823b8",
       "ordinal": 157,
       "sha256": "7d766899a2d1b12d66945e98e8e7f6dd26e7cfdc413faf95add88d525b534342",
       "unit_key": "ftse100:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1995q4-prod-b27a532b:r0001-e7bb220bce34",
+      "binding_type": "direct_manifest",
+      "final_request_id": "b27a532b8b871bfa11480761198e9e78b9eeaef2894e09a6bce45210e5674972",
+      "ordinal": 158,
+      "sha256": "e7bb220bce342e473c0a1643d5bd3bce4ad2a0b8a6041454781df17faa0dbbc3",
+      "unit_key": "dax:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1995q4-prod-c0c24376:r0001-c0c54923c761",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c0c243760b5aac2edf919eae22ec308812f292a2d5d6821461010a4b352c8629",
+      "ordinal": 159,
+      "sha256": "c0c54923c761237f92ea32a051f8270f7cd5178ec1ccdf89cd41ef6a84b5574e",
+      "unit_key": "sp500:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:bse50-1995q4-prod-00f07df0:r0001-fc1443336f9f",
+      "binding_type": "direct_manifest",
+      "final_request_id": "00f07df0fed5c8b4c124db558b48bf4b422308ba7fb3ea03374a4ad9e05e0816",
+      "ordinal": 160,
+      "sha256": "fc1443336f9fd11f6b9bed12dd8b43ff8a36733f1935428347a70823ead90e63",
+      "unit_key": "bse50:1995Q4"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sse_composite-1996q1-prod-5395d4c1:r0001-a09d7b91fc54",
+      "binding_type": "direct_manifest",
+      "final_request_id": "5395d4c18755b3a693f1f7569f4effc8a4da54f0ae68b3c7ef20e565b600ae8e",
+      "ordinal": 161,
+      "sha256": "a09d7b91fc54d12f74af32587fde183b788cb215c2c7544d8a772de26eb45927",
+      "unit_key": "sse_composite:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:szse_component-1996q1-prod-d8224b03:r0001-c87feb63a90b",
+      "binding_type": "direct_manifest",
+      "final_request_id": "d8224b03e795697629514510c7d57e2c4cff33bd2e5312bb25056ae0cb541805",
+      "ordinal": 162,
+      "sha256": "c87feb63a90bbe99beb15927929671867291a776611aaa46b2f680a51f59e379",
+      "unit_key": "szse_component:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:topix-1996q1-prod-65026160:r0001-e8e1c543fdeb",
+      "binding_type": "direct_manifest",
+      "final_request_id": "6502616098b5bc854a1bfd95452968f4d83d8bf41c95b36e2c40577e14c55495",
+      "ordinal": 163,
+      "sha256": "e8e1c543fdeb4ca59d67c7f838ab1e944229b55d5ee1bbb18b636195aa93b78e",
+      "unit_key": "topix:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:nifty50-1996q1-prod-4df185dc:r0001-18dca18647a8",
+      "binding_type": "direct_manifest",
+      "final_request_id": "4df185dc8bc13c718bd50385db5e02061be042e44aa15a15c4a443274387c64f",
+      "ordinal": 164,
+      "sha256": "18dca18647a86ed9e237f4d88d2ba235d866978bd6bbce0b6f2551dca5066a43",
+      "unit_key": "nifty50:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:ftse100-1996q1-prod-f4fd471f:r0001-9bc901381f6e",
+      "binding_type": "direct_manifest",
+      "final_request_id": "f4fd471fbc15c73e1eaa840465eab2069259e2033a95ff3ee04f3e5764df2fff",
+      "ordinal": 165,
+      "sha256": "9bc901381f6e248b87bfe2e66d45c38dfc84fcef1f3c5ca6292028904e0260c7",
+      "unit_key": "ftse100:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:dax-1996q1-prod-6aefaa65:r0001-5130ae06c480",
+      "binding_type": "direct_manifest",
+      "final_request_id": "6aefaa657213ce41284fc9d5f2fcc8c3479fa3d423214fe051cd80351aabac2b",
+      "ordinal": 166,
+      "sha256": "5130ae06c480ed20416007ce24558eb21cf92a38033110d76b9e2b12d4e8864e",
+      "unit_key": "dax:1996Q1"
+    },
+    {
+      "artifact_id": "cds_era5_hourly_climatology:sp500-1996q1-prod-c497b9f4:r0001-ee75ddbade36",
+      "binding_type": "direct_manifest",
+      "final_request_id": "c497b9f439a5474c27a40991aea481d507d3aef234b56798a7749a37113da6c6",
+      "ordinal": 167,
+      "sha256": "ee75ddbade36ea621a444cc6ff942872766b60c66bb509a3c95536fb0281ede4",
+      "unit_key": "sp500:1996Q1"
     },
     {
       "artifact_id": "cds_era5_hourly_climatology:dax-1996q4-prod-a021caac:r0001-125ceb419bcc",
@@ -81,14 +1377,46 @@
   },
   "binding_verified": true,
   "controller": {
-    "auto_retry": false,
+    "automatic_annual_retry": false,
     "batch": "one_baseline_year",
     "concurrency": 1,
     "health_interval": 8,
+    "max_logical_retrieves_per_unit_attempt": 1,
     "progress_after_every_unit": true,
-    "slots_per_batch": 32
+    "slots_per_batch": 32,
+    "transport": {
+      "client_family": "cdsapi-legacy-client",
+      "job_polling_classification": "continuous_job_state_wait_not_controller_retry",
+      "job_submission_post_replay_risk": "bounded_duplicate_remote_job_risk_if_response_is_lost_and_service_does_not_deduplicate",
+      "maximum_total_tries_per_robust_http_operation": 3,
+      "provider": "ECMWF Copernicus Climate Change Service",
+      "retry_delay_seconds": 120,
+      "retryable_exception_families": [
+        "ConnectionError",
+        "ReadTimeout",
+        "ChunkedEncodingError"
+      ],
+      "retryable_http_statuses": [
+        408,
+        429,
+        500,
+        502,
+        503,
+        504
+      ],
+      "runtime_dependencies": {
+        "cdsapi": "0.7.7",
+        "ecmwf-datastores-client": "0.5.3",
+        "multiurl": "0.3.9",
+        "requests": "2.34.2",
+        "urllib3": "2.7.0"
+      },
+      "server_retry_after_used": false,
+      "ssl_error_automatic_retry": false,
+      "tls_verification_enabled": true
+    }
   },
-  "execution_started": false,
+  "execution_started": true,
   "formal_plan": {
     "daily_exposures": 87600,
     "invariants_hold": true,
@@ -97,13 +1425,15 @@
     "units": 960,
     "years": 30
   },
-  "full_backfill_started": false,
-  "full_climatology_started": false,
+  "full_backfill_started": true,
+  "full_climatology_started": true,
   "hashes": {
-    "authorization_candidate_hash": "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c",
-    "controller_policy_hash": "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a",
+    "authorization_candidate_hash": "a1395ed2a33484bb67a37282db846d2cb1d5e83fe0ab3f6aabe50b5490be9b6a",
+    "controller_policy_hash": "b2ad6ec8f119cedcafba0bc4a1962e8162de4d5060b759fa759ad1251fbfd08b",
     "global_backfill_plan_hash": "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf",
     "spatial_registry_hash": "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38",
+    "superseded_authorization_candidate_hash": "37df1df9127346c962f371d9fcf6c3beb0cd968164b8c1ed3640eadb3cb5573c",
+    "superseded_controller_policy_hash": "a05924b0bf999eb37d5fa04d2e81520d5e799d1cf75715c3257663f32dc8c94a",
     "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
   },
   "identity": {
@@ -112,15 +1442,15 @@
     "version": "1.1.0"
   },
   "inventory": {
-    "accepted": 8,
+    "accepted": 170,
     "invalid": 0,
-    "missing": 952
+    "missing": 790
   },
   "network": {
     "cds_retrieves": 0,
     "other_network": 0,
     "service_health_fetches": 0
   },
-  "schema_version": "2.0.0",
-  "scope": "Stage 5E-3C: freeze canonical 960-unit plan, controller policy, authorization candidate; ZERO network"
+  "schema_version": "3.0.0",
+  "scope": "Stage 5E-4C-R6: bind bounded transport policy and exact runtime dependencies; ZERO network"
 }
