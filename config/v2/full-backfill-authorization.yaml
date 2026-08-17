@@ -1,14 +1,16 @@
-# Stage 5E-4E-R5C snapshot-finalization hardening authorization CANDIDATE.
-# INACTIVE: pending explicit ChatGPT control-layer approval.
+# Stage 5E-4E-R5A snapshot-finalization hardening authorization APPROVED / ACTIVE.
 #
-# This file is the NETWORK KILL SWITCH.  live_backfill_authorized is false,
-# and the execution agent must NEVER flip it to true on its own.  Activation
-# requires a NEW explicit ChatGPT control-layer instruction.
+# Activated by EXPLICIT ChatGPT control-layer authorization (Stage 5E-4E-R5A)
+# after remote verification of checkpoint:
+#   24de426e3f92ed699b2582f08e3dc86c346e935f
+# This activation enables the R5 controller kill switch ONLY.  It does NOT
+# authorize production execution: every production year/block still requires
+# a separate explicit control-layer production authorization before any
+# --live run, and 2005 in particular remains UNAUTHORIZED.
 #
-# NO production authorization is inherited from the superseded Stage 5E-4C-R6A
-# activation: the R5 controller policy change (controller_schema_version 2.1.0,
-# bounded snapshot-finalization retry) invalidated the R6A hash binding, and
-# R6A's live activation is NOT carried over into this candidate.
+# This file is the NETWORK KILL SWITCH.  live_backfill_authorized is true
+# ONLY because the ChatGPT control layer explicitly issued this activation.
+# The execution agent must NEVER extend this activation on its own.
 #
 # authorization_candidate_hash binds:
 #   global_backfill_plan_hash + controller_policy_hash +
@@ -19,9 +21,9 @@
 # authorization is automatically invalid (no silent inheritance of older
 # permissions).
 authorization_schema_version: "1.0.0"
-live_backfill_authorized: false
-authorization_state: "candidate_for_control_layer"
-control_layer_approval_required: true
+live_backfill_authorized: true
+authorization_state: "approved"
+control_layer_approval_required: false
 
 bound_hashes:
   global_backfill_plan_hash: "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf"
