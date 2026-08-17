@@ -1,0 +1,77 @@
+{
+  "blocking_issues": [
+    "Official data dictionary and actual data resource not yet evidenced.",
+    "ODbL applicability, S&P/BVL rights, and Share-Alike consequences unresolved."
+  ],
+  "calendar_assessment": {
+    "official_evidence_url": "https://www.bvl.com.pe/",
+    "status": "calendar_verification_partial"
+  },
+  "city_id": "lima",
+  "data_quality": {
+    "findings": [
+      "No verified official index response was downloaded; no OHLC or coverage claim is made."
+    ],
+    "observed_fields": [],
+    "quality_gate_confirmed": false
+  },
+  "executed_at": "2026-08-04T03:53:23.327932+00:00",
+  "final_probe_status": "technical_access_blocked",
+  "licence_assessment": {
+    "evidence_urls": [
+      "https://www.datosabiertos.gob.pe/",
+      "https://opendatacommons.org/licenses/odbl/"
+    ],
+    "licence_name": "ODbL claim requires dataset and resource-level confirmation",
+    "third_party_rights_status": "unclear",
+    "values": {
+      "academic_research_allowed": "unclear",
+      "attribution_required": "unclear",
+      "automated_access_allowed": "unclear",
+      "commercial_reuse_allowed": "unclear",
+      "download_allowed": "unclear",
+      "long_term_storage_allowed": "unclear",
+      "public_canonical_redistribution_allowed": "unclear",
+      "public_derived_panel_allowed": "unclear",
+      "public_raw_redistribution_allowed": "unclear",
+      "share_alike_required": "unclear",
+      "transformation_allowed": "unclear"
+    }
+  },
+  "market_id": "bvl",
+  "mode": "dry_run",
+  "probe_version": "1.0.0",
+  "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
+  "repeatability": {
+    "reason": "Actual official index resource was not identified; no guessed endpoint was queried.",
+    "status": "request_not_run"
+  },
+  "source_id": "peru_smv_bvl_indices",
+  "technical_access": {
+    "access_notes": "The national portal was reachable, but its search results did not identify a verified SMV/BVL index data dictionary and actual resource in the bounded probe.",
+    "account_required": "unclear",
+    "actual_resource_url": null,
+    "api_key_required": "unclear",
+    "live_access_confirmed": false
+  },
+  "third_party_rights": {
+    "reason": "No official dataset dictionary/resource for a BVL broad index was identified during the bounded probe; BVL-owned and S&P/BVL series cannot be separated safely.",
+    "status": "third_party_rights_unresolved"
+  },
+  "windows": [
+    {
+      "request_rule": "previous 60 calendar days; select latest 30 valid records",
+      "window_id": "recent_30"
+    },
+    {
+      "end": "2023-06-30",
+      "start": "2023-06-01",
+      "window_id": "2023_06"
+    },
+    {
+      "end": "2020-10-31",
+      "start": "2020-10-01",
+      "window_id": "2020_10"
+    }
+  ]
+}

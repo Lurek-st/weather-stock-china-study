@@ -1,0 +1,488 @@
+{
+  "ambient_vs_explicit_provider_match": true,
+  "audit_type": "historical_timezone_canary",
+  "baseline_period": "1991-2020",
+  "canaries": {
+    "berlin_1995_1996": [
+      {
+        "core_open_local": "09:00",
+        "date": "1995-10-23",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1995-10-23T08:00:00+00:00",
+          "offset_str": "+0100",
+          "support": [
+            "1995-10-23T06:00:00+00:00",
+            "1995-10-23T07:00:00+00:00",
+            "1995-10-23T08:00:00+00:00"
+          ],
+          "window_end_utc": "1995-10-23T08:00:00+00:00",
+          "window_start_utc": "1995-10-23T06:00:00+00:00"
+        },
+        "label": "berlin_1995_10_23",
+        "observed": {
+          "core_open_utc": "1995-10-23T08:00:00+00:00",
+          "hourly_support_timestamps": [
+            "1995-10-23T06:00:00+00:00",
+            "1995-10-23T07:00:00+00:00",
+            "1995-10-23T08:00:00+00:00"
+          ],
+          "offset_str": "+0100",
+          "window_end_utc": "1995-10-23T08:00:00+00:00",
+          "window_start_utc": "1995-10-23T06:00:00+00:00"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "core_open_local": "09:00",
+        "date": "1996-10-23",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1996-10-23T07:00:00+00:00",
+          "offset_str": "+0200",
+          "support": [
+            "1996-10-23T05:00:00+00:00",
+            "1996-10-23T06:00:00+00:00",
+            "1996-10-23T07:00:00+00:00"
+          ],
+          "window_end_utc": "1996-10-23T07:00:00+00:00",
+          "window_start_utc": "1996-10-23T05:00:00+00:00"
+        },
+        "label": "berlin_1996_10_23",
+        "observed": {
+          "core_open_utc": "1996-10-23T07:00:00+00:00",
+          "hourly_support_timestamps": [
+            "1996-10-23T05:00:00+00:00",
+            "1996-10-23T06:00:00+00:00",
+            "1996-10-23T07:00:00+00:00"
+          ],
+          "offset_str": "+0200",
+          "window_end_utc": "1996-10-23T07:00:00+00:00",
+          "window_start_utc": "1996-10-23T05:00:00+00:00"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "kolkata_static": [
+      {
+        "core_open_local": "09:15",
+        "date": "1991-07-01",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "+0530"
+        },
+        "label": "kolkata_1991_07_01_static",
+        "observed": {
+          "core_open_utc": "1991-07-01T03:45:00+00:00",
+          "hourly_support_timestamps": [
+            "1991-07-01T01:00:00+00:00",
+            "1991-07-01T02:00:00+00:00",
+            "1991-07-01T03:00:00+00:00",
+            "1991-07-01T04:00:00+00:00"
+          ],
+          "offset_str": "+0530",
+          "window_end_utc": "1991-07-01T03:45:00+00:00",
+          "window_start_utc": "1991-07-01T01:45:00+00:00"
+        },
+        "timezone": "Asia/Kolkata"
+      },
+      {
+        "core_open_local": "09:15",
+        "date": "2020-07-01",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "+0530"
+        },
+        "label": "kolkata_2020_07_01_static",
+        "observed": {
+          "core_open_utc": "2020-07-01T03:45:00+00:00",
+          "hourly_support_timestamps": [
+            "2020-07-01T01:00:00+00:00",
+            "2020-07-01T02:00:00+00:00",
+            "2020-07-01T03:00:00+00:00",
+            "2020-07-01T04:00:00+00:00"
+          ],
+          "offset_str": "+0530",
+          "window_end_utc": "2020-07-01T03:45:00+00:00",
+          "window_start_utc": "2020-07-01T01:45:00+00:00"
+        },
+        "timezone": "Asia/Kolkata"
+      }
+    ],
+    "london_1995": [
+      {
+        "core_open_local": "08:00",
+        "date": "1995-10-20",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1995-10-20T07:00:00+00:00",
+          "offset_str": "+0100",
+          "support": [
+            "1995-10-20T05:00:00+00:00",
+            "1995-10-20T06:00:00+00:00",
+            "1995-10-20T07:00:00+00:00"
+          ],
+          "window_end_utc": "1995-10-20T07:00:00+00:00",
+          "window_start_utc": "1995-10-20T05:00:00+00:00"
+        },
+        "label": "london_1995_10_20",
+        "observed": {
+          "core_open_utc": "1995-10-20T07:00:00+00:00",
+          "hourly_support_timestamps": [
+            "1995-10-20T05:00:00+00:00",
+            "1995-10-20T06:00:00+00:00",
+            "1995-10-20T07:00:00+00:00"
+          ],
+          "offset_str": "+0100",
+          "window_end_utc": "1995-10-20T07:00:00+00:00",
+          "window_start_utc": "1995-10-20T05:00:00+00:00"
+        },
+        "timezone": "Europe/London"
+      },
+      {
+        "core_open_local": "08:00",
+        "date": "1995-10-23",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1995-10-23T08:00:00+00:00",
+          "offset_str": "+0000",
+          "support": [
+            "1995-10-23T06:00:00+00:00",
+            "1995-10-23T07:00:00+00:00",
+            "1995-10-23T08:00:00+00:00"
+          ],
+          "window_end_utc": "1995-10-23T08:00:00+00:00",
+          "window_start_utc": "1995-10-23T06:00:00+00:00"
+        },
+        "label": "london_1995_10_23",
+        "observed": {
+          "core_open_utc": "1995-10-23T08:00:00+00:00",
+          "hourly_support_timestamps": [
+            "1995-10-23T06:00:00+00:00",
+            "1995-10-23T07:00:00+00:00",
+            "1995-10-23T08:00:00+00:00"
+          ],
+          "offset_str": "+0000",
+          "window_end_utc": "1995-10-23T08:00:00+00:00",
+          "window_start_utc": "1995-10-23T06:00:00+00:00"
+        },
+        "timezone": "Europe/London"
+      }
+    ],
+    "new_york_2006_2007": [
+      {
+        "core_open_local": "09:30",
+        "date": "2006-03-20",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "2006-03-20T14:30:00+00:00",
+          "offset_str": "-0500",
+          "support": [
+            "2006-03-20T12:00:00+00:00",
+            "2006-03-20T13:00:00+00:00",
+            "2006-03-20T14:00:00+00:00",
+            "2006-03-20T15:00:00+00:00"
+          ],
+          "window_end_utc": "2006-03-20T14:30:00+00:00",
+          "window_start_utc": "2006-03-20T12:30:00+00:00"
+        },
+        "label": "new_york_2006_03_20_spring",
+        "observed": {
+          "core_open_utc": "2006-03-20T14:30:00+00:00",
+          "hourly_support_timestamps": [
+            "2006-03-20T12:00:00+00:00",
+            "2006-03-20T13:00:00+00:00",
+            "2006-03-20T14:00:00+00:00",
+            "2006-03-20T15:00:00+00:00"
+          ],
+          "offset_str": "-0500",
+          "window_end_utc": "2006-03-20T14:30:00+00:00",
+          "window_start_utc": "2006-03-20T12:30:00+00:00"
+        },
+        "timezone": "America/New_York"
+      },
+      {
+        "core_open_local": "09:30",
+        "date": "2007-03-20",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "2007-03-20T13:30:00+00:00",
+          "offset_str": "-0400",
+          "support": [
+            "2007-03-20T11:00:00+00:00",
+            "2007-03-20T12:00:00+00:00",
+            "2007-03-20T13:00:00+00:00",
+            "2007-03-20T14:00:00+00:00"
+          ],
+          "window_end_utc": "2007-03-20T13:30:00+00:00",
+          "window_start_utc": "2007-03-20T11:30:00+00:00"
+        },
+        "label": "new_york_2007_03_20_spring",
+        "observed": {
+          "core_open_utc": "2007-03-20T13:30:00+00:00",
+          "hourly_support_timestamps": [
+            "2007-03-20T11:00:00+00:00",
+            "2007-03-20T12:00:00+00:00",
+            "2007-03-20T13:00:00+00:00",
+            "2007-03-20T14:00:00+00:00"
+          ],
+          "offset_str": "-0400",
+          "window_end_utc": "2007-03-20T13:30:00+00:00",
+          "window_start_utc": "2007-03-20T11:30:00+00:00"
+        },
+        "timezone": "America/New_York"
+      },
+      {
+        "core_open_local": "09:30",
+        "date": "2006-10-30",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "-0500",
+          "window_end_utc": "2006-10-30T14:30:00+00:00",
+          "window_start_utc": "2006-10-30T12:30:00+00:00"
+        },
+        "label": "new_york_2006_10_30_fall",
+        "observed": {
+          "core_open_utc": "2006-10-30T14:30:00+00:00",
+          "hourly_support_timestamps": [
+            "2006-10-30T12:00:00+00:00",
+            "2006-10-30T13:00:00+00:00",
+            "2006-10-30T14:00:00+00:00",
+            "2006-10-30T15:00:00+00:00"
+          ],
+          "offset_str": "-0500",
+          "window_end_utc": "2006-10-30T14:30:00+00:00",
+          "window_start_utc": "2006-10-30T12:30:00+00:00"
+        },
+        "timezone": "America/New_York"
+      },
+      {
+        "core_open_local": "09:30",
+        "date": "2007-10-30",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "-0400",
+          "window_end_utc": "2007-10-30T13:30:00+00:00",
+          "window_start_utc": "2007-10-30T11:30:00+00:00"
+        },
+        "label": "new_york_2007_10_30_fall",
+        "observed": {
+          "core_open_utc": "2007-10-30T13:30:00+00:00",
+          "hourly_support_timestamps": [
+            "2007-10-30T11:00:00+00:00",
+            "2007-10-30T12:00:00+00:00",
+            "2007-10-30T13:00:00+00:00",
+            "2007-10-30T14:00:00+00:00"
+          ],
+          "offset_str": "-0400",
+          "window_end_utc": "2007-10-30T13:30:00+00:00",
+          "window_start_utc": "2007-10-30T11:30:00+00:00"
+        },
+        "timezone": "America/New_York"
+      }
+    ],
+    "shanghai_1991_1992": [
+      {
+        "core_open_local": "09:30",
+        "date": "1991-07-01",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1991-07-01T00:30:00+00:00",
+          "offset_str": "+0900",
+          "support": [
+            "1991-06-30T22:00:00+00:00",
+            "1991-06-30T23:00:00+00:00",
+            "1991-07-01T00:00:00+00:00",
+            "1991-07-01T01:00:00+00:00"
+          ],
+          "window_end_utc": "1991-07-01T00:30:00+00:00",
+          "window_start_utc": "1991-06-30T22:30:00+00:00"
+        },
+        "label": "shanghai_1991_07_01_dst",
+        "observed": {
+          "core_open_utc": "1991-07-01T00:30:00+00:00",
+          "hourly_support_timestamps": [
+            "1991-06-30T22:00:00+00:00",
+            "1991-06-30T23:00:00+00:00",
+            "1991-07-01T00:00:00+00:00",
+            "1991-07-01T01:00:00+00:00"
+          ],
+          "offset_str": "+0900",
+          "window_end_utc": "1991-07-01T00:30:00+00:00",
+          "window_start_utc": "1991-06-30T22:30:00+00:00"
+        },
+        "timezone": "Asia/Shanghai"
+      },
+      {
+        "core_open_local": "09:30",
+        "date": "1992-07-01",
+        "exact_match": true,
+        "expected": {
+          "core_open_utc": "1992-07-01T01:30:00+00:00",
+          "offset_str": "+0800",
+          "support": [
+            "1992-06-30T23:00:00+00:00",
+            "1992-07-01T00:00:00+00:00",
+            "1992-07-01T01:00:00+00:00",
+            "1992-07-01T02:00:00+00:00"
+          ],
+          "window_end_utc": "1992-07-01T01:30:00+00:00",
+          "window_start_utc": "1992-06-30T23:30:00+00:00"
+        },
+        "label": "shanghai_1992_07_01_no_dst",
+        "observed": {
+          "core_open_utc": "1992-07-01T01:30:00+00:00",
+          "hourly_support_timestamps": [
+            "1992-06-30T23:00:00+00:00",
+            "1992-07-01T00:00:00+00:00",
+            "1992-07-01T01:00:00+00:00",
+            "1992-07-01T02:00:00+00:00"
+          ],
+          "offset_str": "+0800",
+          "window_end_utc": "1992-07-01T01:30:00+00:00",
+          "window_start_utc": "1992-06-30T23:30:00+00:00"
+        },
+        "timezone": "Asia/Shanghai"
+      }
+    ],
+    "tokyo_static": [
+      {
+        "core_open_local": "09:00",
+        "date": "1991-07-01",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "+0900"
+        },
+        "label": "tokyo_1991_07_01_static",
+        "observed": {
+          "core_open_utc": "1991-07-01T00:00:00+00:00",
+          "hourly_support_timestamps": [
+            "1991-06-30T22:00:00+00:00",
+            "1991-06-30T23:00:00+00:00",
+            "1991-07-01T00:00:00+00:00"
+          ],
+          "offset_str": "+0900",
+          "window_end_utc": "1991-07-01T00:00:00+00:00",
+          "window_start_utc": "1991-06-30T22:00:00+00:00"
+        },
+        "timezone": "Asia/Tokyo"
+      },
+      {
+        "core_open_local": "09:00",
+        "date": "2020-07-01",
+        "exact_match": true,
+        "expected": {
+          "offset_str": "+0900"
+        },
+        "label": "tokyo_2020_07_01_static",
+        "observed": {
+          "core_open_utc": "2020-07-01T00:00:00+00:00",
+          "hourly_support_timestamps": [
+            "2020-06-30T22:00:00+00:00",
+            "2020-06-30T23:00:00+00:00",
+            "2020-07-01T00:00:00+00:00"
+          ],
+          "offset_str": "+0900",
+          "window_end_utc": "2020-07-01T00:00:00+00:00",
+          "window_start_utc": "2020-06-30T22:00:00+00:00"
+        },
+        "timezone": "Asia/Tokyo"
+      }
+    ]
+  },
+  "code_hashes": {
+    "build_historical_timezone_audit.py": "c08abd3e3e8ad0c96010114a4ef6a4d26c8023088dc681f7d7912ddf9c86925c",
+    "historical_timezone.py": "05626354bdc26e26e4f417f3269fc29ef3bd49c10d8cbc179615b4874228560c",
+    "session_time.py": "294cd23f96e0577b814e9485c014e4790cd31ce0aee2bf4936236e67ca2d4c27"
+  },
+  "cross_utc_date_support_match": true,
+  "fingerprint": {
+    "baseline_period": "1991-2020",
+    "canary_values": [
+      {
+        "label": "new_york_2006_03_20_spring",
+        "offset_str": "-0500"
+      },
+      {
+        "label": "new_york_2007_03_20_spring",
+        "offset_str": "-0400"
+      },
+      {
+        "label": "new_york_2006_10_30_fall",
+        "offset_str": "-0500"
+      },
+      {
+        "label": "new_york_2007_10_30_fall",
+        "offset_str": "-0400"
+      },
+      {
+        "label": "berlin_1995_10_23",
+        "offset_str": "+0100"
+      },
+      {
+        "label": "berlin_1996_10_23",
+        "offset_str": "+0200"
+      },
+      {
+        "label": "london_1995_10_20",
+        "offset_str": "+0100"
+      },
+      {
+        "label": "london_1995_10_23",
+        "offset_str": "+0000"
+      },
+      {
+        "label": "shanghai_1991_07_01_dst",
+        "offset_str": "+0900"
+      },
+      {
+        "label": "shanghai_1992_07_01_no_dst",
+        "offset_str": "+0800"
+      },
+      {
+        "label": "tokyo_1991_07_01_static",
+        "offset_str": "+0900"
+      },
+      {
+        "label": "tokyo_2020_07_01_static",
+        "offset_str": "+0900"
+      },
+      {
+        "label": "kolkata_1991_07_01_static",
+        "offset_str": "+0530"
+      },
+      {
+        "label": "kolkata_2020_07_01_static",
+        "offset_str": "+0530"
+      }
+    ],
+    "provider": {
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python_version": "3.11.9",
+      "timezone_data_provider": "tzdata",
+      "timezone_data_version": "2026.3",
+      "tzdata_installed": true,
+      "tzdata_version": "2026.3",
+      "zoneinfo_tzpath": []
+    },
+    "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+  },
+  "historical_backfill_run": false,
+  "no_network_attestation": {
+    "cds_api_calls": 0,
+    "era5_downloads": 0
+  },
+  "provider": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.11.9",
+    "timezone_data_provider": "tzdata",
+    "timezone_data_version": "2026.3",
+    "tzdata_installed": true,
+    "tzdata_version": "2026.3",
+    "zoneinfo_tzpath": []
+  },
+  "reproducibility": "deterministic (byte-identical across repeated builds; pure functions, no network)",
+  "research_usable": true,
+  "schema_version": "2.0.0",
+  "unresolved_count": 0
+}

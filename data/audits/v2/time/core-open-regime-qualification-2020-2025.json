@@ -1,0 +1,309 @@
+{
+  "audit_type": "core_open_regime_qualification",
+  "code_hashes": {
+    "build_core_open_regime_audit.py": "eabeced01c3b1c4bef82a29db173ea8faaadc3bdb7d32f23e5ed0c804a5d3171",
+    "core_open_regimes.py": "4f41b4bc0d53256a3edb9ad76b728c2ea1b8ec9c9b790deb7e97eb48d5b95b15",
+    "session_time.py": "294cd23f96e0577b814e9485c014e4790cd31ce0aee2bf4936236e67ca2d4c27"
+  },
+  "historical_backfill_run": false,
+  "markets_expected": 8,
+  "markets_qualified": 8,
+  "no_network_attestation": {
+    "era5_downloaded": 0,
+    "market_backfill": false,
+    "statistics_run": false
+  },
+  "per_market": [
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.sse.com.cn/lawandrules/sselawsrules2025/fund/trading/c/c_20260424_10817739.shtml"
+      ],
+      "dated_authority": [
+        "https://www.cs.com.cn/tj/03/03/202206/t20220602_6274377.html"
+      ],
+      "market_id": "sse_composite",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "15:00",
+          "core_open_local": "09:30",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "sse-current-rules",
+            "sse-2020-revision"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "sse_composite-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:30",
+      "timezone": "Asia/Shanghai",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://zxyoss.csc108.com/csc108-istp/istp/doc/unknown/6da49e236a004328a460e914bd2c57e7.pdf"
+      ],
+      "dated_authority": [
+        "https://investor.szse.cn/index/update/t20191204_572383.html"
+      ],
+      "market_id": "szse_component",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "15:00",
+          "core_open_local": "09:30",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "szse-current-rules",
+            "szse-2019-faq"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "szse_component-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:30",
+      "timezone": "Asia/Shanghai",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [
+        "jpx-2024-close-extension"
+      ],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.jpx.co.jp/english/equities/trading/domestic/01.html"
+      ],
+      "dated_authority": [
+        "https://www.jpx.co.jp/english/equities/trading/strengthening/index.html"
+      ],
+      "market_id": "topix",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "15:30",
+          "core_open_local": "09:00",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "jpx-current-rules",
+            "jpx-2024-close-extension"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "topix-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:00",
+      "timezone": "Asia/Tokyo",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.nseindia.com/products-services/equity-market-timings-holidays"
+      ],
+      "dated_authority": [
+        "https://www.nseindia.com/products-services/equity-market-timings-holidays"
+      ],
+      "market_id": "nifty50",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "15:30",
+          "core_open_local": "09:15",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "nse-current-timings",
+            "nse-2021-timings"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "nifty50-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:15",
+      "timezone": "Asia/Kolkata",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.londonstockexchange.com/personal-investing/faqs",
+        "https://www.londonstockexchange.com/"
+      ],
+      "dated_authority": [],
+      "market_id": "ftse100",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "16:30",
+          "core_open_local": "08:00",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "lse-current-faq",
+            "lse-24-main-market-unchanged"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "ftse100-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "08:00",
+      "timezone": "Europe/London",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours"
+      ],
+      "dated_authority": [
+        "https://www.xetra.com/dbcm-en/newsroom/trading-calendar"
+      ],
+      "market_id": "dax",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "17:30",
+          "core_open_local": "09:00",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "db-current-trading-hours",
+            "xetra-2021-calendar"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "dax-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:00",
+      "timezone": "Europe/Berlin",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [
+        "https://www.nyse.com/trade/hours-calendars"
+      ],
+      "dated_authority": [
+        "https://www.sec.gov/rules/sro/cboe/2021/34-93819.pdf",
+        "https://www.govinfo.gov/content/pkg/FR-2022-03-28/pdf/2022-06383.pdf"
+      ],
+      "market_id": "sp500",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "16:00",
+          "core_open_local": "09:30",
+          "effective_from": "2020-01-01",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "nyse-hours-calendars",
+            "sec-34-93819",
+            "fr-2022-06383"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "sp500-2020-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:30",
+      "timezone": "America/New_York",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2020-01-01"
+      }
+    },
+    {
+      "amendments_checked": [],
+      "core_open_change_detected": false,
+      "current_authority": [],
+      "dated_authority": [
+        "https://m.chinanews.com/wap/detail/chs/zw/9608279.shtml",
+        "https://app.xinhuanet.com/news/article.html?articleId=1df13279-a732-44bf-aaad-cdabd05af27a"
+      ],
+      "market_id": "bse50",
+      "qualification_status": "qualified_single_regime",
+      "regimes": [
+        {
+          "core_close_local": "15:00",
+          "core_open_local": "09:30",
+          "effective_from": "2021-11-15",
+          "effective_to": "2025-12-31",
+          "evidence_ids": [
+            "bse-launch-2021",
+            "bse-rules-trial"
+          ],
+          "qualification_status": "qualified_single_regime",
+          "regime_id": "bse50-2021-2025"
+        }
+      ],
+      "resolved_core_open_local": "09:30",
+      "timezone": "Asia/Shanghai",
+      "valid_horizon": {
+        "end": "2025-12-31",
+        "start": "2021-11-15"
+      }
+    }
+  ],
+  "registry": {
+    "path": "config/v2/core-open-regimes.yaml",
+    "registry_hash": "97b3170a0689175ea30443e2633e99c5902c686f1c71dd0b97cd6e897c4578e7"
+  },
+  "reproducibility": "deterministic (byte-identical across repeated builds; pure functions, no network)",
+  "research_usable": true,
+  "schema_version": "2.0.0",
+  "scope": {
+    "excluded": [
+      "pre-open order entry",
+      "opening-auction call start",
+      "early retail session",
+      "block-deal session",
+      "extended hours",
+      "derivative session",
+      "after-hours"
+    ],
+    "object": "primary core cash-market opening clock (continuous trading start)",
+    "target_horizon": {
+      "end": "2025-12-31",
+      "start": "2020-01-01"
+    },
+    "window": "[core_open - 120min, core_open)"
+  },
+  "special_cases": {
+    "beijing_effective": "bse50 effective_from 2021-11-15 (exchange launch), not index sample start",
+    "london": "LSE Main Market (SETS) continuous trading 08:00; LSE24 overnight platform is separate",
+    "mumbai": "09:00-09:08 pre-open session is NOT the core open; core is 09:15",
+    "shanghai_shenzhen_beijing": "09:15-09:25 opening call auction is NOT the core open; core is 09:30 continuous trading",
+    "tokyo": "2024-11-05 close extension 15:00->15:30 does NOT change the 09:00 core open",
+    "xetra": "Extended Xetra Retail Service (08:00 early trading) is NOT the DAX core open; core remains 09:00"
+  },
+  "unresolved_count": 0
+}

@@ -1,0 +1,11 @@
+schema_version: 2.0.0
+units:
+  air_temperature_c: {canonical: degC, source: K, transform: kelvin_to_celsius}
+  dew_point_c: {canonical: degC, source: K, transform: kelvin_to_celsius}
+  relative_humidity_pct: {canonical: percent, source: derived, transform: magnus}
+  apparent_temperature_c: {canonical: degC, source: derived, transform: steadman_v1}
+  precipitation_mm: {canonical: mm, source: m, transform: metres_to_mm}
+  cloud_cover_pct: {canonical: percent, source: fraction, transform: fraction_to_percent}
+  wind_speed_mps: {canonical: m/s, source: m/s, transform: vector_magnitude}
+  max_gust_mps: {canonical: m/s, source: m/s, transform: identity}
+  solar_radiation_mj_m2: {canonical: MJ/m2, source: J/m2, transform: joules_to_megajoules}

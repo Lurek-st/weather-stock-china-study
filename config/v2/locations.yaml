@@ -1,0 +1,22 @@
+schema_version: 2.0.0
+registry_version: 2.0.0
+locations:
+  - {city_id: beijing, city_name: Beijing, latitude: 39.9042, longitude: 116.4074, timezone: Asia/Shanghai, market_id: bse50, coordinate_basis: municipal_reference_point}
+  - {city_id: shanghai, city_name: Shanghai, latitude: 31.2304, longitude: 121.4737, timezone: Asia/Shanghai, market_id: sse_composite, coordinate_basis: municipal_reference_point}
+  - {city_id: shenzhen, city_name: Shenzhen, latitude: 22.5431, longitude: 114.0579, timezone: Asia/Shanghai, market_id: szse_component, coordinate_basis: municipal_reference_point}
+  - {city_id: tokyo, city_name: Tokyo, latitude: 35.6762, longitude: 139.6503, timezone: Asia/Tokyo, market_id: topix, coordinate_basis: municipal_reference_point}
+  - {city_id: mumbai, city_name: Mumbai, latitude: 19.0760, longitude: 72.8777, timezone: Asia/Kolkata, market_id: nifty50, coordinate_basis: municipal_reference_point}
+  - {city_id: london, city_name: London, latitude: 51.5074, longitude: -0.1278, timezone: Europe/London, market_id: ftse100, coordinate_basis: municipal_reference_point}
+  - {city_id: frankfurt, city_name: Frankfurt, latitude: 50.1109, longitude: 8.6821, timezone: Europe/Berlin, market_id: dax, coordinate_basis: municipal_reference_point}
+  - {city_id: new_york, city_name: New York, latitude: 40.7128, longitude: -74.0060, timezone: America/New_York, market_id: sp500, coordinate_basis: municipal_reference_point}
+  - city_id: taipei
+    city_name: Taipei
+    latitude: 25.0375
+    longitude: 121.5646
+    timezone: Asia/Taipei
+    market_id: taiex
+    coordinate_basis: municipal_reference_point
+    coordinate_derivation: derived_from_official_taipei_city_hall_address
+    coordinate_source: "https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB (Taipei City Government official City Hall page; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889)"
+    coordinate_evidence_status: official_address_with_derived_coordinate
+    coordinate_verified_at: "2026-08-06"

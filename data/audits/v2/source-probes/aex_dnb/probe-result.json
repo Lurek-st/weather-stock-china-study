@@ -1,0 +1,150 @@
+{
+  "blocking_issues": [
+    "Direct resource access is technically blocked: statistiek.api.dnb.nl returns public-DNS NXDOMAIN.",
+    "DNB Public API requires a My DNB Public subscription for available datasets, but no official migration of this dataset is confirmed.",
+    "AEX-specific definition and third-party rights remain unverified without the JSON payload."
+  ],
+  "calendar_assessment": {
+    "official_evidence_url": "https://www.euronext.com/en/markets/amsterdam",
+    "status": "calendar_verification_partial"
+  },
+  "city_id": "amsterdam",
+  "data_quality": {
+    "findings": [
+      "No actual DNB JSON payload was obtained, so AEX series definition, inventory, windows, and return calculations are unverified."
+    ],
+    "observed_fields": [],
+    "quality_gate_confirmed": false
+  },
+  "executed_at": "2026-08-04T07:06:14.557011+00:00",
+  "final_probe_status": "technical_access_blocked",
+  "historical_coverage_confirmed": false,
+  "licence_assessment": {
+    "evidence_urls": [
+      "https://data.overheid.nl/dataset/3_1_day_aandelenbeursindicesdag",
+      "https://creativecommons.org/licenses/by/4.0/"
+    ],
+    "licence_name": "CC-BY (4.0) shown for dataset and both registered JSON resources",
+    "third_party_rights_status": "unclear",
+    "values": {
+      "academic_research_allowed": "yes",
+      "attribution_required": "yes",
+      "automated_access_allowed": "yes",
+      "commercial_reuse_allowed": "yes",
+      "download_allowed": "yes",
+      "long_term_storage_allowed": "yes",
+      "public_canonical_redistribution_allowed": "yes",
+      "public_derived_panel_allowed": "yes",
+      "public_raw_redistribution_allowed": "yes",
+      "share_alike_required": "no",
+      "transformation_allowed": "yes"
+    }
+  },
+  "market_id": "aex_dnb",
+  "mode": "live",
+  "probe_version": "1.0.0",
+  "raw_response_policy": "local_only:.local/source-probes; no raw response is versioned",
+  "repeatability": {
+    "historical": "request_failed",
+    "post_2018": "request_failed"
+  },
+  "source_id": "dnb_daily_stock_market_indices",
+  "technical_access": {
+    "access_classification": "public_dns_nxdomain",
+    "access_diagnostic": {
+      "catalogue_resource_links_current": true,
+      "cloudflare_dns": "NXDOMAIN",
+      "dataset_migration_confirmed": false,
+      "google_dns": "NXDOMAIN",
+      "new_api_subscription_required_for_available_new_api_datasets": true,
+      "python_getaddrinfo": "name_resolution_error",
+      "windows_default_curl": "local_proxy_connection_failed",
+      "windows_default_dns": "NXDOMAIN",
+      "windows_noproxy_curl": "dns_resolution_failed",
+      "wsl_curl": "proxy_tunnel_tls_failure",
+      "wsl_dns": "no_address_returned; nslookup_not_available"
+    },
+    "access_notes": "The official catalogue still lists both legacy resourcefile URLs. On 2026-08-04, the hostname returned explicit NXDOMAIN through the default Windows resolver, 1.1.1.1, and 8.8.8.8; a no-proxy request also could not resolve it. DNB's newer Public API requires a My DNB Public subscription for available API datasets, but migration of this dataset is not confirmed.",
+    "account_required": "no",
+    "actual_resource_url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517",
+    "api_key_required": "no",
+    "direct_resource_probe": {
+      "historical": {
+        "attempts": [
+          {
+            "content_length": null,
+            "error": "ConnectionError",
+            "etag": null,
+            "http_status": null,
+            "last_modified": null,
+            "raw_sha256": null,
+            "retrieved_at": "2026-08-04T07:06:14.568009+00:00",
+            "semantic_sha256": null
+          },
+          {
+            "content_length": null,
+            "error": "ConnectionError",
+            "etag": null,
+            "http_status": null,
+            "last_modified": null,
+            "raw_sha256": null,
+            "retrieved_at": "2026-08-04T07:06:14.569013+00:00",
+            "semantic_sha256": null
+          }
+        ],
+        "resource_id": "historical",
+        "status": "request_failed",
+        "url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=9f3c874d-6407-44f6-881c-7f9de1dcf31e"
+      },
+      "post_2018": {
+        "attempts": [
+          {
+            "content_length": null,
+            "error": "ConnectionError",
+            "etag": null,
+            "http_status": null,
+            "last_modified": null,
+            "raw_sha256": null,
+            "retrieved_at": "2026-08-04T07:06:14.558009+00:00",
+            "semantic_sha256": null
+          },
+          {
+            "content_length": null,
+            "error": "ConnectionError",
+            "etag": null,
+            "http_status": null,
+            "last_modified": null,
+            "raw_sha256": null,
+            "retrieved_at": "2026-08-04T07:06:14.567012+00:00",
+            "semantic_sha256": null
+          }
+        ],
+        "resource_id": "post_2018",
+        "status": "request_failed",
+        "url": "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517"
+      }
+    },
+    "json_structures": {},
+    "live_access_confirmed": false
+  },
+  "third_party_rights": {
+    "reason": "The catalogue labels resources CC-BY, but actual resource files could not be retrieved to establish AEX-specific provenance or separate international-index rights.",
+    "status": "third_party_rights_unresolved"
+  },
+  "windows": [
+    {
+      "request_rule": "previous 60 calendar days; select latest 30 valid records",
+      "window_id": "recent_30"
+    },
+    {
+      "end": "2023-06-30",
+      "start": "2023-06-01",
+      "window_id": "2023_06"
+    },
+    {
+      "end": "2020-10-31",
+      "start": "2020-10-01",
+      "window_id": "2020_10"
+    }
+  ]
+}

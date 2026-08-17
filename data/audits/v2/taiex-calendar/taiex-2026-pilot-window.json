@@ -1,0 +1,54 @@
+{
+  "audit_type": "taiex_2026_pilot_window_selection",
+  "calendar_year": 2026,
+  "closed_dates_count": 24,
+  "extraordinary_closure": {
+    "announcement_count": 498,
+    "evidence_raw_sha256": "a999a40ed989818525175b6535de6b17a69df64aaf9882e1d2f5939da8d9b544",
+    "evidence_semantic_sha256": "3d864fad0bca599c2caf02cf6208c92990ff63be4dd8f32fa0968a9d50eb1b3f",
+    "extraordinary_closure_evidence": "none_found_in_official_sources",
+    "keyword_policy": [
+      "休市",
+      "停市",
+      "停止交易",
+      "取消",
+      "台风",
+      "地震",
+      "暂停",
+      "暫停",
+      "災害",
+      "灾害",
+      "特殊",
+      "颱風"
+    ],
+    "matched_announcement_count": 0,
+    "matched_announcements": [],
+    "source_url": "https://www.twse.com.tw/rwd/zh/news/newsList",
+    "window_end": "2026-03-06",
+    "window_start": "2026-03-02"
+  },
+  "full_history_calendar_status": "calendar_verification_partial",
+  "full_history_calendar_verified": false,
+  "generated_at": "2026-08-05T09:20:31.122034+00:00",
+  "historical_backfill_status": "blocked_historical_calendar_unresolved",
+  "historical_calendar_blocker": "historical_twse_calendar_query_semantics_unconfirmed",
+  "official_calendar_revision": "taiex-calendar-2026-20260804T091406Z.json",
+  "official_calendar_source": "https://www.twse.com.tw/holidaySchedule/holidaySchedule",
+  "pilot_calendar_status": "calendar_verified_for_2026_pilot_window",
+  "schema_version": "2.0.0",
+  "selection": {
+    "excluded_weeks": [],
+    "selected_week": "2026-03-02",
+    "selected_week_dates": [
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-04",
+      "2026-03-05",
+      "2026-03-06"
+    ],
+    "selection_algorithm": "earliest_full_monday_to_friday_week_with_no_official_closure",
+    "selection_end_range": "2026-05-31",
+    "selection_reason": "week 2026-03-02 to 2026-03-06 has five weekdays and no official TWSE closure; it is the earliest eligible week in the candidate range",
+    "selection_start_range": "2026-03-01"
+  }
+}

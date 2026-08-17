@@ -1,0 +1,91 @@
+{
+  "all_end_to_end_oracle_matches": true,
+  "all_market_returns_recalculated": true,
+  "audit_type": "taipei_taiex_2026_pilot_panel_acceptance",
+  "byte_reproducibility": true,
+  "calendar_audit_path": "data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json",
+  "calendar_audit_sha256": "8c757eaf670183835a274ec89f2ceb3586759d1d2f9227a10c12b0f62fc0e196",
+  "city_id": "taipei",
+  "climatology_baseline_status": "not_available_historical_backfill_blocked",
+  "frozen": false,
+  "historical_backfill_run": false,
+  "input_weather_data_class": "final_reanalysis",
+  "key_sets_exact_match": true,
+  "market_acceptance_audit_path": "data/audits/v2/taiex-adapter-acceptance/taiex-2026-market-only.json",
+  "market_acceptance_audit_sha256": "a92bfa2961f5c873a8d00cbbccd3a405480486ba0974e3aebc6de3966a5d3118",
+  "market_canonical_audit_path": "data/audits/v2/taiex-adapter-acceptance/taiex-2026-market-canonical.json",
+  "market_canonical_audit_sha256": "98b17272c105e6286beb8e68c3db3f14acdcdf80cf2506ea6f64cfbb3a021df1",
+  "market_canonical_path": "data/canonical/v2/market/taiex-final-pilot-20260302-20260306.parquet",
+  "market_canonical_sha256": "09a7bd3d11c8248c573ebee4c1fd22025babfc1a47636bff2df0f20da230f454",
+  "market_id": "taiex",
+  "market_row_count": 5,
+  "market_value_status": "final",
+  "max_market_abs_diff": 0.0,
+  "max_weather_abs_diff": 0.0,
+  "one_to_one_join": true,
+  "panel_builder_code_files": {
+    "scripts/v2/build_taiex_pilot_market.py": "ebf1cc7e3ebe6c25969b7cc93e2fb4d4b8a86f1f3ae6932da53512d01745317f",
+    "scripts/v2/build_taiex_pilot_panel.py": "8dcf32c63850f5b15a11d08a3713af10c5460bd267ca3c6a1375bc375a907fa8",
+    "scripts/v2/core.py": "4e756d6aef1d0a9692708c3f4a028297fd0c18c14a6d29cb8e0151cacf7bd217"
+  },
+  "panel_builder_code_sha256": "8dcf32c63850f5b15a11d08a3713af10c5460bd267ca3c6a1375bc375a907fa8",
+  "panel_parquet_path": "data/panel/v2/provisional/taipei-taiex-pilot-20260302-20260306.parquet",
+  "panel_parquet_sha256": "43c6d6b506402eff2ad8ef5f1d26ef83d3d2ecc8e507d6101e61bfae02ef6218",
+  "panel_row_count": 5,
+  "panel_scope": "pilot_only",
+  "panel_status": "accepted",
+  "panel_tier": "provisional",
+  "pilot_calendar_verified": true,
+  "pilot_dates": [
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "research_ready": false,
+  "rows": [
+    {
+      "close_to_close_return_pct": -0.9018907233,
+      "official_close": 35095.09,
+      "previous_official_close": 35414.49,
+      "trading_date": "2026-03-02"
+    },
+    {
+      "close_to_close_return_pct": -2.1981422472,
+      "official_close": 34323.65,
+      "previous_official_close": 35095.09,
+      "trading_date": "2026-03-03"
+    },
+    {
+      "close_to_close_return_pct": -4.3549272877,
+      "official_close": 32828.88,
+      "previous_official_close": 34323.65,
+      "trading_date": "2026-03-04"
+    },
+    {
+      "close_to_close_return_pct": 2.5710898453,
+      "official_close": 33672.94,
+      "previous_official_close": 32828.88,
+      "trading_date": "2026-03-05"
+    },
+    {
+      "close_to_close_return_pct": -0.2179791845,
+      "official_close": 33599.54,
+      "previous_official_close": 33672.94,
+      "trading_date": "2026-03-06"
+    }
+  ],
+  "sample_temperature_features_generated": false,
+  "schema_version": "2.0.0",
+  "semantic_reproducibility": true,
+  "statistics_run": false,
+  "unique_key_count": 5,
+  "weather_null_count": 0,
+  "weather_wide_row_count": 5,
+  "weather_window_audit_path": "data/audits/v2/weather-pilot/taipei-era5-window-acceptance.json",
+  "weather_window_audit_sha256": "143bd0161efa680aaeeb42a8c8ee8c7328e1ec2b242aeea189b2edbe92838a6f",
+  "weather_window_field_count": 27,
+  "window_parquet_path": "data/canonical/v2/weather/taipei-era5-final-pilot-windows-20260302-20260306.parquet",
+  "window_parquet_sha256": "f40648f40fd870872ca78a5f5957d1b2056d6e93bcadfb6406ea97d835894cbf"
+}

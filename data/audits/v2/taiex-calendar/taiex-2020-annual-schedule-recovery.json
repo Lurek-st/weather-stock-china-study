@@ -1,0 +1,66 @@
+{
+  "all_dates_in_year": true,
+  "audit_type": "taiex_2020_annual_schedule_recovery",
+  "calendar_year": 2020,
+  "classification_issues": [],
+  "closed_official_dates": [
+    "2020-01-01",
+    "2020-01-21",
+    "2020-01-22",
+    "2020-01-23",
+    "2020-01-24",
+    "2020-01-25",
+    "2020-01-26",
+    "2020-01-27",
+    "2020-01-28",
+    "2020-01-29",
+    "2020-02-28",
+    "2020-04-02",
+    "2020-04-03",
+    "2020-04-04",
+    "2020-05-01",
+    "2020-06-25",
+    "2020-06-26",
+    "2020-10-01",
+    "2020-10-02",
+    "2020-10-09",
+    "2020-10-10"
+  ],
+  "current_rwd_empty_evidence": {
+    "artifact_id": "twse_official_holiday_schedule:2020:r0001-8b3468f1f770",
+    "path": ".local/source-raw/taiex-calendar/twse_official_holiday_schedule/2020",
+    "preserved": true
+  },
+  "current_rwd_status": "requested_year_acknowledged_no_data",
+  "explicit_open_dates": [
+    "2020-01-02",
+    "2020-01-20",
+    "2020-01-30"
+  ],
+  "full_history_calendar_verified": false,
+  "historical_backfill_run": false,
+  "informational_unknown_dates": [],
+  "no_duplicate_dates": true,
+  "official_eshop_announcement": {
+    "html_sha256": "321aa3ef3be8dae8eebd4c5d7f786f828ce443004337a3453c80e05e1cc7e298",
+    "publication_date": "2019-12-01",
+    "title": "Holiday Schedule of 2020 / 中華民國109年有價證券集中交易市場開（休）市日期表",
+    "url": "https://eshop.twse.com.tw/en/news/detail/000000006e0bbe8d016ef4453cb6030c",
+    "url_zh": "https://eshop.twse.com.tw/zh/news/detail/000000006e0bbe8d016ef442f1e2030b"
+  },
+  "open_closed_exclusive": true,
+  "recovery_source": {
+    "authority": "TWSE",
+    "content_type": "text/html",
+    "original_url": "https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule",
+    "raw_artifact_id": "twse_official_holiday_schedule_archival:2020:r0001-78fdf21103d3",
+    "raw_sha256": "78fdf21103d33484635a09f4146bfdeccdbc8e0d998c9419b4ae17b7e84c77c9",
+    "retrieval_transport": "web_archive",
+    "retrieved_url": "https://web.archive.org/web/20200604104858id_/https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule"
+  },
+  "recovery_status": "accepted",
+  "roc_year": 109,
+  "row_count": 24,
+  "schema_version": "2.0.0",
+  "semantic_sha256": "da65b8329534ea49a642ad6f9f623a7cb119f42d58053aab5d2380cb27451af8"
+}

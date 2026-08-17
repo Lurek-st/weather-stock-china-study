@@ -17,6 +17,10 @@ venv/
 env/
 .env
 .env.*
+!.env.example
+.cdsapirc
+*.key
+*.pem
 
 # IDE / 编辑器
 .idea/
@@ -33,4 +37,23 @@ env/
 analysis/results/*.csv
 analysis/results/*.json
 .weekly-import-tmp/
+.local/
+data/source_raw/v2/**/r*-*
+data/canonical/v2/**/*.parquet
+data/canonical/v2/**/*.csv
+data/canonical/v2/**/*.json
+
+# pytest local basetemp
+.tmp-test-basetemp/
+
+# Stage 5E-3C+ full-backfill durable runtime state (progress journal/snapshot;
+# NOT tracked; authority = canonical plan + raw store + append-only journal)
+data/state/v2/climatology/full-backfill/
+
+data/panel/v2/**/*.parquet
+data/panel/v2/**/*.csv
+data/panel/v2/**/*.json
+data/audits/v2/*.json
+data/audits/v2/*.md
 Thumbs.db
+.tmp-r2-test/

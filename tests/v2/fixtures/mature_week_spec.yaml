@@ -1,0 +1,19 @@
+schema_version: 2.0.0
+fixture_version: 1
+week: 2026-W28
+purpose: deterministic eight-city eight-market end-to-end acceptance without external credentials
+weather:
+  source_id: fixture_era5t
+  data_class: provisional_reanalysis
+  generation: hourly_sinusoid_with_sparse_precipitation
+market:
+  source_id: fixture_official_market
+  value_status: final
+  generation: positive_deterministic_linear_close
+calendar:
+  source_id: fixture_calendar
+  status: verified
+  generation: monday_to_friday
+limitations:
+  - values are synthetic and must never be used for research conclusions
+  - this fixture validates engineering behavior, not live-source access or licensing

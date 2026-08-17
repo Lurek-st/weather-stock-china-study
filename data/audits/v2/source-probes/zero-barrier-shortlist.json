@@ -1,0 +1,207 @@
+{
+  "candidates": [
+    {
+      "city": "Toronto",
+      "country": "Canada",
+      "coverage": "2020_claimed",
+      "dataset": "Valet API observations",
+      "dataset_url": "https://www.bankofcanada.ca/valet/",
+      "eod_definition": "index level; end-of-day status requires series-level confirmation",
+      "index": "S&P/TSX Composite Index",
+      "licence_url": "https://www.bankofcanada.ca/terms/",
+      "market_id": "canada_tsx_composite_boc",
+      "probe": {
+        "attempts": [
+          {
+            "error": "ConnectionError",
+            "fields": [],
+            "http_status": null,
+            "row_count": 0
+          },
+          {
+            "error": "ConnectionError",
+            "fields": [],
+            "http_status": null,
+            "row_count": 0
+          }
+        ],
+        "repeatability": "request_failed",
+        "technical_ok": false
+      },
+      "provider": "Bank of Canada",
+      "resource_url": "https://www.bankofcanada.ca/valet/observations/V122620/json?start_date=2020-01-02&end_date=2020-01-10",
+      "rights": "unclear",
+      "score": 0,
+      "technical_probe": "boc_json",
+      "third_party": "unclear",
+      "tier": "tier_3_technical_risk"
+    },
+    {
+      "city": "São Paulo",
+      "country": "Brazil",
+      "coverage": "2020_claimed",
+      "dataset": "BCB SGS series 7",
+      "dataset_url": "https://dadosabertos.bcb.gov.br/",
+      "eod_definition": "daily closing index level requires source-series confirmation",
+      "index": "Ibovespa",
+      "licence_url": "https://dadosabertos.bcb.gov.br/",
+      "market_id": "brazil_ibovespa_bcb",
+      "probe": {
+        "attempts": [
+          {
+            "content_length": 112,
+            "content_type": "application/json; charset=utf-8",
+            "etag": "W/\"70-kXQw19tU0g9C4E25Dqdk6uleoPQ\"",
+            "fields": [],
+            "http_status": 404,
+            "last_modified": null,
+            "raw_sha256": "9b8e7cafb477591fa3e61ef473e61968278235bfe9978b3aeaa5c0eb3e42419a",
+            "row_count": 0,
+            "semantic_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "content_length": 112,
+            "content_type": "application/json; charset=utf-8",
+            "etag": "W/\"70-kXQw19tU0g9C4E25Dqdk6uleoPQ\"",
+            "fields": [],
+            "http_status": 404,
+            "last_modified": null,
+            "raw_sha256": "9b8e7cafb477591fa3e61ef473e61968278235bfe9978b3aeaa5c0eb3e42419a",
+            "row_count": 0,
+            "semantic_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "repeatability": "byte_identical",
+        "technical_ok": false
+      },
+      "provider": "Banco Central do Brasil",
+      "resource_url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.7/dados?formato=json&dataInicial=01/01/2020&dataFinal=10/01/2020",
+      "rights": "unclear",
+      "score": 0,
+      "technical_probe": "bcb_json",
+      "third_party": "unclear",
+      "tier": "tier_3_technical_risk"
+    },
+    {
+      "city": "Sydney",
+      "country": "Australia",
+      "coverage": "unknown",
+      "dataset": "RBA Table F1 historical workbook",
+      "dataset_url": "https://www.rba.gov.au/statistics/tables/",
+      "eod_definition": "",
+      "index": "No qualifying stock-index series confirmed",
+      "licence_url": "https://www.rba.gov.au/copyright/",
+      "market_id": "australia_all_ordinaries_rba",
+      "probe": {
+        "attempts": [
+          {
+            "content_length": 467367,
+            "content_type": "application/octet-stream",
+            "etag": null,
+            "fields": [
+              "workbook_binary"
+            ],
+            "http_status": 200,
+            "last_modified": "Tue, 04 Aug 2026 01:14:50 GMT",
+            "raw_sha256": "14dc5883f1e39d91e8c28743534fc2c98ba2a7199307fb5df6279b92a45d6e42",
+            "row_count": 0,
+            "semantic_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "content_length": 467367,
+            "content_type": "application/octet-stream",
+            "etag": null,
+            "fields": [
+              "workbook_binary"
+            ],
+            "http_status": 200,
+            "last_modified": "Tue, 04 Aug 2026 01:14:50 GMT",
+            "raw_sha256": "14dc5883f1e39d91e8c28743534fc2c98ba2a7199307fb5df6279b92a45d6e42",
+            "row_count": 0,
+            "semantic_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "repeatability": "byte_identical",
+        "technical_ok": true
+      },
+      "provider": "Reserve Bank of Australia",
+      "resource_url": "https://www.rba.gov.au/statistics/tables/xls/f01hist.xlsx",
+      "rights": "no",
+      "score": 0,
+      "technical_probe": "xlsx",
+      "third_party": "no",
+      "tier": "rejected"
+    }
+  ],
+  "executed_at": "2026-08-04T08:57:48.267907+00:00",
+  "mode": "live",
+  "no_tier_1_candidate_found": true,
+  "probe_version": "1.0.0",
+  "raw_response_policy": "local_only:.local/source-probes/zero-barrier-shortlist; no raw response is versioned",
+  "rejections": [
+    {
+      "evidence": "https://www.jpx.co.jp/english/markets/indices/",
+      "hard_condition": "public_derived_rights_unclear",
+      "market": "Japan—TOPIX",
+      "official_source": "Japan Exchange Group",
+      "reason": "bounded official review did not identify an open-licence, no-contract machine resource for public derived data",
+      "reconsider": "yes, if JPX publishes a resource-level open licence"
+    },
+    {
+      "evidence": "https://www.sgx.com/securities/market-data",
+      "hard_condition": "public_derived_rights_unclear",
+      "market": "Singapore—STI",
+      "official_source": "Singapore Exchange",
+      "reason": "bounded official review did not identify a no-account, open-licence daily machine resource",
+      "reconsider": "yes, if SGX provides an open resource contract"
+    },
+    {
+      "evidence": "https://developer.norges-bank.no/",
+      "hard_condition": "api_key_required",
+      "market": "Norway—OSEBX",
+      "official_source": "Norges Bank",
+      "reason": "official API access documentation requires an API key",
+      "reconsider": "no for zero-barrier scope"
+    },
+    {
+      "evidence": "https://www.bcentral.cl/",
+      "hard_condition": "public_derived_rights_unclear",
+      "market": "Chile—IPSA",
+      "official_source": "Banco Central de Chile",
+      "reason": "bounded official review did not identify a no-credential, resource-level open-rights contract for the branded index",
+      "reconsider": "yes, with an explicit resource licence"
+    },
+    {
+      "evidence": "https://www.jse.co.za/",
+      "hard_condition": "third_party_rights_unclear",
+      "market": "South Africa—JSE/FTSE",
+      "official_source": "JSE",
+      "reason": "index branding and rights are third-party controlled in the bounded official review",
+      "reconsider": "yes, with a public redistribution grant"
+    },
+    {
+      "evidence": "https://www.bursamalaysia.com/market_information/equities",
+      "hard_condition": "third_party_rights_unclear",
+      "market": "Malaysia—FTSE Bursa",
+      "official_source": "Bursa Malaysia",
+      "reason": "FTSE-branded index rights are not resolved for public derived distribution",
+      "reconsider": "yes, with an explicit grant"
+    },
+    {
+      "evidence": "https://www.idx.co.id/en/market-data/",
+      "hard_condition": "public_derived_rights_unclear",
+      "market": "Indonesia—IDX Composite",
+      "official_source": "Indonesia Stock Exchange",
+      "reason": "bounded official review did not identify an open-licence stable machine resource",
+      "reconsider": "yes, with resource-level terms"
+    },
+    {
+      "evidence": "https://www.rba.gov.au/statistics/tables/xls/f01hist.xlsx",
+      "hard_condition": "no_daily_end_of_day_value; third_party_rights_blocking",
+      "market": "Australia—All Ordinaries via RBA F1",
+      "official_source": "Reserve Bank of Australia",
+      "reason": "the stable F1 workbook is a monthly interest-rates table, not a qualifying daily stock-index resource; its notes identify ASX end-of-day benchmark data as proprietary with all rights reserved",
+      "reconsider": "no for this resource"
+    }
+  ]
+}

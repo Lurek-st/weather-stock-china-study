@@ -1,7 +1,17 @@
 openpyxl>=3.1.0
 jsonschema>=4.22.0
 pandas>=2.2.0
+numpy>=1.26.0
 scipy>=1.13.0
 statsmodels>=0.14.0
 pytest>=8.2.0
 PyYAML>=6.0.1
+cdsapi==0.7.7
+ecmwf-datastores-client==0.5.3
+multiurl==0.3.9
+pyarrow>=17.0.0
+requests==2.34.2
+urllib3==2.7.0
+xarray>=2024.6.0
+netCDF4>=1.7.1
+tzdata==2026.3

@@ -1,0 +1,67 @@
+{
+  "audit_type": "taiex_historical_holiday_query_semantics",
+  "data_boundary_note": "frontend year dropdown starts at 2021 (data-date='b:2021,e:1,f:Y'); date=YYYY returns full schedules for 2021-2026 and returns the requested year title/queryYear but an empty data array for 2019/2020; OpenAPI v1 endpoint has no parameters and returns only the current-year snapshot",
+  "discovery_method": "official_frontend_html_and_js_read",
+  "full_history_calendar_verified": false,
+  "historical_backfill_run": false,
+  "historical_request_endpoint": "https://www.twse.com.tw/rwd/zh/holidaySchedule/holidaySchedule",
+  "historical_request_method": "GET",
+  "negative_control": {
+    "legacy_queryYear_route_status": "ignored_or_fallback_current_year",
+    "observed_title_year": "115 (2026)",
+    "requested_queryYear": 109,
+    "route": "https://www.twse.com.tw/holidaySchedule/holidaySchedule"
+  },
+  "official_frontend_page": "https://www.twse.com.tw/zh/trading/holiday.html",
+  "openapi_holiday_endpoint": "https://openapi.twse.com.tw/v1/holidaySchedule/holidaySchedule",
+  "openapi_holiday_endpoint_role": "current_year_snapshot_no_history_parameters",
+  "probe_years": {
+    "2020": {
+      "all_dates_in_requested_year": true,
+      "first_date": null,
+      "last_date": null,
+      "raw_sha256": "8b3468f1f770c6c493a290be421fa221ea72b002a59939b9a2687880a8488ff8",
+      "requested_gregorian_year": 2020,
+      "requested_roc_year": 109,
+      "response_queryYear": 2020,
+      "response_title": "109 年市場開休市日期",
+      "row_count": 0,
+      "semantic_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "title_year_match": true,
+      "year_match_status": "requested_year_acknowledged_no_data"
+    },
+    "2025": {
+      "all_dates_in_requested_year": true,
+      "first_date": "2025-01-01",
+      "last_date": "2025-12-25",
+      "raw_sha256": "3ed088566fac252638503a879a65b5d5f53ef5afea6126291fa7e94e8a2cd4ec",
+      "requested_gregorian_year": 2025,
+      "requested_roc_year": 114,
+      "response_queryYear": 2025,
+      "response_title": "114 年市場開休市日期",
+      "row_count": 24,
+      "semantic_sha256": "712b2f07536d672be5ddd538731d1229256b94712c21f7acd6da8e73b05611a7",
+      "title_year_match": true,
+      "year_match_status": "historical_year_query_match"
+    },
+    "2026": {
+      "all_dates_in_requested_year": true,
+      "first_date": "2026-01-01",
+      "last_date": "2026-12-25",
+      "raw_sha256": "886e76a0299f6b6618bba6b2737c3d348b35ef5379d724d7e7549eccfa11e04f",
+      "requested_gregorian_year": 2026,
+      "requested_roc_year": 115,
+      "response_queryYear": 2026,
+      "response_title": "115 年市場開休市日期",
+      "row_count": 27,
+      "semantic_sha256": "ea35e3fce16cf8ee3fbb3f454460d49a36abe9931b290af8f74d75c5024a88ae",
+      "title_year_match": true,
+      "year_match_status": "historical_year_query_match"
+    }
+  },
+  "query_semantics_status": "confirmed_2021_2026_available_2020_acknowledged_no_data",
+  "response_format": "json",
+  "schema_version": "2.0.0",
+  "year_encoding": "gregorian_YYYY",
+  "year_parameter_name": "date"
+}

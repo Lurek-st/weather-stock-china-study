@@ -1,0 +1,441 @@
+{
+  "aggregate": {
+    "cloudz_generated": false,
+    "formal_units_qualified_total": 8,
+    "full_backfill_started": false,
+    "full_climatology_started": false,
+    "live_calls_this_stage": null,
+    "new_units_qualified": 7,
+    "remaining_unfetched_units": 952
+  },
+  "audit_type": "cross_market_production_qualification",
+  "authorization": {
+    "execution_order": [
+      "sse_composite",
+      "ftse100",
+      "dax",
+      "nifty50",
+      "topix",
+      "szse_component",
+      "bse50"
+    ],
+    "new_authorized_units": 7,
+    "sp500_re_required_denied": true,
+    "stage_authorized": true
+  },
+  "derived": [
+    {
+      "market_id": "sse_composite",
+      "missing": 0,
+      "period": "1991Q3",
+      "rows": 92
+    },
+    {
+      "market_id": "szse_component",
+      "missing": 0,
+      "period": "1992Q3",
+      "rows": 92
+    },
+    {
+      "market_id": "topix",
+      "missing": 0,
+      "period": "2020Q1",
+      "rows": 90
+    },
+    {
+      "market_id": "nifty50",
+      "missing": 0,
+      "period": "1991Q3",
+      "rows": 92
+    },
+    {
+      "market_id": "ftse100",
+      "missing": 0,
+      "period": "1995Q4",
+      "rows": 92
+    },
+    {
+      "market_id": "dax",
+      "missing": 0,
+      "period": "1996Q4",
+      "rows": 92
+    },
+    {
+      "market_id": "bse50",
+      "missing": 0,
+      "period": "1991Q1",
+      "rows": 90
+    }
+  ],
+  "existing_qualified": {
+    "sp500": "2007Q1"
+  },
+  "gates": {
+    "cross_market_production_qualified": true,
+    "frozen": false,
+    "live_backfill_authorized": false,
+    "production_markets_qualified": "8_of_8",
+    "research_ready": false
+  },
+  "historical_backfill_run": false,
+  "per_market": {
+    "bse50": {
+      "core_open_local": "09:30",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 360,
+        "first_date": "1991-01-01",
+        "last_date": "1991-03-31",
+        "missing": 0,
+        "row_count": 90
+      },
+      "final_request_id": "194eb2641eea1efc560092823dcd959a70b8876f3563bb40151b7491afb78d0f",
+      "idempotency": null,
+      "market_id": "bse50",
+      "oracle": null,
+      "period": "1991Q1",
+      "planning": {
+        "amplification": 1.0111,
+        "exposures": 90,
+        "extras": 4,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 364,
+        "first_transport_date": "1990-12-31",
+        "last_transport_date": "1991-03-31",
+        "request_times": [
+          "00:00",
+          "01:00",
+          "02:00",
+          "23:00"
+        ],
+        "support": 360,
+        "transport": 364
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:bse50-1991q1-prod-194eb264:r0001-6f9af843b4a6",
+        "bytes": 52652,
+        "sha256": "6f9af843b4a63579c2259c96ab4fe5d50d0127ad6f51fde126bdf921b1263fea"
+      },
+      "timezone": "Asia/Shanghai"
+    },
+    "dax": {
+      "core_open_local": "09:00",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 276,
+        "first_date": "1996-10-01",
+        "last_date": "1996-12-31",
+        "missing": 0,
+        "row_count": 92
+      },
+      "final_request_id": "a021caacd99b71fdd8b2c4791f8f9503085dda0e672c587628072265318c1913",
+      "idempotency": null,
+      "market_id": "dax",
+      "oracle": null,
+      "period": "1996Q4",
+      "planning": {
+        "amplification": 1.3333,
+        "exposures": 92,
+        "extras": 92,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 368,
+        "first_transport_date": "1996-10-01",
+        "last_transport_date": "1996-12-31",
+        "request_times": [
+          "05:00",
+          "06:00",
+          "07:00",
+          "08:00"
+        ],
+        "support": 276,
+        "transport": 368
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:dax-1996q4-prod-a021caac:r0001-125ceb419bcc",
+        "bytes": 52986,
+        "sha256": "125ceb419bcc94dcb652283839772634777cdeb91fde3ca047ebe8d1bdc7b316"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "ftse100": {
+      "core_open_local": "08:00",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 276,
+        "first_date": "1995-10-01",
+        "last_date": "1995-12-31",
+        "missing": 0,
+        "row_count": 92
+      },
+      "final_request_id": "5f5ecf797aa9e63c32afc2c201aeb0e803c534e11bc375df2ca353dd33b823b8",
+      "idempotency": null,
+      "market_id": "ftse100",
+      "oracle": null,
+      "period": "1995Q4",
+      "planning": {
+        "amplification": 1.3333,
+        "exposures": 92,
+        "extras": 92,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 368,
+        "first_transport_date": "1995-10-01",
+        "last_transport_date": "1995-12-31",
+        "request_times": [
+          "05:00",
+          "06:00",
+          "07:00",
+          "08:00"
+        ],
+        "support": 276,
+        "transport": 368
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:ftse100-1995q4-prod-5f5ecf79:r0001-7d766899a2d1",
+        "bytes": 52998,
+        "sha256": "7d766899a2d1b12d66945e98e8e7f6dd26e7cfdc413faf95add88d525b534342"
+      },
+      "timezone": "Europe/London"
+    },
+    "nifty50": {
+      "core_open_local": "09:15",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 368,
+        "first_date": "1991-07-01",
+        "last_date": "1991-09-30",
+        "missing": 0,
+        "row_count": 92
+      },
+      "final_request_id": "6d7124d751a2aca2bbe92a975acdf6502a8b0309ab6dba50d4af313eb1166ea9",
+      "idempotency": null,
+      "market_id": "nifty50",
+      "oracle": null,
+      "period": "1991Q3",
+      "planning": {
+        "amplification": 1.0,
+        "exposures": 92,
+        "extras": 0,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 368,
+        "first_transport_date": "1991-07-01",
+        "last_transport_date": "1991-09-30",
+        "request_times": [
+          "01:00",
+          "02:00",
+          "03:00",
+          "04:00"
+        ],
+        "support": 368,
+        "transport": 368
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:nifty50-1991q3-prod-6d7124d7:r0001-685180565fa3",
+        "bytes": 53170,
+        "sha256": "685180565fa3be6367eda4ba57874508e8767084f87f4c5084bf280e0985934b"
+      },
+      "timezone": "Asia/Kolkata"
+    },
+    "sse_composite": {
+      "core_open_local": "09:30",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 368,
+        "first_date": "1991-07-01",
+        "last_date": "1991-09-30",
+        "missing": 0,
+        "row_count": 92
+      },
+      "final_request_id": "219f1396daf7b316aef6284be7c4a1bc4a3405832fb8047b5c445eb9873cdee5",
+      "idempotency": null,
+      "market_id": "sse_composite",
+      "oracle": null,
+      "period": "1991Q3",
+      "planning": {
+        "amplification": 1.2636,
+        "exposures": 92,
+        "extras": 97,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 465,
+        "first_transport_date": "1991-06-30",
+        "last_transport_date": "1991-09-30",
+        "request_times": [
+          "00:00",
+          "01:00",
+          "02:00",
+          "22:00",
+          "23:00"
+        ],
+        "support": 368,
+        "transport": 465
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:sse_composite-1991q3-prod-219f1396:r0001-2768943b6c7a",
+        "bytes": 56384,
+        "sha256": "2768943b6c7a5cb56255036ede9b7c6f2a8f94bad8989f7ff4534ccacc9ae373"
+      },
+      "timezone": "Asia/Shanghai"
+    },
+    "szse_component": {
+      "core_open_local": "09:30",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 368,
+        "first_date": "1992-07-01",
+        "last_date": "1992-09-30",
+        "missing": 0,
+        "row_count": 92
+      },
+      "final_request_id": "35ae09a8b8733c823c979d4bc12db04de657fb354909f164c5c63a871a30eda1",
+      "idempotency": null,
+      "market_id": "szse_component",
+      "oracle": null,
+      "period": "1992Q3",
+      "planning": {
+        "amplification": 1.0109,
+        "exposures": 92,
+        "extras": 4,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": false,
+        "fields": 372,
+        "first_transport_date": "1992-06-30",
+        "last_transport_date": "1992-09-30",
+        "request_times": [
+          "00:00",
+          "01:00",
+          "02:00",
+          "23:00"
+        ],
+        "support": 368,
+        "transport": 372
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:szse_component-1992q3-prod-35ae09a8:r0001-63addef89395",
+        "bytes": 53871,
+        "sha256": "63addef8939594140a340a545be82c5fb9b02989d89596d540da7cba0a164fbc"
+      },
+      "timezone": "Asia/Shanghai"
+    },
+    "topix": {
+      "core_open_local": "09:00",
+      "derived": {
+        "consumed_extras": 0,
+        "consumed_support": 270,
+        "first_date": "2020-01-01",
+        "last_date": "2020-03-31",
+        "missing": 0,
+        "row_count": 90
+      },
+      "final_request_id": "f5aaa714ac0ab5222d5af2c148c8216777bc709a7c70c98f1b3cda3118c21c04",
+      "idempotency": null,
+      "market_id": "topix",
+      "oracle": null,
+      "period": "2020Q1",
+      "planning": {
+        "amplification": 1.0222,
+        "exposures": 90,
+        "extras": 6,
+        "feb29_daily_exposure": false,
+        "feb29_transport_support_present": true,
+        "fields": 276,
+        "first_transport_date": "2019-12-31",
+        "last_transport_date": "2020-03-31",
+        "request_times": [
+          "00:00",
+          "22:00",
+          "23:00"
+        ],
+        "support": 270,
+        "transport": 276
+      },
+      "raw": {
+        "accepted": true,
+        "artifact_id": "cds_era5_hourly_climatology:topix-2020q1-prod-f5aaa714:r0001-0bdae023ec0d",
+        "bytes": 42396,
+        "sha256": "0bdae023ec0dd6d26d404fd65acc1ce019fb67945cf1bc18bbef1bcbbf4e5580"
+      },
+      "timezone": "Asia/Tokyo"
+    }
+  },
+  "planning_aggregate": {
+    "exposures": 640,
+    "extras": 295,
+    "max_fields": 465,
+    "support": 2286,
+    "transport": 2581
+  },
+  "planning_expected": {
+    "exposures": 640,
+    "extras": 295,
+    "max_fields": 465,
+    "support": 2286,
+    "transport": 2581
+  },
+  "planning_match": true,
+  "raw_artifacts": [
+    {
+      "bytes": 56384,
+      "market_id": "sse_composite",
+      "period": "1991Q3",
+      "sha256": "2768943b6c7a5cb56255036ede9b7c6f2a8f94bad8989f7ff4534ccacc9ae373"
+    },
+    {
+      "bytes": 53871,
+      "market_id": "szse_component",
+      "period": "1992Q3",
+      "sha256": "63addef8939594140a340a545be82c5fb9b02989d89596d540da7cba0a164fbc"
+    },
+    {
+      "bytes": 42396,
+      "market_id": "topix",
+      "period": "2020Q1",
+      "sha256": "0bdae023ec0dd6d26d404fd65acc1ce019fb67945cf1bc18bbef1bcbbf4e5580"
+    },
+    {
+      "bytes": 53170,
+      "market_id": "nifty50",
+      "period": "1991Q3",
+      "sha256": "685180565fa3be6367eda4ba57874508e8767084f87f4c5084bf280e0985934b"
+    },
+    {
+      "bytes": 52998,
+      "market_id": "ftse100",
+      "period": "1995Q4",
+      "sha256": "7d766899a2d1b12d66945e98e8e7f6dd26e7cfdc413faf95add88d525b534342"
+    },
+    {
+      "bytes": 52986,
+      "market_id": "dax",
+      "period": "1996Q4",
+      "sha256": "125ceb419bcc94dcb652283839772634777cdeb91fde3ca047ebe8d1bdc7b316"
+    },
+    {
+      "bytes": 52652,
+      "market_id": "bse50",
+      "period": "1991Q1",
+      "sha256": "6f9af843b4a63579c2259c96ab4fe5d50d0127ad6f51fde126bdf921b1263fea"
+    }
+  ],
+  "request_identity_contract": "1.1.0",
+  "schema_version": "2.0.0",
+  "scope": "Stage 5E-3B: 7 authorized quarterly production units + existing sp500 2007Q1",
+  "service_health": {
+    "control_layer_observed_banner": "degraded_access_to_the_data (earlier in 2026-08-14)",
+    "dataset_available": true,
+    "dataset_catalog_status": "available",
+    "live_recheck_status": "available",
+    "service_health_checked_at": "2026-08-14T19:31:00+08:00",
+    "service_status_source": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels (overview + download tabs fetched 2026-08-14 19:31 CST; cads:sanity_check status=available, timestamp=2026-08-14T11:16:42Z; two independent fetches identical); https://cds.climate.copernicus.eu/live (140 dataset sanity checks: 134 available / 3 down / 2 warning / 1 expired; target dataset available; control layer earlier observed a 'Degraded access to the data' banner, re-checked live before execution)"
+  },
+  "timezone_canary_hash": "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+}

@@ -1,0 +1,52 @@
+{
+  "audit_type": "taiex_settlement_only_corrections",
+  "corrected_dates": [
+    "2021-02-08",
+    "2021-02-09",
+    "2022-01-27",
+    "2022-01-28"
+  ],
+  "correction_count": 4,
+  "corrections": [
+    {
+      "annual_schedule_status": "explicit_open",
+      "corrected_status": "closed_settlement_only",
+      "date": "2021-02-08",
+      "evidence": "TWSE annual-schedule note states no trading (settlement only)",
+      "name": "農曆春節前最後交易日",
+      "note": "2月8日市場無交易，僅辦理結算交割作業。",
+      "raw_year": 2021
+    },
+    {
+      "annual_schedule_status": "explicit_open",
+      "corrected_status": "closed_settlement_only",
+      "date": "2021-02-09",
+      "evidence": "TWSE annual-schedule note states no trading (settlement only)",
+      "name": "農曆春節前最後交易日",
+      "note": "2月9日市場無交易，僅辦理結算交割作業。",
+      "raw_year": 2021
+    },
+    {
+      "annual_schedule_status": "explicit_open",
+      "corrected_status": "closed_settlement_only",
+      "date": "2022-01-27",
+      "evidence": "TWSE annual-schedule note states no trading (settlement only)",
+      "name": "農曆春節前最後交易日",
+      "note": "1月27日市場無交易，僅辦理結算交割作業。",
+      "raw_year": 2022
+    },
+    {
+      "annual_schedule_status": "explicit_open",
+      "corrected_status": "closed_settlement_only",
+      "date": "2022-01-28",
+      "evidence": "TWSE annual-schedule note states no trading (settlement only)",
+      "name": "農曆春節前最後交易日",
+      "note": "1月28日市場無交易，僅辦理結算交割作業。",
+      "raw_year": 2022
+    }
+  ],
+  "schema_version": "2.0.0",
+  "superseded_by": "data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026-r2.json",
+  "superseded_by_parser_fix": true,
+  "superseded_note": "The date-aware settlement-only parser fix (I-006) makes this correction unnecessary for canonical correctness; this audit is retained only as historical diagnostic evidence of how the defect was discovered."
+}

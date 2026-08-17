@@ -1,0 +1,229 @@
+{
+  "area": {
+    "area": [
+      25.1675,
+      121.4346,
+      24.9075,
+      121.6946
+    ],
+    "area_east": 121.6946,
+    "area_half_span_degrees": 0.13,
+    "area_north": 25.1675,
+    "area_south": 24.9075,
+    "area_west": 121.4346,
+    "center_latitude": 25.0375,
+    "center_longitude": 121.5646
+  },
+  "audit_type": "taipei_era5_dry_run",
+  "cdsapi_installed": true,
+  "cdsapi_version": "0.7.7",
+  "cdsapirc_status": "present_shape_valid",
+  "city_id": "taipei",
+  "container_reason": "mixed_grib_step_types_produce_multiple_netcdf_members",
+  "coordinate": {
+    "latitude": 25.0375,
+    "longitude": 121.5646
+  },
+  "coordinate_evidence": {
+    "coordinate_basis": "municipal_reference_point",
+    "coordinate_derivation": "derived_from_official_taipei_city_hall_address",
+    "coordinate_evidence_status": "official_address_with_derived_coordinate",
+    "coordinate_source": "https://www.gov.taipei/cp.aspx?n=8E989D7C8B359DF3&s=C5C52F5B391356DB (Taipei City Government official City Hall page; 11008 No.1 City Hall Road, Xinyi District; phone 02-27208889)",
+    "coordinate_verified_at": "2026-08-06"
+  },
+  "credential_readiness_status": "ready_for_future_live_request",
+  "data_format": "netcdf",
+  "dataset": "reanalysis-era5-single-levels",
+  "dataset_terms_status": "user_confirmed_outside_task",
+  "download_format": "zip",
+  "expected_data_class": "final_reanalysis",
+  "expected_download_container": "zip",
+  "final_eligibility_date": "2026-07-01",
+  "finality_status": "expected_final_by_official_latency",
+  "generated_at": "2026-08-06T09:25:13.548230+00:00",
+  "historical_backfill_run": false,
+  "key_field_present": true,
+  "left_padding_reason": "convert_first_local_midnight_to_utc",
+  "live_requests_run": false,
+  "local_window_end_exclusive": "2026-03-07T00:00:00+08:00",
+  "local_window_start": "2026-03-02T00:00:00+08:00",
+  "market_id": "taiex",
+  "market_session": {
+    "breaks": [],
+    "close": "13:30",
+    "open": "09:00"
+  },
+  "official_latency_policy": "ERA5T near-real-time provisional data is later replaced by the final ERA5 release for the corresponding month; full finalization typically lags by about two to three months.",
+  "pilot_trading_dates": [
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "product_type": [
+    "reanalysis"
+  ],
+  "request_count": 3,
+  "request_plan_sha256": "73824d434f115e045209c26b7ad3f6ea9608997b531704fbb2084268719384f1",
+  "request_segments": [
+    {
+      "hour_count": 8,
+      "segment_id": "segment-01-2026-03-01",
+      "times": [
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00"
+      ],
+      "utc_dates": [
+        "2026-03-01"
+      ]
+    },
+    {
+      "hour_count": 96,
+      "segment_id": "segment-02-2026-03-02-to-2026-03-05",
+      "times": [
+        "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00"
+      ],
+      "utc_dates": [
+        "2026-03-02",
+        "2026-03-03",
+        "2026-03-04",
+        "2026-03-05"
+      ]
+    },
+    {
+      "hour_count": 17,
+      "segment_id": "segment-03-2026-03-06",
+      "times": [
+        "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00"
+      ],
+      "utc_dates": [
+        "2026-03-06"
+      ]
+    }
+  ],
+  "requested_hour_count": 121,
+  "requested_utc_dates": [
+    "2026-03-01",
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "retrieval_planned_at": "2026-08-06",
+  "right_padding_reason": "include_final_full_day_accumulation_endpoint",
+  "schema_version": "2.0.0",
+  "target_period_end": "2026-03-06",
+  "target_period_start": "2026-03-02",
+  "timezone": "Asia/Taipei",
+  "url_field_present": true,
+  "utc_request_end_inclusive": "2026-03-06T16:00:00+00:00",
+  "utc_request_start": "2026-03-01T16:00:00+00:00",
+  "variable_temporal_semantics": {
+    "10m_u_component_of_wind": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "mean"
+    },
+    "10m_v_component_of_wind": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "mean"
+    },
+    "2m_dewpoint_temperature": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "mean"
+    },
+    "2m_temperature": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "mean"
+    },
+    "instantaneous_10m_wind_gust": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "max"
+    },
+    "surface_solar_radiation_downwards": {
+      "interval_duration_hours": 1,
+      "temporal_support_type": "interval_accumulation",
+      "timestamp_represents": "accumulation_ending_at_timestamp",
+      "window_aggregation": "sum"
+    },
+    "total_cloud_cover": {
+      "interval_duration_hours": null,
+      "temporal_support_type": "instantaneous",
+      "timestamp_represents": "value_valid_at_timestamp",
+      "window_aggregation": "mean"
+    },
+    "total_precipitation": {
+      "interval_duration_hours": 1,
+      "temporal_support_type": "interval_accumulation",
+      "timestamp_represents": "accumulation_ending_at_timestamp",
+      "window_aggregation": "sum"
+    }
+  },
+  "variables": [
+    "2m_temperature",
+    "2m_dewpoint_temperature",
+    "total_precipitation",
+    "total_cloud_cover",
+    "10m_u_component_of_wind",
+    "10m_v_component_of_wind",
+    "instantaneous_10m_wind_gust",
+    "surface_solar_radiation_downwards"
+  ],
+  "weather_data_downloaded": false
+}

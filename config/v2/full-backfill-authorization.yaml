@@ -1,0 +1,35 @@
+# Stage 5E-4E-R5A snapshot-finalization hardening authorization APPROVED / ACTIVE.
+#
+# Activated by EXPLICIT ChatGPT control-layer authorization (Stage 5E-4E-R5A)
+# after remote verification of checkpoint:
+#   24de426e3f92ed699b2582f08e3dc86c346e935f
+# This activation enables the R5 controller kill switch ONLY.  It does NOT
+# authorize production execution: every production year/block still requires
+# a separate explicit control-layer production authorization before any
+# --live run, and 2005 in particular remains UNAUTHORIZED.
+#
+# This file is the NETWORK KILL SWITCH.  live_backfill_authorized is true
+# ONLY because the ChatGPT control layer explicitly issued this activation.
+# The execution agent must NEVER extend this activation on its own.
+#
+# authorization_candidate_hash binds:
+#   global_backfill_plan_hash + controller_policy_hash +
+#   request_identity_contract_version + global_spatial_anchor_registry_hash +
+#   timezone_canary_hash
+#
+# If ANY of these contracts changes, the candidate hash changes and this
+# authorization is automatically invalid (no silent inheritance of older
+# permissions).
+authorization_schema_version: "1.0.0"
+live_backfill_authorized: true
+authorization_state: "approved"
+control_layer_approval_required: false
+
+bound_hashes:
+  global_backfill_plan_hash: "7a7e8aa8a5f36bcd2318f7ca4fda9b7e0a4750aa8ea4788d299b8d67709651bf"
+  controller_policy_hash: "12b0347b7e3ba5ccdde8899b2a63478eb8882d27d3828c3446d5ecc9a0416af8"
+  request_identity_contract_version: "1.1.0"
+  global_spatial_anchor_registry_hash: "8418740c2969bce3d463c3bbe1d83359276d2f8aecf0f235d55e559d66c2de38"
+  timezone_canary_hash: "8d21b954fd957a4596fbd2fc7a926355a2ca81bfcef99b94ea5b44956ef7338e"
+
+authorization_candidate_hash: "90b5a5cb4f5c3a022faf644b8f84c4ff4f84752a43a4c05294ac12f7ad1ccae6"

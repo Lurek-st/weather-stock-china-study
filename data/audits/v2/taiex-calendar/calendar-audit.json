@@ -1,0 +1,58 @@
+{
+  "calendar_source_id": "twse_official_holiday_schedule",
+  "canonical_records_sha256": "180fe0726d78b18133cae7e6f4bffc8e6b052b5be45eb24521a0cdd6e773a652",
+  "cross_validation": {
+    "2020_10": "not_run_official_calendar_unresolved",
+    "2023_06": "not_run_official_calendar_unresolved",
+    "recent_30": "not_run_official_calendar_unresolved"
+  },
+  "full_history_calendar_verified": false,
+  "mode": "live",
+  "pilot_windows_calendar_verified": false,
+  "raw_response_policy": "local_only:.local/source-probes/taiex-calendar",
+  "record_count": 2557,
+  "years": [
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2020
+    },
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2021
+    },
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2022
+    },
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2023
+    },
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2024
+    },
+    {
+      "error": "year_parameter_not_confirmed",
+      "official_closed_dates": 0,
+      "status": "calendar_year_unresolved",
+      "year": 2025
+    },
+    {
+      "error": null,
+      "official_closed_dates": 27,
+      "status": "official_holiday_evidence_loaded",
+      "year": 2026
+    }
+  ]
+}

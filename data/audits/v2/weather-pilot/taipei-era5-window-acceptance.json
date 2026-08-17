@@ -1,0 +1,404 @@
+{
+  "all_count_contracts_match": true,
+  "all_coverage_ratios_one": true,
+  "all_oracle_matches": true,
+  "audit_type": "taipei_era5_window_acceptance",
+  "byte_reproducibility": true,
+  "calendar_audit_path": "data/audits/v2/taiex-calendar/taiex-2026-pilot-window.json",
+  "calendar_audit_sha256": "8c757eaf670183835a274ec89f2ceb3586759d1d2f9227a10c12b0f62fc0e196",
+  "calendar_pilot_status": "calendar_verified_for_2026_pilot_window",
+  "city_id": "taipei",
+  "expected_count_contract": {
+    "full_day": {
+      "accumulation": 24,
+      "instantaneous": 24
+    },
+    "pre_open": {
+      "accumulation": 2,
+      "instantaneous": 2
+    },
+    "trading_session": {
+      "accumulation": 4,
+      "instantaneous": 5
+    }
+  },
+  "full_history_calendar_verified": false,
+  "generated_at": "2026-08-07T03:00:02.716133+00:00",
+  "historical_backfill_run": false,
+  "input_canonical_path": "data/canonical/v2/weather/taipei-era5-final-pilot-20260302-20260306.parquet",
+  "input_canonical_sha256": "7bc9fe54566eac07880954d26bf77f8796ce05557c92780b46c61bac9a41ee3a",
+  "input_normalization_audit_path": "data/audits/v2/weather-pilot/taipei-era5-normalization.json",
+  "input_normalization_audit_sha256": "0ebdc37e95db607210d76e52777fb53397ce548588521b30b3a7729ad44b00ce",
+  "input_raw_acceptance_audit_path": "data/audits/v2/weather-pilot/taipei-era5-raw-acceptance.json",
+  "input_raw_acceptance_audit_sha256": "de6ec99d66b4f91572ff2c5277e838c456faae104bc02a619ec9214ca16bbd2a",
+  "market_id": "taiex",
+  "oracle_numeric_max_abs_diff": 0.0,
+  "panel_built": false,
+  "partial_interval_policy": "partial_accumulation_interval_excluded",
+  "rows": [
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 24,
+      "accumulation_observed_count": 24,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 24,
+      "instantaneous_observed_count": 24,
+      "quality_flags": [],
+      "trading_date": "2026-03-02",
+      "weather_values": {
+        "air_temperature_c": 21.234124755859398,
+        "apparent_temperature_c": 23.464217262554865,
+        "cloud_cover_pct": 87.10594177246094,
+        "dew_point_c": 19.68640543619794,
+        "max_gust_mps": 11.474236488342285,
+        "precipitation_mm": 8.36324691772461,
+        "relative_humidity_pct": 91.15449748672488,
+        "solar_radiation_mj_m2": 12.432832,
+        "wind_speed_mps": 1.9031702516583868
+      },
+      "window": "full_day"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 2,
+      "accumulation_observed_count": 2,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 2,
+      "instantaneous_observed_count": 2,
+      "quality_flags": [],
+      "trading_date": "2026-03-02",
+      "weather_values": {
+        "air_temperature_c": 20.249536132812523,
+        "apparent_temperature_c": 22.632636442690327,
+        "cloud_cover_pct": 61.9781494140625,
+        "dew_point_c": 19.449975585937523,
+        "max_gust_mps": 7.124357223510742,
+        "precipitation_mm": 0.00095367431640625,
+        "relative_humidity_pct": 95.17367865702448,
+        "solar_radiation_mj_m2": 1.8159999999999998,
+        "wind_speed_mps": 1.5104062748513485
+      },
+      "window": "pre_open"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 4,
+      "accumulation_observed_count": 4,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 5,
+      "instantaneous_observed_count": 5,
+      "quality_flags": [
+        "partial_accumulation_interval_excluded"
+      ],
+      "trading_date": "2026-03-02",
+      "weather_values": {
+        "air_temperature_c": 24.06201171875002,
+        "apparent_temperature_c": 26.78856565403717,
+        "cloud_cover_pct": 65.8013916015625,
+        "dew_point_c": 21.001660156250022,
+        "max_gust_mps": 11.474236488342285,
+        "precipitation_mm": 0.7224082946777344,
+        "relative_humidity_pct": 83.09688069190327,
+        "solar_radiation_mj_m2": 7.934208,
+        "wind_speed_mps": 2.0839458463976768
+      },
+      "window": "trading_session"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 24,
+      "accumulation_observed_count": 24,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 24,
+      "instantaneous_observed_count": 24,
+      "quality_flags": [],
+      "trading_date": "2026-03-03",
+      "weather_values": {
+        "air_temperature_c": 14.406579589843773,
+        "apparent_temperature_c": 12.30339539230244,
+        "cloud_cover_pct": 99.98092651367188,
+        "dew_point_c": 12.353997802734398,
+        "max_gust_mps": 11.54689884185791,
+        "precipitation_mm": 10.91766357421875,
+        "relative_humidity_pct": 87.49550067649686,
+        "solar_radiation_mj_m2": 3.57984,
+        "wind_speed_mps": 4.064388051320261
+      },
+      "window": "full_day"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 2,
+      "accumulation_observed_count": 2,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 2,
+      "instantaneous_observed_count": 2,
+      "quality_flags": [],
+      "trading_date": "2026-03-03",
+      "weather_values": {
+        "air_temperature_c": 13.497460937500023,
+        "apparent_temperature_c": 11.139555793976713,
+        "cloud_cover_pct": 100.0,
+        "dew_point_c": 11.683007812500023,
+        "max_gust_mps": 9.357288360595703,
+        "precipitation_mm": 3.574371337890625,
+        "relative_humidity_pct": 88.78601903246387,
+        "solar_radiation_mj_m2": 0.21023999999999998,
+        "wind_speed_mps": 4.117445118107833
+      },
+      "window": "pre_open"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 4,
+      "accumulation_observed_count": 4,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 5,
+      "instantaneous_observed_count": 5,
+      "quality_flags": [
+        "partial_accumulation_interval_excluded"
+      ],
+      "trading_date": "2026-03-03",
+      "weather_values": {
+        "air_temperature_c": 13.739160156250023,
+        "apparent_temperature_c": 11.381991557190593,
+        "cloud_cover_pct": 99.908447265625,
+        "dew_point_c": 11.991259765625022,
+        "max_gust_mps": 10.950628280639648,
+        "precipitation_mm": 3.727436065673828,
+        "relative_humidity_pct": 89.19871342396117,
+        "solar_radiation_mj_m2": 1.4636799999999999,
+        "wind_speed_mps": 4.249266599680166
+      },
+      "window": "trading_session"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 24,
+      "accumulation_observed_count": 24,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 24,
+      "instantaneous_observed_count": 24,
+      "quality_flags": [],
+      "trading_date": "2026-03-04",
+      "weather_values": {
+        "air_temperature_c": 15.256402587890648,
+        "apparent_temperature_c": 13.482012833919327,
+        "cloud_cover_pct": 99.74644978841145,
+        "dew_point_c": 12.831302897135439,
+        "max_gust_mps": 12.388045310974121,
+        "precipitation_mm": 5.002021789550781,
+        "relative_humidity_pct": 85.55990025965583,
+        "solar_radiation_mj_m2": 5.432575999999999,
+        "wind_speed_mps": 3.8048680012099445
+      },
+      "window": "full_day"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 2,
+      "accumulation_observed_count": 2,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 2,
+      "instantaneous_observed_count": 2,
+      "quality_flags": [],
+      "trading_date": "2026-03-04",
+      "weather_values": {
+        "air_temperature_c": 13.614770507812523,
+        "apparent_temperature_c": 11.397659829078542,
+        "cloud_cover_pct": 100.0,
+        "dew_point_c": 11.641992187500023,
+        "max_gust_mps": 10.674601554870605,
+        "precipitation_mm": 1.0590553283691406,
+        "relative_humidity_pct": 87.87263174272941,
+        "solar_radiation_mj_m2": 0.238016,
+        "wind_speed_mps": 3.8988027919646453
+      },
+      "window": "pre_open"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 4,
+      "accumulation_observed_count": 4,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 5,
+      "instantaneous_observed_count": 5,
+      "quality_flags": [
+        "partial_accumulation_interval_excluded"
+      ],
+      "trading_date": "2026-03-04",
+      "weather_values": {
+        "air_temperature_c": 15.565136718750022,
+        "apparent_temperature_c": 13.24745116352247,
+        "cloud_cover_pct": 100.0,
+        "dew_point_c": 12.730615234375023,
+        "max_gust_mps": 12.388045310974121,
+        "precipitation_mm": 0.9570121765136719,
+        "relative_humidity_pct": 83.36519583198678,
+        "solar_radiation_mj_m2": 3.168576,
+        "wind_speed_mps": 4.524272567961117
+      },
+      "window": "trading_session"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 24,
+      "accumulation_observed_count": 24,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 24,
+      "instantaneous_observed_count": 24,
+      "quality_flags": [],
+      "trading_date": "2026-03-05",
+      "weather_values": {
+        "air_temperature_c": 17.87567545572919,
+        "apparent_temperature_c": 18.51843946746487,
+        "cloud_cover_pct": 93.29833984375,
+        "dew_point_c": 16.243575032552105,
+        "max_gust_mps": 8.415525436401367,
+        "precipitation_mm": 5.092620849609375,
+        "relative_humidity_pct": 90.53208923888639,
+        "solar_radiation_mj_m2": 8.873919999999998,
+        "wind_speed_mps": 2.0736606777728457
+      },
+      "window": "full_day"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 2,
+      "accumulation_observed_count": 2,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 2,
+      "instantaneous_observed_count": 2,
+      "quality_flags": [],
+      "trading_date": "2026-03-05",
+      "weather_values": {
+        "air_temperature_c": 16.244042968750023,
+        "apparent_temperature_c": 16.216622744909287,
+        "cloud_cover_pct": 95.458984375,
+        "dew_point_c": 15.434350585937523,
+        "max_gust_mps": 6.58119010925293,
+        "precipitation_mm": 0.16355514526367188,
+        "relative_humidity_pct": 94.95623576200468,
+        "solar_radiation_mj_m2": 0.965376,
+        "wind_speed_mps": 2.5747885626741907
+      },
+      "window": "pre_open"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 4,
+      "accumulation_observed_count": 4,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 5,
+      "instantaneous_observed_count": 5,
+      "quality_flags": [
+        "partial_accumulation_interval_excluded"
+      ],
+      "trading_date": "2026-03-05",
+      "weather_values": {
+        "air_temperature_c": 20.022509765625024,
+        "apparent_temperature_c": 20.515029709453867,
+        "cloud_cover_pct": 98.0828857421875,
+        "dew_point_c": 16.937109375000023,
+        "max_gust_mps": 6.56401252746582,
+        "precipitation_mm": 0.1621246337890625,
+        "relative_humidity_pct": 82.8003665049173,
+        "solar_radiation_mj_m2": 5.075456,
+        "wind_speed_mps": 2.6582165711387993
+      },
+      "window": "trading_session"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 24,
+      "accumulation_observed_count": 24,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 24,
+      "instantaneous_observed_count": 24,
+      "quality_flags": [],
+      "trading_date": "2026-03-06",
+      "weather_values": {
+        "air_temperature_c": 15.747511800130232,
+        "apparent_temperature_c": 15.017733585347285,
+        "cloud_cover_pct": 97.07298278808594,
+        "dew_point_c": 14.333032226562523,
+        "max_gust_mps": 11.741127014160156,
+        "precipitation_mm": 9.623527526855469,
+        "relative_humidity_pct": 91.35569404217215,
+        "solar_radiation_mj_m2": 4.577664,
+        "wind_speed_mps": 3.0591103086733313
+      },
+      "window": "full_day"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 2,
+      "accumulation_observed_count": 2,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 2,
+      "instantaneous_observed_count": 2,
+      "quality_flags": [],
+      "trading_date": "2026-03-06",
+      "weather_values": {
+        "air_temperature_c": 16.997094726562523,
+        "apparent_temperature_c": 17.18088816884937,
+        "cloud_cover_pct": 100.0,
+        "dew_point_c": 16.206933593750023,
+        "max_gust_mps": 8.871195793151855,
+        "precipitation_mm": 1.5239715576171875,
+        "relative_humidity_pct": 95.10332702679659,
+        "solar_radiation_mj_m2": 0.330304,
+        "wind_speed_mps": 2.690089323207305
+      },
+      "window": "pre_open"
+    },
+    {
+      "accumulation_coverage_ratio": 1.0,
+      "accumulation_expected_count": 4,
+      "accumulation_observed_count": 4,
+      "instantaneous_coverage_ratio": 1.0,
+      "instantaneous_expected_count": 5,
+      "instantaneous_observed_count": 5,
+      "quality_flags": [
+        "partial_accumulation_interval_excluded"
+      ],
+      "trading_date": "2026-03-06",
+      "weather_values": {
+        "air_temperature_c": 16.194433593750023,
+        "apparent_temperature_c": 14.738012724350693,
+        "cloud_cover_pct": 100.0,
+        "dew_point_c": 14.520703125000022,
+        "max_gust_mps": 11.741127014160156,
+        "precipitation_mm": 2.3026466369628906,
+        "relative_humidity_pct": 89.85051937139448,
+        "solar_radiation_mj_m2": 2.5628800000000003,
+        "wind_speed_mps": 4.147999217492049
+      },
+      "window": "trading_session"
+    }
+  ],
+  "schema_version": "2.0.0",
+  "selected_trading_dates": [
+    "2026-03-02",
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06"
+  ],
+  "semantic_reproducibility": true,
+  "timezone": "Asia/Taipei",
+  "unique_key_count": 15,
+  "weather_semantics_path": "config/v2/weather-variable-semantics.yaml",
+  "weather_semantics_sha256": "44d807917bc23e142deb6507f7e922166a11fbf227e3aa2b54fbefd6739d2cc5",
+  "weather_window_status": "accepted",
+  "window_builder_code_files": {
+    "scripts/v2/build_weather_windows.py": "59f95f195f1f65cbc8ca340b677c0312c82c2dc278400f55967989b0d65013f9",
+    "scripts/v2/core.py": "0b5b8a0d6911f58fb2dd059f5395915e1250a86c91bbce923456d5bd4849b85b",
+    "scripts/v2/fetch_era5.py": "f7a7239486e2b20752efcb820d0585a5c28776e47f96ca8dce640996b869eb04",
+    "scripts/v2/normalize_weather.py": "e49e6b8365858a294d24076f3ccc59b90646a16b756b0e689adb1531b46c843b"
+  },
+  "window_builder_code_sha256": "18698065769d1e5ce00e4f8af548fa42f9bf2eee7a44b5f095b22498a5133699",
+  "window_parquet_path": "data/canonical/v2/weather/taipei-era5-final-pilot-windows-20260302-20260306.parquet",
+  "window_parquet_sha256": "f40648f40fd870872ca78a5f5957d1b2056d6e93bcadfb6406ea97d835894cbf",
+  "window_row_count": 15
+}

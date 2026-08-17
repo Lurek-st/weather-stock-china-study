@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"licence-assessment-v1","type":"object","required":["values","third_party_rights_status"],"properties":{"values":{"type":"object","additionalProperties":{"enum":["yes","no","unclear","not_applicable"]}},"third_party_rights_status":{"enum":["yes","no","unclear","third_party_rights_unresolved"]}}}

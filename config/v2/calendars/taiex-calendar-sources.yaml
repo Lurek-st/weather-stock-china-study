@@ -1,0 +1,34 @@
+calendar_source_id: twse_official_holiday_schedule
+market_id: taiex
+provider: Taiwan Stock Exchange
+# Verified 2026-08-07 by bounded live probe + official frontend JS reading:
+# the holiday.html form (data-api="/holidaySchedule/holidaySchedule") submits a
+# GET to the /rwd/zh route with a Gregorian year in the `date` parameter.
+resource_url_template: https://www.twse.com.tw/rwd/zh/holidaySchedule/holidaySchedule?date={year}&response=json
+resource_page_url: https://www.twse.com.tw/zh/trading/holiday.html
+request_method: GET
+year_parameter_name: date
+year_encoding: gregorian_YYYY
+response_format: json
+licence_evidence_url: https://data.gov.tw/license
+years: [2021, 2022, 2023, 2024, 2025, 2026]
+weekend_rule: Saturday and Sunday are closed unless an official special session is recorded
+automated_download_status: bounded_live_validated_2021_2026
+data_boundary_note: >
+  Frontend year dropdown starts at 2021 (data-date='b:2021,e:1,f:Y').  date=YYYY
+  returns full schedules for 2021-2026; for 2019/2020 the endpoint returns the
+  requested year title/queryYear but an empty data array.  Legacy
+  queryYear=109 on the old route falls back to the current year.  The OpenAPI
+  v1 endpoint has no parameters and returns only the current-year snapshot.
+archival_year_sources:
+  2020:
+    status: official_archival_recovered
+    retrieval_transport: web_archive
+    original_authority: TWSE
+    original_url: https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule
+    archived_url: https://web.archive.org/web/20200604104858id_/https://www.twse.com.tw/zh/holidaySchedule/holidaySchedule
+    recovery_audit_path: data/audits/v2/taiex-calendar/taiex-2020-annual-schedule-recovery.json
+normalized_calendar_repository_policy: derived_evidence_only; raw responses remain local
+semantics_audit_path: data/audits/v2/taiex-calendar/taiex-historical-query-semantics.json
+annual_audit_path: data/audits/v2/taiex-calendar/taiex-annual-schedules-2021-2026.json
+canonical_annual_schedule_audit: data/audits/v2/taiex-calendar/taiex-annual-schedules-2020-2026.json

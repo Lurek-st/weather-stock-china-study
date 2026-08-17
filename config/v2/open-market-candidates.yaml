@@ -1,0 +1,104 @@
+probe_version: 1.0.0
+purpose: "Non-production source, licence, and technical-access probes only."
+candidates:
+  - market_id: taiex
+    city_id: taipei
+    source_id: twse_taiex_official
+    official_documents:
+      - https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX
+      - https://www.twse.com.tw/rwd/zh/TAIEX/MI_5MINS_HIST?date=20230601&response=json
+      - https://data.gov.tw/license
+    licence_assessment:
+      licence_name: "Open Government Data License, version 1.0"
+      evidence_urls: ["https://data.gov.tw/en/datasets/11755", "https://data.gov.tw/license"]
+      values:
+        download_allowed: "yes"
+        automated_access_allowed: "yes"
+        long_term_storage_allowed: "yes"
+        academic_research_allowed: "yes"
+        transformation_allowed: "yes"
+        public_raw_redistribution_allowed: "yes"
+        public_canonical_redistribution_allowed: "yes"
+        public_derived_panel_allowed: "yes"
+        commercial_reuse_allowed: "yes"
+        attribution_required: "yes"
+        share_alike_required: "no"
+      third_party_rights_status: "no"
+    third_party_rights:
+      status: no
+      reason: "Dataset 11755 itself identifies the Weighted Index data as primary data and applies the named open-data licence; no separate third-party restriction is disclosed on the dataset or resource page."
+    technical_access:
+      account_required: no
+      api_key_required: no
+      live_access_confirmed: true
+      actual_resource_url: "https://www.twse.com.tw/indicesReport/MI_5MINS_HIST?response=open_data"
+      observed_fields: ["日期", "開盤指數", "最高指數", "最低指數", "收盤指數"]
+      access_notes: "Dataset 11755 registers the CSV resource at this report path. The current RWD JSON endpoint has the same report identifier, five fields, and matching 2026-08-03 values."
+    data_quality:
+      quality_gate_confirmed: true
+      observed_fields: ["date", "open", "high", "low", "close"]
+      findings: ["All three fixed windows were sampled twice. Previous close and return are derived from preceding valid TWSE trading rows."]
+    historical_coverage_confirmed: true
+    calendar_assessment:
+      status: calendar_verification_partial
+      official_evidence_url: "https://www.twse.com.tw/holidaySchedule/holidaySchedule"
+    repeatability:
+      status: completed
+      reason: "Repeated official requests are retained locally with raw and semantic hashes; summaries only are committed."
+    blocking_issues: ["Calendar reconciliation remains partial.", "Not connected to the production pipeline.", "Formal historical backfill has not started."]
+  - market_id: kospi
+    city_id: seoul
+    source_id: korea_public_data_fsc_index_api
+    official_documents:
+      - https://www.data.go.kr/en/data/15094807/openapi.do
+      - https://www.data.go.kr/catalog/15094807/openapi.json
+      - https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex
+    licence_assessment:
+      licence_name: "Portal metadata: use-permission scope unrestricted; third-party KRX rights not explicitly resolved"
+      evidence_urls: ["https://www.data.go.kr/catalog/15094807/openapi.json", "https://www.data.go.kr/en/data/15094807/openapi.do"]
+      values: {download_allowed: "yes", automated_access_allowed: "yes", long_term_storage_allowed: unclear, academic_research_allowed: "yes", transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
+      third_party_rights_status: unclear
+    third_party_rights: {status: third_party_rights_unresolved, reason: "FSC portal identifies Korea Exchange index data, but the consulted public contract does not expressly settle public redistribution of KRX-index payloads."}
+    technical_access: {account_required: yes, api_key_required: yes, live_access_confirmed: false, actual_resource_url: "https://apis.data.go.kr/1160100/service/GetMarketIndexInfoService/getStockMarketIndex", access_notes: "A free Service Key is required. The attempted overseas individual registration path requires a Korean local mobile number; no key is stored in or requested by the repository."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No credentialed payload inspected; no window, sequence, field, or historical-coverage claim is inferred."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://global.krx.co.kr/"}
+    repeatability: {status: request_not_run, reason: "Credentialed request intentionally not attempted without a Service Key."}
+    blocking_issues: ["foreign_user_registration_requires_korean_mobile", "No registration was completed and KOREA_DATA_GO_KR_SERVICE_KEY was not issued or configured.", "This is not a paid-access, API-quality, or licence-failure finding.", "KRX third-party redistribution rights remain unresolved at the public-contract level."]
+  - market_id: aex_dnb
+    city_id: amsterdam
+    source_id: dnb_daily_stock_market_indices
+    official_documents:
+      - https://data.overheid.nl/dataset/3_1_day_aandelenbeursindicesdag
+      - https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517
+      - https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=9f3c874d-6407-44f6-881c-7f9de1dcf31e
+    licence_assessment:
+      licence_name: "CC-BY (4.0) shown for dataset and both registered JSON resources"
+      evidence_urls: ["https://data.overheid.nl/dataset/3_1_day_aandelenbeursindicesdag", "https://creativecommons.org/licenses/by/4.0/"]
+      values: {download_allowed: "yes", automated_access_allowed: "yes", long_term_storage_allowed: "yes", academic_research_allowed: "yes", transformation_allowed: "yes", public_raw_redistribution_allowed: "yes", public_canonical_redistribution_allowed: "yes", public_derived_panel_allowed: "yes", commercial_reuse_allowed: "yes", attribution_required: "yes", share_alike_required: "no"}
+      third_party_rights_status: unclear
+    third_party_rights: {status: third_party_rights_unresolved, reason: "The catalogue labels resources CC-BY, but actual resource files could not be retrieved to establish AEX-specific provenance or separate international-index rights."}
+    technical_access: {account_required: "no", api_key_required: "no", live_access_confirmed: false, actual_resource_url: "https://statistiek.api.dnb.nl/api/dataset/resourcefile?id=64131a7e-3eaa-45f1-a915-b47dbf05b517", access_classification: "public_dns_nxdomain", access_notes: "The official catalogue still lists both legacy resourcefile URLs. On 2026-08-04, the hostname returned explicit NXDOMAIN through the default Windows resolver, 1.1.1.1, and 8.8.8.8; a no-proxy request also could not resolve it. DNB's newer Public API requires a My DNB Public subscription for available API datasets, but migration of this dataset is not confirmed."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No actual DNB JSON payload was obtained, so AEX series definition, inventory, windows, and return calculations are unverified."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://www.euronext.com/en/markets/amsterdam"}
+    repeatability: {status: request_failed, reason: "Both specified resourcefile URLs remain request-failed because the hostname returns public-DNS NXDOMAIN; the DNB webpage UI was not used as the resource-access result."}
+    blocking_issues: ["Direct resource access is technically blocked: statistiek.api.dnb.nl returns public-DNS NXDOMAIN.", "DNB Public API requires My DNB Public subscription for available datasets, but no official migration of this dataset is confirmed.", "AEX-specific definition and third-party rights remain unverified without the JSON payload."]
+  - market_id: bvl
+    city_id: lima
+    source_id: peru_smv_bvl_indices
+    official_documents:
+      - https://www.datosabiertos.gob.pe/
+      - https://www.smv.gob.pe/
+    licence_assessment:
+      licence_name: "ODbL claim requires dataset and resource-level confirmation"
+      evidence_urls: ["https://www.datosabiertos.gob.pe/", "https://opendatacommons.org/licenses/odbl/"]
+      values: {download_allowed: unclear, automated_access_allowed: unclear, long_term_storage_allowed: unclear, academic_research_allowed: unclear, transformation_allowed: unclear, public_raw_redistribution_allowed: unclear, public_canonical_redistribution_allowed: unclear, public_derived_panel_allowed: unclear, commercial_reuse_allowed: unclear, attribution_required: unclear, share_alike_required: unclear}
+      third_party_rights_status: unclear
+    third_party_rights: {status: third_party_rights_unresolved, reason: "No official dataset dictionary/resource for a BVL broad index was identified during the bounded probe; BVL-owned and S&P/BVL series cannot be separated safely."}
+    technical_access: {account_required: unclear, api_key_required: unclear, live_access_confirmed: false, actual_resource_url: null, access_notes: "The national portal was reachable, but its search results did not identify a verified SMV/BVL index data dictionary and actual resource in the bounded probe."}
+    data_quality: {quality_gate_confirmed: false, observed_fields: [], findings: ["No verified official index response was downloaded; no OHLC or coverage claim is made."]}
+    historical_coverage_confirmed: false
+    calendar_assessment: {status: calendar_verification_partial, official_evidence_url: "https://www.bvl.com.pe/"}
+    repeatability: {status: request_not_run, reason: "Actual official index resource was not identified; no guessed endpoint was queried."}
+    blocking_issues: ["Official data dictionary and actual data resource not yet evidenced.", "ODbL applicability, S&P/BVL rights, and Share-Alike consequences unresolved."]

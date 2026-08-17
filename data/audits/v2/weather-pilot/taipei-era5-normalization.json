@@ -1,0 +1,144 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-01-2026-03-01-73824d43:r0001-5ade65527cc2",
+      "sha256": "5ade65527cc2f7d08b25ab105941580853b7fc40dff01fad05b45137fe83ae60"
+    },
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-02-2026-03-02-to-2026-03-05-73824d43:r0001-b10a4834bc48",
+      "sha256": "b10a4834bc48e35aebf3c5217204e0679847df8bbfbebb1851de2620a8db897c"
+    },
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-03-2026-03-06-73824d43:r0001-7f181ffe36b1",
+      "sha256": "7f181ffe36b1a369b4536cb9e73e97eb259cf300620f67357d1a3ec2217be7da"
+    }
+  ],
+  "audit_type": "taipei_era5_normalization",
+  "canonical_output": "data/canonical/v2/weather/taipei-era5-final-pilot-20260302-20260306.parquet",
+  "canonical_parquet_sha256": "7bc9fe54566eac07880954d26bf77f8796ce05557c92780b46c61bac9a41ee3a",
+  "canonical_row_count": 121,
+  "canonical_status": "accepted",
+  "city_id": "taipei",
+  "duplicate_count": 0,
+  "expver_summary": {
+    "d2m": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "i10fg": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "ssrd": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "t2m": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "tcc": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "tp": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "u10": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    },
+    "v10": {
+      "conflicting_cell_count": 0,
+      "expver_values": [
+        "0001"
+      ],
+      "missing_cell_count": 0,
+      "overlapping_equal_cell_count": 0,
+      "single_source_cell_count": 121
+    }
+  },
+  "first_timestamp": "2026-03-01T16:00:00+00:00",
+  "generated_at": "2026-08-07T02:23:35.947945+00:00",
+  "historical_backfill_run": false,
+  "input_raw_acceptance_audit_sha256": "de6ec99d66b4f91572ff2c5277e838c456faae104bc02a619ec9214ca16bbd2a",
+  "input_timestamp_count": 121,
+  "last_timestamp": "2026-03-06T16:00:00+00:00",
+  "market_id": "taiex",
+  "missing_hour_count": 0,
+  "normalizer_base_head": "9596f67d0d6e7f5dcd9645b3ae24fab195400e31",
+  "normalizer_code_files": {
+    "scripts/v2/core.py": "0b5b8a0d6911f58fb2dd059f5395915e1250a86c91bbce923456d5bd4849b85b",
+    "scripts/v2/fetch_era5.py": "f7a7239486e2b20752efcb820d0585a5c28776e47f96ca8dce640996b869eb04",
+    "scripts/v2/normalize_weather.py": "e49e6b8365858a294d24076f3ccc59b90646a16b756b0e689adb1531b46c843b"
+  },
+  "normalizer_code_sha256": "6c8313b1ab936e2c5a3882e94416591fbc2684d4e33317a6d1474d31bd178470",
+  "null_counts": {
+    "air_temperature_c": 0,
+    "apparent_temperature_c": 0,
+    "cloud_cover_pct": 0,
+    "dew_point_c": 0,
+    "max_gust_mps": 0,
+    "precipitation_mm": 0,
+    "relative_humidity_pct": 0,
+    "solar_radiation_mj_m2": 0,
+    "wind_speed_mps": 0
+  },
+  "panel_built": false,
+  "raw_acceptance_audit_path": "data/audits/v2/weather-pilot/taipei-era5-raw-acceptance.json",
+  "schema_version": "2.0.0",
+  "selected_grid_point": {
+    "requested_latitude": 25.0375,
+    "requested_longitude": 121.5646,
+    "selected_latitude": 25.0,
+    "selected_longitude": 121.5
+  },
+  "source_units": {
+    "d2m": "K",
+    "i10fg": "m s**-1",
+    "ssrd": "J m**-2",
+    "t2m": "K",
+    "tcc": "(0 - 1)",
+    "tp": "m",
+    "u10": "m s**-1",
+    "v10": "m s**-1"
+  },
+  "weather_data_class": "final_reanalysis",
+  "windows_built": false
+}

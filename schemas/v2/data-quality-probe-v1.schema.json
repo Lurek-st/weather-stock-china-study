@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"data-quality-probe-v1","type":"object","required":["quality_gate_confirmed","observed_fields","findings"],"properties":{"quality_gate_confirmed":{"type":"boolean"},"observed_fields":{"type":"array","items":{"type":"string"}},"findings":{"type":"array","items":{"type":"string"}}}}

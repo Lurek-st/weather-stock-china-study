@@ -1,0 +1,220 @@
+{
+  "append_only_validation": true,
+  "application_controlled_retries": 0,
+  "artifact_count": 3,
+  "audit_type": "taipei_era5_raw_acceptance",
+  "city_id": "taipei",
+  "data_class": "final_reanalysis",
+  "dataset": "reanalysis-era5-single-levels",
+  "first_failed_attempt_preserved": true,
+  "generated_at": "2026-08-07T02:23:35.926178+00:00",
+  "live_attempt_number": 2,
+  "manifest_count": 3,
+  "market_id": "taiex",
+  "raw_acceptance_status": "accepted",
+  "request_plan_sha256": "73824d434f115e045209c26b7ad3f6ea9608997b531704fbb2084268719384f1",
+  "schema_version": "2.0.0",
+  "sdk_internal_retry_activity_observed": true,
+  "secrets_exposed": false,
+  "segments": [
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-01-2026-03-01-73824d43:r0001-5ade65527cc2",
+      "container_validation_passed": true,
+      "content_length": 106908,
+      "first_timestamp": "2026-03-01T16:00:00+00:00",
+      "last_timestamp": "2026-03-01T23:00:00+00:00",
+      "manifest_hash_match": true,
+      "member_count": 2,
+      "member_expected_time_counts": [
+        8,
+        8
+      ],
+      "member_names": [
+        "data_stream-oper_stepType-instant.nc",
+        "data_stream-oper_stepType-accum.nc"
+      ],
+      "member_sha256": [
+        "5964cfa66bfc351ed1824e938a37b70f56cf5f56f3d2cdd2fd302dc9b6827f13",
+        "3bcb9ddb10dbe3ceabd3b6a8ce56a14be42a1dac1d69f31e2935f18793be522c"
+      ],
+      "member_time_counts": [
+        8,
+        8
+      ],
+      "member_variables": [
+        [
+          "d2m",
+          "i10fg",
+          "t2m",
+          "tcc",
+          "u10",
+          "v10"
+        ],
+        [
+          "ssrd",
+          "tp"
+        ]
+      ],
+      "observed_variable_union": [
+        "d2m",
+        "i10fg",
+        "ssrd",
+        "t2m",
+        "tcc",
+        "tp",
+        "u10",
+        "v10"
+      ],
+      "revision": 1,
+      "segment_id": "taipei-final-segment-01-2026-03-01-73824d43",
+      "sha256": "5ade65527cc2f7d08b25ab105941580853b7fc40dff01fad05b45137fe83ae60",
+      "spatial": {
+        "latitude_count": 1,
+        "latitude_max": 25.0,
+        "latitude_min": 25.0,
+        "longitude_count": 1,
+        "longitude_max": 121.5,
+        "longitude_min": 121.5
+      },
+      "spatial_validation": true,
+      "timestamp_validation": {
+        "expected_timestamp_count": 8,
+        "observed_timestamp_count": 8,
+        "timestamp_set_match": true
+      }
+    },
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-02-2026-03-02-to-2026-03-05-73824d43:r0001-b10a4834bc48",
+      "container_validation_passed": true,
+      "content_length": 114918,
+      "first_timestamp": "2026-03-02T00:00:00+00:00",
+      "last_timestamp": "2026-03-05T23:00:00+00:00",
+      "manifest_hash_match": true,
+      "member_count": 2,
+      "member_expected_time_counts": [
+        96,
+        96
+      ],
+      "member_names": [
+        "data_stream-oper_stepType-instant.nc",
+        "data_stream-oper_stepType-accum.nc"
+      ],
+      "member_sha256": [
+        "6a5e1267991ca6c285a1b8b7fafcff0a8970fc3bd6cf33a020d072af190c96f0",
+        "c4012c6d2ae76efab43bec744de683f4a23da848fdf5706a99ffe136b959d557"
+      ],
+      "member_time_counts": [
+        96,
+        96
+      ],
+      "member_variables": [
+        [
+          "d2m",
+          "i10fg",
+          "t2m",
+          "tcc",
+          "u10",
+          "v10"
+        ],
+        [
+          "ssrd",
+          "tp"
+        ]
+      ],
+      "observed_variable_union": [
+        "d2m",
+        "i10fg",
+        "ssrd",
+        "t2m",
+        "tcc",
+        "tp",
+        "u10",
+        "v10"
+      ],
+      "revision": 1,
+      "segment_id": "taipei-final-segment-02-2026-03-02-to-2026-03-05-73824d43",
+      "sha256": "b10a4834bc48e35aebf3c5217204e0679847df8bbfbebb1851de2620a8db897c",
+      "spatial": {
+        "latitude_count": 1,
+        "latitude_max": 25.0,
+        "latitude_min": 25.0,
+        "longitude_count": 1,
+        "longitude_max": 121.5,
+        "longitude_min": 121.5
+      },
+      "spatial_validation": true,
+      "timestamp_validation": {
+        "expected_timestamp_count": 96,
+        "observed_timestamp_count": 96,
+        "timestamp_set_match": true
+      }
+    },
+    {
+      "artifact_id": "cds_era5_hourly:taipei-final-segment-03-2026-03-06-73824d43:r0001-7f181ffe36b1",
+      "container_validation_passed": true,
+      "content_length": 106908,
+      "first_timestamp": "2026-03-06T00:00:00+00:00",
+      "last_timestamp": "2026-03-06T16:00:00+00:00",
+      "manifest_hash_match": true,
+      "member_count": 2,
+      "member_expected_time_counts": [
+        17,
+        17
+      ],
+      "member_names": [
+        "data_stream-oper_stepType-instant.nc",
+        "data_stream-oper_stepType-accum.nc"
+      ],
+      "member_sha256": [
+        "928ec383aeddace926fcdf06cf5094e43f5b7b4602c4a6e3f5d9bb7c42e36a7e",
+        "720eab9543fecd6931d37eb572caa311e81e101b8035239937cc3aebcae7bfa2"
+      ],
+      "member_time_counts": [
+        17,
+        17
+      ],
+      "member_variables": [
+        [
+          "d2m",
+          "i10fg",
+          "t2m",
+          "tcc",
+          "u10",
+          "v10"
+        ],
+        [
+          "ssrd",
+          "tp"
+        ]
+      ],
+      "observed_variable_union": [
+        "d2m",
+        "i10fg",
+        "ssrd",
+        "t2m",
+        "tcc",
+        "tp",
+        "u10",
+        "v10"
+      ],
+      "revision": 1,
+      "segment_id": "taipei-final-segment-03-2026-03-06-73824d43",
+      "sha256": "7f181ffe36b1a369b4536cb9e73e97eb259cf300620f67357d1a3ec2217be7da",
+      "spatial": {
+        "latitude_count": 1,
+        "latitude_max": 25.0,
+        "latitude_min": 25.0,
+        "longitude_count": 1,
+        "longitude_max": 121.5,
+        "longitude_min": 121.5
+      },
+      "spatial_validation": true,
+      "timestamp_validation": {
+        "expected_timestamp_count": 17,
+        "observed_timestamp_count": 17,
+        "timestamp_set_match": true
+      }
+    }
+  ],
+  "total_distinct_timestamp_count": 121
+}
