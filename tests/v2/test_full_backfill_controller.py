@@ -261,12 +261,15 @@ def hashlib_sha256(payload: str) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def test_materialized_authorization_candidate_valid_but_inactive(monkeypatch):
-    # Stage 5E-4E-R5C materialized the R5 snapshot-finalization hardening
-    # authorization CANDIDATE from the actual repository state: the binding is
-    # valid (6/6), while the kill switch stays INACTIVE pending a NEW explicit
-    # control-layer approval.  Bound-hash mismatch fail-closed coverage is
-    # hermetic: test_kill_switch_hash_mismatch_zero_network and
+def test_repository_authorization_binding_valid_and_state_self_consistent(monkeypatch):
+    # Permanent repository-consistency invariant (lifecycle-stable): the
+    # tracked authorization binding must be valid (6/6), the kill-switch flag
+    # reported by the binding must agree with the authorization file, and the
+    # lifecycle tuple must be EXACTLY one of the two governance-valid states:
+    # the INACTIVE candidate staged for control-layer approval, or an
+    # explicitly APPROVED activation.  Any other tuple is fail-closed.
+    # Bound-hash mismatch fail-closed coverage is hermetic:
+    # test_kill_switch_hash_mismatch_zero_network and
     # test_policy_hash_changed_and_old_authorization_cannot_bind.
     import scripts.v2.climatology.full_backfill_controller as ctl
 
@@ -281,13 +284,18 @@ def test_materialized_authorization_candidate_valid_but_inactive(monkeypatch):
         "timezone_canary_hash": True,
         "authorization_candidate_hash": True,
     }
-    # A valid binding does NOT authorize production execution.
-    assert binding["live_backfill_authorized"] is False
     auth = load_authorization(ROOT)
-    assert auth["live_backfill_authorized"] is False
-    assert auth["authorization_state"] == "candidate_for_control_layer"
-    assert auth["control_layer_approval_required"] is True
-    # The candidate remains scientifically bound to the same plan.
+    assert binding["live_backfill_authorized"] == auth["live_backfill_authorized"]
+    lifecycle = (
+        auth["live_backfill_authorized"],
+        auth["authorization_state"],
+        auth["control_layer_approval_required"],
+    )
+    assert lifecycle in {
+        (False, "candidate_for_control_layer", True),
+        (True, "approved", False),
+    }
+    # The authorization remains scientifically bound to the current plan.
     assert auth["bound_hashes"]["global_backfill_plan_hash"] == PLAN["global_backfill_plan_hash"]
 
 
@@ -297,9 +305,8 @@ def test_materialized_authorization_candidate_valid_but_inactive(monkeypatch):
 
 
 def test_kill_switch_live_blocked_zero_network(tmp_path, monkeypatch):
-    # The REAL repo is authorized=true since Stage 5E-3C-A; this test injects
-    # an authorized=false authorization to verify the kill switch still blocks
-    # before any client construction (0 network, 0 retrieve).
+    # This hermetic test injects an inactive authorization to verify that the
+    # kill switch blocks before any client construction (0 network, 0 retrieve).
     import scripts.v2.climatology.full_backfill_controller as ctl
 
     payload = {
