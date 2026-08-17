@@ -1,6 +1,6 @@
 # Stage 5E-4C-R6 bounded controller and transport contract.
 # Every semantic field below participates in controller_policy_hash.
-controller_schema_version: "2.0.0"
+controller_schema_version: "2.1.0"
 baseline: "1991_2020"
 batching: "quarterly"
 formal_units: 960
@@ -22,6 +22,23 @@ logical_retrieve:
   accepted_request_policy: "pre_network_skip"
   contract_failure_policy: "stop_immediately"
   operational_failure_policy: "stop_immediately"
+
+snapshot_finalization:
+  temp_file_strategy: "same_directory_unique_pid_uuid"
+  atomic_replace_primitive: "os.replace"
+  retry_scope: "replace_only"
+  retryable_exception_classes:
+    - "PermissionError"
+  retryable_winerrors:
+    - 5
+    - 32
+  retry_deadline_seconds: 5.0
+  backoff_initial_seconds: 0.025
+  backoff_multiplier: 2.0
+  backoff_max_seconds: 0.5
+  post_batch_exhaustion_semantics: "batch_completed_snapshot_pending"
+  diagnostic_event_type: "snapshot_finalization_failed"
+  status_mode: "read_only"
 
 transport:
   provider: "ECMWF Copernicus Climate Change Service"

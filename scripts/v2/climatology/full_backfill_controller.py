@@ -38,6 +38,7 @@ import json
 import os
 import re
 import sys
+import time
 import uuid
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -112,6 +113,7 @@ EVENT_TYPES = {
     "batch_started",
     "batch_completed",
     "batch_stopped",
+    "snapshot_finalization_failed",
 }
 
 
@@ -133,7 +135,7 @@ def load_plan(root: Path | None = None) -> dict[str, Any]:
 def load_controller_policy(root: Path | None = None) -> dict[str, Any]:
     root = root or repo_root()
     policy = load_yaml(root / CONTROLLER_POLICY_PATH)
-    if policy.get("controller_schema_version") != "2.0.0":
+    if policy.get("controller_schema_version") != "2.1.0":
         raise V2Error("unexpected controller policy schema version")
     _validate_controller_policy(policy)
     return policy
@@ -143,6 +145,7 @@ def _validate_controller_policy(policy: dict[str, Any]) -> None:
     controller_retry = policy.get("controller_retry") or {}
     logical = policy.get("logical_retrieve") or {}
     transport = policy.get("transport") or {}
+    snapshot = policy.get("snapshot_finalization") or {}
     required = {
         "controller automatic annual retry": controller_retry.get("automatic_annual_retry") is False,
         "controller operational stop": controller_retry.get("controller_visible_operational_failure")
@@ -161,6 +164,22 @@ def _validate_controller_policy(policy: dict[str, Any]) -> None:
         "server Retry-After not used": transport.get("server_retry_after_used") is False,
         "job polling classification": transport.get("job_polling_classification")
         == "continuous_job_state_wait_not_controller_retry",
+        "snapshot temp strategy": snapshot.get("temp_file_strategy")
+        == "same_directory_unique_pid_uuid",
+        "snapshot atomic replace": snapshot.get("atomic_replace_primitive") == "os.replace",
+        "snapshot retry scope": snapshot.get("retry_scope") == "replace_only",
+        "snapshot retryable exceptions": snapshot.get("retryable_exception_classes")
+        == ["PermissionError"],
+        "snapshot retryable winerrors": snapshot.get("retryable_winerrors") == [5, 32],
+        "snapshot retry deadline": snapshot.get("retry_deadline_seconds") == 5.0,
+        "snapshot initial backoff": snapshot.get("backoff_initial_seconds") == 0.025,
+        "snapshot backoff multiplier": snapshot.get("backoff_multiplier") == 2.0,
+        "snapshot maximum backoff": snapshot.get("backoff_max_seconds") == 0.5,
+        "snapshot post-batch exhaustion": snapshot.get("post_batch_exhaustion_semantics")
+        == "batch_completed_snapshot_pending",
+        "snapshot diagnostic event": snapshot.get("diagnostic_event_type")
+        == "snapshot_finalization_failed",
+        "snapshot status mode": snapshot.get("status_mode") == "read_only",
     }
     failed = [name for name, passed in required.items() if not passed]
     if failed:
@@ -510,15 +529,146 @@ def append_event(event: dict[str, Any], root: Path | None = None) -> None:
         fh.write(json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
 
 
-def write_snapshot(snapshot: dict[str, Any], root: Path | None = None) -> Path:
-    """Atomic snapshot write (temp file + replace; never half-written)."""
+class SnapshotFinalizationError(V2Error):
+    """Bounded metadata for a failed convenience-snapshot finalization."""
+
+    def __init__(
+        self,
+        exception: Exception,
+        *,
+        attempt_count: int,
+        elapsed_seconds: float,
+        target_path: Path,
+        temp_path: Path,
+        retry_exhausted: bool,
+    ) -> None:
+        self.exception = exception
+        self.attempt_count = attempt_count
+        self.elapsed_seconds = max(0.0, elapsed_seconds)
+        self.target_path = target_path
+        self.temp_path = temp_path
+        self.retry_exhausted = retry_exhausted
+        super().__init__(
+            f"snapshot finalization failed: {type(exception).__name__}; "
+            f"attempts={attempt_count}; retry_exhausted={retry_exhausted}"
+        )
+
+
+def _snapshot_payload(snapshot: dict[str, Any]) -> str:
+    return json.dumps(snapshot, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+
+def _is_retryable_snapshot_replace(exc: Exception, policy: dict[str, Any]) -> bool:
+    snapshot_policy = policy["snapshot_finalization"]
+    exception_families = {cls.__name__ for cls in type(exc).__mro__}
+    return (
+        isinstance(exc, PermissionError)
+        and bool(exception_families & set(snapshot_policy["retryable_exception_classes"]))
+        and getattr(exc, "winerror", None) in snapshot_policy["retryable_winerrors"]
+    )
+
+
+def write_snapshot(
+    snapshot: dict[str, Any],
+    root: Path | None = None,
+    *,
+    policy: dict[str, Any] | None = None,
+    replace_func: Callable[[Path, Path], Any] | None = None,
+    monotonic_func: Callable[[], float] | None = None,
+    sleep_func: Callable[[float], Any] | None = None,
+    uuid_factory: Callable[[], Any] | None = None,
+    pid_getter: Callable[[], int] | None = None,
+    serializer: Callable[[dict[str, Any]], str] | None = None,
+) -> Path:
+    """Prepare once, then retry only the atomic replacement when policy allows.
+
+    The unique temp is in the destination directory and is opened exclusively,
+    so this invocation can neither consume nor overwrite a legacy/stale temp.
+    The snapshot payload is serialized exactly once and the same prepared temp
+    is passed to every bounded ``os.replace`` attempt.
+    """
     root = root or repo_root()
+    policy = policy or load_controller_policy(root)
+    snapshot_policy = policy["snapshot_finalization"]
+    replace_func = replace_func or os.replace
+    monotonic_func = monotonic_func or time.monotonic
+    sleep_func = sleep_func or time.sleep
+    uuid_factory = uuid_factory or uuid.uuid4
+    pid_getter = pid_getter or os.getpid
+    serializer = serializer or _snapshot_payload
+
     path = snapshot_path(root)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    os.replace(tmp, path)
-    return path
+    uuid_value = uuid_factory()
+    unique_id = getattr(uuid_value, "hex", None) or str(uuid_value).replace("-", "")
+    tmp = path.with_name(f"{path.name}.{pid_getter()}.{unique_id}.tmp")
+    preparation_start = monotonic_func()
+    try:
+        payload = serializer(snapshot)
+        with tmp.open("x", encoding="utf-8", newline="\n") as fh:
+            fh.write(payload)
+    except Exception as exc:
+        raise SnapshotFinalizationError(
+            exc,
+            attempt_count=0,
+            elapsed_seconds=monotonic_func() - preparation_start,
+            target_path=path,
+            temp_path=tmp,
+            retry_exhausted=False,
+        ) from exc
+
+    start = monotonic_func()
+    deadline = start + float(snapshot_policy["retry_deadline_seconds"])
+    delay = float(snapshot_policy["backoff_initial_seconds"])
+    multiplier = float(snapshot_policy["backoff_multiplier"])
+    maximum_delay = float(snapshot_policy["backoff_max_seconds"])
+    attempt_count = 0
+    while True:
+        if attempt_count and monotonic_func() >= deadline:
+            raise SnapshotFinalizationError(
+                last_exception,
+                attempt_count=attempt_count,
+                elapsed_seconds=monotonic_func() - start,
+                target_path=path,
+                temp_path=tmp,
+                retry_exhausted=True,
+            ) from last_exception
+        attempt_count += 1
+        try:
+            replace_func(tmp, path)
+            return path
+        except Exception as exc:
+            last_exception = exc
+            retryable = _is_retryable_snapshot_replace(exc, policy)
+            now = monotonic_func()
+            remaining = deadline - now
+            if not retryable or remaining <= 0:
+                raise SnapshotFinalizationError(
+                    exc,
+                    attempt_count=attempt_count,
+                    elapsed_seconds=now - start,
+                    target_path=path,
+                    temp_path=tmp,
+                    retry_exhausted=retryable,
+                ) from exc
+            sleep_func(min(delay, remaining))
+            delay = min(delay * multiplier, maximum_delay)
+
+
+def _snapshot_failure_event(failure: SnapshotFinalizationError, batch_year: int) -> dict[str, Any]:
+    original = failure.exception
+    return {
+        "event_type": "snapshot_finalization_failed",
+        "batch_year": batch_year,
+        "snapshot_status": "pending",
+        "attempt_count": failure.attempt_count,
+        "elapsed_seconds": round(failure.elapsed_seconds, 6),
+        "exception_class": type(original).__name__,
+        "winerror": getattr(original, "winerror", None),
+        "target_basename": failure.target_path.name,
+        "temp_basename": failure.temp_path.name,
+        "retry_exhausted": failure.retry_exhausted,
+    }
 
 
 def logical_attempt_number(
@@ -828,10 +978,23 @@ def run_year_batch(
         write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
         return {"year": year, "outcome": "batch_stopped_incomplete", "results": results, "completion": completion}
     emit({"event_type": "batch_completed", "batch_year": year})
-    write_snapshot(reconcile_progress(plan, root)["snapshot"], root)
+    final_snapshot = reconcile_progress(plan, root)["snapshot"]
+    try:
+        write_snapshot(final_snapshot, root, policy=policy)
+    except SnapshotFinalizationError as failure:
+        emit(_snapshot_failure_event(failure, year))
+        return {
+            "year": year,
+            "outcome": "batch_completed",
+            "snapshot_status": "pending",
+            "results": results,
+            "new_retrieves": new_retrieves,
+            "completion": completion,
+        }
     return {
         "year": year,
         "outcome": "batch_completed",
+        "snapshot_status": "complete",
         "results": results,
         "new_retrieves": new_retrieves,
         "completion": completion,

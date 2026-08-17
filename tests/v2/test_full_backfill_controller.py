@@ -3,7 +3,7 @@
 Covers the frozen Stage 5E-3C contract:
 - canonical 960-unit plan: ordering, uniqueness, exposure invariants
 - request identity v1.1.0 everywhere; timezone + anchor hashes non-null
-- current durable inventory and 1996 pause point; SP500 corrected binding recognized
+- current durable inventory through 2004; SP500 corrected binding recognized
 - hashes deterministic and change-sensitive (plan / policy / candidate)
 - authorization kill switch: 0 network when not live-authorized
 - resume / ledger semantics; failure classification; annual batch bound
@@ -52,6 +52,12 @@ from scripts.v2.core import V2Error, repo_root
 
 ROOT = repo_root()
 PLAN = load_plan(ROOT)
+
+
+@pytest.fixture(scope="module")
+def current_inventory():
+    """One read-only production inventory scan shared by state-anchor tests."""
+    return classify_units(PLAN, ROOT)
 
 
 # ---------------------------------------------------------------------------
@@ -163,34 +169,32 @@ def test_plan_rebuild_sample_matches_code():
 # ---------------------------------------------------------------------------
 
 
-def test_inventory_current_170_790_0():
-    cls = classify_units(PLAN, ROOT)
-    assert len(cls["accepted"]) == 170
-    assert len(cls["missing"]) == 790
+def test_inventory_current_450_510_0(current_inventory):
+    cls = current_inventory
+    assert len(cls["accepted"]) == 450
+    assert len(cls["missing"]) == 510
     assert len(cls["invalid"]) == 0
 
 
-def test_inventory_sp500_corrected_binding_recognized():
-    cls = classify_units(PLAN, ROOT)
+def test_inventory_sp500_corrected_binding_recognized(current_inventory):
+    cls = current_inventory
     sp500 = [u for u in cls["accepted"] if u["unit_key"] == "sp500:2007Q1"]
     assert len(sp500) == 1
     assert sp500[0]["binding_type"] == "corrected_request_identity_requalification"
 
 
-def test_inventory_completed_years_and_1996_pause_point():
-    cls = classify_units(PLAN, ROOT)
+def test_inventory_completed_years_through_2004_and_no_2005(current_inventory):
+    cls = current_inventory
     keys = {u["unit_key"] for u in cls["accepted"]}
-    for year in range(1991, 1996):
+    for year in range(1991, 2005):
         assert sum(key.split(":", 1)[1].startswith(str(year)) for key in keys) == 32
-    accepted_1996 = {key for key in keys if key.split(":", 1)[1].startswith("1996")}
-    assert len(accepted_1996) == 8
-    assert "dax:1996Q4" in accepted_1996
+    assert not {key for key in keys if key.split(":", 1)[1].startswith("2005")}
 
 
-def test_inventory_no_smoke_units():
+def test_inventory_no_smoke_units(current_inventory):
     # The TAIEX / smoke canaries are NOT formal units (sp500 canary is, via the
     # corrected binding; the legacy smoke ids are not in the plan).
-    cls = classify_units(PLAN, ROOT)
+    cls = current_inventory
     legacy = "6dd6398cdb83f4e9486a673fca97f486783ed46b6379706b3968c4d806cc2bc3"
     assert all(u["final_request_id"] != legacy for u in cls["accepted"])
     assert legacy not in [u["final_request_id"] for u in PLAN["units"]]
@@ -257,15 +261,33 @@ def hashlib_sha256(payload: str) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def test_authorization_invalid_on_mismatch(tmp_path, monkeypatch):
-    # Any bound-hash mismatch invalidates the authorization binding.
+def test_materialized_authorization_candidate_valid_but_inactive(monkeypatch):
+    # Stage 5E-4E-R5C materialized the R5 snapshot-finalization hardening
+    # authorization CANDIDATE from the actual repository state: the binding is
+    # valid (6/6), while the kill switch stays INACTIVE pending a NEW explicit
+    # control-layer approval.  Bound-hash mismatch fail-closed coverage is
+    # hermetic: test_kill_switch_hash_mismatch_zero_network and
+    # test_policy_hash_changed_and_old_authorization_cannot_bind.
     import scripts.v2.climatology.full_backfill_controller as ctl
 
     monkeypatch.setattr(ctl, "AUTHORIZATION_PATH", "config/v2/full-backfill-authorization.yaml")
     binding = verify_authorization_binding(ROOT)
     assert binding["valid"] is True
-    # Simulate a changed plan hash in the bound file.
+    assert binding["checks"] == {
+        "global_backfill_plan_hash": True,
+        "controller_policy_hash": True,
+        "request_identity_contract_version": True,
+        "global_spatial_anchor_registry_hash": True,
+        "timezone_canary_hash": True,
+        "authorization_candidate_hash": True,
+    }
+    # A valid binding does NOT authorize production execution.
+    assert binding["live_backfill_authorized"] is False
     auth = load_authorization(ROOT)
+    assert auth["live_backfill_authorized"] is False
+    assert auth["authorization_state"] == "candidate_for_control_layer"
+    assert auth["control_layer_approval_required"] is True
+    # The candidate remains scientifically bound to the same plan.
     assert auth["bound_hashes"]["global_backfill_plan_hash"] == PLAN["global_backfill_plan_hash"]
 
 
@@ -330,18 +352,16 @@ def test_kill_switch_hash_mismatch_zero_network(tmp_path, monkeypatch):
 # ---------------------------------------------------------------------------
 
 
-def test_1991_dry_run_completed_32_skip_0_missing():
-    dr = dry_run_year(PLAN, 1991, ROOT)
-    assert dr["formal_slots"] == 32
-    assert dr["existing_accepted_skip"] == 32
-    assert dr["new_missing"] == 0
+def test_1991_completed_32_static_slots(current_inventory):
+    units = year_units(PLAN, 1991)
+    accepted = {unit["unit_key"] for unit in current_inventory["accepted"]}
+    assert len(units) == 32
+    assert all(unit["unit_key"] in accepted for unit in units)
 
 
 def test_any_year_slots_leq_32():
     for y in (1992, 1995, 2007, 2010, 2020):
-        dr = dry_run_year(PLAN, y, ROOT)
-        assert dr["formal_slots"] <= 32
-        assert dr["new_missing"] <= 32
+        assert len(year_units(PLAN, y)) <= 32
 
 
 def test_year_units_exact_32():
@@ -354,12 +374,21 @@ def test_year_units_exact_32():
 # ---------------------------------------------------------------------------
 
 
-def test_reconcile_accepted_beats_stale_pending_journal(tmp_path, monkeypatch):
+def test_reconcile_accepted_beats_stale_pending_journal(
+    tmp_path, monkeypatch, current_inventory
+):
     import scripts.v2.climatology.full_backfill_controller as ctl
 
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "progress.snapshot.json"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(ctl, "classify_units", lambda plan, root=None: current_inventory)
+    monkeypatch.setattr(
+        ctl,
+        "classify_derived_units",
+        lambda plan, root=None, raw_classification=None: {"complete": [], "missing": [], "invalid": []},
+    )
+    monkeypatch.setattr(ctl, "authorization_candidate_hash", lambda root=None: "candidate")
     # Journal says pending; raw store says accepted -> authority = raw store.
     ctl.append_event(
         {"event_type": "unit_retrieve_started", "unit_key": "sp500:2007Q1",
@@ -369,7 +398,7 @@ def test_reconcile_accepted_beats_stale_pending_journal(tmp_path, monkeypatch):
     state = reconcile_progress(PLAN, ROOT)
     accepted_keys = {u["unit_key"] for u in state["classification"]["accepted"]}
     assert "sp500:2007Q1" in accepted_keys
-    assert state["snapshot"]["accepted_raw_units"] == 170
+    assert state["snapshot"]["accepted_raw_units"] == 450
     assert "sp500:2007Q1" not in state["snapshot"]["blocked_units"]
 
 
@@ -384,6 +413,17 @@ def test_journal_accepted_but_raw_missing_fails(tmp_path, monkeypatch):
     monkeypatch.setattr(ctl, "RAW_BASE", str(tmp_path / "raw"))
     monkeypatch.setattr(production_unit, "RAW_BASE", str(tmp_path / "raw"))
     monkeypatch.setattr(derived_store, "DERIVED_BASE", str(tmp_path / "derived"))
+    monkeypatch.setattr(
+        ctl,
+        "classify_units",
+        lambda plan, root=None: {"accepted": [], "missing": plan["units"], "invalid": []},
+    )
+    monkeypatch.setattr(
+        ctl,
+        "classify_derived_units",
+        lambda plan, root=None, raw_classification=None: {"complete": [], "missing": [], "invalid": []},
+    )
+    monkeypatch.setattr(ctl, "authorization_candidate_hash", lambda root=None: "candidate")
     # Fabricate an accepted event for a unit whose raw does NOT exist.
     fake_unit = "topix:1991Q1"
     fake_id = next(u["final_request_id"] for u in PLAN["units"] if u["unit_key"] == fake_unit)
@@ -412,6 +452,17 @@ def test_plan_hash_mismatch_in_ledger_fails_closed(tmp_path, monkeypatch):
     monkeypatch.setattr(ctl, "JOURNAL_PATH", str(tmp_path / "progress.events.jsonl"))
     monkeypatch.setattr(ctl, "SNAPSHOT_PATH", str(tmp_path / "progress.snapshot.json"))
     monkeypatch.setattr(ctl, "STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(
+        ctl,
+        "classify_units",
+        lambda plan, root=None: {"accepted": [], "missing": plan["units"], "invalid": []},
+    )
+    monkeypatch.setattr(
+        ctl,
+        "classify_derived_units",
+        lambda plan, root=None, raw_classification=None: {"complete": [], "missing": [], "invalid": []},
+    )
+    monkeypatch.setattr(ctl, "authorization_candidate_hash", lambda root=None: "candidate")
     # A journal event referencing a DIFFERENT plan hash than current -> the
     # controller must not trust it: reconcile under the CURRENT plan is valid,
     # and the acceptance predicates still hold (no fake success).

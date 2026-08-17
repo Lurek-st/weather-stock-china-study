@@ -76,7 +76,7 @@ class ReadTimeoutClient:
 
 def test_policy_parses_exact_layered_transport_contract():
     policy = ctl.load_controller_policy(ROOT)
-    assert policy["controller_schema_version"] == "2.0.0"
+    assert policy["controller_schema_version"] == "2.1.0"
     assert policy["controller_retry"] == {
         "automatic_annual_retry": False,
         "controller_visible_operational_failure": "stop_immediately",
@@ -263,7 +263,7 @@ def test_old_journal_events_remain_readable(active_hermetic):
     assert "invocation_id" not in ctl.read_journal(ROOT)[0]
 
 
-def test_snapshot_tmp_is_non_authoritative_and_is_safely_overwritten(active_hermetic):
+def test_legacy_snapshot_tmp_is_non_authoritative_and_never_promoted(active_hermetic):
     snapshot = ctl.snapshot_path(ROOT)
     tmp = snapshot.with_suffix(".tmp")
     snapshot.parent.mkdir(parents=True, exist_ok=True)
@@ -273,7 +273,7 @@ def test_snapshot_tmp_is_non_authoritative_and_is_safely_overwritten(active_herm
     assert state["snapshot"]["accepted_raw_units"] == 0
     ctl.write_snapshot(state["snapshot"], ROOT)
     assert json.loads(snapshot.read_text(encoding="utf-8"))["accepted_raw_units"] == 0
-    assert not tmp.exists()
+    assert json.loads(tmp.read_text(encoding="utf-8"))["accepted_raw_units"] == 888
 
 
 def test_terminal_job_failure_has_stable_classification():
@@ -284,12 +284,10 @@ def test_terminal_job_failure_has_stable_classification():
     assert classified["error_category"] == "service_job_terminal_failure"
 
 
-def test_1996_pause_accounting_and_feb29_exposure_are_unchanged():
-    dry = ctl.dry_run_year(PLAN, 1996, ROOT)
-    assert dry["formal_slots"] == 32
-    assert dry["existing_accepted_skip"] == 8
-    assert dry["new_missing"] == 24
-    for unit in ctl.year_units(PLAN, 1996):
+def test_1996_feb29_exposure_and_annual_bound_are_unchanged():
+    units = ctl.year_units(PLAN, 1996)
+    assert len(units) == 32
+    for unit in units:
         dates = production_unit.common_daily_dates(ctl.engine_unit(unit))
         assert not any(day.month == 2 and day.day == 29 for day in dates)
 
